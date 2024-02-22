@@ -11,7 +11,7 @@ export default function Navtab() {
         classNames={{
           tabList: "gap-6 md:w-full  relative rounded-full p-1  text-black ",
           cursor: "w-full bg-apptheme rounded-full  ",
-          tab: " px-4 h-6 flex justify-center items-center w-auto   ",
+          tab: " px-4 h-6 flex justify-center items-center w-auto text-black  ",
         }}
         variant=""
       >
@@ -20,7 +20,7 @@ export default function Navtab() {
           title={
             <Link href="/">
               <div className="flex items-center space-x-2 text-center">
-                <span>Home</span>
+                <span className="font-medium">Home</span>
               </div>
             </Link>
           }
@@ -30,7 +30,7 @@ export default function Navtab() {
           title={
             <Link href="/Aboutus">
               <div className="flex items-center space-x-2  ">
-                <span>About us</span>
+                <span className="font-medium">About us</span>
               </div>
             </Link>
           }
@@ -40,7 +40,7 @@ export default function Navtab() {
           title={
             <Link href="/QRcodesolution">
               <div className="flex items-center space-x-2  ">
-                <span>QR Code Solutions</span>
+                <span className="font-medium">QR Code Solutions</span>
               </div>
             </Link>
           }
@@ -50,7 +50,7 @@ export default function Navtab() {
           title={
             <Link href="/Pricing">
               <div className="flex items-center space-x-2  ">
-                <span>Pricing</span>
+                <span className="font-medium">Pricing</span>
               </div>
             </Link>
           }
@@ -60,7 +60,7 @@ export default function Navtab() {
           title={
             <Link href="/Profile">
               <div className="flex items-center space-x-2  ">
-                <span>Profile</span>
+                <span className="font-medium">Profile</span>
               </div>
             </Link>
           }
@@ -70,7 +70,7 @@ export default function Navtab() {
           title={
             <Link href="Contactus">
               <div className="flex items-center space-x-2  ">
-                <span>Contact us</span>
+                <span className="font-medium">Contact us</span>
               </div>
             </Link>
           }

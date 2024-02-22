@@ -49,7 +49,7 @@ export default function App() {
       <NavbarContent justify="end">
         <NavbarItem>
           <Button
-            className="bg-apptheme rounded-full"
+            className="bg-apptheme rounded-full font-medium"
             as={Link}
             color="primary"
             href="#"
