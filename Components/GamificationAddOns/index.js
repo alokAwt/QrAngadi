@@ -1,13 +1,10 @@
 import Image from "next/image";
-// import mainImage from "../../gamification/main.png";
-// import one from "../../gamification/one.png";
-// import two from "../../gamification/two.png";
-// import three from "../../gamification/three.png";
+
 function GamificationAddOns() {
   return (
-    <div className="mt-5">
-      <div className="flex justify-center w-3/4 mx-auto flex-wrap">
-        <div className="sm:w-full md:w-1/2 flex justify-center items-center">
+    <div className="mt-5 mb-20">
+      <div className="flex justify-center w-10/12 mx-auto flex-wrap">
+        <div className="sm:w-full md:w-1/2 flex justify-center items-center ">
           <Image
             src={"/gamification/main.png"}
             width={500}
@@ -15,7 +12,7 @@ function GamificationAddOns() {
             alt="Main"
           />
         </div>
-        <div className="md:w-1/2 sm:w-full max-sm:text-center ">
+        <div className="md:w-1/2 sm:w-full max-sm:text-center md:pl-10 ">
           <h2 className="text-4xl font-bold leading-13">
             Gamification Add-ons
           </h2>
