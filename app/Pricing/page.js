@@ -1,8 +1,9 @@
+"use client";
 import React from "react";
 // import PricingCards from "../../components/pricingCards/PricingCards";
 import Faqs from "@/Components/pricing-page-components/Faqs";
 import GamificationAddOns from "@/Components/pricing-page-components/GamificationAddOns";
-import Head from "next/head";
+import PricingCards from "@/Components/PricingCards";
 
 function Pricing() {
   return (
@@ -15,7 +16,7 @@ function Pricing() {
           Choose a plan and enjoy an exceptional user experience instantly.
         </p>
       </div>
-      {/* <PricingCards /> */}
+      <PricingCards />
       <Faqs />
       <GamificationAddOns />
     </>
