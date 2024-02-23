@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { AccordionItem } from "../AccordionItem";
+import { AccordionItem } from "../pricing-page-components/AccordionItem";
 import { ArrowDown } from "lucide-react";
 
 function Faqs() {
@@ -13,28 +13,28 @@ function Faqs() {
     {
       title: "Will I get a refund after 7 days?",
       content:
-        "Frontend Mentor offers realistic coding challenges to help developers improve their frontend coding skills with projects in HTML, CSS, and JavaScript. It's suitable for all levels and ideal for portfolio building.",
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and ",
     },
     {
       title: "Will I get unlimited generations?",
       content:
-        "Yes, Frontend Mentor offers both free and premium coding challenges, with the free option providing access to a range of projects suitable for all skill levels.",
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and ",
     },
     {
       title: "Can I upload linktree in the URL?",
       content:
-        "Yes, you can use projects completed on Frontend Mentor in your portfolio. It's an excellent way to showcase your skills to potential employers!",
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and ",
     },
     {
       title: "Can I track the number of click?",
       content:
-        "The best place to get help is inside Frontend Mentor's Discord community. There's a help channel where you can ask questions and seek support from other community members.",
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and ",
     },
   ];
 
   return (
     <div className="mt-5 mb-12">
-      <div className="flex flex-col lg:flex-row justify-center w-3/4 mx-auto my-5">
+      <div className="flex flex-col lg:flex-row justify-center max-sm:w-[90%] w-3/4 mx-auto my-5">
         <div className="lg:w-1/2 flex justify-center flex-col">
           <h1 className="text-5xl font-bold leading-snug">
             Frequently Asked Questions

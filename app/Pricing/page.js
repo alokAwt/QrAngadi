@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 // import PricingCards from "../../components/pricingCards/PricingCards";
-import Faqs from "@/Components/pricing-page-components/Faqs";
+import Faqs from "@/Components/Faqs";
 import GamificationAddOns from "@/Components/pricing-page-components/GamificationAddOns";
 import PricingCards from "@/Components/PricingCards";
 
