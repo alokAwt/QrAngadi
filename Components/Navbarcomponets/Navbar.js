@@ -8,9 +8,9 @@ import {
   Button,
 } from "@nextui-org/react";
 import Navtab from "./Navtab";
-import logo from "../public/qr-angadi.png";
+import logo from "../../public/qr-angadi.png";
 import Image from "next/image";
-import { CiMenuBurger } from "react-icons/ci";
+import { TiThMenu } from "react-icons/ti";
 import {
     Sheet,
     SheetContent,
@@ -19,31 +19,33 @@ import {
     SheetTitle,
     SheetTrigger,
   } from "@/components/ui/sheet"
+import Sidebarnav from "./Sidebarnav";
   
 
-// import {AcmeLogo} from "./AcmeLogo.jsx";
 
 export default function App() {
   return (
-    <Navbar className="p-1" maxWidth="full" shouldHideOnScroll>
+    <Navbar className="p-1  w-full" maxWidth="full" shouldHideOnScroll>
       <NavbarBrand className="gap-2">
         <Sheet>
           <SheetTrigger>
-            <CiMenuBurger className="md:hidden" />
+            <TiThMenu className="lg:hidden md:block" />
           </SheetTrigger>
-          <SheetContent  side='left'>
+          <SheetContent  side='left' className=''>
             <SheetHeader>
-              <SheetTitle>Are you absolutely sure?</SheetTitle>
+              <SheetTitle className='flex  items-center gap-2'>
+              <Image className="w-16 h-10" src={logo}/>
+              QR-Angadi
+              </SheetTitle>
               <SheetDescription>
-                This action cannot be undone. This will permanently delete your
-                account and remove your data from our servers.
+              <Sidebarnav/>
               </SheetDescription>
             </SheetHeader>
           </SheetContent>
         </Sheet>
-        <Image className="hidden md:block md:h-10 md:w-24" src={logo} />
+        <Image className="hidden md:hidden lg:block lg:h-10 lg:w-24" src={logo} />
       </NavbarBrand>
-      <NavbarContent className="hidden sm:flex " justify="center">
+      <NavbarContent className="hidden md:hidden lg:flex " justify="center">
         <Navtab />
       </NavbarContent>
       <NavbarContent justify="end">

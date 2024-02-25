@@ -8,7 +8,8 @@ module.exports = {
     './Components/**/*.{js,jsx}',
     './app/**/*.{js,jsx}',
     './src/**/*.{js,jsx}',
-    "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}"
+    "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
+    'node_modules/flowbite-react/lib/esm/**/*.js',
   ],
   prefix: "",
   theme: {
@@ -22,10 +23,12 @@ module.exports = {
     extend: {
       colors: {
         apptheme:'#f48020',
+        buttoncolor:"#FF7143",
+        buttonopacitycolor:"#FF714336",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
+        background: "white",
         foreground: "hsl(var(--foreground))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
@@ -77,5 +80,5 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate"),nextui()],
+  plugins: [require("tailwindcss-animate"),nextui(), require('flowbite/plugin'), require('tailwind-scrollbar-hide')],
 }
