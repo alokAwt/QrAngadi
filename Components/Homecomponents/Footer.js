@@ -10,6 +10,7 @@ import tweet from "../../public/Footer/tweet.png";
 import YT from "../../public/Footer/YT.png";
 import LinkedIn from "../../public/Footer/linked.png";
 import Image from "next/image";
+import Link from "next/link";
 
 function Footernav() {
   return (
@@ -38,12 +39,12 @@ function Footernav() {
                 className="mt-2 text-sm text-gray-500 dark:text-gray-400"
               >
                 We’ll never share your details. Read our{" "}
-                <a
-                  href="#"
+                <Link
+                  href="/Privacypolicy"
                   class="font-medium text-[#f48020] hover:underline dark:text-[#f48020]"
                 >
                   Privacy Policy
-                </a>
+                </Link>
                 .
               </p>
               <div className="flex justify-end items-end mt-2">
@@ -111,9 +112,15 @@ function Footernav() {
           year={2024}
           className="text-black text-xs"
         />
-        <div className="mt-4 flex text-xs gap-2 sm:mt-0 sm:justify-center text-sm text-black">
+        <div className="mt-4 flex text-xs gap-2 sm:mt-0 sm:justify-center  text-black">
+          <Link href='/Privacypolicy'>
           <p>Privacy Policy</p>
+
+          </Link>
+          <Link href='/Termsandconditions'>
           <p>Terms of Service</p>
+
+          </Link>
         </div>
       </div>
     </Footer>
