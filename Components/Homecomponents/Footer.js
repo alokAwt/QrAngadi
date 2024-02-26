@@ -14,8 +14,7 @@ import Link from "next/link";
 
 function Footernav() {
   return (
-   
-    <Footer  className="bg-black text-white rounded-none mt-4 flex flex-col w-full px-3 md:px-0 ">
+    <Footer className="bg-black text-white rounded-none mt-4 flex flex-col w-full px-3 md:px-0 ">
       <div className="">
         <div className="grid w-full py-4 justify-between sm:flex md:gap-60 sm:justify-between md:flex md:grid-cols-1 h-auto">
           <div className="flex flex-col justify-start items-start px-2">
@@ -41,7 +40,7 @@ function Footernav() {
                 We’ll never share your details. Read our{" "}
                 <Link
                   href="/Privacypolicy"
-                  class="font-medium text-[#f48020] hover:underline dark:text-[#f48020]"
+                  className="font-medium text-[#f48020] hover:underline dark:text-[#f48020]"
                 >
                   Privacy Policy
                 </Link>
@@ -70,7 +69,9 @@ function Footernav() {
                 col
                 className="flex flex-col justify-center items-start text-xs  gap-4 text-white no-underline hover:no-underline"
               >
-                <Footer.Link className="hover:no-underline" href="#">Static QR</Footer.Link>
+                <Footer.Link className="hover:no-underline" href="#">
+                  Static QR
+                </Footer.Link>
                 <Footer.Link href="#">Dyamic Qr</Footer.Link>
                 <Footer.Link href="#">Scan Analytices</Footer.Link>
                 <Footer.Link href="#">Multiple Types</Footer.Link>
@@ -113,18 +114,15 @@ function Footernav() {
           className="text-black text-xs"
         />
         <div className="mt-4 flex text-xs gap-2 sm:mt-0 sm:justify-center  text-black">
-          <Link href='/Privacypolicy'>
-          <p>Privacy Policy</p>
-
+          <Link href="/Privacypolicy">
+            <p>Privacy Policy</p>
           </Link>
-          <Link href='/Termsandconditions'>
-          <p>Terms of Service</p>
-
+          <Link href="/Termsandconditions">
+            <p>Terms of Service</p>
           </Link>
         </div>
       </div>
     </Footer>
-   
   );
 }
 
