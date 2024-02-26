@@ -40,7 +40,7 @@ function Footernav() {
                 We’ll never share your details. Read our{" "}
                 <Link
                   href="/Privacypolicy"
-                  class="font-medium text-[#f48020] hover:underline dark:text-[#f48020]"
+                  className="font-medium text-[#f48020] hover:underline dark:text-[#f48020]"
                 >
                   Privacy Policy
                 </Link>
