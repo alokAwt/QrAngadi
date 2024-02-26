@@ -1,3 +1,4 @@
+import { Divider } from '@nextui-org/react'
 import React from 'react'
 
 const BussinessStat = () => {
@@ -10,16 +11,18 @@ const BussinessStat = () => {
     </div>
 
 
-    <div className='flex justify-evenly items-center gap-24 mt-8  mx-auto w-11/12 flex-col md:flex-row'>
-        <div className='w-72 flex justify-start md:items-start items-center flex-col gap-2 md:border-r border-gray-400 '>
+    <div className='flex justify-evenly items-center gap-24 mt-12  mx-auto w-11/12 flex-col md:flex-row'>
+        <div className='w-72 flex justify-start  items-center flex-col gap-2  '>
             <span className='text-buttoncolor font-medium'>250+</span>
             <p className='font-semibold text-lg'>Companies</p>
         </div>
-        <div className='w-72 flex justify-start md:items-start items-center flex-col gap-2 md:border-r border-gray-400'>
+        <Divider orientation='vertical' className='h-24 hidden md:block'/>
+        <div className='w-72 flex justify-start  items-center flex-col gap-2 '>
             <span className='text-buttoncolor font-medium'>3593+</span>
             <p className='font-semibold text-lg'>Profiles</p>
         </div>
-        <div className='w-72 flex justify-start md:items-start items-center flex-col gap-2'>
+        <Divider orientation='vertical' className='h-24 hidden md:block'/>
+        <div className='w-72 flex justify-start  items-center flex-col gap-2'>
             <span className='text-buttoncolor font-medium'>1M+</span>
             <p className=' text-lg font-semibold'>QR Code generated</p>
         </div>

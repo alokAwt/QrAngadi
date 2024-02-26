@@ -10,13 +10,14 @@ import tweet from "../../public/Footer/tweet.png";
 import YT from "../../public/Footer/YT.png";
 import LinkedIn from "../../public/Footer/linked.png";
 import Image from "next/image";
+import Link from "next/link";
 
 function Footernav() {
   return (
     <Footer className="bg-black text-white rounded-none mt-4 flex flex-col w-full px-3 md:px-0 ">
       <div className="">
         <div className="grid w-full py-4 justify-between sm:flex md:gap-60 sm:justify-between md:flex md:grid-cols-1 h-auto">
-          <div className="flex flex-col justify-start items-start px-4">
+          <div className="flex flex-col justify-start items-start px-2">
             <div>
               <h6 className="text-2xl font-bold text-white">News Letter</h6>
               <p className="text-xs py-2 font-normal text-white w-80">
@@ -37,12 +38,12 @@ function Footernav() {
                 className="mt-2 text-sm text-gray-500 dark:text-gray-400"
               >
                 We’ll never share your details. Read our{" "}
-                <a
-                  href="#"
-                  className="font-medium text-[#f48020] hover:underline dark:text-[#f48020]"
+                <Link
+                  href="/Privacypolicy"
+                  class="font-medium text-[#f48020] hover:underline dark:text-[#f48020]"
                 >
                   Privacy Policy
-                </a>
+                </Link>
                 .
               </p>
               <div className="flex justify-end items-end mt-2">
@@ -51,7 +52,7 @@ function Footernav() {
                 </Button>
               </div>
             </div>
-            <div className="flex justify-evenly items-center gap-2 mt-2 md:ml-auto">
+            <div className="flex justify-evenly items-center gap-2 mt-4 md:ml-auto ">
               <Image className="h-8 w-8" src={LinkedIn} />
               <Image src={Whatsapp} className="h-8 w-8" />
               <Image className="h-8 w-8" src={FB} />
@@ -61,7 +62,7 @@ function Footernav() {
               <Image src={YT} className="h-8 w-8" />
             </div>
           </div>
-          <div className="grid grid-cols-3 mx-auto md:grid-cols-3 md:gap-24 gap-8 sm:mt-4 sm:grid-cols-3 sm:gap-6 mt-4">
+          <div className="grid grid-cols-3 p-2 mx-auto md:grid-cols-3 md:gap-24 gap-8 sm:mt-4 sm:grid-cols-3 sm:gap-6 mt-4">
             <div>
               <Footer.Title title="Products" className="mb-2 text-white" />
               <Footer.LinkGroup
@@ -110,11 +111,15 @@ function Footernav() {
           href="#"
           by="Mockup. All Rights Reserved.™"
           year={2024}
-          className="text-black"
+          className="text-black text-xs"
         />
-        <div className="mt-4 flex gap-2 sm:mt-0 sm:justify-center text-sm text-black">
-          <p>Privacy Policy</p>
-          <p>Terms of Service</p>
+        <div className="mt-4 flex text-xs gap-2 sm:mt-0 sm:justify-center  text-black">
+          <Link href="/Privacypolicy">
+            <p>Privacy Policy</p>
+          </Link>
+          <Link href="/Termsandconditions">
+            <p>Terms of Service</p>
+          </Link>
         </div>
       </div>
     </Footer>
