@@ -51,15 +51,15 @@ export default function App() {
       </NavbarContent>
       <NavbarContent justify="end">
         <NavbarItem>
-          <Button
-            className="bg-apptheme rounded-full font-medium"
-            as={Link}
-            color="primary"
-            href="/Login"
-            variant="flat"
-          >
-            Login
-          </Button>
+          <Link href="/Login">
+            <Button
+              className="bg-apptheme rounded-full font-medium"
+              color="primary"
+              variant="flat"
+            >
+              Login
+            </Button>
+          </Link>
         </NavbarItem>
       </NavbarContent>
     </Navbar>
