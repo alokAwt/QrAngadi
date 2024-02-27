@@ -4,7 +4,6 @@ import {
   NavbarBrand,
   NavbarContent,
   NavbarItem,
-  Link,
   Button,
 } from "@nextui-org/react";
 import Navtab from "./Navtab";
@@ -20,6 +19,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import Sidebarnav from "./Sidebarnav";
+import Link from "next/link";
 
 export default function App() {
   return (
@@ -51,15 +51,15 @@ export default function App() {
       </NavbarContent>
       <NavbarContent justify="end">
         <NavbarItem>
-          <Button
-            className="bg-apptheme rounded-full font-medium"
-            as={Link}
-            color="primary"
-            href="/Login"
-            variant="flat"
-          >
-            Login
-          </Button>
+            <div
+              className="bg-apptheme rounded-full font-medium p-2 w-24 text-center hover:ring-2 hover:ring-buttonopacitycolor"
+              color="primary"
+              variant="flat"
+            >
+          <Link href="/Login">
+              Login
+          </Link>
+            </div>
         </NavbarItem>
       </NavbarContent>
     </Navbar>
