@@ -315,10 +315,10 @@ const page = () => {
         </div>
 
         {/* Customize QR */}
-        <div className="flex flex-col-reverse md:flex-row  items-start mt-4 w-full gap-8">
+        <div className="flex flex-col md:flex-row  items-start mt-4 w-full gap-8">
           <div className="flex flex-col justify-center items-start  gap-2 border-1 rounded-sm border-buttoncolor border-opacity-50 p-6 md:w-3/4 w-full overflow-hidden">
             <h6 className="text-sm font-medium">Customize your QR Code</h6>
-            <div className="w-full mx-auto mb-8">
+            <div className="w-full mx-auto md:mb-8">
               <Tabs
                 aria-label="Options"
                 color="primary"
@@ -558,52 +558,52 @@ const page = () => {
                     </div>
                   }
                 >
-                  <Card className="rounded-sm shadow-none ">
+                  <Card className="rounded-sm shadow-none p-0">
                     <CardBody>
                       <div className="flex flex-col justify-start items-start mt-2 gap-4">
                         <div className="flex-col justify-start items-start gap-4">
                           <span className="text-sm font-bold">
                             Sample Logos
                           </span>
-                          <div className="grid md:grid-cols-5 grid-cols-3 place-content-evenly	gap-12 mt-4 place-items-start	">
+                          <div className="grid md:grid-cols-5 grid-cols-3 place-content-evenly	md:gap-12 gap-2 mt-4 place-items-start	">
                             <div className="flex justify-center flex-col items-center gap-2">
-                              <Button className="flex justify-center items-center gap-2 h-auto w-auto flex-col bg-slate-100 rounded-md p-2 cursor-pointer">
-                                <Image className="h-20 w-20" src={Nosample} />
+                              <Button className="flex justify-center items-center gap-2 h-auto w-auto flex-col bg-slate-100 rounded-md p-2  cursor-pointer">
+                                <Image className="md:h-20 md:w-20 h-8 w-8 object-contain" src={Nosample} />
                               </Button>
                             </div>
                             <div className="flex justify-center flex-col items-center gap-2">
                               <Button className="flex h-auto w-auto justify-center items-center gap-2 flex-col bg-slate-100 rounded-md p-2 cursor-pointer">
-                                <Image className="h-20 w-20" src={Apple} />
+                                <Image className="md:h-20 md:w-20 h-8 w-8" src={Apple} />
                               </Button>
                             </div>
                             <div className="flex justify-center flex-col items-center gap-2">
-                              <Button className="flex h-24 w-24 justify-center items-center gap-2 flex-col bg-slate-100 rounded-md p-2 cursor-pointer">
-                                <Image className="h-14 w-14" src={Sunflower} />
+                              <Button className="flex md:h-24 md:w-24  h-12 w-10 justify-center items-center gap-2 flex-col bg-slate-100 rounded-md p-2 cursor-pointer">
+                                <Image className="md:h-14 md:w-14 h-6 w-6" src={Sunflower} />
                               </Button>
                             </div>
                             <div className="flex justify-center flex-col items-center gap-2">
                               <Button className="flex h-auto w-auto justify-center items-center gap-2 flex-col bg-slate-100 rounded-md p-2 cursor-pointer">
-                                <Image className="h-20 w-20" src={Kiwi} />
+                                <Image className="md:h-20 md:w-20 h-8 w-8" src={Kiwi} />
                               </Button>
                             </div>
                             <div className="flex justify-center flex-col items-center gap-2">
-                              <Button className="flex h-24 w-24 justify-center items-center gap-2 flex-col bg-slate-100 rounded-md p-2 cursor-pointer">
-                                <Image className="h-14 w-14" src={Heart} />
+                              <Button className="flex md:h-24 md:w-24 h-12 w-10 justify-center items-center gap-2 flex-col bg-slate-100 rounded-md p-2 cursor-pointer">
+                                <Image className="md:h-14 md:w-14 w-6 h-6" src={Heart} />
                               </Button>
                             </div>
                           </div>
                         </div>
 
-                        <div className="flex-col justify-start items-start gap-4 mt-2">
-                          <span className="text-sm font-bold flex flex-row items-center gap-4">
+                        <div className="flex-col justify-start items-start gap-4 mt-2 w-full">
+                          <span className="md:text-sm text-xs font-bold flex flex-row items-center gap-4">
                             Upload Your Logo{" "}
-                            <span className="flex flex-row items-center gap-1 text-xs font-normal">
+                            <span className="flex flex-row items-center gap-1 md:text-xs text-[0.55rem] font-normal">
                               <MdInfo className="text-blue-500 inline-block" />
                               Supported formats - .png, .jpeg, .pdf
                             </span>
                           </span>
 
-                          <div className="flex flex-row items-center gap-4 mt-4 border-1 border-buttoncolor border-opacity-50 rounded-sm px-4 py-2">
+                          <div className="flex md:flex-row flex-col w-full items-center gap-4 mt-4 border-1 border-buttoncolor border-opacity-50 rounded-sm px-4 py-2">
                             <div>
                               {logo ? (
                                 <img
@@ -620,7 +620,7 @@ const page = () => {
                               )}
                             </div>
                             <div className="flex flex-col justify-center items-center gap-4">
-                              <Button className="w-60 bg-buttoncolor text-white font-medium rounded-sm">
+                              <Button className="md:w-60 w-full bg-buttoncolor text-white font-medium rounded-sm">
                                 <label htmlFor="fileInput">Upload</label>
                                 <input
                                   type="file"
@@ -632,7 +632,7 @@ const page = () => {
                               <Button
                                 onPress={() => setLogo("")}
                                 variant="light"
-                                className="w-60 ring-2 ring-buttoncolor rounded-sm text-buttoncolor font-medium"
+                                className="md:w-60 w-full ring-2 ring-buttoncolor rounded-sm text-buttoncolor font-medium"
                               >
                                 Remove
                               </Button>
