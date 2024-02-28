@@ -4,11 +4,17 @@ import React from "react";
 import Faqs from "@/Components/Faqs";
 import GamificationAddOns from "@/Components/pricing-page-components/GamificationAddOns";
 import PricingCards from "@/Components/PricingCards";
+import Pricingcard from "@/Components/Homecomponents/Pricingcard";
+import FAQ from "@/Components/Homecomponents/FAQ";
+import Gamification from "@/Components/Homecomponents/Gamification";
 
 function Pricing() {
   return (
     <>
-      <div className="mt-10 text-center">
+    <Pricingcard/>
+    <FAQ/>
+    <Gamification/>
+      {/* <div className="mt-10 text-center">
         <p className="font-bold  text-4xl md:text-5xl lg:text-6xl mb-4">
           Choose the right plan for you!
         </p>
@@ -18,7 +24,7 @@ function Pricing() {
       </div>
       <PricingCards />
       <Faqs />
-      <GamificationAddOns />
+      <GamificationAddOns /> */}
     </>
   );
 }

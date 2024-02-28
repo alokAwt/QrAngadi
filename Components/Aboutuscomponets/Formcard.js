@@ -57,7 +57,7 @@ const Formcard = () => {
 
         <div className="w-full justify-center items-start gap-4 px-8">
           <div>
-            <h6 className="font-bold text-2xl ">Let’s talk!</h6>
+            <h6 className="font-bold text-2xl ">Let’s <span className="text-buttoncolor">talk!</span></h6>
             <p className="text-md font-medium text-gray-500">
               Provide the necessary details.
             </p>
@@ -120,7 +120,7 @@ const Formcard = () => {
                     Related Subject{" "}
                   </label>
                   <input
-                    type="email"
+                    type="text"
                     id="email"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-buttoncolor focus:border-buttoncolor block w-full p-2.5 d "
                     placeholder=" Related Subject"
@@ -134,10 +134,10 @@ const Formcard = () => {
                   >
                     Your Message{" "}
                   </label>
-                  <input
-                    type="email"
+                  <textarea
+                    type="text"
                     id="email"
-                    className="bg-gray-50 border  border-gray-300 text-gray-900 text-sm h-24 rounded-lg focus:ring-buttoncolor focus:border-buttoncolor block w-full p-2.5  "
+                    className="bg-gray-50 border items-start  border-gray-300 text-gray-900 text-sm h-24 rounded-lg focus:ring-buttoncolor focus:border-buttoncolor block w-full p-2.5  "
                     placeholder="Type something here..."
                     required
                   />
