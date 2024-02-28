@@ -1,8 +1,12 @@
-import { Inter } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "./globals.css";
 import NextUIprovider from "../Components/NextUIprovider";
+import { AntdRegistry } from "@ant-design/nextjs-registry";
 
-const inter = Inter({ subsets: ["latin"] });
+const font = Poppins({
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "700"],
+});
 
 export const metadata = {
   title: "QR ANGADI",
@@ -11,9 +15,10 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className="">
-        <NextUIprovider children={children} />
+    <html lang="en" className={font.className}>
+      <body className='scrollbar-hide md:scrollbar-default sm:scrollbar-default lg:scrollbar-default'>
+        
+          <NextUIprovider children={children} />
       </body>
     </html>
   );
