@@ -120,7 +120,7 @@ function Login() {
               </label>
             </div>
             <span className="text-[12px] font-semibold underline decoration-[#1E1E1E]">
-              Forgot Password
+              <Link href={"/Forgotpassword"}>Forgot Password</Link>
             </span>
           </div>
           <button
