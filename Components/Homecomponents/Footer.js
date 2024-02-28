@@ -20,45 +20,39 @@ function Footernav() {
         {/* others */}
         <div className="grid grid-cols-3 p-2 md:grid-cols-3 md:gap-24 gap-8 sm:grid-cols-3 sm:gap-6">
           <div>
-            <Footer.Title title="Products" className="mb-2 text-white" />
+            <Footer.Title title="Services" className="mb-2 text-buttoncolor" />
             <Footer.LinkGroup
               col
-              className="flex flex-col justify-center items-start text-xs  gap-4 text-white no-underline hover:no-underline"
+              className="flex flex-col justify-center text-xs items-start text-white no-underline"
             >
-              <Footer.Link className="hover:no-underline" href="#">
-                Static QR
-              </Footer.Link>
-              <Footer.Link href="#">Dyamic Qr</Footer.Link>
-              <Footer.Link href="#">Scan Analytices</Footer.Link>
-              <Footer.Link href="#">Multiple Types</Footer.Link>
+              <Footer.Link href="#">QR Solutions</Footer.Link>
+              <Footer.Link href="#">Gamification Solutions</Footer.Link>
             </Footer.LinkGroup>
           </div>
           <div>
-            <Footer.Title title="Services" className="mb-2 text-white" />
+            <Footer.Title title="Resources" className="mb-2 text-buttoncolor" />
             <Footer.LinkGroup
               col
-              className="flex flex-col justify-center text-xs items-start gap-4 text-white no-underline"
+              className="flex flex-col justify-center text-xs items-start text-white no-underline"
             >
-              <Footer.Link href="#">QR Creation</Footer.Link>
-              <Footer.Link href="#">Analytices</Footer.Link>
-              <Footer.Link href="#">Game solutions</Footer.Link>
-              <Footer.Link href="#">Product Reach out</Footer.Link>
-            </Footer.LinkGroup>
-          </div>
-          <div>
-            <Footer.Title title="Resources" className="mb-2 text-white" />
-            <Footer.LinkGroup
-              col
-              className="flex flex-col justify-center text-xs items-start gap-4 text-white no-underline"
-            >
-              <Footer.Link className="no-underline" href="#">
-                News
+              <Footer.Link className="no-underline" href="/Aboutus">
+                About Us
               </Footer.Link>
 
+              <Footer.Link href="#">News</Footer.Link>
               <Link href={"/blog"}>Blog</Link>
 
-              <Footer.Link href="#">Videos</Footer.Link>
-              <Footer.Link href="#">FAQ's</Footer.Link>
+              <Footer.Link href="#">Help & Support</Footer.Link>
+            </Footer.LinkGroup>
+          </div>
+          <div>
+            <Footer.Title title="Legal" className="mb-2 text-buttoncolor" />
+            <Footer.LinkGroup
+              col
+              className="flex flex-col justify-center items-start text-xs text-white no-underline hover:no-underline"
+            >
+              <Link href="/Privacypolicy">Privacy Policy</Link>
+              <Link href="/Termsandconditions">Terms and Conditions</Link>
             </Footer.LinkGroup>
           </div>
         </div>
