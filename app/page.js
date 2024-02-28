@@ -7,6 +7,7 @@ import BussinessStat from "@/Components/Homecomponents/BussinessStat";
 import Userreview from "@/Components/Homecomponents/Userreview";
 import Pricingcard from "@/Components/Homecomponents/Pricingcard";
 import FAQ from "@/Components/Homecomponents/FAQ";
+import Loading from "@/Components/Aboutuscomponets/Loading";
 
 export default function Home() {
   return (

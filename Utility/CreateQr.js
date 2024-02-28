@@ -65,12 +65,13 @@ export const CreateQr = (
       }).then((res) => {
         console.log(res);
         if (res.status === "success") {
-          // ChangeLoad();
-          alert("qr Created Success");
-          router.push('/Profile')
+          // ChangeLoad();  //---------Lodaer off
+          //-----------navigate profile
+          alert("qr Created Success");  //---------Toast message
+         
         } else {
-          // ChangeLoad();
-          // alert(res.message);
+          // ChangeLoad();  // lodaer off
+          // alert(res.message); // toast
         }
       });
       break;

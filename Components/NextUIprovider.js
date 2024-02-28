@@ -6,12 +6,14 @@ import Footernav from "./Homecomponents/Footer";
 import { Toaster } from "./ui/toaster";
 
 
+
 export default function NextUIprovider({ children }) {
+ 
   return (
     <NextUIProvider>
       <main className="">
         <div className="">
-          <Navbar />
+         <Navbar />
           {children}
           <Toaster/>
           <Footernav/>

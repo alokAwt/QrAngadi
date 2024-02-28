@@ -10,7 +10,7 @@ export default function Navtab() {
         aria-label="Options"
         classNames={{
           tabList: "gap-6 md:w-full  relative rounded-full p-1  text-black ",
-          cursor: "w-full bg-apptheme rounded-full  ",
+          cursor: "w-full bg-buttoncolor rounded-full  ",
           tab: " px-4 h-6 flex justify-center items-center w-auto text-black  ",
         }}
         variant=""
@@ -55,7 +55,7 @@ export default function Navtab() {
             </Link>
           }
         ></Tab>
-        <Tab
+        {/* <Tab
           key="Profile"
           title={
             <Link href="/Profile">
@@ -64,7 +64,7 @@ export default function Navtab() {
               </div>
             </Link>
           }
-        ></Tab>
+        ></Tab> */}
         <Tab
           key="Contact us"
           title={

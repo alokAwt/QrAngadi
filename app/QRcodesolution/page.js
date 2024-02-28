@@ -43,6 +43,15 @@ import { QrType } from "@/Utility/QrType/QrType";
 import { CreateQr } from "@/Utility/CreateQr";
 
 
+
+const Extension = [
+  {label: "png", value: "png", },
+  {label: "jpeg", value: "jpeg", },
+  {label: "webp", value: "webp", },
+  {label: "svg", value: "svg",},
+ ]
+
+
 const page = () => {
   const [selected, setSelected] = React.useState("STATIC");
   const [image, setImages] = useState("");
@@ -90,7 +99,7 @@ const page = () => {
     cornersDotOptions: { type: "Square", color: "#000000" },
   });
 
-  const [fileExt, setFileExt] = useState("svg");
+  const [fileExt, setFileExt] = useState('');
   const [qrCode] = useState(new QRCodeStyling(options));
   const ref = useRef(null);
 
@@ -227,16 +236,24 @@ const page = () => {
     });
   };
 
+
+
+  const setLogoMemoized = useMemo(() => {
+    return (file) => {
+      if (file) {
+        const reader = new FileReader();
+        reader.addEventListener("load", () => {
+          setLogo(reader.result);
+        });
+        reader.readAsDataURL(file);
+      }
+    };
+  }, []);
+
   const onChangePicture = (e) => {
     setImages(e.target.files[0]);
-    if (e.target.files[0]) {
-      const reader = new FileReader();
-      reader.addEventListener("load", () => {
-        setLogo(reader.result);
-      });
-      reader.readAsDataURL(e.target.files[0]);
-      console.log(logo);
-    }
+    setLogoMemoized(e.target.files[0]); // Use the memoized function to set the logo
+
   };
 
   const genPresets = (presets = presetPalettes) =>
@@ -285,6 +302,7 @@ const page = () => {
           cornersDotOption,
           eyeHexString,
           cornersSquareOption,
+
           lat,
           lon,
           Url,
@@ -341,15 +359,13 @@ const page = () => {
         </p>
       </div>
       <div className="flex flex-col justify-center items-center w-full mt-8 mx-auto">
-        <div className="grid grid-cols-4 md:grid-cols-8 place-content-evenly place-items-center md:gap-2 bg-[#FF71431A] border-1 border-buttoncolor w-full rounded-sm border-opacity-50 md:p-2 p-1 md:px-2 overflow-hidden">
+        <div className="grid grid-cols-4 md:grid-cols-9 place-content-evenly place-items-center md:gap-2 bg-[#FF71431A] border-1 border-buttoncolor w-full rounded-sm border-opacity-50 md:p-2 p-1 md:px-2 overflow-hidden">
           {QrType &&
             QrType.map((item, index) => (
               <Button
-                style={{
-                  backgroundColor: qrType === item.type ? "orange" : null,
-                }}
+                
                 variant="light"
-                className="flex flex-col justify-center items-center gap-1 h-auto py-2"
+                className={qrType === item.type ?"flex flex-col justify-center items-center gap-1 h-auto py-2 ring-1 ring-buttoncolor":'flex flex-col justify-center items-center gap-1 h-auto py-2'}
                 onClick={() => setQrType(item.type)}
               >
                 <div>
@@ -939,15 +955,15 @@ const page = () => {
               size="sm"
               className="text-sm mt-2 bg-white flex justify-center rounded-md border-buttoncolor border-2 items-center  w-full  text-buttoncolor"
             >
-              <SelectItem className="text-buttoncolor" value="SVG">
-                SVG
-              </SelectItem>
-              <SelectItem className="text-buttoncolor" value="Png">
-                Png
-              </SelectItem>
+              {Extension.map((ext) => (
+          <SelectItem key={ext.value} onPress={()=>setFileExt(ext.value)}>
+            {ext.label}
+          </SelectItem>
+        ))}
             </Select>
 
             <Button
+              onPress={onDownloadClick}
               variant="solid"
               className="text-white bg-buttoncolor rounded-sm w-full"
             >
