@@ -5,12 +5,14 @@ import Navbar from "./Navbarcomponets/Navbar";
 import Footernav from "./Homecomponents/Footer";
 
 
+
 export default function NextUIprovider({ children }) {
+ 
   return (
     <NextUIProvider>
       <main className="">
         <div className="">
-          <Navbar />
+         <Navbar />
           {children}
           <Footernav/>
         </div>
