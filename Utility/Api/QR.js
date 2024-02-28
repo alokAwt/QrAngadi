@@ -3,9 +3,9 @@ import { BaseUrl } from "./BaseUrl";
 //--------------------WEBSITE------------------------------//
 //----------------Create Qr-----------------------//
 
-
 export const CreateWebsiteQr = async (data) => {
-  let token = localStorage.getItem("token");
+  let token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZDVjZTc3NGMyYjE3ZTg0MTBhYmM5MyIsImlhdCI6MTcwOTEwMTgxMCwiZXhwIjoxNzExMTc1NDEwfQ.V48xzU83j6keYcjSWUlTXucYbmXNGu0EdPUOUtiuRYE";
   try {
     let result = await fetch(`${BaseUrl}/Qr/Websiteurl/Create`, {
       method: "POST",
@@ -61,8 +61,6 @@ export const DeleteWebsiteQr = async (id) => {
   }
 };
 
-
-
 //--------------------------------PLAYSTORE----------------------------------------------//
 //----------------Create Qr-----------------------//
 
@@ -107,7 +105,7 @@ export const UpdatePlayStoreQr = async (data) => {
 //--------------------Delete Qr----------------//
 
 export const DeletePlayStoreQr = async (id) => {
-  console.log(id)
+  console.log(id);
   let token = localStorage.getItem("token");
   try {
     let result = await fetch(`${BaseUrl}/PlayStore/PlayStore/DeleteQr/${id}`, {
@@ -123,7 +121,6 @@ export const DeletePlayStoreQr = async (id) => {
     return error.message;
   }
 };
-
 
 //--------------------------------Audio----------------------------------------------//
 //----------------Create Qr-----------------------//
@@ -185,7 +182,6 @@ export const DeleteAudioQr = async (id) => {
   }
 };
 
-
 //--------------------------------Video----------------------------------------------//
 //----------------Create Qr-----------------------//
 
@@ -245,7 +241,6 @@ export const DeleteVideoQr = async (id) => {
     return error.message;
   }
 };
-
 
 //--------------------------------Document----------------------------------------------//
 //----------------Create Qr-----------------------//
@@ -307,7 +302,6 @@ export const DeletedocumentQr = async (id) => {
   }
 };
 
-
 //--------------------------------Images----------------------------------------------//
 //----------------Create Qr-----------------------//
 
@@ -367,8 +361,6 @@ export const DeleteImageQr = async (id) => {
     return error.message;
   }
 };
-
-
 
 //--------------------------------SocialMedia----------------------------------------------//
 //----------------Create Qr-----------------------//
@@ -432,9 +424,6 @@ export const DeleteSocialQr = async (id) => {
     return error.message;
   }
 };
-
-
-
 
 //--------------------------------MAP----------------------------------------------//
 //----------------Create Qr-----------------------//

@@ -1,88 +1,56 @@
-import URL from "../../assets/url-link.svg";
-import Multi from "../../assets/multi-url.svg";
-import Text from "../../assets/text.svg";
-import Email from "../../assets/email.svg";
-import Wifi from "../../assets/wifi.svg";
-import Vcard from "../../assets/vcard.svg";
-import SMS from "../../assets/sms.svg";
-import Contact from "../../assets/contacts.svg";
-import PDF from "../../assets/pdf.svg";
-import App from "../../assets/app.svg";
-import Image from "../../assets/image.svg";
-import Audio from "../../assets/audio.svg";
-import Video from "../../assets/file-video.svg";
-import Social from "../../assets/social-media.svg";
-import WhatsApp from "../../assets/whatsapp.svg";
-import Insta from "../../assets/insta.png";
-import Facebook from "../../assets/fb.png";
-import LinkedIn from "../../assets/linked.png";
-import Telegram from "../../assets/telegram.svg";
-import X from "../../assets/x.svg";
-import Youtube from "../../assets/YT.png";
+import Web from "../../public/QRgenerate/Web.png";
+import Videos from "../../public/QRgenerate/Videos.png";
+import Media from "../../public/QRgenerate/Media.png";
+import Share from "../../public/QRgenerate/Share.png";
+import Textfile from "../../public/QRgenerate/Textfile.png";
+import Mic from "../../public/QRgenerate/Mic.png";
+import Location from "../../public/QRgenerate/Location.png";
+import Pdf from "../../public/QRgenerate/Pdf.png";
+
 export const QrType = [
   {
     name: "WebsiteUrl",
     type: "Website",
-    Image:URL
+    Image: Web,
   },
   {
-    name: "Google Map",
+    name: "Location",
     type: "Map",
-    Image:Multi
+    Image: Location,
   },
   {
     name: "Playstore",
     type: "playstore",
-    Image:App
+    Image: Web,
   },
   {
     name: "Images",
     type: "Image",
-    Image:Image
+    Image: Media,
   },
   {
-    name: "Video",
+    name: "Videos",
     type: "Video",
-    Image:Video
+    Image: Videos,
   },
   {
-    name: "Audio",
+    name: "Audio Files",
     type: "Audio",
-    Image:Audio
+    Image: Mic,
   },
   {
-    name: "Social",
+    name: "Social Accounts",
     type: "Social",
-    Image:Social
+    Image: Share,
   },
   {
-    name: "Watsapp",
-    type: "Social",
-    Image:WhatsApp
+    name: "PDF Files",
+    type: "document",
+    Image: Pdf,
   },
   {
-    name: "FaceBook",
-    type: "Socail",
-    Image:Facebook
-  },
-  {
-    name: "Instagram",
-    type: "Social",
-    Image:Insta
-  },
-  {
-    name: "Linkedin",
-    type: "Social",
-    Image:LinkedIn
-  },
-  {
-    name: "Telegram",
-    type: "Social",
-    Image:Telegram
-  },
-  {
-    name: "You Tube",
-    type: "Social",
-    Image:Youtube
+    name: "Text Files",
+    type: "document",
+    Image: Textfile,
   },
 ];
