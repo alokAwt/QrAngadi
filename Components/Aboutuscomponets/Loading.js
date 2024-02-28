@@ -3,6 +3,8 @@ import React from "react";
 import Image from "next/image";
 import { motion, useAnimation } from "framer-motion";
 import QR from "../../public/QR.png";
+import {Spinner} from "@nextui-org/react";
+
 
 function Loading() {
   return (
@@ -21,8 +23,13 @@ function Loading() {
           />
        
       </motion.div>
-      <span className="text-xl font-semibold  leading-7 text-buttoncolor ">
-        Loading....
+      <span className="text-xl flex items-center gap-2 font-semibold  leading-7 text-buttoncolor ">
+      <Spinner 
+      size="sm"
+        classNames={{
+          label:'bg-buttoncolor'
+        }}
+      />Loading
       </span>
     </div>
   );

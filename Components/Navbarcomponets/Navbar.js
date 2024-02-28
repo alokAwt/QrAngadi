@@ -1,10 +1,10 @@
-import React from "react";
+'use client'
+import React, { useState } from "react";
 import {
   Navbar,
   NavbarBrand,
   NavbarContent,
   NavbarItem,
-  Button,
 } from "@nextui-org/react";
 import Navtab from "./Navtab";
 import logo from "../../public/qr-angadi.png";
@@ -20,9 +20,32 @@ import {
 } from "@/components/ui/sheet";
 import Sidebarnav from "./Sidebarnav";
 import Link from "next/link";
+import Signinmodal from "../Login/Signinmodal";
+import {
+  Dropdown,
+  DropdownTrigger,
+  DropdownMenu,
+  DropdownSection,
+  DropdownItem,
+  User,
+  Avatar,
+} from "@nextui-org/react";
+import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure} from "@nextui-org/react";
+import { useRouter } from 'next/navigation'
+
 
 export default function App() {
+  const [islogged, setislogin] = useState(true);
+  const {isOpen, onOpen, onOpenChange} = useDisclosure();
+  const router = useRouter()
+
+
+
+
+
+
   return (
+    <>
     <Navbar className="p-1  w-full" maxWidth="full" shouldHideOnScroll>
       <NavbarBrand className="gap-2">
         <Sheet>
@@ -51,17 +74,136 @@ export default function App() {
       </NavbarContent>
       <NavbarContent justify="end">
         <NavbarItem>
-            <div
-              className="bg-apptheme rounded-full font-medium p-2 w-24 text-center hover:ring-2 hover:ring-buttonopacitycolor"
-              color="primary"
-              variant="flat"
-            >
-          <Link href="/Login">
-              Login
-          </Link>
-            </div>
+          {islogged ? (
+            <>
+              <Dropdown
+                showArrow
+                radius="sm"
+                classNames={{
+                  base: "before:bg-default-200", // change arrow background
+                  content: "p-0 border-small border-divider bg-background",
+                }}
+              >
+                <DropdownTrigger>
+                  <Avatar
+                  className="ring-2 ring-buttoncolor  rounded-full"
+                    
+                    src="https://i.pravatar.cc/150?u=a04258114e29026302d"
+                    size="md"
+                  />
+                </DropdownTrigger>
+                <DropdownMenu
+                  aria-label="Custom item styles"
+                  // disabledKeys={["profile"]}
+                  className="p-3"
+                  itemClasses={{
+                    base: [
+                      "rounded-md",
+                      "text-default-700",
+                      "transition-opacity",
+                      "data-[hover=true]:text-black",
+                      "data-[hover=true]:bg-buttonopacitycolor",
+                      "dark:data-[hover=true]:bg-buttonopacitycolor",
+                      "data-[selectable=true]:focus:bg-default-50",
+                      "data-[pressed=true]:opacity-70",
+                      "data-[focus-visible=true]:ring-default-500",
+                    ],
+                  }}
+                >
+                  <DropdownSection aria-label="Profile & Actions" showDivider>
+                    <DropdownItem
+                      isReadOnly
+                      key="profile"
+                      className="h-14 gap-2 bg-buttoncolor text-white"
+                      // className="opacity-100"
+                    >
+                      <User
+                        name="Santosh Alimkar"
+                        description="@santosh"
+                        classNames={{
+                          name: "text-white",
+                          description: "text-white",
+                        }}
+                        avatarProps={{
+                          size: "sm",
+                          src: "https://avatars.githubusercontent.com/u/30373425?v=4",
+                        }}
+                      />
+                    </DropdownItem>
+                   
+                    <DropdownItem onPress={() => router.push('/Profile')} key="Profile">Profile</DropdownItem>
+
+                   
+                    <DropdownItem key="settings">Settings</DropdownItem>
+                    <DropdownItem key="new_project" endContent={""}>
+                      Notification{" "}
+                    </DropdownItem>
+                  </DropdownSection>
+
+                  <DropdownSection aria-label="Preferences" showDivider>
+                    <DropdownItem key="quick_search" shortcut="⌘K">
+                     Dashboard
+                    </DropdownItem>
+                    <DropdownItem
+                      isReadOnly
+                      key="theme"
+                      className="cursor-default"
+                      endContent={
+                        <select
+                          className="z-10 outline-none w-16 py-0.5 rounded-md text-tiny group-data-[hover=true]:border-default-500 border-2 border-buttoncolor dark:border-default-200 bg-transparent text-default-500"
+                          id="theme"
+                          name="theme"
+                        >
+                          <option>System</option>
+                          <option>Dark</option>
+                          <option>Light</option>
+                        </select>
+                      }
+                    >
+                      Theme
+                    </DropdownItem>
+                  </DropdownSection>
+
+                  <DropdownSection aria-label="Help & Feedback">
+                    <DropdownItem key="help_and_feedback">
+                      Help & Feedback
+                    </DropdownItem>
+                    <DropdownItem onPress={onOpen} key="logout">Log Out</DropdownItem>
+                  </DropdownSection>
+                </DropdownMenu>
+              </Dropdown>
+            </>
+          ) : (
+            <Signinmodal />
+          )}
         </NavbarItem>
       </NavbarContent>
     </Navbar>
+
+
+    <Modal isOpen={isOpen}
+    isDismissable={false}
+     onOpenChange={onOpenChange}>
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1">Logout</ModalHeader>
+              <ModalBody>
+                <h6 className="">Do you want to logout?</h6>
+              </ModalBody>
+              <ModalFooter>
+                <Button variant='light'  className="ring-buttoncolor text-buttoncolor" onPress={onClose}>
+                  Close
+                </Button>
+                <Button className="bg-buttoncolor text-white" onPress={onClose}>
+                  Logout
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
+
+    </>
   );
 }
