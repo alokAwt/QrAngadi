@@ -95,20 +95,35 @@ function Footernav() {
         </div>
       </div>
 
-      <div className="w-full sm:flex sm:items-center sm:justify-between p-4 bg-[#f48020] ">
+      <div className="bg-buttoncolor min-h-[1px] w-[90%] mx-auto mt-5"></div>
+      <div className="w-[90%] mx-auto text-white flex flex-wrap-reverse gap-y-3 pag-x-5 py-4 justify-center sm:justify-between">
         <Footer.Copyright
           href="#"
-          by="Mockup. All Rights Reserved.™"
+          // by="Mockup. All Rights Reserved.™"
+          by="2024 QR Angadi - All rights reserved."
           year={2024}
-          className="text-black text-xs"
+          className="text-white text-xs "
         />
-        <div className="mt-4 flex text-xs gap-2 sm:mt-0 sm:justify-center  text-black">
-          <Link href="/Privacypolicy">
+        <div className="flex text-xs sm:justify-center gap-2 text-white">
+          <span className="font-semibold text-buttoncolor">Follow Us:</span>
+          <Link href="#">
+            <p>Instagram</p>
+          </Link>
+          <Link href="#">
+            <p>Facebook</p>
+          </Link>
+          <Link href="#">
+            <p>Linkedin</p>
+          </Link>
+          <Link href="#">
+            <p>X</p>
+          </Link>
+          {/* <Link href="/Privacypolicy">
             <p>Privacy Policy</p>
           </Link>
           <Link href="/Termsandconditions">
             <p>Terms of Service</p>
-          </Link>
+          </Link> */}
         </div>
       </div>
     </Footer>
