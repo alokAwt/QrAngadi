@@ -98,7 +98,9 @@ function Footernav() {
                 <Footer.Link className="no-underline" href="#">
                   News
                 </Footer.Link>
-                <Footer.Link href="#">Blog</Footer.Link>
+                {/* <Footer.Link> */}
+                <Link href={"/blog"}>Blog</Link>
+                {/* </Footer.Link> */}
                 <Footer.Link href="#">Videos</Footer.Link>
                 <Footer.Link href="#">FAQ's</Footer.Link>
               </Footer.LinkGroup>
