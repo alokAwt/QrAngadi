@@ -38,13 +38,8 @@ function Footernav() {
                 className="mt-2 text-sm text-gray-500 dark:text-gray-400"
               >
                 We’ll never share your details. Read our{" "}
-<<<<<<< HEAD
-                <a
-                  href="#"
-=======
                 <Link
                   href="/Privacypolicy"
->>>>>>> 75d23f96c147c475cd10a0ababc45931e8c9c0e0
                   className="font-medium text-[#f48020] hover:underline dark:text-[#f48020]"
                 >
                   Privacy Policy
