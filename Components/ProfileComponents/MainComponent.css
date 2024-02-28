@@ -1,0 +1,444 @@
+.profile_details {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #D1D1D1;
+    margin: 10px;
+}
+.notification {
+    display: flex;
+    align-items: center;
+    width: 220px;
+    justify-content: space-evenly;
+}
+.user_name {
+    color: #AAAAAA;
+    font-size: 16px;
+    font-weight: 700;
+}
+.qr_code {
+    color: #1F1F1F;
+    font-weight: 700;
+    font-size: 18px;
+}
+.profile_name {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1F1F1F;
+}
+.subscription {
+    height: 40px;
+    border: 2px solid #CD1C1C;
+    width: 97%;
+    margin: auto;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+    background-color: #FF714312;
+
+}
+.sub_text{
+    color: #ED0000;
+    font-weight:700;
+    font-size: 14px;
+    padding-left: 10px;
+
+}
+.span_text {
+    color: #0C0C0C;
+    font-weight: 600;
+}
+.renew {
+    height: 40px;
+    background-color: #CD1C1C;
+    color: #FFFFFF;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    width: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-weight: 700;
+}
+.line{
+    width: 98%;
+    margin: auto;
+    height: 1px;
+    background-color: #D1D1D1;
+    margin-top: 10px;
+}
+.qr_code_headings {
+    padding: 10px;
+    margin: 10px;
+}
+.qr_code_headings h3 {
+    color: #1F1F1F;
+    font-weight: 700;
+    font-size: 30px;
+}
+.qr_code_headings p {
+    color: #1F1F1F;
+    font-weight: 500;
+    font-size: 16px;
+}
+.filters {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.inputs {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    position: relative;
+    margin-left: 10px;
+}
+.search {
+    height: 40px;
+    width: 250px;
+    border: 1px solid #AAAAAA;
+    border-bottom-width: 2px;
+    border-radius: 5px;
+    outline: none;
+    padding-left: 40px;
+}
+.search::placeholder {
+    font-size: 14px;
+    color: #B8B8B8;
+    font-weight: 600;
+}
+.search:focus {
+    outline: none;
+}
+.search_logo {
+    position: absolute;
+    left: 25px;
+}
+.sort {
+    height: 40px;
+    width: 150px;
+    border: 1px solid #AAAAAA;
+    border-radius: 5px;
+    outline: none;
+    margin-left: 10px;
+    border-bottom-width: 2px;
+    color: #B8B8B8;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 10px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.create_btn {
+    height: 40px;
+    width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #FF7143;
+    border-bottom-width: 2px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #FF7143;
+    margin-right: 10px;
+}
+.table_header {
+    height: 35px;
+    background-color: #FF714333;
+    display: flex;
+    align-items: center;
+    width: 98%;
+    margin: auto;
+    border-radius: 10px;
+    padding: 5px;
+    color: #929292;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+.check {
+    background-color: #FF7143;
+    height: 15px;
+    width: 15px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+}
+.check_field {
+    flex: 1;
+}
+.qr_code_name {
+    flex: 2;
+}
+.category {
+    flex: 2;
+}
+.type {
+    flex: 2;
+}
+.last_modified {
+    flex: 2;
+}
+.actions {
+    flex: 3;
+}
+.table_data {
+    height: 35px;
+    background-color: #FF714333;
+    display: flex;
+    align-items: center;
+    width: 98%;
+    margin: auto;
+    border-radius: 10px;
+    padding: 5px;
+    margin-top: 20px;
+    color: #929292;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.checkbox_field {
+    flex: 1;
+}
+.checkbox_field input[type='checkbox'] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    outline: none; 
+    width: 20px; 
+    height: 20px; 
+    background-color: #FF7143; 
+    border-radius: 5px; 
+    margin-right: 5px; 
+  }
+  .checkbox_field input[type='checkbox']:checked {
+    background-color: #FF7143;
+  }
+.company_name {
+    flex: 2;
+    font-size: 13px;
+    font-weight: 700;
+    color: #0C0C0C;
+}
+.website{
+    flex: 2;
+    font-size: 13px;
+    font-weight: 700;
+    color: #0C0C0C;
+}
+.dynamic{
+    flex: 2;
+    color: #009E1B;
+    font-weight: 600;
+    font-size: 13px;
+    width: fit-content;
+}
+.dynamic span {
+    background-color: #C9FFD3;
+}
+
+.time{
+    flex: 2;
+}
+.company_actions {
+    flex: 3;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.edit {
+    height: 25px;
+    width: 27px;
+    background-color: transparent;
+    border: 1px solid #717171;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.bottom_container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    margin-top: 10px;
+}
+.prev_btn {
+    border: 1px solid #FF7143;
+    border-top-width: 2px;
+    width: 150px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #FF7143;
+    font-size: 14px;
+    border-radius: 10px;
+    font-weight: 700;
+}
+
+.next_btn {
+    background-color:  #FF7143;
+    width: 150px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #FF7143;
+    font-size: 14px;
+    border-radius: 10px;
+    font-weight: 700;
+    color: #FFFFFF;
+}
+.paginate {
+    font-size: 15px;
+    color: #000000;
+    font-weight: 500;
+    width: 200px;
+    display: flex;
+    align-items: center;
+}
+.paginate span {
+    border: 1px solid #FF7143;
+    height: 30px;
+    width: 40px;
+    border-radius: 5px;
+    color: #FF7143;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto 5px;
+}
+.mobile_content {
+    display: none;
+}
+
+@media screen and (max-width: 768px) {
+    .main_component {
+        display: none;
+    }
+    .mobile_content {
+        display: block;
+        width: 100%;
+    }
+    .create_qr {
+        color: #DF5E34;
+        font-size: 12px;
+        text-align: right;
+
+    }
+    .my_qr_mobile {
+        font-weight: 700;
+        font-size: 14px;
+    }
+    .myqr_para {
+        font-weight: 500;
+        font-size: 12px;
+    }
+    .search_logo_mobile {
+        position: relative;
+        margin-top: 10px;
+        display: flex;
+    }
+    .heading_text {
+        display: flex;
+        width: 50%;
+        margin: auto;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 10px;
+    }
+    .text_name {
+        color: #AAAAAA;
+        font-size: 12px;
+    }
+    .mobile_table {
+        width: 95%;
+        background-color: #FF714333;
+        border-radius: 7px;
+        margin: auto;
+        margin-top: 10px;
+        border-left-color: #DF5E34;
+        border-left-width: 2px;
+        padding: 5px;
+    }
+    .company_info {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 5px;
+
+    }
+    .company_details {
+        width: 90%;
+        margin: auto;
+    }
+    .company_action {
+        display: flex;
+        gap: 3px;
+    }
+
+      
+    .dot {
+        background-color: #009E1B;
+        height: 10px;
+        width: 10px;
+        border-radius: 50%;
+    }
+    .arrows {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px;
+    } 
+    .previous {
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+        background-color: #FF7143;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .nextpage {
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+        background-color: #FF7143;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .paginate_mobile {
+        font-size: 12px;
+        color: #000000;
+        font-weight: 500;
+        width: 120px;
+        display: flex;
+        align-items: center;
+    }
+    .paginate_mobile span {
+        border: 1px solid #FF7143;
+        height: 30px;
+        width: 40px;
+        border-radius: 5px;
+        color: #FF7143;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: auto 5px;
+    }
+  
+  
+}
+   
