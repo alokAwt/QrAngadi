@@ -7,87 +7,103 @@ import {
   CreateSocialQr,
   CreateVideoQr,
   CreateWebsiteQr,
-} from "../Api/QR";
+} from "./Api/QR";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export const CreateQr = (
-  type,
-  dotColor,
-  dottype,
-  cornersDotColor,
-  cornersColor,
-  cornerdottype,
-  cornertype,
-  logo,
-  Url,
-  navigate,
-  ChangeLoad,
+  qrName,
+  qrType,
+  backgroundHexString,
+  dotHexString,
+  selectedOptions,
+  cornersHexString,
+  cornersDotOption,
+  eyeHexString,
+  cornersSquareOption,
   lat,
-  lon
+  lon,
+  Url,
+  logo
 ) => {
-  switch (type) {
+  console.log(
+    qrName,
+    qrType,
+    backgroundHexString,
+    dotHexString,
+    selectedOptions,
+    cornersHexString,
+    cornersDotOption,
+    eyeHexString,
+    cornersSquareOption,
+    lat,
+    lon,
+    Url,
+    logo
+  );
+  switch (qrType) {
     case "Website": {
-      console.log("alok");
       CreateWebsiteQr({
         Url: Url,
         dotoption: {
-          color: `rgba(${dotColor.r},${dotColor.g},${dotColor.b},${dotColor.a})`,
-          type: dottype,
+          color: dotHexString,
+          type: selectedOptions,
         },
         backgroundOption: {
-          type: "",
+          type: backgroundHexString,
         },
         cornersOptions: {
-          color: `rgba(${cornersColor.r},${cornersColor.g},${cornersColor.b},${cornersColor.a})`,
-          type: cornertype,
+          color: cornersHexString,
+          type: cornersSquareOption,
         },
         cornersDotOptions: {
-          color: `rgba(${cornersDotColor.r},${cornersDotColor.g},${cornersDotColor.b},${cornersDotColor.a})`,
-          type: cornerdottype,
+          color: eyeHexString,
+          type: cornersDotOption,
         },
         image: logo,
+        QrName: qrName,
       }).then((res) => {
         console.log(res);
         if (res.status === "success") {
-          ChangeLoad();
-          alert("qr Created Success");
-          navigate("/profile");
+          // ChangeLoad();  //---------Lodaer off
+          //-----------navigate profile
+          alert("qr Created Success");  //---------Toast message
+         
         } else {
-          ChangeLoad();
-          alert(res.message);
+          // ChangeLoad();  // lodaer off
+          // alert(res.message); // toast
         }
       });
       break;
     }
     case "playstore": {
-      console.log("loading");
       CreatePlayStoreQr({
         Url: Url,
         dotoption: {
-          color: `rgba(${dotColor.r},${dotColor.g},${dotColor.b},${dotColor.a})`,
-          type: dottype,
+          color: dotHexString,
+          type: selectedOptions,
         },
         backgroundOption: {
-          type: "",
+          type: backgroundHexString,
         },
         cornersOptions: {
-          color: `rgba(${cornersColor.r},${cornersColor.g},${cornersColor.b},${cornersColor.a})`,
-          type: cornertype,
+          color: cornersHexString,
+          type: cornersSquareOption,
         },
         cornersDotOptions: {
-          color: `rgba(${cornersDotColor.r},${cornersDotColor.g},${cornersDotColor.b},${cornersDotColor.a})`,
-          type: cornerdottype,
+          color: eyeHexString,
+          type: cornersDotOption,
         },
         image: logo,
+        QrName: qrName,
       }).then((res) => {
         console.log(res);
         if (res.status === "success") {
-          ChangeLoad();
-          navigate("/profile");
+          // ChangeLoad();
+          // navigate("/profile");
           alert("qr Created Success");
         } else {
-          ChangeLoad();
+          // ChangeLoad();
           alert(res.message);
         }
       });
@@ -97,28 +113,29 @@ export const CreateQr = (
       CreateAudioQr({
         Url: Url,
         dotoption: {
-          color: `rgba(${dotColor.r},${dotColor.g},${dotColor.b},${dotColor.a})`,
-          type: dottype,
+          color: dotHexString,
+          type: selectedOptions,
         },
         backgroundOption: {
-          type: "",
+          type: backgroundHexString,
         },
         cornersOptions: {
-          color: `rgba(${cornersColor.r},${cornersColor.g},${cornersColor.b},${cornersColor.a})`,
-          type: cornertype,
+          color: cornersHexString,
+          type: cornersSquareOption,
         },
         cornersDotOptions: {
-          color: `rgba(${cornersDotColor.r},${cornersDotColor.g},${cornersDotColor.b},${cornersDotColor.a})`,
-          type: cornerdottype,
+          color: eyeHexString,
+          type: cornersDotOption,
         },
         image: logo,
+        QrName: qrName,
       }).then((res) => {
         if (res.status === "success") {
-          ChangeLoad();
-          navigate("/profile");
+          // ChangeLoad();
+          // navigate("/profile");
           alert("qr Created Success");
         } else {
-          ChangeLoad();
+          // ChangeLoad();
           alert(res.message);
         }
       });
@@ -128,28 +145,29 @@ export const CreateQr = (
       CreateVideoQr({
         Url: Url,
         dotoption: {
-          color: `rgba(${dotColor.r},${dotColor.g},${dotColor.b},${dotColor.a})`,
-          type: dottype,
+          color: dotHexString,
+          type: selectedOptions,
         },
         backgroundOption: {
-          type: "",
+          type: backgroundHexString,
         },
         cornersOptions: {
-          color: `rgba(${cornersColor.r},${cornersColor.g},${cornersColor.b},${cornersColor.a})`,
-          type: cornertype,
+          color: cornersHexString,
+          type: cornersSquareOption,
         },
         cornersDotOptions: {
-          color: `rgba(${cornersDotColor.r},${cornersDotColor.g},${cornersDotColor.b},${cornersDotColor.a})`,
-          type: cornerdottype,
+          color: eyeHexString,
+          type: cornersDotOption,
         },
         image: logo,
+        QrName: qrName,
       }).then((res) => {
         if (res.status === "success") {
-          ChangeLoad();
-          navigate("/profile");
+          // ChangeLoad();
+          // navigate("/profile");
           alert("qr Created Success");
         } else {
-          ChangeLoad();
+          // ChangeLoad();
           alert(res.message);
         }
       });
@@ -159,59 +177,61 @@ export const CreateQr = (
       CreateImageQr({
         Url: Url,
         dotoption: {
-          color: `rgba(${dotColor.r},${dotColor.g},${dotColor.b},${dotColor.a})`,
-          type: dottype,
+          color: dotHexString,
+          type: selectedOptions,
         },
         backgroundOption: {
-          type: "",
+          type: backgroundHexString,
         },
         cornersOptions: {
-          color: `rgba(${cornersColor.r},${cornersColor.g},${cornersColor.b},${cornersColor.a})`,
-          type: cornertype,
+          color: cornersHexString,
+          type: cornersSquareOption,
         },
         cornersDotOptions: {
-          color: `rgba(${cornersDotColor.r},${cornersDotColor.g},${cornersDotColor.b},${cornersDotColor.a})`,
-          type: cornerdottype,
+          color: eyeHexString,
+          type: cornersDotOption,
         },
         image: logo,
+        QrName: qrName,
       }).then((res) => {
         if (res.status === "success") {
-          ChangeLoad();
-          navigate("/profile");
+          // ChangeLoad();
+          // navigate("/profile");
           alert("qr Created Success");
         } else {
-          ChangeLoad();
+          // ChangeLoad();
           alert(res.message);
         }
       });
       break;
     }
-    case "Pdf": {
+    case "document": {
       CreateDocumentQr({
         Url: Url,
         dotoption: {
-          color: `rgba(${dotColor.r},${dotColor.g},${dotColor.b},${dotColor.a})`,
-          type: dottype,
+          color: dotHexString,
+          type: selectedOptions,
         },
         backgroundOption: {
-          type: "",
+          type: backgroundHexString,
         },
         cornersOptions: {
-          color: `rgba(${cornersColor.r},${cornersColor.g},${cornersColor.b},${cornersColor.a})`,
-          type: cornertype,
+          color: cornersHexString,
+          type: cornersSquareOption,
         },
         cornersDotOptions: {
-          color: `rgba(${cornersDotColor.r},${cornersDotColor.g},${cornersDotColor.b},${cornersDotColor.a})`,
-          type: cornerdottype,
+          color: eyeHexString,
+          type: cornersDotOption,
         },
         image: logo,
+        QrName: qrName,
       }).then((res) => {
         if (res.status === "success") {
-          ChangeLoad();
-          navigate("/profile");
+          // ChangeLoad();
+          // navigate("/profile");
           alert("qr Created Success");
         } else {
-          ChangeLoad();
+          // ChangeLoad();
           alert(res.message);
         }
       });
@@ -223,28 +243,30 @@ export const CreateQr = (
         lat: lat,
         lon: lon,
         dotoption: {
-          color: `rgba(${dotColor.r},${dotColor.g},${dotColor.b},${dotColor.a})`,
-          type: dottype,
+          color: dotHexString,
+          type: selectedOptions,
         },
         backgroundOption: {
-          type: "",
+          type: backgroundHexString,
         },
         cornersOptions: {
-          color: `rgba(${cornersColor.r},${cornersColor.g},${cornersColor.b},${cornersColor.a})`,
-          type: cornertype,
+          color: cornersHexString,
+          type: cornersSquareOption,
         },
         cornersDotOptions: {
-          color: `rgba(${cornersDotColor.r},${cornersDotColor.g},${cornersDotColor.b},${cornersDotColor.a})`,
-          type: cornerdottype,
+          color: eyeHexString,
+          type: cornersDotOption,
         },
         image: logo,
+        QrName: qrName,
       }).then((res) => {
+        console.log(res);
         if (res.status === "success") {
-          ChangeLoad();
-          navigate("/profile");
+          // ChangeLoad();
+          // navigate("/profile");
           alert("qr Created Success");
         } else {
-          ChangeLoad();
+          // ChangeLoad();
           alert(res.message);
         }
       });
@@ -254,28 +276,29 @@ export const CreateQr = (
       CreateSocialQr({
         Url: Url,
         dotoption: {
-          color: `rgba(${dotColor.r},${dotColor.g},${dotColor.b},${dotColor.a})`,
-          type: dottype,
+          color: dotHexString,
+          type: selectedOptions,
         },
         backgroundOption: {
-          type: "",
+          type: backgroundHexString,
         },
         cornersOptions: {
-          color: `rgba(${cornersColor.r},${cornersColor.g},${cornersColor.b},${cornersColor.a})`,
-          type: cornertype,
+          color: cornersHexString,
+          type: cornersSquareOption,
         },
         cornersDotOptions: {
-          color: `rgba(${cornersDotColor.r},${cornersDotColor.g},${cornersDotColor.b},${cornersDotColor.a})`,
-          type: cornerdottype,
+          color: eyeHexString,
+          type: cornersDotOption,
         },
         image: logo,
+        QrName: qrName,
       }).then((res) => {
         if (res.status === "success") {
-          ChangeLoad();
-          navigate("/profile");
+          // ChangeLoad();
+          // navigate("/profile");
           alert("qr Created Success");
         } else {
-          ChangeLoad();
+          // ChangeLoad();
           alert(res.message);
         }
       });

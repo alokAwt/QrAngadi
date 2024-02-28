@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useMemo,useEffect,useRef } from "react";
+import React, { useState, useMemo, useEffect, useRef } from "react";
 import Web from "../../public/QRgenerate/Web.png";
 import Videos from "../../public/QRgenerate/Videos.png";
 import Media from "../../public/QRgenerate/Media.png";
@@ -39,6 +39,8 @@ import Kiwi from "../../public/QRgenerate/Samplelogo/Kiwi.png";
 import Heart from "../../public/QRgenerate/Samplelogo/Heart.png";
 import Sunflower from "../../public/QRgenerate/Samplelogo/Sunflower.png";
 import QRCodeStyling from "qr-code-styling";
+import { QrType } from "@/Utility/QrType/QrType";
+import { CreateQr } from "@/Utility/CreateQr";
 
 
 const page = () => {
@@ -57,7 +59,7 @@ const page = () => {
   const [lon, setLon] = useState("");
   const [qrType, setQrType] = useState("");
   const [Url, setUrl] = useState("");
-  
+  const [qrName, setQrName] = useState("");
 
   const [options, setOptions] = useState({
     width: 300,
@@ -85,7 +87,7 @@ const page = () => {
       color: "#222222",
       type: "extra-rounded",
     },
-    "cornersDotOptions": { "type": 'Square', "color": "#000000" },
+    cornersDotOptions: { type: "Square", color: "#000000" },
   });
 
   const [fileExt, setFileExt] = useState("svg");
@@ -103,7 +105,9 @@ const page = () => {
   // squareoptions
   const handleSquareOptionSelect = (option) => {
     if (cornersSquareOption.includes(option)) {
-      setCornersSquareOption(cornersSquareOption.filter((item) => item !== option));
+      setCornersSquareOption(
+        cornersSquareOption.filter((item) => item !== option)
+      );
     } else {
       setCornersSquareOption([option]);
     }
@@ -116,8 +120,6 @@ const page = () => {
       setCornersDotOption([option]);
     }
   };
-
- 
 
   const selectedOptionsString = useMemo(
     () => selectedOptions.join(", "),
@@ -156,10 +158,6 @@ const page = () => {
     [backgroundColorHex]
   );
 
-
-
-
-
   useEffect(() => {
     if (ref.current) {
       qrCode.append(ref.current);
@@ -182,18 +180,19 @@ const page = () => {
       },
       dotsOptions: {
         ...options.dotsOptions,
-        color:dotHexString ,
-        type:selectedOptionsString
+        color: dotHexString,
+        type: selectedOptionsString,
       },
       cornersDotOptions: {
         ...options.cornersDotOptions,
         color: cornersHexString,
-        type: cornersDotOption.join(', '),
+        type: cornersDotOption.join(", "),
       },
       cornersSquareOptions: {
         ...options.cornersSquareOptions,
         color: eyeHexString,
-        type: cornersSquareOption.join(', ') || options.cornersSquareOptions.type,
+        type:
+          cornersSquareOption.join(", ") || options.cornersSquareOptions.type,
       },
     }));
   }, [
@@ -227,7 +226,6 @@ const page = () => {
       extension: fileExt,
     });
   };
-  
 
   const onChangePicture = (e) => {
     setImages(e.target.files[0]);
@@ -240,72 +238,6 @@ const page = () => {
       console.log(logo);
     }
   };
-
-  // Function to handle Dotoption selection
-  // const handleOptionSelect = (option) => {
-  //   if (selectedOptions.includes(option)) {
-  //     setSelectedOptions(selectedOptions.filter((item) => item !== option));
-  //   } else {
-  //     setSelectedOptions([option]);
-  //   }
-  // };
-
-  // // squareoptions
-  // const handleSquareOptionSelect = (option) => {
-  //   if (cornersSquareOption.includes(option)) {
-  //     setCornersSquareOption(cornersSquareOption.filter((item) => item !== option));
-  //   } else {
-  //     setCornersSquareOption([option]);
-  //   }
-  // };
-
-  // const handleDotOptionSelect = (option) => {
-  //   if (cornersDotOption.includes(option)) {
-  //     setCornersDotOption(cornersDotOption.filter((item) => item !== option));
-  //   } else {
-  //     setCornersDotOption([option]);
-  //   }
-  // };
-
- 
-
- 
-
-  
-
- 
-
-  // const dotHexString = useMemo(
-  //   () =>
-  //     typeof dotColorHex === "string"
-  //       ? dotColorHex
-  //       : dotColorHex?.toHexString(),
-  //   [dotColorHex]
-  // );
-
-  // const eyeHexString = useMemo(
-  //   () =>
-  //     typeof eyeColorHex === "string"
-  //       ? eyeColorHex
-  //       : eyeColorHex?.toHexString(),
-  //   [eyeColorHex]
-  // );
-
-  // const cornersHexString = useMemo(
-  //   () =>
-  //     typeof cornersColorHex === "string"
-  //       ? cornersColorHex
-  //       : cornersColorHex?.toHexString(),
-  //   [cornersColorHex]
-  // );
-
-  // const backgroundHexString = useMemo(
-  //   () =>
-  //     typeof backgroundColorHex === "string"
-  //       ? backgroundColorHex
-  //       : backgroundColorHex?.toHexString(),
-  //   [backgroundColorHex]
-  // );
 
   const genPresets = (presets = presetPalettes) =>
     Object.entries(presets).map(([label, colors]) => ({
@@ -320,6 +252,64 @@ const page = () => {
     green,
     cyan,
   });
+
+  const GenerateDyamicqr = async () => {
+    if (!qrType) {
+      alert("Qr Type Is Required");
+      return false;
+    } else if (qrType != "Map" ? !Url : !lat || !lon) {
+      alert("Qr Data is Required");
+      return false;
+    }
+    console.log(image);
+    if (image) {
+      const data = new FormData();
+      data.append("file", image);
+      data.append("upload_preset", "vsqmoxq9");
+      const res = await fetch(
+        "https://api.cloudinary.com/v1_1/dxlmwq61j/image/upload",
+        {
+          method: "post",
+          body: data,
+        }
+      );
+      const file = await res.json();
+      if (file.secure_url.length > 10) {
+        let result = CreateQr(
+          qrName,
+          qrType,
+          backgroundHexString,
+          dotHexString,
+          selectedOptions,
+          cornersHexString,
+          cornersDotOption,
+          eyeHexString,
+          cornersSquareOption,
+
+          lat,
+          lon,
+          Url,
+          file.secure_url
+        );
+      }
+    } else {
+      let result = CreateQr(
+        qrName,
+        qrType,
+        backgroundHexString,
+        dotHexString,
+        selectedOptions,
+        cornersHexString,
+        cornersDotOption,
+        eyeHexString,
+        cornersSquareOption,
+        lat,
+        lon,
+        Url,
+        ""
+      );
+    }
+  };
 
   const customPanelRender = (_, { components: { Picker, Presets } }) => (
     <Row justify="space-between" wrap={false}>
@@ -338,21 +328,7 @@ const page = () => {
     </Row>
   );
 
-
-
-
-// QR STYLING
-
-
-
-
-
-
-
-
-
-
-
+  // QR STYLING
 
   return (
     <div className="flex flex-col w-11/12 justify-center items-start mx-auto mt-12">
@@ -367,16 +343,26 @@ const page = () => {
       </div>
       <div className="flex flex-col justify-center items-center w-full mt-8 mx-auto">
         <div className="grid grid-cols-4 md:grid-cols-8 place-content-evenly place-items-center md:gap-2 bg-[#FF71431A] border-1 border-buttoncolor w-full rounded-sm border-opacity-50 md:p-2 p-1 md:px-2 overflow-hidden">
-          <Button
-            variant="light"
-            className="flex flex-col justify-center items-center gap-1 h-auto py-2"
-          >
-            <div>
-              <Image className="h-8 w-8 object-contain" src={Web} />
-            </div>
-            <p className="text-center md:text-xs text-[0.65rem]">Website URL</p>
-          </Button>
-          <Button
+          {QrType &&
+            QrType.map((item, index) => (
+              <Button
+                style={{
+                  backgroundColor: qrType === item.type ? "orange" : null,
+                }}
+                variant="light"
+                className="flex flex-col justify-center items-center gap-1 h-auto py-2"
+                onClick={() => setQrType(item.type)}
+              >
+                <div>
+                  <Image className="h-8 w-8 object-contain" src={item.Image} />
+                </div>
+                <p className="text-center md:text-xs text-[0.65rem]">
+                  {item.name}
+                </p>
+              </Button>
+            ))}
+
+          {/* <Button
             variant="light"
             className="flex flex-col justify-center items-center gap-1 h-auto py-2"
           >
@@ -401,7 +387,9 @@ const page = () => {
             <div>
               <Image className="h-8 w-8 object-contain" src={Share} />
             </div>
-            <p className="text-center md:text-xs text-[0.65rem]">Social Accounts</p>
+            <p className="text-center md:text-xs text-[0.65rem]">
+              Social Accounts
+            </p>
           </Button>
           <Button
             variant="light"
@@ -438,7 +426,7 @@ const page = () => {
               <Image className="h-8 w-8 object-contain" src={Pdf} />
             </div>
             <p className="text-center md:text-xs text-[0.65rem]">PDF Files</p>
-          </Button>
+          </Button> */}
         </div>
 
         <div className="flex flex-col justify-start items-start gap-2 p-4 w-full rounded-sm border-1 border-buttoncolor border-opacity-50 mt-4">
@@ -456,6 +444,8 @@ const page = () => {
               Enter your QR Name <span className="text-red-500">*</span>
             </label>
             <input
+              onChange={(e) => setQrName(e.target.value)}
+              value={qrName}
               type="email"
               id="email"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-buttoncolor focus:border-buttoncolor block w-full p-2.5 "
@@ -463,24 +453,59 @@ const page = () => {
               required
             />
           </div>
-          <div className="mb-6 w-full">
-            <label
-              for="email"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >
-              Enter URL of webpage <span className="text-red-500">*</span>{" "}
-              <span className="text-xs text-gray-500">
-                (eg: https://www.designdaddie.com/)
-              </span>
-            </label>
-            <input
-              type="text"
-              id="email"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-buttoncolor focus:border-buttoncolor block w-full p-2.5 d "
-              placeholder="Enter webpage URL"
-              required
-            />
-          </div>
+          {qrType === "Map" ? (
+            <div className="mb-6 w-full">
+              <label
+                for="email"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Enter Latitute And Longitude of Location
+                <span className="text-red-500">*</span>{" "}
+                <span className="text-xs text-gray-500">
+                  (eg: 10.2022,20.400)
+                </span>
+              </label>
+              <input
+                onChange={(e) => setLat(e.target.value)}
+                value={lat}
+                type="text"
+                id="email"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-buttoncolor focus:border-buttoncolor block w-full p-2.5 d "
+                placeholder="Enter Latitude of Location"
+                required
+              />
+              <input
+                onChange={(e) => setLon(e.target.value)}
+                value={lon}
+                type="text"
+                id="email"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-buttoncolor focus:border-buttoncolor block w-full p-2.5 d mt-2"
+                placeholder="Enter Lonitude of Location"
+                required
+              />
+            </div>
+          ) : (
+            <div className="mb-6 w-full">
+              <label
+                for="email"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Enter URL of webpage <span className="text-red-500">*</span>{" "}
+                <span className="text-xs text-gray-500">
+                  (eg: https://www.designdaddie.com/)
+                </span>
+              </label>
+              <input
+                onChange={(e) => onDataChange(e)}
+                value={Url}
+                type="text"
+                id="email"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-buttoncolor focus:border-buttoncolor block w-full p-2.5 d "
+                placeholder="Enter webpage URL"
+                required
+              />
+            </div>
+          )}
 
           <h6 className="text-sm font-medium">
             QR Code type <span className="text-red-500">*</span>
@@ -504,9 +529,14 @@ const page = () => {
               <Tab key="DYNAMIC" title="DYNAMIC"></Tab>
             </Tabs>
 
-            <Button className="text-white bg-buttoncolor rounded-sm md:w-96 w-full mt-4">
-              GENERATE QR
-            </Button>
+            {selected === "STATIC" ? null : (
+              <Button
+                className="text-white bg-buttoncolor rounded-sm md:w-96 w-full mt-4"
+                onClick={GenerateDyamicqr}
+              >
+                GENERATE QR
+              </Button>
+            )}
           </div>
         </div>
 
@@ -571,7 +601,6 @@ const page = () => {
                             </p>
                           </div>
                         ))}
-                      
                       </div>
                     </CardBody>
                   </Card>
@@ -585,63 +614,92 @@ const page = () => {
                   }
                 >
                   <Card className="rounded-sm shadow-none ">
-      <CardBody>
-        <div className="flex flex-col justify-start items-center md:items-start mt-2 gap-3">
-          {/* Square Options */}
-          <div className="flex-col justify-start items-start gap-4">
-            <span className="text-xs font-medium">Square Options</span>
-            <div className="grid grid-cols-3 place-content-evenly gap-12 mt-4 place-items-start">
-              {/* Mapping through square options */}
-              {[
-                { label: 'square', imageSrc: Squarecorner },
-                { label: 'dot', imageSrc: Dotscorner },
-                { label: 'extra-rounded', imageSrc: Extraroundedcorner }
-              ].map(option => (
-                <div key={option.label} className="flex justify-center flex-col items-center gap-2 w-full">
-                  {/* Button with image */}
-                  <Button 
-                    className={`flex justify-center items-center gap-2 h-auto w-auto flex-col bg-slate-100 rounded-md p-2 cursor-pointer ${
-                      cornersSquareOption.includes(option.label)
-                                  ? "bg-buttonopacitycolor ring-1 ring-buttoncolor"
-                                  : ""
-                              }`} 
-                    onClick={() => handleSquareOptionSelect(option.label)}
-                  >
-                    <Image className="md:h-20 md:w-20" src={option.imageSrc} />
-                  </Button>
-                  <p className="md:text-xs text-[0.55rem] font-medium">{option.label}</p>
-                </div>
-              ))}
-              
-            </div>
-          </div>
+                    <CardBody>
+                      <div className="flex flex-col justify-start items-center md:items-start mt-2 gap-3">
+                        {/* Square Options */}
+                        <div className="flex-col justify-start items-start gap-4">
+                          <span className="text-xs font-medium">
+                            Square Options
+                          </span>
+                          <div className="grid grid-cols-3 place-content-evenly gap-12 mt-4 place-items-start">
+                            {/* Mapping through square options */}
+                            {[
+                              { label: "square", imageSrc: Squarecorner },
+                              { label: "dot", imageSrc: Dotscorner },
+                              {
+                                label: "extra-rounded",
+                                imageSrc: Extraroundedcorner,
+                              },
+                            ].map((option) => (
+                              <div
+                                key={option.label}
+                                className="flex justify-center flex-col items-center gap-2 w-full"
+                              >
+                                {/* Button with image */}
+                                <Button
+                                  className={`flex justify-center items-center gap-2 h-auto w-auto flex-col bg-slate-100 rounded-md p-2 cursor-pointer ${
+                                    cornersSquareOption.includes(option.label)
+                                      ? "bg-buttonopacitycolor ring-1 ring-buttoncolor"
+                                      : ""
+                                  }`}
+                                  onClick={() =>
+                                    handleSquareOptionSelect(option.label)
+                                  }
+                                >
+                                  <Image
+                                    className="md:h-20 md:w-20"
+                                    src={option.imageSrc}
+                                  />
+                                </Button>
+                                <p className="md:text-xs text-[0.55rem] font-medium">
+                                  {option.label}
+                                </p>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
 
-          {/* Dot Options */}
-          <div className="flex-col justify-start items-start gap-4">
-            <span className="text-xs font-medium">Dot Options</span>
-            <div className="grid grid-cols-3 place-content-evenly gap-12 mt-4 place-items-start">
-              {/* Mapping through dot options */}
-              {[
-                { label: 'square', imageSrc: Squarecorner1 },
-                { label: 'dot', imageSrc: Dotscorner1 }
-              ].map(option => (
-                <div key={option.label} className="flex justify-center flex-col items-center gap-2 w-full">
-                  {/* Button with image */}
-                  <Button 
-                    className={`flex h-auto w-auto justify-center items-center gap-2 flex-col bg-slate-100 rounded-md p-2 cursor-pointer ${cornersDotOption.includes(option.label) ? 'bg-buttonopacitycolor ring-1 ring-buttoncolor' : ''}`} 
-                    onClick={() => handleDotOptionSelect(option.label)}
-                  >
-                    <Image className="md:h-20 md:w-20" src={option.imageSrc} />
-                  </Button>
-                  <p className="md:text-xs text-[0.55rem] font-medium">{option.label}</p>
-                </div>
-              ))}
-        
-            </div>
-          </div>
-        </div>
-      </CardBody>
-    </Card>
+                        {/* Dot Options */}
+                        <div className="flex-col justify-start items-start gap-4">
+                          <span className="text-xs font-medium">
+                            Dot Options
+                          </span>
+                          <div className="grid grid-cols-3 place-content-evenly gap-12 mt-4 place-items-start">
+                            {/* Mapping through dot options */}
+                            {[
+                              { label: "square", imageSrc: Squarecorner1 },
+                              { label: "dot", imageSrc: Dotscorner1 },
+                            ].map((option) => (
+                              <div
+                                key={option.label}
+                                className="flex justify-center flex-col items-center gap-2 w-full"
+                              >
+                                {/* Button with image */}
+                                <Button
+                                  className={`flex h-auto w-auto justify-center items-center gap-2 flex-col bg-slate-100 rounded-md p-2 cursor-pointer ${
+                                    cornersDotOption.includes(option.label)
+                                      ? "bg-buttonopacitycolor ring-1 ring-buttoncolor"
+                                      : ""
+                                  }`}
+                                  onClick={() =>
+                                    handleDotOptionSelect(option.label)
+                                  }
+                                >
+                                  <Image
+                                    className="md:h-20 md:w-20"
+                                    src={option.imageSrc}
+                                  />
+                                </Button>
+                                <p className="md:text-xs text-[0.55rem] font-medium">
+                                  {option.label}
+                                </p>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </CardBody>
+                  </Card>
                 </Tab>
                 <Tab
                   key="Colors"
@@ -656,7 +714,7 @@ const page = () => {
                       <div className="flex flex-col justify-start items-start gap-4 w-full mx-auto">
                         <div className="flex flex-col justify-between items-start w-full gap-4">
                           <h6 className="text-xs font-medium">Dot Options</h6>
-                         
+
                           <div className=" bg-slate-100 w-full p-1 rounded-md border-1 border-gray-300 flex items-center gap-2">
                             <ColorPicker
                               defaultValue={token.colorPrimary}
@@ -768,27 +826,42 @@ const page = () => {
                           <div className="grid md:grid-cols-5 grid-cols-3 place-content-evenly	md:gap-12 gap-2 mt-4 place-items-start	">
                             <div className="flex justify-center flex-col items-center gap-2">
                               <Button className="flex justify-center items-center gap-2 h-auto w-auto flex-col bg-slate-100 rounded-md p-2  cursor-pointer">
-                                <Image className="md:h-20 md:w-20 h-8 w-8 object-contain" src={Nosample} />
+                                <Image
+                                  className="md:h-20 md:w-20 h-8 w-8 object-contain"
+                                  src={Nosample}
+                                />
                               </Button>
                             </div>
                             <div className="flex justify-center flex-col items-center gap-2">
                               <Button className="flex h-auto w-auto justify-center items-center gap-2 flex-col bg-slate-100 rounded-md p-2 cursor-pointer">
-                                <Image className="md:h-20 md:w-20 h-8 w-8" src={Apple} />
+                                <Image
+                                  className="md:h-20 md:w-20 h-8 w-8"
+                                  src={Apple}
+                                />
                               </Button>
                             </div>
                             <div className="flex justify-center flex-col items-center gap-2">
                               <Button className="flex md:h-24 md:w-24  h-12 w-10 justify-center items-center gap-2 flex-col bg-slate-100 rounded-md p-2 cursor-pointer">
-                                <Image className="md:h-14 md:w-14 h-6 w-6" src={Sunflower} />
+                                <Image
+                                  className="md:h-14 md:w-14 h-6 w-6"
+                                  src={Sunflower}
+                                />
                               </Button>
                             </div>
                             <div className="flex justify-center flex-col items-center gap-2">
                               <Button className="flex h-auto w-auto justify-center items-center gap-2 flex-col bg-slate-100 rounded-md p-2 cursor-pointer">
-                                <Image className="md:h-20 md:w-20 h-8 w-8" src={Kiwi} />
+                                <Image
+                                  className="md:h-20 md:w-20 h-8 w-8"
+                                  src={Kiwi}
+                                />
                               </Button>
                             </div>
                             <div className="flex justify-center flex-col items-center gap-2">
                               <Button className="flex md:h-24 md:w-24 h-12 w-10 justify-center items-center gap-2 flex-col bg-slate-100 rounded-md p-2 cursor-pointer">
-                                <Image className="md:h-14 md:w-14 w-6 h-6" src={Heart} />
+                                <Image
+                                  className="md:h-14 md:w-14 w-6 h-6"
+                                  src={Heart}
+                                />
                               </Button>
                             </div>
                           </div>
@@ -850,7 +923,7 @@ const page = () => {
           {/* qrpreview */}
           <div className="flex flex-col justify-start items-center gap-2 md:w-2/5 w-full md:p-0 p-2">
             <div className="shadow-lg md:w-96 md:h-96 flex justify-center items-center p-2 border-1 border-gray-300 rounded-sm">
-            <div ref={ref} />
+              <div ref={ref} />
             </div>
             <p className="text-xs  items-center flex gap-1">
               <span>
