@@ -285,6 +285,7 @@ const page = () => {
           cornersDotOption,
           eyeHexString,
           cornersSquareOption,
+
           lat,
           lon,
           Url,
