@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo,useEffect,useRef } from "react";
 import Web from "../../public/QRgenerate/Web.png";
 import Videos from "../../public/QRgenerate/Videos.png";
 import Media from "../../public/QRgenerate/Media.png";
@@ -38,21 +38,60 @@ import Apple from "../../public/QRgenerate/Samplelogo/Apple.png";
 import Kiwi from "../../public/QRgenerate/Samplelogo/Kiwi.png";
 import Heart from "../../public/QRgenerate/Samplelogo/Heart.png";
 import Sunflower from "../../public/QRgenerate/Samplelogo/Sunflower.png";
+import QRCodeStyling from "qr-code-styling";
+
 
 const page = () => {
   const [selected, setSelected] = React.useState("STATIC");
   const [image, setImages] = useState("");
   const [logo, setLogo] = useState("");
-  const [dotColorHex, setDotColorHex] = useState("#f48020");
-  const [eyeColorHex, setEyeColorHex] = useState("#f48020");
-  const [cornersColorHex, setCornersColorHex] = useState("#f48020");
-  const [backgroundColorHex, setBackgroundColorHex] = useState("#f48020");
+  const [dotColorHex, setDotColorHex] = useState("#000");
+  const [eyeColorHex, setEyeColorHex] = useState("#000");
+  const [cornersColorHex, setCornersColorHex] = useState("#000");
+  const [backgroundColorHex, setBackgroundColorHex] = useState("#fff");
   const [formatHex, setFormatHex] = useState("hex");
   const [selectedOptions, setSelectedOptions] = useState([]); //dotoptins value
   const [cornersSquareOption, setCornersSquareOption] = useState([]); //cornersquareoptions
   const [cornersDotOption, setCornersDotOption] = useState([]); //cornerdotoptions
+  const [lat, setLat] = useState("");
+  const [lon, setLon] = useState("");
+  const [qrType, setQrType] = useState("");
+  const [Url, setUrl] = useState("");
+  
 
-  // Function to handle Dotoption selection
+  const [options, setOptions] = useState({
+    width: 300,
+    height: 300,
+    type: "png",
+    data: "https://angadiworldtech.com/",
+    image: Apple,
+    margin: 10,
+    qrOptions: {
+      typeNumber: 0,
+      mode: "Byte",
+      errorCorrectionLevel: "Q",
+    },
+    imageOptions: {
+      crossOrigin: "anonymous",
+    },
+    dotsOptions: {
+      color: "#222222",
+      type: "rounded",
+    },
+    backgroundOptions: {
+      color: "#5FD4F3",
+    },
+    cornersSquareOptions: {
+      color: "#222222",
+      type: "extra-rounded",
+    },
+    "cornersDotOptions": { "type": 'Square', "color": "#000000" },
+  });
+
+  const [fileExt, setFileExt] = useState("svg");
+  const [qrCode] = useState(new QRCodeStyling(options));
+  const ref = useRef(null);
+
   const handleOptionSelect = (option) => {
     if (selectedOptions.includes(option)) {
       setSelectedOptions(selectedOptions.filter((item) => item !== option));
@@ -69,6 +108,7 @@ const page = () => {
       setCornersSquareOption([option]);
     }
   };
+
   const handleDotOptionSelect = (option) => {
     if (cornersDotOption.includes(option)) {
       setCornersDotOption(cornersDotOption.filter((item) => item !== option));
@@ -79,21 +119,10 @@ const page = () => {
 
  
 
- 
-
-  // image upload
-
-  const onChangePicture = (e) => {
-    setImages(e.target.files[0]);
-    if (e.target.files[0]) {
-      const reader = new FileReader();
-      reader.addEventListener("load", () => {
-        setLogo(reader.result);
-      });
-      reader.readAsDataURL(e.target.files[0]);
-      console.log(logo);
-    }
-  };
+  const selectedOptionsString = useMemo(
+    () => selectedOptions.join(", "),
+    [selectedOptions]
+  );
 
   const dotHexString = useMemo(
     () =>
@@ -127,6 +156,157 @@ const page = () => {
     [backgroundColorHex]
   );
 
+
+
+
+
+  useEffect(() => {
+    if (ref.current) {
+      qrCode.append(ref.current);
+    }
+  }, [qrCode, ref]);
+
+  useEffect(() => {
+    if (!qrCode) return;
+    qrCode.update(options);
+  }, [qrCode, options]);
+
+  useEffect(() => {
+    setOptions((options) => ({
+      ...options,
+      data: `${lat} ${lon}`,
+      image: logo,
+      backgroundOptions: {
+        ...options.backgroundOptions,
+        color: backgroundHexString,
+      },
+      dotsOptions: {
+        ...options.dotsOptions,
+        color:dotHexString ,
+        type:selectedOptionsString
+      },
+      cornersDotOptions: {
+        ...options.cornersDotOptions,
+        color: cornersHexString,
+        type: cornersDotOption.join(', '),
+      },
+      cornersSquareOptions: {
+        ...options.cornersSquareOptions,
+        color: eyeHexString,
+        type: cornersSquareOption.join(', ') || options.cornersSquareOptions.type,
+      },
+    }));
+  }, [
+    backgroundHexString,
+    dotHexString,
+    selectedOptions,
+    cornersHexString,
+    cornersDotOption,
+    eyeHexString,
+    cornersSquareOption,
+    logo,
+    lat,
+    lon,
+  ]);
+
+  const onDataChange = (event) => {
+    setUrl(event.target.value);
+    setOptions((options) => ({
+      ...options,
+      data: event.target.value,
+    }));
+  };
+
+  const onExtensionChange = (event) => {
+    setFileExt(event.target.value);
+  };
+
+  const onDownloadClick = () => {
+    if (!qrCode) return;
+    qrCode.download({
+      extension: fileExt,
+    });
+  };
+  
+
+  const onChangePicture = (e) => {
+    setImages(e.target.files[0]);
+    if (e.target.files[0]) {
+      const reader = new FileReader();
+      reader.addEventListener("load", () => {
+        setLogo(reader.result);
+      });
+      reader.readAsDataURL(e.target.files[0]);
+      console.log(logo);
+    }
+  };
+
+  // Function to handle Dotoption selection
+  // const handleOptionSelect = (option) => {
+  //   if (selectedOptions.includes(option)) {
+  //     setSelectedOptions(selectedOptions.filter((item) => item !== option));
+  //   } else {
+  //     setSelectedOptions([option]);
+  //   }
+  // };
+
+  // // squareoptions
+  // const handleSquareOptionSelect = (option) => {
+  //   if (cornersSquareOption.includes(option)) {
+  //     setCornersSquareOption(cornersSquareOption.filter((item) => item !== option));
+  //   } else {
+  //     setCornersSquareOption([option]);
+  //   }
+  // };
+
+  // const handleDotOptionSelect = (option) => {
+  //   if (cornersDotOption.includes(option)) {
+  //     setCornersDotOption(cornersDotOption.filter((item) => item !== option));
+  //   } else {
+  //     setCornersDotOption([option]);
+  //   }
+  // };
+
+ 
+
+ 
+
+  
+
+ 
+
+  // const dotHexString = useMemo(
+  //   () =>
+  //     typeof dotColorHex === "string"
+  //       ? dotColorHex
+  //       : dotColorHex?.toHexString(),
+  //   [dotColorHex]
+  // );
+
+  // const eyeHexString = useMemo(
+  //   () =>
+  //     typeof eyeColorHex === "string"
+  //       ? eyeColorHex
+  //       : eyeColorHex?.toHexString(),
+  //   [eyeColorHex]
+  // );
+
+  // const cornersHexString = useMemo(
+  //   () =>
+  //     typeof cornersColorHex === "string"
+  //       ? cornersColorHex
+  //       : cornersColorHex?.toHexString(),
+  //   [cornersColorHex]
+  // );
+
+  // const backgroundHexString = useMemo(
+  //   () =>
+  //     typeof backgroundColorHex === "string"
+  //       ? backgroundColorHex
+  //       : backgroundColorHex?.toHexString(),
+  //   [backgroundColorHex]
+  // );
+
   const genPresets = (presets = presetPalettes) =>
     Object.entries(presets).map(([label, colors]) => ({
       label,
@@ -157,6 +337,22 @@ const page = () => {
       </Col>
     </Row>
   );
+
+
+
+
+// QR STYLING
+
+
+
+
+
+
+
+
+
+
+
 
   return (
     <div className="flex flex-col w-11/12 justify-center items-start mx-auto mt-12">
@@ -345,12 +541,12 @@ const page = () => {
                       <div className="grid grid-cols-3 place-content-evenly gap-4 mt-4 place-items-start">
                         {/* Mapping through options */}
                         {[
-                          { label: "Square", imageSrc: Square },
-                          { label: "Dots", imageSrc: Dots },
-                          { label: "Rounded", imageSrc: Rounded },
-                          { label: "Extra Rounded", imageSrc: Extrarounded },
-                          { label: "Classy", imageSrc: Classy },
-                          { label: "Classy Rounded", imageSrc: Classyrounded },
+                          { label: "square", imageSrc: Square },
+                          { label: "dots", imageSrc: Dots },
+                          { label: "rounded", imageSrc: Rounded },
+                          { label: "extra-rounded", imageSrc: Extrarounded },
+                          { label: "classy", imageSrc: Classy },
+                          { label: "classy-rounded", imageSrc: Classyrounded },
                         ].map((option) => (
                           <div
                             key={option.label}
@@ -375,6 +571,7 @@ const page = () => {
                             </p>
                           </div>
                         ))}
+                      
                       </div>
                     </CardBody>
                   </Card>
@@ -396,9 +593,9 @@ const page = () => {
             <div className="grid grid-cols-3 place-content-evenly gap-12 mt-4 place-items-start">
               {/* Mapping through square options */}
               {[
-                { label: 'Square', imageSrc: Squarecorner },
-                { label: 'Dot', imageSrc: Dotscorner },
-                { label: 'Extra Rounded', imageSrc: Extraroundedcorner }
+                { label: 'square', imageSrc: Squarecorner },
+                { label: 'dot', imageSrc: Dotscorner },
+                { label: 'extra-rounded', imageSrc: Extraroundedcorner }
               ].map(option => (
                 <div key={option.label} className="flex justify-center flex-col items-center gap-2 w-full">
                   {/* Button with image */}
@@ -415,6 +612,7 @@ const page = () => {
                   <p className="md:text-xs text-[0.55rem] font-medium">{option.label}</p>
                 </div>
               ))}
+              
             </div>
           </div>
 
@@ -424,8 +622,8 @@ const page = () => {
             <div className="grid grid-cols-3 place-content-evenly gap-12 mt-4 place-items-start">
               {/* Mapping through dot options */}
               {[
-                { label: 'Square', imageSrc: Squarecorner1 },
-                { label: 'Dot', imageSrc: Dotscorner1 }
+                { label: 'square', imageSrc: Squarecorner1 },
+                { label: 'dot', imageSrc: Dotscorner1 }
               ].map(option => (
                 <div key={option.label} className="flex justify-center flex-col items-center gap-2 w-full">
                   {/* Button with image */}
@@ -438,6 +636,7 @@ const page = () => {
                   <p className="md:text-xs text-[0.55rem] font-medium">{option.label}</p>
                 </div>
               ))}
+        
             </div>
           </div>
         </div>
@@ -457,6 +656,7 @@ const page = () => {
                       <div className="flex flex-col justify-start items-start gap-4 w-full mx-auto">
                         <div className="flex flex-col justify-between items-start w-full gap-4">
                           <h6 className="text-xs font-medium">Dot Options</h6>
+                         
                           <div className=" bg-slate-100 w-full p-1 rounded-md border-1 border-gray-300 flex items-center gap-2">
                             <ColorPicker
                               defaultValue={token.colorPrimary}
@@ -650,7 +850,7 @@ const page = () => {
           {/* qrpreview */}
           <div className="flex flex-col justify-start items-center gap-2 md:w-2/5 w-full md:p-0 p-2">
             <div className="shadow-lg md:w-96 md:h-96 flex justify-center items-center p-2 border-1 border-gray-300 rounded-sm">
-              <Image className="w-full h-full" src={QR} />
+            <div ref={ref} />
             </div>
             <p className="text-xs  items-center flex gap-1">
               <span>
