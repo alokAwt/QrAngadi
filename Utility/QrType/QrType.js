@@ -50,7 +50,7 @@ export const QrType = [
   },
   {
     name: "Text Files",
-    type: "document",
+    type: "document1",
     Image: Textfile,
   },
 ];

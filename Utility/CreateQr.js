@@ -67,8 +67,7 @@ export const CreateQr = (
         if (res.status === "success") {
           // ChangeLoad();  //---------Lodaer off
           //-----------navigate profile
-          alert("qr Created Success");  //---------Toast message
-         
+          alert("qr Created Success"); //---------Toast message
         } else {
           // ChangeLoad();  // lodaer off
           // alert(res.message); // toast
@@ -206,6 +205,38 @@ export const CreateQr = (
       break;
     }
     case "document": {
+      CreateDocumentQr({
+        Url: Url,
+        dotoption: {
+          color: dotHexString,
+          type: selectedOptions,
+        },
+        backgroundOption: {
+          type: backgroundHexString,
+        },
+        cornersOptions: {
+          color: cornersHexString,
+          type: cornersSquareOption,
+        },
+        cornersDotOptions: {
+          color: eyeHexString,
+          type: cornersDotOption,
+        },
+        image: logo,
+        QrName: qrName,
+      }).then((res) => {
+        if (res.status === "success") {
+          // ChangeLoad();
+          // navigate("/profile");
+          alert("qr Created Success");
+        } else {
+          // ChangeLoad();
+          alert(res.message);
+        }
+      });
+      break;
+    }
+    case "document1": {
       CreateDocumentQr({
         Url: Url,
         dotoption: {
