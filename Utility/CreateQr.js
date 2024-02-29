@@ -11,6 +11,9 @@ import {
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+// const [loading,setLoading]=useState(false)
+
+
 export const CreateQr = (
   qrName,
   qrType,
@@ -21,11 +24,17 @@ export const CreateQr = (
   cornersDotOption,
   eyeHexString,
   cornersSquareOption,
+  setLoading ,
   lat,
   lon,
   Url,
   logo
 ) => {
+
+  if(qrType){
+
+    setLoading(true)
+  }
   console.log(
     qrName,
     qrType,
@@ -65,11 +74,13 @@ export const CreateQr = (
       }).then((res) => {
         console.log(res);
         if (res.status === "success") {
+          setLoading(false)
           // ChangeLoad();  //---------Lodaer off call here 
           //-----------navigate profile
           alert("qr Created Success");  //---------Toast message
          
         } else {
+          setLoading(false)
           // ChangeLoad();  // lodaer off
           // alert(res.message); // toast
         }
@@ -99,10 +110,12 @@ export const CreateQr = (
       }).then((res) => {
         console.log(res);
         if (res.status === "success") {
+          setLoading(false)
           // ChangeLoad();
           // navigate("/profile");
           alert("qr Created Success");
         } else {
+          setLoading(false)
           // ChangeLoad();
           alert(res.message);
         }
@@ -131,10 +144,12 @@ export const CreateQr = (
         QrName: qrName,
       }).then((res) => {
         if (res.status === "success") {
+          setLoading(false)
           // ChangeLoad();
           // navigate("/profile");
           alert("qr Created Success");
         } else {
+          setLoading(false)
           // ChangeLoad();
           alert(res.message);
         }
@@ -163,10 +178,12 @@ export const CreateQr = (
         QrName: qrName,
       }).then((res) => {
         if (res.status === "success") {
+          setLoading(false)
           // ChangeLoad();
           // navigate("/profile");
           alert("qr Created Success");
         } else {
+          setLoading(false)
           // ChangeLoad();
           alert(res.message);
         }
@@ -195,10 +212,12 @@ export const CreateQr = (
         QrName: qrName,
       }).then((res) => {
         if (res.status === "success") {
+          setLoading(false)
           // ChangeLoad();
           // navigate("/profile");
           alert("qr Created Success");
         } else {
+          setLoading(false)
           // ChangeLoad();
           alert(res.message);
         }
@@ -227,10 +246,12 @@ export const CreateQr = (
         QrName: qrName,
       }).then((res) => {
         if (res.status === "success") {
+          setLoading(false)
           // ChangeLoad();
           // navigate("/profile");
           alert("qr Created Success");
         } else {
+          setLoading(false)
           // ChangeLoad();
           alert(res.message);
         }
@@ -262,10 +283,12 @@ export const CreateQr = (
       }).then((res) => {
         console.log(res);
         if (res.status === "success") {
+          setLoading(false)
           // ChangeLoad();
           // navigate("/profile");
           alert("qr Created Success");
         } else {
+          setLoading(false)
           // ChangeLoad();
           alert(res.message);
         }
@@ -294,10 +317,12 @@ export const CreateQr = (
         QrName: qrName,
       }).then((res) => {
         if (res.status === "success") {
+          setLoading(false)
           // ChangeLoad();
           // navigate("/profile");
           alert("qr Created Success");
         } else {
+          setLoading(false)
           // ChangeLoad();
           alert(res.message);
         }

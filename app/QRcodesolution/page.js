@@ -9,7 +9,7 @@ import Mic from "../../public/QRgenerate/Mic.png";
 import Location from "../../public/QRgenerate/Location.png";
 import Pdf from "../../public/QRgenerate/Pdf.png";
 import Image from "next/image";
-import { Tabs, Tab } from "@nextui-org/react";
+import { Tabs, Tab, Spinner } from "@nextui-org/react";
 import QR from "../../public/QR.png";
 import Linkdin from "../../public/Aboutus/Linkdin.png";
 import Insta from "../../public/Aboutus/Insta.png";
@@ -43,6 +43,9 @@ import { QrType } from "@/Utility/QrType/QrType";
 import { CreateQr } from "@/Utility/CreateQr";
 import { useToast } from "../../Components/ui/usetoast"
 import { ToastAction } from "@/components/ui/toast"
+import { useRouter } from 'next/navigation'
+
+
 
 
 
@@ -74,6 +77,9 @@ const Extension = [
   const [qrType, setQrType] = useState("");
   const [Url, setUrl] = useState("");
   const [qrName, setQrName] = useState("");
+  const [loading,setLoading]=useState(false)
+  const router = useRouter()
+
 
   const [options, setOptions] = useState({
     width: 300,
@@ -283,8 +289,6 @@ const Extension = [
         description: "",
         action: <ToastAction altText="Try again">Try again</ToastAction>,
       })
-
-      return false;
     } else if (qrType != "Map" ? !Url : !lat || !lon) {
       toast({
         variant: "",
@@ -292,9 +296,10 @@ const Extension = [
         description: "",
         action: <ToastAction altText="Try again">Try again</ToastAction>,
       })
-      return false;
     }
-    console.log(image);   /// loader start  need steate for start loader
+    console.log(image); 
+      /// loader start  need steate for start loader
+
     if (image) {
       const data = new FormData();
       data.append("file", image);
@@ -318,12 +323,19 @@ const Extension = [
           cornersDotOption,
           eyeHexString,
           cornersSquareOption,
+          setLoading,
          // pass function with state off/on state with timeout 
           lat,
           lon,
           Url,
           file.secure_url
-        );
+        ).then((result) => {
+        
+          setLoading(false);
+          setTimeout(() => {
+            router.push('/Profile')
+          }, 2000); 
+        });;
       }
     } else {
       let result = CreateQr(
@@ -336,12 +348,19 @@ const Extension = [
         cornersDotOption,
         eyeHexString,
         cornersSquareOption,
+        setLoading,
         //craete function for loader / off/on
         lat,
         lon,
         Url,
         ""
-      );
+      ).then((result) => {
+        
+        setLoading(false);
+        setTimeout(() => {
+          router.push('/Profile')
+        }, 2000); 
+      });;;
     }
   };
 
@@ -566,7 +585,7 @@ const Extension = [
                 className="text-white bg-buttoncolor rounded-sm md:w-96 w-full mt-4"
                 onClick={GenerateDyamicqr}
               >
-                GENERATE QR
+               {loading?<Spinner/>: 'GENERATE QR'}
               </Button>
             )}
           </div>
