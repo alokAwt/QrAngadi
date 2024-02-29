@@ -16,8 +16,10 @@ import { IoCheckmarkCircleSharp } from "react-icons/io5";
 import { MdRadioButtonChecked } from "react-icons/md";
 import { CreateOrder, GetPlans, PayOrder } from "@/Utility/Api/Users";
 import Script from "next/script";
-
+import { useToast } from "../../Components/ui/usetoast";
+import { ToastAction } from "@/components/ui/toast";
 const Pricingcard = () => {
+  const { toast } = useToast();
   const [selected, setSelected] = React.useState("MONTHY");
   const [price, setPrice] = useState([]);
   useEffect(() => {
@@ -76,7 +78,17 @@ const Pricingcard = () => {
           Price: selectedPrice,
         }).then((res) => {
           if (res.status === "success") {
-            alert("Success fully Payment done");
+            toast({
+              variant: "",
+              title: "Successfully Payment Done",
+              description: "",
+            });
+          } else {
+            toast({
+              variant: "",
+              title: " Payment Failed",
+              description: "",
+            });
           }
         });
       },

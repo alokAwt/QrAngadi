@@ -9,7 +9,7 @@ import Mic from "../../public/QRgenerate/Mic.png";
 import Location from "../../public/QRgenerate/Location.png";
 import Pdf from "../../public/QRgenerate/Pdf.png";
 import Image from "next/image";
-import { Tabs, Tab } from "@nextui-org/react";
+import { Tabs, Tab, Spinner } from "@nextui-org/react";
 import QR from "../../public/QR.png";
 import Linkdin from "../../public/Aboutus/Linkdin.png";
 import Insta from "../../public/Aboutus/Insta.png";
@@ -41,18 +41,19 @@ import Sunflower from "../../public/QRgenerate/Samplelogo/Sunflower.png";
 import QRCodeStyling from "qr-code-styling";
 import { QrType } from "@/Utility/QrType/QrType";
 import { CreateQr } from "@/Utility/CreateQr";
-
-
+import { useToast } from "../../Components/ui/usetoast";
+import { ToastAction } from "@/components/ui/toast";
+import { useRouter } from "next/navigation";
 
 const Extension = [
-  {label: "png", value: "png", },
-  {label: "jpeg", value: "jpeg", },
-  {label: "webp", value: "webp", },
-  {label: "svg", value: "svg",},
- ]
-
+  { label: "png", value: "png" },
+  { label: "jpeg", value: "jpeg" },
+  { label: "webp", value: "webp" },
+  { label: "svg", value: "svg" },
+];
 
 const page = () => {
+  const { toast } = useToast();
   const [selected, setSelected] = React.useState("STATIC");
   const [image, setImages] = useState("");
   const [logo, setLogo] = useState("");
@@ -69,6 +70,8 @@ const page = () => {
   const [qrType, setQrType] = useState("");
   const [Url, setUrl] = useState("");
   const [qrName, setQrName] = useState("");
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const [options, setOptions] = useState({
     width: 300,
@@ -99,7 +102,7 @@ const page = () => {
     cornersDotOptions: { type: "Square", color: "#000000" },
   });
 
-  const [fileExt, setFileExt] = useState('');
+  const [fileExt, setFileExt] = useState("");
   const [qrCode] = useState(new QRCodeStyling(options));
   const ref = useRef(null);
 
@@ -236,8 +239,6 @@ const page = () => {
     });
   };
 
-
-
   const setLogoMemoized = useMemo(() => {
     return (file) => {
       if (file) {
@@ -253,7 +254,6 @@ const page = () => {
   const onChangePicture = (e) => {
     setImages(e.target.files[0]);
     setLogoMemoized(e.target.files[0]); // Use the memoized function to set the logo
-
   };
 
   const genPresets = (presets = presetPalettes) =>
@@ -270,15 +270,27 @@ const page = () => {
     cyan,
   });
 
+  const ChangeScreen = () => {
+    router.push("/Profile");
+  };
+
   const GenerateDyamicqr = async () => {
     if (!qrType) {
-      alert("Qr Type Is Required");
-      return false;
+      toast({
+        variant: "",
+        title: "QR Type is Required.",
+        description: "",
+        action: <ToastAction altText="Try again">Try again</ToastAction>,
+      });
     } else if (qrType != "Map" ? !Url : !lat || !lon) {
-      alert("Qr Data is Required");
-      return false;
+      toast({
+        variant: "",
+        title: "QR Data is Required.",
+        description: "",
+        action: <ToastAction altText="Try again">Try again</ToastAction>,
+      });
     }
-    console.log(image);
+
     if (image) {
       const data = new FormData();
       data.append("file", image);
@@ -302,7 +314,9 @@ const page = () => {
           cornersDotOption,
           eyeHexString,
           cornersSquareOption,
-
+          setLoading,
+          toast,
+          ChangeScreen,
           lat,
           lon,
           Url,
@@ -320,6 +334,9 @@ const page = () => {
         cornersDotOption,
         eyeHexString,
         cornersSquareOption,
+        setLoading,
+        toast,
+        ChangeScreen,
         lat,
         lon,
         Url,
@@ -363,9 +380,12 @@ const page = () => {
           {QrType &&
             QrType.map((item, index) => (
               <Button
-                
                 variant="light"
-                className={qrType === item.type ?"flex flex-col justify-center items-center gap-1 h-auto py-2 ring-1 ring-buttoncolor":'flex flex-col justify-center items-center gap-1 h-auto py-2'}
+                className={
+                  qrType === item.type
+                    ? "flex flex-col justify-center items-center gap-1 h-auto py-2 ring-1 ring-buttoncolor"
+                    : "flex flex-col justify-center items-center gap-1 h-auto py-2"
+                }
                 onClick={() => setQrType(item.type)}
               >
                 <div>
@@ -543,15 +563,6 @@ const page = () => {
               <Tab key="STATIC" title="STATIC" className="w-full"></Tab>
               <Tab key="DYNAMIC" title="DYNAMIC"></Tab>
             </Tabs>
-
-            {selected === "STATIC" ? null : (
-              <Button
-                className="text-white bg-buttoncolor rounded-sm md:w-96 w-full mt-4"
-                onClick={GenerateDyamicqr}
-              >
-                GENERATE QR
-              </Button>
-            )}
           </div>
         </div>
 
@@ -956,19 +967,31 @@ const page = () => {
               className="text-sm mt-2 bg-white flex justify-center rounded-md border-buttoncolor border-2 items-center  w-full  text-buttoncolor"
             >
               {Extension.map((ext) => (
-          <SelectItem key={ext.value} onPress={()=>setFileExt(ext.value)}>
-            {ext.label}
-          </SelectItem>
-        ))}
+                <SelectItem
+                  key={ext.value}
+                  onPress={() => setFileExt(ext.value)}
+                >
+                  {ext.label}
+                </SelectItem>
+              ))}
             </Select>
 
-            <Button
-              onPress={onDownloadClick}
-              variant="solid"
-              className="text-white bg-buttoncolor rounded-sm w-full"
-            >
-              Download
-            </Button>
+            {selected === "STATIC" ? (
+              <Button
+                onPress={onDownloadClick}
+                variant="solid"
+                className="text-white bg-buttoncolor rounded-sm w-full"
+              >
+                Download
+              </Button>
+            ) : (
+              <Button
+                className="text-white bg-buttoncolor rounded-sm w-full"
+                onClick={GenerateDyamicqr}
+              >
+                {loading ? <Spinner /> : "GENERATE QR"}
+              </Button>
+            )}
           </div>
         </div>
 

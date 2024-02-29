@@ -74,3 +74,12 @@
     @apply bg-background text-foreground;
   }
 }
+
+.input-wrapper .input {
+  border: none;
+}
+
+.input-wrapper .input:focus {
+  border: 0;
+  outline: none; /* Optional: Remove the focus outline */
+}

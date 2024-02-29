@@ -4,7 +4,9 @@ import { BaseUrl } from "./BaseUrl";
 //----------------Create Qr-----------------------//
 
 export const CreateWebsiteQr = async (data) => {
-  let token = localStorage.getItem("token");
+  let token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZDVjZTc3NGMyYjE3ZTg0MTBhYmM5MyIsImlhdCI6MTcwOTE4OTg4MCwiZXhwIjoxNzExMjYzNDgwfQ.KbzC2_V69jCmfHn9FQrZd9pAnYsE2wejnAAJ13HFbW4";
+
   try {
     let result = await fetch(`${BaseUrl}/Qr/Websiteurl/Create`, {
       method: "POST",
