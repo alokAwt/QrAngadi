@@ -10,19 +10,10 @@ import Gamification from "@/Components/Homecomponents/Gamification";
 import { GetPlans } from "@/Utility/Api/Users";
 
 function Pricing() {
-  const [price,setPrice]=useState([])
-  useEffect(() => {
-    GetPricing();
-  }, []);
-
-  const GetPricing = () => {
-    GetPlans().then((res) => {
-      setPrice(res.data)
-    });
-  };
+  
   return (
     <>
-    <Pricingcard price={price}/>
+    <Pricingcard />
     <FAQ/>
     <Gamification/>
       {/* <div className="mt-10 text-center">

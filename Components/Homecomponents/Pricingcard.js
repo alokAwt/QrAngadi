@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Tabs,
   Tab,
@@ -14,10 +14,22 @@ import {
 } from "@nextui-org/react";
 import { IoCheckmarkCircleSharp } from "react-icons/io5";
 import { MdRadioButtonChecked } from "react-icons/md";
+import { GetPlans } from "@/Utility/Api/Users";
 
-const Pricingcard = ({ price }) => {
+const Pricingcard = () => {
   const [selected, setSelected] = React.useState("MONTHY");
-  console.log("alok", price);
+  const [price,setPrice]=useState([])
+  useEffect(() => {
+    GetPricing();
+  }, []);
+
+  const GetPricing = () => {
+    GetPlans().then((res) => {
+      setPrice(res.data);
+      
+    });
+  };
+
 
   const list1 = [
     `Unlimited QR Code Generation`,
@@ -28,7 +40,7 @@ const Pricingcard = ({ price }) => {
     `Limited Customer Support`,
   ];
 
-  const PayAmount = (price, duration) => {
+  const PayAmount = ( duration) => {
     if (selected === "MONTHY") {
       return price;
     } else {
@@ -73,7 +85,7 @@ const Pricingcard = ({ price }) => {
               <p className="text-xs text-buttoncolor">BASIC</p>
               <p className="text-xl text-black font-semibold">Free</p>
               <p className="text-xl text-black font-semibold">
-                ${price[0].Price}/
+                ${price[0]?.Price}/
                 <span className="text-sm text-gray-500">Month</span>
               </p>
             </div>
@@ -123,13 +135,13 @@ const Pricingcard = ({ price }) => {
               <p className="text-xs text-buttoncolor">BUSINESS</p>
               {selected === "MONTHY" && (
                 <p className="text-xl text-black font-semibold">
-                  Rs{price[1].Price}/
+                  Rs{price[1]?.Price}/
                   <span className="text-sm text-gray-500">Month</span>
                 </p>
               )}
               {selected === "YEARLY" && (
                 <p className="text-xl text-black font-semibold">
-                  Rs{price[1].Price * 12}/
+                  Rs{price[1]?.Price * 12}/
                   <span className="text-sm text-gray-500">Year</span>
                 </p>
               )}
@@ -181,15 +193,15 @@ const Pricingcard = ({ price }) => {
               <p className="text-xs text-buttoncolor">BUSINESS</p>
               {selected === "MONTHY" && (
                 <p className="text-xl text-black font-semibold">
-                  Rs{price[2].Price}/
+                  Rs{price[2]?.Price}/
                   <span className="text-sm text-gray-500">
-                    {price[2].Duration / 30} Month
+                    {price[2]?.Duration / 30} Month
                   </span>
                 </p>
               )}
               {selected === "YEARLY" && (
                 <p className="text-xl text-black font-semibold">
-                  Rs{(price[2].Price * 12) / (price[2].Duration / 30)}/
+                  Rs{(price[2]?.Price * 12) / (price[2]?.Duration / 30)}/
                   <span className="text-sm text-gray-500">Year</span>
                 </p>
               )}
