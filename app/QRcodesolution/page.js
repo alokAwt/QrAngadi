@@ -354,13 +354,7 @@ const Extension = [
         lon,
         Url,
         ""
-      ).then((result) => {
-        
-        setLoading(false);
-        setTimeout(() => {
-          router.push('/Profile')
-        }, 2000); 
-      });;;
+      )
     }
   };
 

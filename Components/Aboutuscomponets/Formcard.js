@@ -1,4 +1,5 @@
-import React from "react";
+'use client'
+import React, { useState } from "react";
 import Form from "../../public/Aboutus/Form.png";
 import Linkdin from "../../public/Aboutus/Linkdin.png";
 import Insta from "../../public/Aboutus/Insta.png";
