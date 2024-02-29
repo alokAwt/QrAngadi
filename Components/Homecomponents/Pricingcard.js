@@ -18,18 +18,18 @@ import { GetPlans } from "@/Utility/Api/Users";
 
 const Pricingcard = () => {
   const [selected, setSelected] = React.useState("MONTHY");
-  const [price,setPrice]=useState([])
+  const [price, setPrice] = useState([]);
   useEffect(() => {
     GetPricing();
   }, []);
 
   const GetPricing = () => {
     GetPlans().then((res) => {
-      setPrice(res.data);
-      
+      if (res.status === "success") {
+        setPrice(res.data);
+      }
     });
   };
-
 
   const list1 = [
     `Unlimited QR Code Generation`,
@@ -40,7 +40,7 @@ const Pricingcard = () => {
     `Limited Customer Support`,
   ];
 
-  const PayAmount = ( duration) => {
+  const PayAmount = (duration) => {
     if (selected === "MONTHY") {
       return price;
     } else {
@@ -85,7 +85,7 @@ const Pricingcard = () => {
               <p className="text-xs text-buttoncolor">BASIC</p>
               <p className="text-xl text-black font-semibold">Free</p>
               <p className="text-xl text-black font-semibold">
-                ${price[0]?.Price}/
+                ${price != undefined?.price[0]?.Price}/
                 <span className="text-sm text-gray-500">Month</span>
               </p>
             </div>
@@ -135,13 +135,13 @@ const Pricingcard = () => {
               <p className="text-xs text-buttoncolor">BUSINESS</p>
               {selected === "MONTHY" && (
                 <p className="text-xl text-black font-semibold">
-                  Rs{price[1]?.Price}/
+                  Rs{price != undefined?.price[1]?.Price}/
                   <span className="text-sm text-gray-500">Month</span>
                 </p>
               )}
               {selected === "YEARLY" && (
                 <p className="text-xl text-black font-semibold">
-                  Rs{price[1]?.Price * 12}/
+                  Rs{price != undefined?.price[1]?.Price * 12}/
                   <span className="text-sm text-gray-500">Year</span>
                 </p>
               )}
@@ -193,16 +193,18 @@ const Pricingcard = () => {
               <p className="text-xs text-buttoncolor">BUSINESS</p>
               {selected === "MONTHY" && (
                 <p className="text-xl text-black font-semibold">
-                  Rs{price[2]?.Price}/
+                  Rs{price != undefined?.price[2]?.Price}/
                   <span className="text-sm text-gray-500">
-                    {price[2]?.Duration / 30} Month
+                    {price != undefined?.price[2]?.Duration / 30} Month
                   </span>
                 </p>
               )}
               {selected === "YEARLY" && (
                 <p className="text-xl text-black font-semibold">
-                  Rs{(price[2]?.Price * 12) / (price[2]?.Duration / 30)}/
-                  <span className="text-sm text-gray-500">Year</span>
+                  Rs
+                  {(price != undefined?.price[2]?.Price * 12) /
+                    (price != undefined?.price[2]?.Duration / 30)}
+                  /<span className="text-sm text-gray-500">Year</span>
                 </p>
               )}
             </div>
