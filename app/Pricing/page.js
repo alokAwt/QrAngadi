@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 // import PricingCards from "../../components/pricingCards/PricingCards";
 import Faqs from "@/Components/Faqs";
 import GamificationAddOns from "@/Components/pricing-page-components/GamificationAddOns";
@@ -7,11 +7,13 @@ import PricingCards from "@/Components/PricingCards";
 import Pricingcard from "@/Components/Homecomponents/Pricingcard";
 import FAQ from "@/Components/Homecomponents/FAQ";
 import Gamification from "@/Components/Homecomponents/Gamification";
+import { GetPlans } from "@/Utility/Api/Users";
 
 function Pricing() {
+  
   return (
     <>
-    <Pricingcard/>
+    <Pricingcard />
     <FAQ/>
     <Gamification/>
       {/* <div className="mt-10 text-center">

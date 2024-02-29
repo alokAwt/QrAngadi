@@ -1,16 +1,15 @@
 import {
-  UpdateAudioQr,
-  UpdateDocumentQr,
-  UpdateImageQr,
-  UpdateMapQr,
-  UpdatePlayStoreQr,
-  UpdateSocialQr,
-  UpdateVideoQr,
-  UpdateWebsiteQr,
+  UpdateAudioQrImages,
+  UpdateDocumentQrImages,
+  UpdateImageQrImages,
+  UpdateMapQrImages,
+  UpdatePlayStoreQrImages,
+  UpdateSocialQrImages,
+  UpdateVideoQrImages,
+  UpdateWebsiteQrImage,
 } from "../Api/QR";
 
 export const UpdateProfileQr = (
-  Url,
   Id,
   type,
   ChangeLoad,
@@ -21,9 +20,23 @@ export const UpdateProfileQr = (
 ) => {
   switch (type) {
     case "Website": {
-      UpdateWebsiteQr({
-        Url: Url,
+      UpdateWebsiteQrImage({
         UniqueId: Id,
+        dotoption: {
+          color: "#4267b2",
+          type: "dots",
+        },
+        backgroundOption: {
+          type: "",
+        },
+        cornersOptions: {
+          color: "blue",
+          type: "",
+        },
+        cornersDotOptions: {
+          color: "",
+          type: "",
+        },
       }).then((res) => {
         console.log(res);
         if (res.message === "success") {
@@ -40,7 +53,7 @@ export const UpdateProfileQr = (
       break;
     }
     case "PlayStore": {
-      UpdatePlayStoreQr({
+      UpdatePlayStoreQrImages({
         Url: Url,
         UniqueId: Id,
       }).then((res) => {
@@ -59,7 +72,7 @@ export const UpdateProfileQr = (
       break;
     }
     case "Audio": {
-      UpdateAudioQr({
+      UpdateAudioQrImages({
         Url: Url,
         UniqueId: Id,
       }).then((res) => {
@@ -77,7 +90,7 @@ export const UpdateProfileQr = (
       break;
     }
     case "Video": {
-      UpdateVideoQr({
+      UpdateVideoQrImages({
         Url: Url,
         UniqueId: Id,
       }).then((res) => {
@@ -95,7 +108,7 @@ export const UpdateProfileQr = (
       break;
     }
     case "Image": {
-      UpdateImageQr({
+      UpdateImageQrImages({
         Url: Url,
         UniqueId: Id,
       }).then((res) => {
@@ -113,7 +126,7 @@ export const UpdateProfileQr = (
       break;
     }
     case "Pdf": {
-      UpdateDocumentQr({
+      UpdateDocumentQrImages({
         Url: Url,
         UniqueId: Id,
       }).then((res) => {
@@ -131,7 +144,7 @@ export const UpdateProfileQr = (
       break;
     }
     case "GoogleMap": {
-      UpdateMapQr({
+      UpdateMapQrImages({
         lat: lat,
         lon: lon,
         UniqueId: Id,
@@ -150,7 +163,7 @@ export const UpdateProfileQr = (
       break;
     }
     case "Social": {
-      UpdateSocialQr({
+      UpdateSocialQrImages({
         Url: Url,
         UniqueId: Id,
       }).then((res) => {

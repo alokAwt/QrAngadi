@@ -1,13 +1,13 @@
 import {
+  DeleteWebsiteQr,
   DeleteAudioQr,
   DeleteImageQr,
   DeleteMapQr,
   DeletePlayStoreQr,
   DeleteSocialQr,
   DeleteVideoQr,
-  DeleteWebsiteQr,
   DeletedocumentQr,
-} from "../../Api/QR";
+} from "../Api/QR";
 
 export const DeleteProfileQr = (id, type, Profile, ChangeLoad) => {
   switch (type) {

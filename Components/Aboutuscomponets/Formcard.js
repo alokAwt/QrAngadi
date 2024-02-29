@@ -10,8 +10,51 @@ import { FaPhoneAlt } from "react-icons/fa";
 import { IoMdMail } from "react-icons/io";
 import { FaLocationDot } from "react-icons/fa6";
 import { Button, Input } from "@nextui-org/react";
+import { Contactus } from "@/Utility/Api/Users";
 
 const Formcard = () => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [queries, setQueries] = useState("");
+  const [message, setMessage] = useState("");
+
+  const SubmitButton = () => {
+    if (!firstName) {
+      toast("Please enter first name");
+      return false;
+    } else if (!lastName) {
+      toast("Please enter last name");
+      return false;
+    } else if (!email) {
+      toast("Please enter email");
+      return false;
+    } else if (!queries) {
+      toast("Please enter queries");
+      return false;
+    } else if (!message) {
+      toast("Please enter message");
+      return false;
+    }
+    Contactus({
+      FirstName: firstName,
+      LastName: lastName,
+      Email: email,
+      Subject: queries,
+      Message: message,
+    }).then((res) => {
+      if (res.status === "success") {
+        toast("Queries send successfully");
+        setFirstName("");
+        setLastName("");
+        setEmail("");
+        setQueries("");
+        setMessage("");
+      } else {
+        toast(res.message);
+      }
+    });
+  };
   return (
     <div className="w-full flex-col items-center justify-center gap-8">
       <div className="flex flex-col justify-center items-center gap-8">
@@ -57,7 +100,9 @@ const Formcard = () => {
 
         <div className="w-full justify-center items-start gap-4 px-8">
           <div>
-            <h6 className="font-bold text-2xl ">Let’s <span className="text-buttoncolor">talk!</span></h6>
+            <h6 className="font-bold text-2xl ">
+              Let’s <span className="text-buttoncolor">talk!</span>
+            </h6>
             <p className="text-md font-medium text-gray-500">
               Provide the necessary details.
             </p>
@@ -74,6 +119,8 @@ const Formcard = () => {
                       First Name{" "}
                     </label>
                     <input
+                      value={firstName}
+                      onChange={(e) => setFirstName(e.target.value)}
                       type="text"
                       id="first_name"
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-buttoncolor focus:border-buttoncolor block w-full p-2.5  "
@@ -89,6 +136,8 @@ const Formcard = () => {
                       Last Name
                     </label>
                     <input
+                      value={lastName}
+                      onChange={(e) => setLastName(e.target.value)}
                       type="text"
                       id="last_name"
                       className="bg-gray-50 border  border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-buttoncolor focus:border-buttoncolor block w-full p-2.5  "
@@ -105,6 +154,8 @@ const Formcard = () => {
                     Your Email
                   </label>
                   <input
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     type="email"
                     id="email"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-buttoncolor focus:border-buttoncolor block w-full p-2.5 "
@@ -120,6 +171,8 @@ const Formcard = () => {
                     Related Subject{" "}
                   </label>
                   <input
+                    value={queries}
+                    onChange={(e) => setQueries(e.target.value)}
                     type="text"
                     id="email"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-buttoncolor focus:border-buttoncolor block w-full p-2.5 d "
@@ -135,6 +188,8 @@ const Formcard = () => {
                     Your Message{" "}
                   </label>
                   <textarea
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
                     type="text"
                     id="email"
                     className="bg-gray-50 border items-start  border-gray-300 text-gray-900 text-sm h-24 rounded-lg focus:ring-buttoncolor focus:border-buttoncolor block w-full p-2.5  "
@@ -144,6 +199,7 @@ const Formcard = () => {
                 </div>
 
                 <Button
+                  onClick={SubmitButton}
                   type="submit"
                   className="text-white  bg-buttoncolor  font-medium rounded-lg text-sm w-full sm:w-full px-5 py-2.5 text-center "
                 >

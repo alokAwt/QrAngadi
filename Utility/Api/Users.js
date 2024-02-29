@@ -144,3 +144,60 @@ export const Contactus = async (data) => {
     return error.message;
   }
 };
+
+//----------------Get PLans-------------------------//
+
+export const GetPlans = async () => {
+  try {
+    let result = await fetch(`${BaseUrl}/Plan/GetAllplan`, {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+      },
+    });
+    result = await result.json();
+    return result;
+  } catch (error) {
+    return error.message;
+  }
+};
+
+//-----------------Create Order------------------------//
+
+export const CreateOrder = async (data) => {
+  let token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZDVjZTc3NGMyYjE3ZTg0MTBhYmM5MyIsImlhdCI6MTcwOTE4OTg4MCwiZXhwIjoxNzExMjYzNDgwfQ.KbzC2_V69jCmfHn9FQrZd9pAnYsE2wejnAAJ13HFbW4";
+  try {
+    let result = await fetch(`${BaseUrl}/Suscription/Createorder`, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "content-type": "application/json",
+        token: token,
+      },
+    });
+    result = await result.json();
+    return result;
+  } catch (error) {
+    return error.message;
+  }
+};
+
+export const PayOrder = async (data) => {
+  let token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZDVjZTc3NGMyYjE3ZTg0MTBhYmM5MyIsImlhdCI6MTcwOTE4OTg4MCwiZXhwIjoxNzExMjYzNDgwfQ.KbzC2_V69jCmfHn9FQrZd9pAnYsE2wejnAAJ13HFbW4";
+  try {
+    let result = await fetch(`${BaseUrl}/Suscription/Pay`, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "content-type": "application/json",
+        token: token,
+      },
+    });
+    result = await result.json();
+    return result;
+  } catch (error) {
+    return error.message;
+  }
+};
