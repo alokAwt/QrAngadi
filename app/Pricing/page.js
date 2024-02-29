@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 // import PricingCards from "../../components/pricingCards/PricingCards";
 import Faqs from "@/Components/Faqs";
 import GamificationAddOns from "@/Components/pricing-page-components/GamificationAddOns";
@@ -7,11 +7,22 @@ import PricingCards from "@/Components/PricingCards";
 import Pricingcard from "@/Components/Homecomponents/Pricingcard";
 import FAQ from "@/Components/Homecomponents/FAQ";
 import Gamification from "@/Components/Homecomponents/Gamification";
+import { GetPlans } from "@/Utility/Api/Users";
 
 function Pricing() {
+  const [price,setPrice]=useState([])
+  useEffect(() => {
+    GetPricing();
+  }, []);
+
+  const GetPricing = () => {
+    GetPlans().then((res) => {
+      setPrice(res.data)
+    });
+  };
   return (
     <>
-    <Pricingcard/>
+    <Pricingcard price={price}/>
     <FAQ/>
     <Gamification/>
       {/* <div className="mt-10 text-center">

@@ -144,3 +144,20 @@ export const Contactus = async (data) => {
     return error.message;
   }
 };
+
+//----------------Get PLans-------------------------//
+
+export const GetPlans = async () => {
+  try {
+    let result = await fetch(`${BaseUrl}/Plan/GetAllplan`, {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+      },
+    });
+    result = await result.json();
+    return result;
+  } catch (error) {
+    return error.message;
+  }
+};

@@ -5,14 +5,14 @@ import {
   DeletePlayStoreQr,
   DeleteSocialQr,
   DeleteVideoQr,
-  DeleteWebsiteQr,
+  
   DeletedocumentQr,
 } from "../../Api/QR";
 
 export const DeleteProfileQr = (id, type, Profile, ChangeLoad) => {
   switch (type) {
     case "Website": {
-      DeleteWebsiteQr(id).then((res) => {
+     DeleteWebsiteQr(id).then((res) => {
         console.log(res);
         if (res.message === "Success") {
           ChangeLoad();

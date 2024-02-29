@@ -4,8 +4,7 @@ import { BaseUrl } from "./BaseUrl";
 //----------------Create Qr-----------------------//
 
 export const CreateWebsiteQr = async (data) => {
-  let token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZDVjZTc3NGMyYjE3ZTg0MTBhYmM5MyIsImlhdCI6MTcwOTEwMTgxMCwiZXhwIjoxNzExMTc1NDEwfQ.V48xzU83j6keYcjSWUlTXucYbmXNGu0EdPUOUtiuRYE";
+  let token = localStorage.getItem("token");
   try {
     let result = await fetch(`${BaseUrl}/Qr/Websiteurl/Create`, {
       method: "POST",
@@ -28,6 +27,24 @@ export const UpdateWebsiteQr = async (data) => {
   let token = localStorage.getItem("token");
   try {
     let result = await fetch(`${BaseUrl}/Qr/Websiteurl/update`, {
+      method: "PUT",
+      body: JSON.stringify(data),
+      headers: {
+        "content-type": "application/json",
+        token: token,
+      },
+    });
+    result = await result.json();
+    return result;
+  } catch (error) {
+    return error.message;
+  }
+};
+
+export const UpdateWebsiteQrImage = async (data) => {
+  let token = localStorage.getItem("token");
+  try {
+    let result = await fetch(`${BaseUrl}/Qr/Websiteurl/update/Images`, {
       method: "PUT",
       body: JSON.stringify(data),
       headers: {
@@ -88,6 +105,24 @@ export const UpdatePlayStoreQr = async (data) => {
   let token = localStorage.getItem("token");
   try {
     let result = await fetch(`${BaseUrl}/PlayStore/PlayStore/update`, {
+      method: "PUT",
+      body: JSON.stringify(data),
+      headers: {
+        "content-type": "application/json",
+        token: token,
+      },
+    });
+    result = await result.json();
+    return result;
+  } catch (error) {
+    return error.message;
+  }
+};
+
+export const UpdatePlayStoreQrImages = async (data) => {
+  let token = localStorage.getItem("token");
+  try {
+    let result = await fetch(`${BaseUrl}/PlayStore/PlayStore/update/Images`, {
       method: "PUT",
       body: JSON.stringify(data),
       headers: {
@@ -163,6 +198,23 @@ export const UpdateAudioQr = async (data) => {
   }
 };
 
+export const UpdateAudioQrImages = async (data) => {
+  let token = localStorage.getItem("token");
+  try {
+    let result = await fetch(`${BaseUrl}/audioQr/Audio/update/Images`, {
+      method: "PUT",
+      body: JSON.stringify(data),
+      headers: {
+        "content-type": "application/json",
+        token: token,
+      },
+    });
+    result = await result.json();
+    return result;
+  } catch (error) {
+    return error.message;
+  }
+};
 //--------------------Delete Qr----------------//
 
 export const DeleteAudioQr = async (id) => {
@@ -209,6 +261,24 @@ export const UpdateVideoQr = async (data) => {
   let token = localStorage.getItem("token");
   try {
     let result = await fetch(`${BaseUrl}/VideoQr/Video/update`, {
+      method: "PUT",
+      body: JSON.stringify(data),
+      headers: {
+        "content-type": "application/json",
+        token: token,
+      },
+    });
+    result = await result.json();
+    return result;
+  } catch (error) {
+    return error.message;
+  }
+};
+
+export const UpdateVideoQrImages = async (data) => {
+  let token = localStorage.getItem("token");
+  try {
+    let result = await fetch(`${BaseUrl}/VideoQr/Video/update/Images`, {
       method: "PUT",
       body: JSON.stringify(data),
       headers: {
@@ -283,6 +353,23 @@ export const UpdateDocumentQr = async (data) => {
   }
 };
 
+export const UpdateDocumentQrImages = async (data) => {
+  let token = localStorage.getItem("token");
+  try {
+    let result = await fetch(`${BaseUrl}/document/document/update/Images`, {
+      method: "PUT",
+      body: JSON.stringify(data),
+      headers: {
+        "content-type": "application/json",
+        token: token,
+      },
+    });
+    result = await result.json();
+    return result;
+  } catch (error) {
+    return error.message;
+  }
+};
 //--------------------Delete Qr----------------//
 
 export const DeletedocumentQr = async (id) => {
@@ -329,6 +416,24 @@ export const UpdateImageQr = async (data) => {
   let token = localStorage.getItem("token");
   try {
     let result = await fetch(`${BaseUrl}/ImageQr/Image/update`, {
+      method: "PUT",
+      body: JSON.stringify(data),
+      headers: {
+        "content-type": "application/json",
+        token: token,
+      },
+    });
+    result = await result.json();
+    return result;
+  } catch (error) {
+    return error.message;
+  }
+};
+
+export const UpdateImageQrImages = async (data) => {
+  let token = localStorage.getItem("token");
+  try {
+    let result = await fetch(`${BaseUrl}/ImageQr/Image/update/Images`, {
       method: "PUT",
       body: JSON.stringify(data),
       headers: {
@@ -403,6 +508,26 @@ export const UpdateSocialQr = async (data) => {
   }
 };
 
+export const UpdateSocialQrImages = async (data) => {
+  let token = localStorage.getItem("token");
+  try {
+    let result = await fetch(
+      `${BaseUrl}/socialmedia/SocialMediaurl/update/Images`,
+      {
+        method: "PUT",
+        body: JSON.stringify(data),
+        headers: {
+          "content-type": "application/json",
+          token: token,
+        },
+      }
+    );
+    result = await result.json();
+    return result;
+  } catch (error) {
+    return error.message;
+  }
+};
 //--------------------Delete Qr----------------//
 
 export const DeleteSocialQr = async (id) => {
@@ -452,6 +577,24 @@ export const UpdateMapQr = async (data) => {
   let token = localStorage.getItem("token");
   try {
     let result = await fetch(`${BaseUrl}/Map/Googlemap/update`, {
+      method: "PUT",
+      body: JSON.stringify(data),
+      headers: {
+        "content-type": "application/json",
+        token: token,
+      },
+    });
+    result = await result.json();
+    return result;
+  } catch (error) {
+    return error.message;
+  }
+};
+
+export const UpdateMapQrImages = async (data) => {
+  let token = localStorage.getItem("token");
+  try {
+    let result = await fetch(`${BaseUrl}/Map/Googlemap/update/Images`, {
       method: "PUT",
       body: JSON.stringify(data),
       headers: {

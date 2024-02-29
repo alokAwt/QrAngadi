@@ -15,8 +15,9 @@ import {
 import { IoCheckmarkCircleSharp } from "react-icons/io5";
 import { MdRadioButtonChecked } from "react-icons/md";
 
-const Pricingcard = () => {
+const Pricingcard = ({ price }) => {
   const [selected, setSelected] = React.useState("MONTHY");
+  console.log("alok", price);
 
   const list1 = [
     `Unlimited QR Code Generation`,
@@ -26,6 +27,14 @@ const Pricingcard = () => {
     ` Email Support`,
     `Limited Customer Support`,
   ];
+
+  const PayAmount = (price, duration) => {
+    if (selected === "MONTHY") {
+      return price;
+    } else {
+      return price * 12;
+    }
+  };
 
   return (
     <div className="flex flex-col justify-center items-center gap-4 mt-16">
@@ -63,6 +72,10 @@ const Pricingcard = () => {
             <div className="flex flex-col p-2">
               <p className="text-xs text-buttoncolor">BASIC</p>
               <p className="text-xl text-black font-semibold">Free</p>
+              <p className="text-xl text-black font-semibold">
+                ${price[0].Price}/
+                <span className="text-sm text-gray-500">Month</span>
+              </p>
             </div>
           </CardHeader>
           <Divider className="w-10/12 mx-auto" />
@@ -89,7 +102,7 @@ const Pricingcard = () => {
           </CardBody>
           <Divider />
           <CardFooter className="bg-buttonopacitycolor rounded-none">
-          <div className="flex justify-center items-center p-1 flex-col mx-auto gap-2">
+            <div className="flex justify-center items-center p-1 flex-col mx-auto gap-2">
               <p className="text-sm font-semibold">Free Forever</p>
               <p className="text-xs font-medium text-gray-500">
                 Recommended for personal use.
@@ -108,12 +121,18 @@ const Pricingcard = () => {
           <CardHeader className="flex gap-3">
             <div className="flex flex-col p-2 gap-1">
               <p className="text-xs text-buttoncolor">BUSINESS</p>
-              {selected==='MONTHY' && <p className="text-xl text-black font-semibold">
-                $8/<span className="text-sm text-gray-500">Month</span>
-              </p>}
-             {selected==='YEARLY' && <p className="text-xl text-black font-semibold">
-                $899/<span className="text-sm text-gray-500">Year</span>
-              </p>}
+              {selected === "MONTHY" && (
+                <p className="text-xl text-black font-semibold">
+                  Rs{price[1].Price}/
+                  <span className="text-sm text-gray-500">Month</span>
+                </p>
+              )}
+              {selected === "YEARLY" && (
+                <p className="text-xl text-black font-semibold">
+                  Rs{price[1].Price * 12}/
+                  <span className="text-sm text-gray-500">Year</span>
+                </p>
+              )}
             </div>
           </CardHeader>
           <Divider className="w-10/12 mx-auto" />
@@ -141,9 +160,18 @@ const Pricingcard = () => {
           <Divider />
           <CardFooter className="bg-buttonopacitycolor rounded-none">
             <div className="flex justify-center items-center p-1 flex-col mx-auto gap-2">
-              <p className="text-sm font-semibold">Risk-Free - <span className="text-xs font-medium text-gray-500">7 day money-back guarantee</span></p>
-              <p className="text-sm font-semibold">Flexibility  - <span className="text-xs font-medium text-gray-500">7Cancel anytime.</span></p>
-             
+              <p className="text-sm font-semibold">
+                Risk-Free -{" "}
+                <span className="text-xs font-medium text-gray-500">
+                  7 day money-back guarantee
+                </span>
+              </p>
+              <p className="text-sm font-semibold">
+                Flexibility -{" "}
+                <span className="text-xs font-medium text-gray-500">
+                  7Cancel anytime.
+                </span>
+              </p>
             </div>
           </CardFooter>
         </Card>
@@ -151,12 +179,20 @@ const Pricingcard = () => {
           <CardHeader className="flex gap-3">
             <div className="flex flex-col p-2 gap-1">
               <p className="text-xs text-buttoncolor">BUSINESS</p>
-             {selected==='MONTHY' && <p className="text-xl text-black font-semibold">
-                $16/<span className="text-sm text-gray-500">Month</span>
-              </p>}
-             {selected==='YEARLY' && <p className="text-xl text-black font-semibold">
-                $1699/<span className="text-sm text-gray-500">Year</span>
-              </p>}
+              {selected === "MONTHY" && (
+                <p className="text-xl text-black font-semibold">
+                  Rs{price[2].Price}/
+                  <span className="text-sm text-gray-500">
+                    {price[2].Duration / 30} Month
+                  </span>
+                </p>
+              )}
+              {selected === "YEARLY" && (
+                <p className="text-xl text-black font-semibold">
+                  Rs{(price[2].Price * 12) / (price[2].Duration / 30)}/
+                  <span className="text-sm text-gray-500">Year</span>
+                </p>
+              )}
             </div>
           </CardHeader>
           <Divider className="w-10/12 mx-auto" />
@@ -184,9 +220,18 @@ const Pricingcard = () => {
           <Divider />
           <CardFooter className="bg-buttonopacitycolor rounded-none">
             <div className="flex justify-center items-center p-1 flex-col mx-auto gap-2">
-              <p className="text-sm font-semibold">Risk-Free - <span className="text-xs font-medium text-gray-500">7 day money-back guarantee</span></p>
-              <p className="text-sm font-semibold">Flexibility  - <span className="text-xs font-medium text-gray-500">7Cancel anytime.</span></p>
-             
+              <p className="text-sm font-semibold">
+                Risk-Free -{" "}
+                <span className="text-xs font-medium text-gray-500">
+                  7 day money-back guarantee
+                </span>
+              </p>
+              <p className="text-sm font-semibold">
+                Flexibility -{" "}
+                <span className="text-xs font-medium text-gray-500">
+                  7Cancel anytime.
+                </span>
+              </p>
             </div>
           </CardFooter>
         </Card>
