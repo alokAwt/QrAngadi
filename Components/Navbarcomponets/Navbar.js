@@ -35,7 +35,7 @@ import { useRouter } from 'next/navigation'
 
 
 export default function App() {
-  const [islogged, setislogin] = useState(true);
+  const [islogged, setislogin] = useState(false);
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
   const router = useRouter()
 
@@ -183,6 +183,7 @@ export default function App() {
 
     <Modal isOpen={isOpen}
     isDismissable={false}
+    placement={'center'}
      onOpenChange={onOpenChange}>
         <ModalContent>
           {(onClose) => (

@@ -41,6 +41,10 @@ import Sunflower from "../../public/QRgenerate/Samplelogo/Sunflower.png";
 import QRCodeStyling from "qr-code-styling";
 import { QrType } from "@/Utility/QrType/QrType";
 import { CreateQr } from "@/Utility/CreateQr";
+import { useToast } from "../../Components/ui/usetoast"
+import { ToastAction } from "@/components/ui/toast"
+
+
 
 
 
@@ -51,8 +55,9 @@ const Extension = [
   {label: "svg", value: "svg",},
  ]
 
-
-const page = () => {
+ 
+ const page = () => {
+  const { toast } = useToast()
   const [selected, setSelected] = React.useState("STATIC");
   const [image, setImages] = useState("");
   const [logo, setLogo] = useState("");
@@ -272,13 +277,24 @@ const page = () => {
 
   const GenerateDyamicqr = async () => {
     if (!qrType) {
-      alert("Qr Type Is Required");
+      toast({
+        variant: "",
+        title: "QR Type is Required.",
+        description: "",
+        action: <ToastAction altText="Try again">Try again</ToastAction>,
+      })
+
       return false;
     } else if (qrType != "Map" ? !Url : !lat || !lon) {
-      alert("Qr Data is Required");
+      toast({
+        variant: "",
+        title: "QR Data is Required.",
+        description: "",
+        action: <ToastAction altText="Try again">Try again</ToastAction>,
+      })
       return false;
     }
-    console.log(image);
+    console.log(image);   /// loader start  need steate for start loader
     if (image) {
       const data = new FormData();
       data.append("file", image);
@@ -302,7 +318,7 @@ const page = () => {
           cornersDotOption,
           eyeHexString,
           cornersSquareOption,
-
+         // pass function with state off/on state with timeout 
           lat,
           lon,
           Url,
@@ -320,6 +336,7 @@ const page = () => {
         cornersDotOption,
         eyeHexString,
         cornersSquareOption,
+        //craete function for loader / off/on
         lat,
         lon,
         Url,

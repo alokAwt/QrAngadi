@@ -32,7 +32,7 @@ const addToRemoveQueue = (toastId) => {
       type: "REMOVE_TOAST",
       toastId: toastId,
     })
-  }, 100)
+  }, 1000)
 
   toastTimeouts.set(toastId, timeout)
 }

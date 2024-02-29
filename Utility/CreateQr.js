@@ -65,7 +65,7 @@ export const CreateQr = (
       }).then((res) => {
         console.log(res);
         if (res.status === "success") {
-          // ChangeLoad();  //---------Lodaer off
+          // ChangeLoad();  //---------Lodaer off call here 
           //-----------navigate profile
           alert("qr Created Success");  //---------Toast message
          

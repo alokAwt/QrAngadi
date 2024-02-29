@@ -26,7 +26,6 @@ module.exports = {
         buttoncolor:"#FF7143",
         buttonopacitycolor:"#FF714336",
         border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "white",
         foreground: "hsl(var(--foreground))",
@@ -80,5 +79,5 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate"),nextui(), require('flowbite/plugin'), require('tailwind-scrollbar-hide')],
+  plugins: [nextui(),require("tailwindcss-animate"), require('flowbite/plugin'), require('tailwind-scrollbar-hide')],
 }

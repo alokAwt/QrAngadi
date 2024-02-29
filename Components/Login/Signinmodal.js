@@ -38,7 +38,7 @@ export default function Signinmodal() {
         closeButton={<p><IoCloseCircle className="bg-buttoncolor text-white rounded-full text-xl"/></p>}
         onOpenChange={onOpenChange}
         isKeyboardDismissDisabled={true}
-        placement="top-center"
+        placement="center"
         isDismissable={false}
         motionProps={{
           variants: {
@@ -65,8 +65,8 @@ export default function Signinmodal() {
           {(onClose) => (
             <>
               <ModalBody className="w-full flex justify-center items-center mx-auto">
-                <div className="bg-white rounded-md p-4 w-[95%] flex flex-col justify-center gap-4">
-                  <div className="mt-4 w-96 mx-auto">
+                <div className="bg-white rounded-md md:p-4 p-2 md:w-[95%] flex flex-col justify-center gap-4">
+                  <div className="mt-4 md:w-96 mx-auto">
                     <Tabs
                       variant="bordered"
                       fullWidth
@@ -87,8 +87,8 @@ export default function Signinmodal() {
                       <Tab key="SIGNUP" title="SIGNUP"></Tab>
                     </Tabs>
                   </div>
-                  <div className="flex flex-row justify-between items-center px-4 mt-1 w-full">
-                    {selected==='SIGNUP' && <div className=" border-1.5 border-gray-300 rounded-2xl w-3/6 h-auto flex flex-col justify-start items-start gap-2 px-4 py-2">
+                  <div className="flex flex-row justify-between items-center md:px-4 mt-1 w-full">
+                    {selected==='SIGNUP' && <div className=" border-1.5 border-gray-300 rounded-2xl md:w-3/6 w-full h-auto flex flex-col justify-start items-start gap-2 px-4 py-2">
                       <Image className="h-6 w-24" src={backgroundimage} />
                       <h6 className="text-md font-medium">Get started!</h6>
                       <p className="text-xs">
@@ -159,7 +159,7 @@ export default function Signinmodal() {
                         <p className="text-xs">Already a member?<span className="text-xs underline text-buttoncolor cursor-pointer" onClick={()=>setSelected('LOGIN')}>Login</span></p>
                       </div>
                     </div>}
-                    {selected==='LOGIN' && <div className=" border-1.5 border-gray-300 rounded-2xl w-3/6 h-auto flex flex-col justify-start items-start gap-2 px-4 py-2">
+                    {selected==='LOGIN' && <div className=" border-1.5 border-gray-300 rounded-2xl md:w-3/6 h-auto w-full flex flex-col justify-start items-start gap-2 px-4 py-2">
                       <Image className="h-8 w-24" src={backgroundimage} />
                       <h6 className="text-lg font-medium">Welcome Back!</h6>
                       <p className="text-xs">
@@ -195,18 +195,18 @@ export default function Signinmodal() {
                           required
                         />
                       </div>
-                      <div className="flex py-2 px-1 justify-between items-center gap-24">
+                      <div className="flex py-2 px-1 justify-between  items-center md:gap-24 gap-4">
                         <Checkbox
                          color="warning"
                           classNames={{
-                            label: "text-small",
+                            label: "md:text-small text-xs",
                             
                           }}
                         >
                           Remember me
                         </Checkbox>
                         <Link color="primary" href="#" size="sm">
-                         <span className="ml-auto text-sm">Forgot password?</span> 
+                         <span className="ml-auto md:text-sm text-xs">Forgot password?</span> 
                         </Link>
                       </div>
 
