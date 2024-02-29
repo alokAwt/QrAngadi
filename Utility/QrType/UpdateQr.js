@@ -7,7 +7,7 @@ import {
   UpdateSocialQr,
   UpdateVideoQr,
   UpdateWebsiteQr,
-} from "../../Api/QR";
+} from "../Api/QR";
 
 export const UpdateProfileQr = (
   Url,
