@@ -1,6 +1,7 @@
 import FAQ from "@/Components/Homecomponents/FAQ";
 import { FaSearch } from "react-icons/fa";
 import React from "react";
+import SendQueries from "@/Components/SendQueries";
 function Page() {
   return (
     <div>
@@ -17,7 +18,8 @@ function Page() {
             className="border-none bg-transparent placeholder:text-[#AAAAAA] w-full focus:ring-0 border-transparent focus:border-transparent"
           />
         </div>
-      </div>{" "}
+      </div>
+      <SendQueries />
       <FAQ />
     </div>
   );
