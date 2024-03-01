@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React, { useState } from "react";
 import Form from "../../public/Aboutus/Form.png";
 import Linkdin from "../../public/Aboutus/Linkdin.png";
@@ -12,6 +12,8 @@ import { IoMdMail } from "react-icons/io";
 import { FaLocationDot } from "react-icons/fa6";
 import { Button, Input } from "@nextui-org/react";
 import { Contactus } from "@/Utility/Api/Users";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Formcard = () => {
   const [firstName, setFirstName] = useState("");
@@ -58,6 +60,7 @@ const Formcard = () => {
   };
   return (
     <div className="w-full flex-col items-center justify-center gap-8">
+      <ToastContainer></ToastContainer>
       <div className="flex flex-col justify-center items-center gap-8">
         <h6 className="font-bold text-3xl mt-8 text-center ">Get in Touch </h6>
         <p className="text-sm font-medium  text-center">
@@ -126,7 +129,6 @@ const Formcard = () => {
                       id="first_name"
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-buttoncolor focus:border-buttoncolor block w-full p-2.5  "
                       placeholder=" First Name"
-                      required
                     />
                   </div>
                   <div>
@@ -143,7 +145,6 @@ const Formcard = () => {
                       id="last_name"
                       className="bg-gray-50 border  border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-buttoncolor focus:border-buttoncolor block w-full p-2.5  "
                       placeholder=" Last Name"
-                      required
                     />
                   </div>
                 </div>
@@ -161,7 +162,6 @@ const Formcard = () => {
                     id="email"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-buttoncolor focus:border-buttoncolor block w-full p-2.5 "
                     placeholder="Enter Your Email"
-                    required
                   />
                 </div>
                 <div className="mb-6">
@@ -178,7 +178,6 @@ const Formcard = () => {
                     id="email"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-buttoncolor focus:border-buttoncolor block w-full p-2.5 d "
                     placeholder=" Related Subject"
-                    required
                   />
                 </div>
                 <div className="mb-6">
@@ -195,13 +194,11 @@ const Formcard = () => {
                     id="email"
                     className="bg-gray-50 border items-start  border-gray-300 text-gray-900 text-sm h-24 rounded-lg focus:ring-buttoncolor focus:border-buttoncolor block w-full p-2.5  "
                     placeholder="Type something here..."
-                    required
                   />
                 </div>
 
                 <Button
                   onClick={SubmitButton}
-                  type="submit"
                   className="text-white  bg-buttoncolor  font-medium rounded-lg text-sm w-full sm:w-full px-5 py-2.5 text-center "
                 >
                   SEND MESSAGE

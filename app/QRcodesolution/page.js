@@ -41,26 +41,19 @@ import Sunflower from "../../public/QRgenerate/Samplelogo/Sunflower.png";
 import QRCodeStyling from "qr-code-styling";
 import { QrType } from "@/Utility/QrType/QrType";
 import { CreateQr } from "@/Utility/CreateQr";
-import { useToast } from "../../Components/ui/usetoast"
-import { ToastAction } from "@/components/ui/toast"
-import { useRouter } from 'next/navigation'
-
-
-
-
-
-
+import { useToast } from "../../Components/ui/usetoast";
+import { ToastAction } from "@/components/ui/toast";
+import { useRouter } from "next/navigation";
 
 const Extension = [
-  {label: "png", value: "png", },
-  {label: "jpeg", value: "jpeg", },
-  {label: "webp", value: "webp", },
-  {label: "svg", value: "svg",},
- ]
+  { label: "png", value: "png" },
+  { label: "jpeg", value: "jpeg" },
+  { label: "webp", value: "webp" },
+  { label: "svg", value: "svg" },
+];
 
- 
- const page = () => {
-  const { toast } = useToast()
+const page = () => {
+  const { toast } = useToast();
   const [selected, setSelected] = React.useState("STATIC");
   const [image, setImages] = useState("");
   const [logo, setLogo] = useState("");
@@ -77,9 +70,8 @@ const Extension = [
   const [qrType, setQrType] = useState("");
   const [Url, setUrl] = useState("");
   const [qrName, setQrName] = useState("");
-  const [loading,setLoading]=useState(false)
-  const router = useRouter()
-
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const [options, setOptions] = useState({
     width: 300,
@@ -110,7 +102,7 @@ const Extension = [
     cornersDotOptions: { type: "Square", color: "#000000" },
   });
 
-  const [fileExt, setFileExt] = useState('');
+  const [fileExt, setFileExt] = useState("");
   const [qrCode] = useState(new QRCodeStyling(options));
   const ref = useRef(null);
 
@@ -247,8 +239,6 @@ const Extension = [
     });
   };
 
-
-
   const setLogoMemoized = useMemo(() => {
     return (file) => {
       if (file) {
@@ -264,7 +254,6 @@ const Extension = [
   const onChangePicture = (e) => {
     setImages(e.target.files[0]);
     setLogoMemoized(e.target.files[0]); // Use the memoized function to set the logo
-
   };
 
   const genPresets = (presets = presetPalettes) =>
@@ -281,6 +270,10 @@ const Extension = [
     cyan,
   });
 
+  const ChangeScreen = () => {
+    router.push("/Profile");
+  };
+
   const GenerateDyamicqr = async () => {
     if (!qrType) {
       toast({
@@ -288,17 +281,15 @@ const Extension = [
         title: "QR Type is Required.",
         description: "",
         action: <ToastAction altText="Try again">Try again</ToastAction>,
-      })
+      });
     } else if (qrType != "Map" ? !Url : !lat || !lon) {
       toast({
         variant: "",
         title: "QR Data is Required.",
         description: "",
         action: <ToastAction altText="Try again">Try again</ToastAction>,
-      })
+      });
     }
-    console.log(image); 
-      /// loader start  need steate for start loader
 
     if (image) {
       const data = new FormData();
@@ -324,18 +315,13 @@ const Extension = [
           eyeHexString,
           cornersSquareOption,
           setLoading,
-         // pass function with state off/on state with timeout 
+          toast,
+          ChangeScreen,
           lat,
           lon,
           Url,
           file.secure_url
-        ).then((result) => {
-        
-          setLoading(false);
-          setTimeout(() => {
-            router.push('/Profile')
-          }, 2000); 
-        });;
+        );
       }
     } else {
       let result = CreateQr(
@@ -349,12 +335,13 @@ const Extension = [
         eyeHexString,
         cornersSquareOption,
         setLoading,
-        //craete function for loader / off/on
+        toast,
+        ChangeScreen,
         lat,
         lon,
         Url,
         ""
-      )
+      );
     }
   };
 
@@ -393,9 +380,12 @@ const Extension = [
           {QrType &&
             QrType.map((item, index) => (
               <Button
-                
                 variant="light"
-                className={qrType === item.type ?"flex flex-col justify-center items-center gap-1 h-auto py-2 ring-1 ring-buttoncolor":'flex flex-col justify-center items-center gap-1 h-auto py-2'}
+                className={
+                  qrType === item.type
+                    ? "flex flex-col justify-center items-center gap-1 h-auto py-2 ring-1 ring-buttoncolor"
+                    : "flex flex-col justify-center items-center gap-1 h-auto py-2"
+                }
                 onClick={() => setQrType(item.type)}
               >
                 <div>
@@ -573,15 +563,6 @@ const Extension = [
               <Tab key="STATIC" title="STATIC" className="w-full"></Tab>
               <Tab key="DYNAMIC" title="DYNAMIC"></Tab>
             </Tabs>
-
-            {selected === "STATIC" ? null : (
-              <Button
-                className="text-white bg-buttoncolor rounded-sm md:w-96 w-full mt-4"
-                onClick={GenerateDyamicqr}
-              >
-               {loading?<Spinner/>: 'GENERATE QR'}
-              </Button>
-            )}
           </div>
         </div>
 
@@ -986,19 +967,31 @@ const Extension = [
               className="text-sm mt-2 bg-white flex justify-center rounded-md border-buttoncolor border-2 items-center  w-full  text-buttoncolor"
             >
               {Extension.map((ext) => (
-          <SelectItem key={ext.value} onPress={()=>setFileExt(ext.value)}>
-            {ext.label}
-          </SelectItem>
-        ))}
+                <SelectItem
+                  key={ext.value}
+                  onPress={() => setFileExt(ext.value)}
+                >
+                  {ext.label}
+                </SelectItem>
+              ))}
             </Select>
 
-            <Button
-              onPress={onDownloadClick}
-              variant="solid"
-              className="text-white bg-buttoncolor rounded-sm w-full"
-            >
-              Download
-            </Button>
+            {selected === "STATIC" ? (
+              <Button
+                onPress={onDownloadClick}
+                variant="solid"
+                className="text-white bg-buttoncolor rounded-sm w-full"
+              >
+                Download
+              </Button>
+            ) : (
+              <Button
+                className="text-white bg-buttoncolor rounded-sm w-full"
+                onClick={GenerateDyamicqr}
+              >
+                {loading ? <Spinner /> : "GENERATE QR"}
+              </Button>
+            )}
           </div>
         </div>
 

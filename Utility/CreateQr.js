@@ -8,11 +8,7 @@ import {
   CreateVideoQr,
   CreateWebsiteQr,
 } from "./Api/QR";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-
-// const [loading,setLoading]=useState(false)
-
+import { ToastAction } from "@/components/ui/toast";
 
 export const CreateQr = (
   qrName,
@@ -24,32 +20,17 @@ export const CreateQr = (
   cornersDotOption,
   eyeHexString,
   cornersSquareOption,
-  setLoading ,
+  setLoading,
+  toast,
+  ChangeScreen,
   lat,
   lon,
   Url,
   logo
 ) => {
-
-  if(qrType){
-
-    setLoading(true)
+  if (qrType) {
+    setLoading(true);
   }
-  console.log(
-    qrName,
-    qrType,
-    backgroundHexString,
-    dotHexString,
-    selectedOptions,
-    cornersHexString,
-    cornersDotOption,
-    eyeHexString,
-    cornersSquareOption,
-    lat,
-    lon,
-    Url,
-    logo
-  );
   switch (qrType) {
     case "Website": {
       CreateWebsiteQr({
@@ -74,15 +55,20 @@ export const CreateQr = (
       }).then((res) => {
         console.log(res);
         if (res.status === "success") {
-          setLoading(false)
-          // ChangeLoad();  //---------Lodaer off call here 
-          //-----------navigate profile
-          alert("qr Created Success");  //---------Toast message
-         
+          setLoading(false);
+          toast({
+            variant: "",
+            title: "QR Created successfully",
+            description: "",
+          });
+          ChangeScreen();
         } else {
-          setLoading(false)
-          // ChangeLoad();  // lodaer off
-          // alert(res.message); // toast
+          setLoading(false);
+          toast({
+            variant: "",
+            title: "failed to Create Qr",
+            description: res.message,
+          });
         }
       });
       break;
@@ -110,14 +96,20 @@ export const CreateQr = (
       }).then((res) => {
         console.log(res);
         if (res.status === "success") {
-          setLoading(false)
-          // ChangeLoad();
-          // navigate("/profile");
-          alert("qr Created Success");
+          setLoading(false);
+          toast({
+            variant: "",
+            title: "QR Created successfully",
+            description: "",
+          });
+          ChangeScreen();
         } else {
-          setLoading(false)
-          // ChangeLoad();
-          alert(res.message);
+          setLoading(false);
+          toast({
+            variant: "",
+            title: "failed to Create Qr",
+            description: res.message,
+          });
         }
       });
       break;
@@ -144,14 +136,20 @@ export const CreateQr = (
         QrName: qrName,
       }).then((res) => {
         if (res.status === "success") {
-          setLoading(false)
-          // ChangeLoad();
-          // navigate("/profile");
-          alert("qr Created Success");
+          setLoading(false);
+          toast({
+            variant: "",
+            title: "QR Created successfully",
+            description: "",
+          });
+          ChangeScreen();
         } else {
-          setLoading(false)
-          // ChangeLoad();
-          alert(res.message);
+          setLoading(false);
+          toast({
+            variant: "",
+            title: "failed to Create Qr",
+            description: res.message,
+          });
         }
       });
       break;
@@ -178,14 +176,20 @@ export const CreateQr = (
         QrName: qrName,
       }).then((res) => {
         if (res.status === "success") {
-          setLoading(false)
-          // ChangeLoad();
-          // navigate("/profile");
-          alert("qr Created Success");
+          setLoading(false);
+          toast({
+            variant: "",
+            title: "QR Created successfully",
+            description: "",
+          });
+          ChangeScreen();
         } else {
-          setLoading(false)
-          // ChangeLoad();
-          alert(res.message);
+          setLoading(false);
+          toast({
+            variant: "",
+            title: "failed to Create Qr",
+            description: res.message,
+          });
         }
       });
       break;
@@ -212,14 +216,20 @@ export const CreateQr = (
         QrName: qrName,
       }).then((res) => {
         if (res.status === "success") {
-          setLoading(false)
-          // ChangeLoad();
-          // navigate("/profile");
-          alert("qr Created Success");
+          setLoading(false);
+          toast({
+            variant: "",
+            title: "QR Created successfully",
+            description: "",
+          });
+          ChangeScreen();
         } else {
-          setLoading(false)
-          // ChangeLoad();
-          alert(res.message);
+          setLoading(false);
+          toast({
+            variant: "",
+            title: "failed to Create Qr",
+            description: res.message,
+          });
         }
       });
       break;
@@ -246,14 +256,60 @@ export const CreateQr = (
         QrName: qrName,
       }).then((res) => {
         if (res.status === "success") {
-          setLoading(false)
-          // ChangeLoad();
-          // navigate("/profile");
-          alert("qr Created Success");
+          setLoading(false);
+          toast({
+            variant: "",
+            title: "QR Created successfully",
+            description: "",
+          });
+          ChangeScreen();
         } else {
-          setLoading(false)
-          // ChangeLoad();
-          alert(res.message);
+          setLoading(false);
+          toast({
+            variant: "",
+            title: "failed to Create Qr",
+            description: res.message,
+          });
+        }
+      });
+      break;
+    }
+    case "document1": {
+      CreateDocumentQr({
+        Url: Url,
+        dotoption: {
+          color: dotHexString,
+          type: selectedOptions,
+        },
+        backgroundOption: {
+          type: backgroundHexString,
+        },
+        cornersOptions: {
+          color: cornersHexString,
+          type: cornersSquareOption,
+        },
+        cornersDotOptions: {
+          color: eyeHexString,
+          type: cornersDotOption,
+        },
+        image: logo,
+        QrName: qrName,
+      }).then((res) => {
+        if (res.status === "success") {
+          setLoading(false);
+          toast({
+            variant: "",
+            title: "QR Created successfully",
+            description: "",
+          });
+          ChangeScreen();
+        } else {
+          setLoading(false);
+          toast({
+            variant: "",
+            title: "failed to Create Qr",
+            description: res.message,
+          });
         }
       });
       break;
@@ -283,14 +339,20 @@ export const CreateQr = (
       }).then((res) => {
         console.log(res);
         if (res.status === "success") {
-          setLoading(false)
-          // ChangeLoad();
-          // navigate("/profile");
-          alert("qr Created Success");
+          setLoading(false);
+          toast({
+            variant: "",
+            title: "QR Created successfully",
+            description: "",
+          });
+          ChangeScreen();
         } else {
-          setLoading(false)
-          // ChangeLoad();
-          alert(res.message);
+          setLoading(false);
+          toast({
+            variant: "",
+            title: "failed to Create Qr",
+            description: res.message,
+          });
         }
       });
       break;
@@ -317,14 +379,20 @@ export const CreateQr = (
         QrName: qrName,
       }).then((res) => {
         if (res.status === "success") {
-          setLoading(false)
-          // ChangeLoad();
-          // navigate("/profile");
-          alert("qr Created Success");
+          setLoading(false);
+          toast({
+            variant: "",
+            title: "QR Created successfully",
+            description: "",
+          });
+          ChangeScreen();
         } else {
-          setLoading(false)
-          // ChangeLoad();
-          alert(res.message);
+          setLoading(false);
+          toast({
+            variant: "",
+            title: "failed to Create Qr",
+            description: res.message,
+          });
         }
       });
       break;
