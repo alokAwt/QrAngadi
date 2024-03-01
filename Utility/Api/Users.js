@@ -1,7 +1,7 @@
 import { BaseUrl } from "./BaseUrl";
 
 //---------------Sign Up-------------------//
-export const SignUp = async (data) => {
+export const SignUpUsers = async (data) => {
   try {
     let result = await fetch(`${BaseUrl}/Users/Signup`, {
       method: "POST",
@@ -18,7 +18,7 @@ export const SignUp = async (data) => {
 };
 
 //----------------Sign In---------------------//
-export const SignIn = async (data) => {
+export const SignInUsers = async (data) => {
   try {
     let result = await fetch(`${BaseUrl}/Users/Signin`, {
       method: "POST",
@@ -165,8 +165,7 @@ export const GetPlans = async () => {
 //-----------------Create Order------------------------//
 
 export const CreateOrder = async (data) => {
-  let token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZDVjZTc3NGMyYjE3ZTg0MTBhYmM5MyIsImlhdCI6MTcwOTE4OTg4MCwiZXhwIjoxNzExMjYzNDgwfQ.KbzC2_V69jCmfHn9FQrZd9pAnYsE2wejnAAJ13HFbW4";
+  let token =localStorage.getItem('token');
   try {
     let result = await fetch(`${BaseUrl}/Suscription/Createorder`, {
       method: "POST",
@@ -184,8 +183,7 @@ export const CreateOrder = async (data) => {
 };
 
 export const PayOrder = async (data) => {
-  let token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZDVjZTc3NGMyYjE3ZTg0MTBhYmM5MyIsImlhdCI6MTcwOTE4OTg4MCwiZXhwIjoxNzExMjYzNDgwfQ.KbzC2_V69jCmfHn9FQrZd9pAnYsE2wejnAAJ13HFbW4";
+  let token =localStorage.getItem('token');
   try {
     let result = await fetch(`${BaseUrl}/Suscription/Pay`, {
       method: "POST",

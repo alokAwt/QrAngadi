@@ -322,6 +322,7 @@ const page = () => {
           Url,
           file.secure_url
         );
+        setImages("");
       }
     } else {
       let result = CreateQr(
@@ -929,7 +930,7 @@ const page = () => {
                                 />
                               </Button>
                               <Button
-                                onPress={() => setLogo("")}
+                                onPress={() => (setLogo(""), setImages(""))}
                                 variant="light"
                                 className="md:w-60 w-full ring-2 ring-buttoncolor rounded-sm text-buttoncolor font-medium"
                               >

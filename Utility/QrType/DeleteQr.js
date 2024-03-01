@@ -1,11 +1,12 @@
 import {
-  DeleteWebsiteQr,
+  
   DeleteAudioQr,
   DeleteImageQr,
   DeleteMapQr,
   DeletePlayStoreQr,
   DeleteSocialQr,
   DeleteVideoQr,
+  DeleteWebsiteQr,
   DeletedocumentQr,
 } from "../Api/QR";
 

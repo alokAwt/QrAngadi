@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React, { useState, createRef, useRef, useEffect } from "react";
 import "./Dashboard.module.css";
 import "../../../Components/Analyticscomponets/App.module.css";
@@ -31,19 +31,18 @@ import "react-toastify/dist/ReactToastify.css";
 import Dropdown from "react-bootstrap/Dropdown";
 
 import { SpinnerRoundOutlined, SpinnerCircularFixed } from "spinners-react";
-import GeoGraph, { Geo } from "../../../Components/Analyticscomponets/Charts/Geo";
-// import { GetAnalytices } from "../../../../Api/Users";                                // API CALLING 
+import GeoGraph, {
+  Geo,
+} from "../../../Components/Analyticscomponets/Charts/Geo";
+// import { GetAnalytices } from "../../../../Api/Users";                                // API CALLING
 // import { useScreenshot } from "use-react-screenshot";
 // import { WhatsappIcon, WhatsappShareButton } from "react-share";
 
-import { useRouter } from 'next/navigation'
-import {usePathname } from 'next/navigation'
-import { useParams } from 'next/navigation'
+import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
+import { useParams } from "next/navigation";
 import Image from "next/image";
-
-
-
-
+import { GetAnalytices } from "@/Utility/Api/Users";
 
 const { RangePicker } = DatePicker;
 
@@ -55,12 +54,12 @@ const ImageDownload = (uri) => {
 };
 
 const page = () => {
-  const params = useParams()
-  const router = useRouter()
-  const pathname=usePathname()
+  const params = useParams();
+  const router = useRouter();
+  const pathname = usePathname();
   const [shouldImportBootstrap, setShouldImportBootstrap] = useState(true);
   useEffect(() => {
-    const isDashboardPage =pathname === "/Analytics";
+    const isDashboardPage = pathname === "/Analytics";
     setShouldImportBootstrap(isDashboardPage);
   }, [pathname]);
 
@@ -105,8 +104,8 @@ const page = () => {
   const map = [];
   const State = [];
 
-  const { id } = params
-  console.log(id)
+  const { id } = params;
+  console.log(id);
 
   const LogoutUser = () => {
     localStorage.clear("user");
@@ -188,7 +187,8 @@ const page = () => {
       QrId: id,
     })
       .then((res) => {
-        toast(res.message)
+        console.log(res)
+        toast(res.message);
         setData(res.month);
         setTotalscan(res.TotalScans);
         setWeek(res.week);
@@ -230,7 +230,10 @@ const page = () => {
               }}
             >
               <div className="text-center">
-              <Image className="mt-4 p-4 h-24 w-32 object-contain" src={Logo}/>
+                <Image
+                  className="mt-4 p-4 h-24 w-32 object-contain"
+                  src={Logo}
+                />
                 {/* <Image
                   className="mt-4"
                   style={{
@@ -250,7 +253,8 @@ const page = () => {
                 ></Image>
               </div>
               <div className="text-center">
-                <p style={{backgroundColor:'#F48020', color:'white'}}
+                <p
+                  style={{ backgroundColor: "#F48020", color: "white" }}
                   className="btn mt-4"
                   onClick={() => handleExport()}
                 >
@@ -693,9 +697,7 @@ const page = () => {
                                           padding: 5,
                                           width: 20,
                                           backgroundColor:
-                                            select === index
-                                              ? "#F48020"
-                                              : null,
+                                            select === index ? "#F48020" : null,
                                         }}
                                       ></Image>
                                     ) : (
@@ -709,9 +711,7 @@ const page = () => {
                                           padding: 5,
                                           width: 20,
                                           backgroundColor:
-                                            select === index
-                                              ? "#F48020"
-                                              : null,
+                                            select === index ? "#F48020" : null,
                                         }}
                                       ></Image>
                                     )}
@@ -727,7 +727,6 @@ const page = () => {
                         <div
                           style={{
                             maxHeight: "100%",
-                          
                           }}
                         >
                           {select === 0 ? (
@@ -1168,11 +1167,12 @@ select1 === 0 ? (
                           {/* //-------------------------------Change graph End---------------------------------// */}
                         </div>
                       </div>
-                      <div  style={{ backgroundColor:'#F48020'}}
-                      // style={{
-                      //   height: "100%",
-                      //   padding: 5,
-                      // }}
+                      <div
+                        style={{ backgroundColor: "#F48020" }}
+                        // style={{
+                        //   height: "100%",
+                        //   padding: 5,
+                        // }}
                       >
                         <GeoGraph data={city} map={maps}></GeoGraph>
                       </div>
