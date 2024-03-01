@@ -103,18 +103,24 @@ function Footernav() {
         />
         <div className="flex text-xs sm:justify-center gap-2 text-white">
           <span className="font-semibold text-buttoncolor">Follow Us:</span>
-          <Link href="#">
+          <a href="https://www.instagram.com/angadiworldtech/" target="_blank">
             <p>Instagram</p>
-          </Link>
-          <Link href="#">
+          </a>
+          <a
+            href="https://www.facebook.com/angadiworldtechnology/"
+            target="_blank"
+          >
             <p>Facebook</p>
-          </Link>
-          <Link href="#">
+          </a>
+          <a
+            href="https://in.linkedin.com/company/awt-technology"
+            target="_blank"
+          >
             <p>Linkedin</p>
-          </Link>
-          <Link href="#">
+          </a>
+          <a href="https://twitter.com/angadiworldtech" target="_blank">
             <p>X</p>
-          </Link>
+          </a>
           {/* <Link href="/Privacypolicy">
             <p>Privacy Policy</p>
           </Link>
