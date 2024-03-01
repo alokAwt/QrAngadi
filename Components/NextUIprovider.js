@@ -12,15 +12,17 @@ import {usePathname } from 'next/navigation'
 export default function NextUIprovider({ children }) {
   const pathname=usePathname()
 
+
+  console.log(pathname)
  
   return (
     <NextUIProvider>
       <main className="">
         <div className="">
-        {pathname==='/Profile' ?"":<Navbar />}
+        {(pathname === '/Profile' || pathname.startsWith('/Analytics')) ? null : <Navbar />}
           {children}
           <Toaster/>
-         {pathname==='/Profile' ?"":<Footernav/>}
+          {(pathname === '/Profile' || pathname.startsWith('/Analytics')) ? null : <Footernav/>}
         </div>
       </main>
     </NextUIProvider>
