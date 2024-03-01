@@ -1,5 +1,5 @@
-'use client'
-import React, { useState } from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import {
   Table,
   TableHeader,
@@ -15,191 +15,159 @@ import {
   Chip,
   User,
   Pagination,
-  Tooltip
+  Tooltip,
+  Spinner,
 } from "@nextui-org/react";
 import { FaPlus } from "react-icons/fa6";
 import { IoEllipsisVertical } from "react-icons/io5";
 import { IoIosSearch } from "react-icons/io";
 import { FaAngleDown } from "react-icons/fa6";
-import '../../app/globals.css'
-import { Input } from "@/components/ui/input"
+import "../../app/globals.css";
+import { Input } from "@/components/ui/input";
 import { MdEdit } from "react-icons/md";
 import { MdDownloadForOffline } from "react-icons/md";
 import { BsFillBarChartFill } from "react-icons/bs";
 import { FaEye } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { IoCloseCircle } from "react-icons/io5";
-import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure} from "@nextui-org/react";
+import {
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  useDisclosure,
+} from "@nextui-org/react";
 import EditQR from "./EditQR";
-import { useRouter } from 'next/navigation'
-
-
-
-
-
-
-
+import { useRouter } from "next/navigation";
+import { GetProfile } from "@/Utility/Api/Users";
+import { DeleteProfileQr } from "@/Utility/QrType/DeleteQr";
 
 const statusColorMap = {
   Dynamic: "success",
   Static: "danger",
 };
 
-const INITIAL_VISIBLE_COLUMNS = ["QRCodeName", "Category", "Type", "LastModified",'Actions'];
+const INITIAL_VISIBLE_COLUMNS = ["QrName", "Qrtype", "Url", "Actions"];
 
 const columns = [
-  {name: "QR CODE NAME", uid: "QRCodeName", sortable: true},
-  {name: "CATEGORY", uid: "Category", sortable: true},
-  {name: "TYPE", uid: "Type",},
-  {name: "LAST MODIFIED", uid: "LastModified"},
-  {name: "ACTIONS", uid:"Actions"},
+  { name: "QR CODE NAME", uid: "QrName", sortable: true },
+  { name: "CATEGORY", uid: "Qrtype", sortable: true },
+  { name: "DATA", uid: "Url", sortable: true },
+  { name: "ACTIONS", uid: "Actions" },
 ];
 
-
-
-const users = [
-  {
-    id: 0,
-    QRCodeName: "Tony Reichert",
-   Category: "CEO",
-   Type: "Management",
-   "LastModified": "active",
-   Type: "Dynamic",
-  },
-  {
-    id: 1,
-    QRCodeName: "Tony Reichert",
-   Category: "CEO",
-   Type: "Management",
-   "LastModified": "active",
-   Type: "Dynamic",
-  },
-  {
-    id: 2,
-    QRCodeName: "Tony Reichert",
-   Category: "CEO",
-   Type: "Management",
-   "LastModified": "active",
-   Type: "Dynamic",
-  },
-  {
-    id: 3,
-    QRCodeName: "Tony Reichert",
-   Category: "CEO",
-   Type: "Management",
-   "LastModified": "active",
-   Type: "Dynamic",
-  },
-  {
-    id: 4,
-    QRCodeName: "Tony Reichert",
-   Category: "CEO",
-   Type: "Management",
-   "LastModified": "active",
-   Type: "Dynamic",
-  },
-  {
-    id: 5,
-    QRCodeName: "Tony Reichert",
-   Category: "CEO",
-   Type: "Management",
-   "LastModified": "active",
-   Type: "Dynamic",
-  },
-  {
-    id: 6,
-    QRCodeName: "Tony Reichert",
-   Category: "CEO",
-   Type: "Management",
-   "LastModified": "active",
-   Type: "Dynamic",
-  },
-  {
-    id: 7,
-    QRCodeName: "Tony Reichert",
-   Category: "CEO",
-   Type: "Management",
-   "LastModified": "active",
-   Type: "Dynamic",
-  },
-  {
-    id: 8,
-    QRCodeName: "Tony Reichert",
-   Category: "CEO",
-   Type: "Management",
-   "LastModified": "active",
-   Type: "Dynamic",
-  },
-  {
-    id: 9,
-    QRCodeName: "Tony Reichert",
-   Category: "CEO",
-   Type: "Management",
-   "LastModified": "active",
-   Type: "Dynamic",
-  },
-  {
-    id: 10,
-    QRCodeName: "Tony Reichert",
-   Category: "CEO",
-   Type: "Management",
-   "LastModified": "active",
-   Type: "Dynamic",
-  },
- ]
-
-  const  capitalize=(str)=>{
-    return str.charAt(0).toUpperCase() + str.slice(1);
-  }
+const capitalize = (str) => {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+};
 
 export default function MainComponent() {
-  const router = useRouter()
-  const [ID,Setid]=useState('')
+  const router = useRouter();
+  const [ID, Setid] = useState("");
+  const [type, setType] = useState("");
   const [filterValue, setFilterValue] = React.useState("");
   const [selectedKeys, setSelectedKeys] = React.useState(new Set([]));
-  const [visibleColumns, setVisibleColumns] = React.useState(new Set(INITIAL_VISIBLE_COLUMNS));
+  const [visibleColumns, setVisibleColumns] = React.useState(
+    new Set(INITIAL_VISIBLE_COLUMNS)
+  );
   const [statusFilter, setStatusFilter] = React.useState("all");
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [data, setData] = useState([]);
+  const [profile, setProile] = useState("");
+  const [isloading, setIsloading] = useState(false);
   const [sortDescriptor, setSortDescriptor] = React.useState({
     column: "age",
     direction: "ascending",
   });
   const [page, setPage] = React.useState(1);
 
-const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const {isOpen2, onOpen2, onClose2} = useDisclosure();
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const { isOpen2, onOpen2, onClose2 } = useDisclosure();
 
-  const Redirectanalytics=(ID)=>{
-         router.push(`/Analytics/${ID}`)
-  }
+  const GetQr = () => {
+    GetProfile().then((res) => {
+      setData(res.data.Qr.reverse());
+      setProile(res.data);
+    });
+  };
 
+  useEffect(() => {
+    GetQr();
+  }, []);
 
-  const pages = Math.ceil(users.length / rowsPerPage);
+  const handleDownload = (imageUrl, fileName) => {
+    console.log("alok", imageUrl, fileName);
+    const link = document.createElement("a");
+    link.href = imageUrl;
+    link.download = fileName;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const CloseLoading = () => {
+    setIsloading(false);
+  };
+
+  const DeleteQr = (id, type) => {
+    setIsloading(true);
+    let res = DeleteProfileQr(id, type, GetQr, CloseLoading);
+  };
+
+  const openQrInNewWindow = (imageUrl) => {
+    const newWindow = window.open("", "_blank");
+
+    if (newWindow) {
+      newWindow.document.write(`
+      <html>
+        <head>
+          <title>QR Image</title>
+        </head>
+        <body style="margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh;">
+          <img src="${imageUrl}" alt="QR Image" style="max-width: 100%; max-height: 100%;">
+        </body>
+      </html>
+    `);
+
+      newWindow.document.close();
+    }
+  };
+
+  const Redirectanalytics = (ID) => {
+    router.push(`/Analytics/${ID}`);
+  };
+
+  const pages = Math.ceil(data.length / rowsPerPage);
 
   const hasSearchFilter = Boolean(filterValue);
 
   const headerColumns = React.useMemo(() => {
     if (visibleColumns === "all") return columns;
 
-    return columns.filter((column) => Array.from(visibleColumns).includes(column.uid));
+    return columns.filter((column) =>
+      Array.from(visibleColumns).includes(column.uid)
+    );
   }, [visibleColumns]);
 
   const filteredItems = React.useMemo(() => {
-    let filteredUsers = [...users];
+    let filteredUsers = [...data];
 
     if (hasSearchFilter) {
       filteredUsers = filteredUsers.filter((user) =>
-        user.QRCodeName.toLowerCase().includes(filterValue.toLowerCase()),
+        data.QrName.toLowerCase().includes(filterValue.toLowerCase())
       );
     }
-    if (statusFilter !== "all" && Array.from(statusFilter).length !== statusOptions.length) {
+    if (
+      statusFilter !== "all" &&
+      Array.from(statusFilter).length !== statusOptions.length
+    ) {
       filteredUsers = filteredUsers.filter((user) =>
-        Array.from(statusFilter).includes(user.status),
+        Array.from(statusFilter).includes(user.status)
       );
     }
 
     return filteredUsers;
-  }, [users, filterValue, statusFilter]);
+  }, [data, filterValue, statusFilter]);
 
   const items = React.useMemo(() => {
     const start = (page - 1) * rowsPerPage;
@@ -225,64 +193,60 @@ const { isOpen, onOpen, onOpenChange } = useDisclosure();
       case "QR Code Name":
         return (
           <div className="flex justify-center  items-center ">
-            <p className="">{user.QRCodeName}</p>
+            <p className="">{user.QrName}</p>
           </div>
         );
       case "Category":
         return (
           <div className="flex flex-col justify-start items-start">
-            <p className="text-bold text-small capitalize">{user.Category}</p>
+            <p className="text-bold text-small capitalize">{user.Qrtype}</p>
           </div>
         );
-      case "Type":
-        return (
-          <div className="flex flex-col justify-start items-start">
 
-          <Chip
-            className="capitalize border-none gap-1 text-default-600 ring-1 ring-buttoncolor flex justify-center items-center"
-            color={statusColorMap[user.Type]}
-            size="sm"
-            variant="dot"
-          >
-            {cellValue}
-          </Chip>
-          </div>
-        );
-      case "LastModified":
-        return (
-        <div className="flex flex-col justify-start items-start">
-          <p>{user.LastModified}</p>
-        </div>
-        );
       case "Actions":
         return (
-          <div  className="relative flex justify-start  items-start gap-6 w-full">
-          <Tooltip  content="Edit">
-            <div  onClick={onOpen} className="text-lg p-1 rounded-md ring-1 ring-buttoncolor text-default-400 cursor-pointer active:opacity-50">
-              <MdEdit className="text-buttoncolor"  />
-            </div>
-          </Tooltip>
-          <Tooltip content="Download">
-            <div  className="text-lg ring-1 p-1 rounded-md ring-buttoncolor text-default-400 cursor-pointer active:opacity-50">
-              <MdDownloadForOffline className="text-buttoncolor"/>
-            </div>
-          </Tooltip>
-          <Tooltip  content="Insights">
-            <div onClick={() => Redirectanalytics(user.id)} className="text-lg p-1 rounded-md ring-1 ring-buttoncolor text-default-400 cursor-pointer active:opacity-50">
-              <BsFillBarChartFill className="text-buttoncolor"/>
-            </div>
-          </Tooltip>
-          <Tooltip  content="View">
-            <div  className="text-lg p-1 rounded-md ring-1 ring-buttoncolor text-default-400 cursor-pointer active:opacity-50">
-              <FaEye className="text-buttoncolor" />
-            </div>
-          </Tooltip>
-          <Tooltip  content="Delete">
-            <div  className="text-lg ring-1 p-1 rounded-md ring-buttoncolor text-default-400 cursor-pointer active:opacity-50">
-              <MdDelete className="text-buttoncolor" />
-            </div>
-          </Tooltip>
-        </div>
+          <div className="relative flex justify-start  items-start gap-6 w-full">
+            <Tooltip content="Edit">
+              <div
+                onClick={onOpen}
+                className="text-lg p-1 rounded-md ring-1 ring-buttoncolor text-default-400 cursor-pointer active:opacity-50"
+              >
+                <MdEdit className="text-buttoncolor" />
+              </div>
+            </Tooltip>
+            <Tooltip content="Download">
+              <div
+                onClick={() => handleDownload(user.QrImage, user.QrName)}
+                className="text-lg ring-1 p-1 rounded-md ring-buttoncolor text-default-400 cursor-pointer active:opacity-50"
+              >
+                <MdDownloadForOffline className="text-buttoncolor" />
+              </div>
+            </Tooltip>
+            <Tooltip content="Insights">
+              <div
+                onClick={() => Redirectanalytics(user._id)}
+                className="text-lg p-1 rounded-md ring-1 ring-buttoncolor text-default-400 cursor-pointer active:opacity-50"
+              >
+                <BsFillBarChartFill className="text-buttoncolor" />
+              </div>
+            </Tooltip>
+            <Tooltip content="View">
+              <div
+                onClick={() => openQrInNewWindow(user.QrImage)}
+                className="text-lg p-1 rounded-md ring-1 ring-buttoncolor text-default-400 cursor-pointer active:opacity-50"
+              >
+                <FaEye className="text-buttoncolor" />
+              </div>
+            </Tooltip>
+            <Tooltip content="Delete">
+              <div
+                onClick={() => DeleteQr(user._id, user.Qrtype)}
+                className="text-lg ring-1 p-1 rounded-md ring-buttoncolor text-default-400 cursor-pointer active:opacity-50"
+              >
+                <MdDelete className="text-buttoncolor" />
+              </div>
+            </Tooltip>
+          </div>
         );
       default:
         return cellValue;
@@ -299,13 +263,12 @@ const { isOpen, onOpen, onOpenChange } = useDisclosure();
     if (page > 1) {
       setPage(page - 1);
     }
-  }, [page])
+  }, [page]);
 
   const onRowsPerPageChange = React.useCallback((e) => {
     setRowsPerPage(Number(e.target.value));
     setPage(1);
   }, []);
-
 
   const onSearchChange = React.useCallback((value) => {
     if (value) {
@@ -320,8 +283,8 @@ const { isOpen, onOpen, onOpenChange } = useDisclosure();
     control: (provided) => ({
       ...provided,
       border: 0,
-      outline: '1px solid white',
-  })
+      outline: "1px solid white",
+    }),
   };
   const topContent = React.useMemo(() => {
     return (
@@ -329,11 +292,11 @@ const { isOpen, onOpen, onOpenChange } = useDisclosure();
         <div className="flex justify-between gap-3 flex-row  items-center px-4 mt-4">
           <Input
             isClearable
-            className='focus:border-0 border-0 md:w-60 bg-buttonopacitycolor'
+            className="focus:border-0 border-0 md:w-60 bg-buttonopacitycolor"
             classNames={{
               base: "w-full sm:max-w-[44%]",
               inputWrapper: "border-0 focus:border-none ",
-              mainWrapper:"border-none"
+              mainWrapper: "border-none",
             }}
             placeholder="Search by name..."
             size="sm"
@@ -399,16 +362,18 @@ const { isOpen, onOpen, onOpenChange } = useDisclosure();
               size="sm"
               variant="light"
             >
-             + Create QR Code
+              + Create QR Code
             </Button>
           </div>
         </div>
         <div className="flex justify-between items-center">
-          <span className="text-default-400 text-small">Total {users.length} users</span>
+          <span className="text-default-400 text-small">
+            Total {data.length} Qr
+          </span>
           <label className="flex items-center text-default-400 text-small">
             Rows per page:
             <select
-            style={{border:0, borderRadius:2}}
+              style={{ border: 0, borderRadius: 2 }}
               className="bg-transparent border-one outline-none text-default-400 text-small"
               onChange={onRowsPerPageChange}
             >
@@ -426,7 +391,7 @@ const { isOpen, onOpen, onOpenChange } = useDisclosure();
     visibleColumns,
     onSearchChange,
     onRowsPerPageChange,
-    users.length,
+    data.length,
     hasSearchFilter,
   ]);
 
@@ -450,11 +415,23 @@ const { isOpen, onOpen, onOpenChange } = useDisclosure();
           variant="light"
           onChange={setPage}
         />
-         <div className="hidden sm:flex w-[30%] justify-end gap-2">
-          <Button className="ring-buttoncolor ring-1 text-buttoncolor" isDisabled={pages === 1} size="sm" variant="flat" onPress={onPreviousPage}>
+        <div className="hidden sm:flex w-[30%] justify-end gap-2">
+          <Button
+            className="ring-buttoncolor ring-1 text-buttoncolor"
+            isDisabled={pages === 1}
+            size="sm"
+            variant="flat"
+            onPress={onPreviousPage}
+          >
             Previous
           </Button>
-          <Button  className="bg-buttoncolor text-white" isDisabled={pages === 1} size="sm" variant="flat" onPress={onNextPage}>
+          <Button
+            className="bg-buttoncolor text-white"
+            isDisabled={pages === 1}
+            size="sm"
+            variant="flat"
+            onPress={onNextPage}
+          >
             Next
           </Button>
         </div>
@@ -464,14 +441,20 @@ const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const classNames = React.useMemo(
     () => ({
-      wrapper: ["max-h-[362px]", "md:max-w-3xl",'overflow-scroll'] ,
-      th: ["bg-[#FF714333]", "text-default-500", "border-b", "border-divider",'text-start'],
+      wrapper: ["max-h-[362px]", "md:max-w-3xl", "overflow-scroll"],
+      th: [
+        "bg-[#FF714333]",
+        "text-default-500",
+        "border-b",
+        "border-divider",
+        "text-start",
+      ],
       td: [
         // changing the rows border radius
         // first
-        'bg-[#FF71431A]',
-        'h-12',
-        '',
+        "bg-[#FF71431A]",
+        "h-12",
+        "",
         "group-data-[first=true]:first:before:rounded-none",
         "group-data-[first=true]:last:before:rounded-none",
         // middle
@@ -480,71 +463,97 @@ const { isOpen, onOpen, onOpenChange } = useDisclosure();
         "group-data-[last=true]:first:before:rounded-none",
         "group-data-[last=true]:last:before:rounded-none",
       ],
-      tr:['mx-auto']
+      tr: ["mx-auto"],
     }),
-    [],
+    []
   );
 
   return (
     <>
-    {/* <div className="flex flex-col justify-start items-start gap-1 w-full mb-2 px-2">
+      {/* <div className="flex flex-col justify-start items-start gap-1 w-full mb-2 px-2">
       <h6 className="font-semibold text-lg">My QR Codes</h6>
       <p className="text-sm font-medium">You can Create, Customize, View, Edit, Share & Download your QR Codes.</p>
     </div> */}
-<div className="flex w-full overflow-scroll mt-12 ">
-    <Table
-      isCompact
-      // isStriped 
-      removeWrapper
-      aria-label="Example table with custom cells, pagination and sorting"
-      bottomContent={bottomContent}
-      bottomContentPlacement="outside"
-      checkboxesProps={{
-        classNames: {
-          wrapper: "after:bg-buttoncolor after:text-background text-background p-2 flex justify-center items-center",
-        },
-      }}
-      classNames={classNames}
-      selectedKeys={selectedKeys}
-      selectionMode="single"
-      sortDescriptor={sortDescriptor}
-      topContent={topContent}
-      topContentPlacement="outside"
-      onSelectionChange={setSelectedKeys}
-      onSortChange={setSortDescriptor}
-    >
-      <TableHeader  columns={headerColumns}>
-        {(column) => (
-          <TableColumn
-            key={column.uid}
-            align={column.uid === "Actions" ? "center" : "start"}
-            allowsSorting={column.sortable}
+      <div className="flex w-full overflow-scroll mt-12 ">
+        {isloading ? (
+          <div
+            style={{
+              position: "absolute",
+              left: "50%",
+              top: "50%",
+              transform: "translate(-50%, -50%)",
+              backgroundColor: "#fff",
+              padding: 20,
+              borderRadius: 20,
+              boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)", // Add box shadow here
+            }}
           >
-            {column.name}
-          </TableColumn>
-        )}
-      </TableHeader>
-      <TableBody emptyContent={"No users found"} items={sortedItems}>
-        {(item) => (
-          <TableRow key={item.id}>
-            {(columnKey) => <TableCell onClick={()=>Setid(item.id)}>{renderCell(item, columnKey)}</TableCell>}
-          </TableRow>
-        )}
-      </TableBody>
-    </Table>
+            <Spinner></Spinner>
+          </div>
+        ) : null}
 
-</div>
+        <Table
+          isCompact
+          // isStriped
+          removeWrapper
+          aria-label="Example table with custom cells, pagination and sorting"
+          bottomContent={bottomContent}
+          bottomContentPlacement="outside"
+          checkboxesProps={{
+            classNames: {
+              wrapper:
+                "after:bg-buttoncolor after:text-background text-background p-2 flex justify-center items-center",
+            },
+          }}
+          classNames={classNames}
+          selectedKeys={selectedKeys}
+          selectionMode="single"
+          sortDescriptor={sortDescriptor}
+          topContent={topContent}
+          topContentPlacement="outside"
+          onSelectionChange={setSelectedKeys}
+          onSortChange={setSortDescriptor}
+        >
+          <TableHeader columns={headerColumns}>
+            {(column) => (
+              <TableColumn
+                key={column.uid}
+                align={column.uid === "Actions" ? "center" : "start"}
+                allowsSorting={column.sortable}
+              >
+                {column.name}
+              </TableColumn>
+            )}
+          </TableHeader>
+          <TableBody emptyContent={"No Qr found"} items={sortedItems}>
+            {(item) => (
+              <TableRow
+                key={item.UniqueId}
+                onClick={() => (Setid(item.UniqueId), setType(item.Qrtype))}
+              >
+                {(columnKey) => (
+                  <TableCell key={columnKey}>
+                    {renderCell(item, columnKey)}
+                  </TableCell>
+                )}
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </div>
 
-
-
-
-
-
-{/* modal for Edit */}
-<Modal
+      {/* modal for Edit */}
+      <Modal
         size="5xl"
         isOpen={isOpen}
-        closeButton={<p><IoCloseCircle size={24} className="bg-buttoncolor text-white rounded-full text-xl "/></p>}
+        closeButton={
+          <p>
+            <IoCloseCircle
+              size={24}
+              className="bg-buttoncolor text-white rounded-full text-xl "
+            />
+          </p>
+        }
         onOpenChange={onOpenChange}
         isKeyboardDismissDisabled={true}
         placement="center"
@@ -573,10 +582,14 @@ const { isOpen, onOpen, onOpenChange } = useDisclosure();
         <ModalContent className="h-auto   w-full">
           {(onClose1) => (
             <>
-            <ModalBody className="w-full flex justify-center items-center mx-auto">
-               <EditQR id={ID}/>
+              <ModalBody className="w-full flex justify-center items-center mx-auto">
+                <EditQR
+                  id={ID}
+                  type={type}
+                  profie={GetQr}
+                  close={onOpenChange}
+                />
               </ModalBody>
-              
             </>
           )}
         </ModalContent>

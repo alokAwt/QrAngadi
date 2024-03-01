@@ -76,7 +76,7 @@ const unactive='flex justify-between  items-center   p-1 lg:p-2 rounded-md curso
             </div>
             <AiOutlineRight className="text-xs" />
           </Button>
-          <Button
+          {/* <Button
             onClick={() => router.push("/Bookings")}
             className={pathname == "/Bookings" ? active : unactive}
           >
@@ -85,7 +85,7 @@ const unactive='flex justify-between  items-center   p-1 lg:p-2 rounded-md curso
               <p className="font-medium text-xs">Insights</p>
             </div>
             <AiOutlineRight className="text-xs" />
-          </Button>
+          </Button> */}
 
           <Button
             onClick={() => router.push("/BulkOperation")}

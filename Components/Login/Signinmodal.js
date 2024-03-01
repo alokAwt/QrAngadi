@@ -20,9 +20,10 @@ import Authgif from "../../public/Auth/authGif.gif";
 import Image from "next/image";
 import Link from "next/link";
 import { IoCloseCircle } from "react-icons/io5";
-import { SignUpUsers } from "@/Utility/Api/Users";
+import { OtpSend, SignInUsers, SignUpUsers } from "@/Utility/Api/Users";
 import { useToast } from "../../Components/ui/usetoast";
 import { ToastAction } from "@/components/ui/toast";
+import { useRouter } from "next/navigation";
 
 export default function Signinmodal() {
   const { toast } = useToast();
@@ -35,6 +36,9 @@ export default function Signinmodal() {
   const [isloading, setIsloding] = useState(false);
   const [otp, setOtp] = useState("");
   const [otpOpen, setOtpOpen] = useState(false);
+  const [incomingOtp, setIncomingOtp] = useState("");
+
+  const router = useRouter();
 
   const SignUp = () => {
     if (!Name) {
@@ -71,18 +75,111 @@ export default function Signinmodal() {
       return false;
     }
     setIsloding(true);
-    SignUpUsers({
-      Name: Name,
+    OtpSend({
       Email: email,
-      ContactNumber: number,
-      Password: password,
     }).then((res) => {
+      console.log(res);
       if (res.message === "success") {
+        toast({
+          variant: "",
+          title: "Otp Send Successfully.",
+          description: "",
+        });
+        setIncomingOtp(res.otp);
+        setIsloding(false);
+        setOtpOpen(true);
+      } else {
+        toast({
+          variant: "",
+          title: "Failed to Send Otp.",
+          description: res.message,
+        });
+        setIsloding(false);
       }
     });
   };
 
-  const Login = () => {};
+  const OtpVerification = () => {
+    setIsloding(true);
+    if (otp === incomingOtp) {
+      SignUpUsers({
+        Name: Name,
+        Email: email,
+        ContactNumber: number,
+        Password: password,
+      }).then((res) => {
+        if (res.message === "success") {
+          setIsloding(false);
+          toast({
+            variant: "",
+            title: "SignUp successfully.",
+            description: "",
+          });
+          setIsloding(false);
+          setSelected("LOGIN");
+        } else {
+          toast({
+            variant: "",
+            title: "SignUp Failed.",
+            description: res.message,
+          });
+          setIsloding(false);
+        }
+      });
+    } else {
+      toast({
+        variant: "",
+        title: "Otp not Matched.",
+        description: "",
+      });
+      setIsloding(false);
+    }
+  };
+
+  const Login = () => {
+    if (!email) {
+      toast({
+        variant: "",
+        title: "Email is Required.",
+        description: "",
+        action: <ToastAction altText="Try again">Try again</ToastAction>,
+      });
+      return false;
+    } else if (!password) {
+      toast({
+        variant: "",
+        title: "Password is Required.",
+        description: "",
+        action: <ToastAction altText="Try again">Try again</ToastAction>,
+      });
+      return false;
+    }
+    setIsloding(true);
+    SignInUsers({
+      Email: email,
+      Password: password,
+    }).then((res) => {
+      if (res.message === "success") {
+        localStorage.setItem("token", res.token);
+        toast({
+          variant: "",
+          title: "Successfully Loged in.",
+          description: "",
+        });
+        setIsloding(false);
+        onOpenChange();
+        router.push("/Profile");
+      } else {
+        setIsloding(false);
+        toast({
+          variant: "",
+          title: "Loged in faild.",
+          description: res.message,
+          action: <ToastAction altText="Try again">Try again</ToastAction>,
+        });
+      }
+    });
+  };
 
   return (
     <>
@@ -154,7 +251,7 @@ export default function Signinmodal() {
                   <div className="flex flex-row justify-between items-center md:px-4 mt-1 w-full">
                     {selected === "SIGNUP" && (
                       <>
-                        {!otpOpen ? (
+                        {otpOpen ? (
                           <div className=" border-1.5 border-gray-300 rounded-2xl md:w-3/6 w-full h-auto flex flex-col justify-start items-start gap-2 px-4 py-2">
                             <Image className="h-6 w-24" src={backgroundimage} />
                             <h6 className="text-md font-medium">
@@ -182,7 +279,10 @@ export default function Signinmodal() {
                             </div>
 
                             <div className="w-full flex flex-col gap-2 items-center">
-                              <Button className="bg-buttoncolor rounded-sm h-9 text-white w-full">
+                              <Button
+                                className="bg-buttoncolor rounded-sm h-9 text-white w-full"
+                                onClick={OtpVerification}
+                              >
                                 {isloading ? (
                                   <Spinner></Spinner>
                                 ) : (
@@ -300,7 +400,10 @@ export default function Signinmodal() {
                               </div>
 
                               <div className="w-full flex flex-col gap-2 items-center">
-                                <Button className="bg-buttoncolor rounded-sm h-9 text-white w-full">
+                                <Button
+                                  className="bg-buttoncolor rounded-sm h-9 text-white w-full"
+                                  onClick={SignUp}
+                                >
                                   {isloading ? <Spinner></Spinner> : "Sign up"}
                                 </Button>
                                 <p className="text-xs">
@@ -333,11 +436,12 @@ export default function Signinmodal() {
                             Email<span className="text-red-500">*</span>
                           </label>
                           <input
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                             type="email"
                             id="email"
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-buttoncolor focus:border-buttoncolor block w-full p-2.5 "
                             placeholder="Enter Your Email"
-                            required
                           />
                         </div>
                         <div className="mb-2 w-full">
@@ -348,6 +452,8 @@ export default function Signinmodal() {
                             Password<span className="text-red-500">*</span>
                           </label>
                           <input
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
                             type="password"
                             id="email"
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-buttoncolor focus:border-buttoncolor block w-full p-2.5 "
@@ -372,8 +478,11 @@ export default function Signinmodal() {
                         </div>
 
                         <div className="w-full flex flex-col gap-2 items-center">
-                          <Button className="bg-buttoncolor rounded-sm text-white w-full">
-                            Log in
+                          <Button
+                            className="bg-buttoncolor rounded-sm text-white w-full"
+                            onClick={Login}
+                          >
+                            {isloading ? <Spinner></Spinner> : "Log in"}
                           </Button>
                           <p className="text-sm">
                             New member?

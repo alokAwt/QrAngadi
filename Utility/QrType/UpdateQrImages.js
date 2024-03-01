@@ -9,173 +9,347 @@ import {
   UpdateWebsiteQrImage,
 } from "../Api/QR";
 
-export const UpdateProfileQr = (
-  Id,
+export const UpdateProfileQrImages = (
   type,
-  ChangeLoad,
-  Profile,
-  closeModal,
-  lat,
-  lon
+  Id,
+  backgroundHexString,
+  dotHexString,
+  selectedOptions,
+  cornersHexString,
+  cornersDotOption,
+  eyeHexString,
+  cornersSquareOption,
+  setLoading,
+  toast,
+  profie,
+  close,
+  logo
 ) => {
   switch (type) {
     case "Website": {
       UpdateWebsiteQrImage({
         UniqueId: Id,
         dotoption: {
-          color: "#4267b2",
-          type: "dots",
+          color: dotHexString,
+          type: selectedOptions,
         },
         backgroundOption: {
-          type: "",
+          type: backgroundHexString,
         },
         cornersOptions: {
-          color: "blue",
-          type: "",
+          color: eyeHexString,
+          type: cornersSquareOption,
         },
         cornersDotOptions: {
-          color: "",
-          type: "",
+          color: cornersHexString,
+          type: cornersDotOption,
         },
+        image: logo,
       }).then((res) => {
         console.log(res);
-        if (res.message === "success") {
-          ChangeLoad();
-          closeModal();
-          alert("Qr Updated Success");
-          Profile();
+        if (res.status === "success") {
+          profie();
+          setLoading(false);
+          toast({
+            variant: "",
+            title: "Updated Qr Successfully",
+            description: "",
+          });
+          close()
         } else {
-          ChangeLoad();
-          closeModal();
-          alert(res);
+          setLoading(false);
+          toast({
+            variant: "",
+            title: "Update Failed",
+            description: res.message,
+          });
         }
       });
       break;
     }
     case "PlayStore": {
       UpdatePlayStoreQrImages({
-        Url: Url,
         UniqueId: Id,
+        dotoption: {
+          color: dotHexString,
+          type: selectedOptions,
+        },
+        backgroundOption: {
+          type: backgroundHexString,
+        },
+        cornersOptions: {
+          color: eyeHexString,
+          type: cornersSquareOption,
+        },
+        cornersDotOptions: {
+          color: cornersHexString,
+          type: cornersDotOption,
+        },
+        image: logo
       }).then((res) => {
         console.log(res);
-        if (res.message === "success") {
-          ChangeLoad();
-          closeModal();
-          alert("Qr Updated Success");
-          Profile();
+        if (res.status === "success") {
+          profie();
+          setLoading(false);
+          toast({
+            variant: "",
+            title: "Updated Qr Successfully",
+            description: "",
+          });
+          close()
         } else {
-          ChangeLoad();
-          closeModal();
-          alert(res);
+          setLoading(false);
+          toast({
+            variant: "",
+            title: "Update Failed",
+            description: res.message,
+          });
         }
       });
       break;
     }
     case "Audio": {
       UpdateAudioQrImages({
-        Url: Url,
         UniqueId: Id,
+        dotoption: {
+          color: dotHexString,
+          type: selectedOptions,
+        },
+        backgroundOption: {
+          type: backgroundHexString,
+        },
+        cornersOptions: {
+          color: eyeHexString,
+          type: cornersSquareOption,
+        },
+        cornersDotOptions: {
+          color: cornersHexString,
+          type: cornersDotOption,
+        },
+        image: logo,
       }).then((res) => {
-        if (res.message === "success") {
-          ChangeLoad();
-          closeModal();
-          alert("Qr Updated Success");
-          Profile();
+        console.log(res);
+        if (res.status === "success") {
+          profie();
+          setLoading(false);
+          toast({
+            variant: "",
+            title: "Updated Qr Successfully",
+            description: "",
+          });
+          close()
         } else {
-          ChangeLoad();
-          closeModal();
-          alert(res);
+          setLoading(false);
+          toast({
+            variant: "",
+            title: "Update Failed",
+            description: res.message,
+          });
         }
       });
       break;
     }
     case "Video": {
       UpdateVideoQrImages({
-        Url: Url,
         UniqueId: Id,
+        dotoption: {
+          color: dotHexString,
+          type: selectedOptions,
+        },
+        backgroundOption: {
+          type: backgroundHexString,
+        },
+        cornersOptions: {
+          color: eyeHexString,
+          type: cornersSquareOption,
+        },
+        cornersDotOptions: {
+          color: cornersHexString,
+          type: cornersDotOption,
+        },
+        image: logo,
       }).then((res) => {
-        if (res.message === "success") {
-          ChangeLoad();
-          closeModal();
-          alert("Qr Updated Success");
-          Profile();
+        console.log(res);
+        if (res.status === "success") {
+          profie();
+          setLoading(false);
+          toast({
+            variant: "",
+            title: "Updated Qr Successfully",
+            description: "",
+          });
+          close()
         } else {
-          ChangeLoad();
-          closeModal();
-          alert(res);
+          setLoading(false);
+          toast({
+            variant: "",
+            title: "Update Failed",
+            description: res.message,
+          });
         }
       });
       break;
     }
     case "Image": {
       UpdateImageQrImages({
-        Url: Url,
         UniqueId: Id,
+        dotoption: {
+          color: dotHexString,
+          type: selectedOptions,
+        },
+        backgroundOption: {
+          type: backgroundHexString,
+        },
+        cornersOptions: {
+          color: eyeHexString,
+          type: cornersSquareOption,
+        },
+        cornersDotOptions: {
+          color: cornersHexString,
+          type: cornersDotOption,
+        },
+        image: logo,
       }).then((res) => {
-        if (res.message === "success") {
-          ChangeLoad();
-          closeModal();
-          alert("Qr Updated Success");
-          Profile();
+        console.log(res);
+        if (res.status === "success") {
+          profie();
+          setLoading(false);
+          toast({
+            variant: "",
+            title: "Updated Qr Successfully",
+            description: "",
+          });
+          close()
         } else {
-          ChangeLoad();
-          closeModal();
-          alert(res);
+          setLoading(false);
+          toast({
+            variant: "",
+            title: "Update Failed",
+            description: res.message,
+          });
         }
       });
       break;
     }
     case "Pdf": {
       UpdateDocumentQrImages({
-        Url: Url,
         UniqueId: Id,
+        dotoption: {
+          color: dotHexString,
+          type: selectedOptions,
+        },
+        backgroundOption: {
+          type: backgroundHexString,
+        },
+        cornersOptions: {
+          color: eyeHexString,
+          type: cornersSquareOption,
+        },
+        cornersDotOptions: {
+          color: cornersHexString,
+          type: cornersDotOption,
+        },
+        image: logo,
       }).then((res) => {
-        if (res.message === "success") {
-          ChangeLoad();
-          closeModal();
-          alert("Qr Updated Success");
-          Profile();
+        console.log(res);
+        if (res.status === "success") {
+          profie();
+          setLoading(false);
+          toast({
+            variant: "",
+            title: "Updated Qr Successfully",
+            description: "",
+          });
+          close()
         } else {
-          ChangeLoad();
-          closeModal();
-          alert(res);
+          setLoading(false);
+          toast({
+            variant: "",
+            title: "Update Failed",
+            description: res.message,
+          });
         }
       });
       break;
     }
     case "GoogleMap": {
       UpdateMapQrImages({
-        lat: lat,
-        lon: lon,
         UniqueId: Id,
+        dotoption: {
+          color: dotHexString,
+          type: selectedOptions,
+        },
+        backgroundOption: {
+          type: backgroundHexString,
+        },
+        cornersOptions: {
+          color: eyeHexString,
+          type: cornersSquareOption,
+        },
+        cornersDotOptions: {
+          color: cornersHexString,
+          type: cornersDotOption,
+        },
+        image: logo,
       }).then((res) => {
-        if (res.message === "success") {
-          ChangeLoad();
-          closeModal();
-          alert("Qr Updated Success");
-          Profile();
+        console.log(res);
+        if (res.status === "success") {
+          profie();
+          setLoading(false);
+          toast({
+            variant: "",
+            title: "Updated Qr Successfully",
+            description: "",
+          });
+          close()
         } else {
-          ChangeLoad();
-          closeModal();
-          alert(res);
+          setLoading(false);
+          toast({
+            variant: "",
+            title: "Update Failed",
+            description: res.message,
+          });
         }
       });
       break;
     }
     case "Social": {
       UpdateSocialQrImages({
-        Url: Url,
         UniqueId: Id,
+        dotoption: {
+          color: dotHexString,
+          type: selectedOptions,
+        },
+        backgroundOption: {
+          type: backgroundHexString,
+        },
+        cornersOptions: {
+          color: eyeHexString,
+          type: cornersSquareOption,
+        },
+        cornersDotOptions: {
+          color: cornersHexString,
+          type: cornersDotOption,
+        },
+        image: logo,
       }).then((res) => {
-        if (res.message === "success") {
-          ChangeLoad();
-          closeModal();
-          alert("Qr Updated Success");
-          Profile();
+        console.log(res);
+        if (res.status === "success") {
+          profie();
+          setLoading(false);
+          toast({
+            variant: "",
+            title: "Updated Qr Successfully",
+            description: "",
+          });
+          close()
         } else {
-          ChangeLoad();
-          closeModal();
-          alert(res);
+          setLoading(false);
+          toast({
+            variant: "",
+            title: "Update Failed",
+            description: res.message,
+          });
         }
       });
       break;
