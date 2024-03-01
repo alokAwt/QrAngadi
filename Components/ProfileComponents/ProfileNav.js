@@ -110,11 +110,21 @@ const ProfileNav = () => {
                   />
                 </DropdownItem>
 
-                <DropdownItem key="Profile">Profile</DropdownItem>
+                <DropdownItem
+                  key="Profile"
+                  onPress={() => router.push("/Profile")}
+                >
+                  Profile
+                </DropdownItem>
 
-                <DropdownItem key="settings">Settings</DropdownItem>
+                <DropdownItem
+                  key="settings"
+                  onPress={() => router.push("/Profile/settings")}
+                >
+                  Settings
+                </DropdownItem>
                 <DropdownItem key="new_project" endContent={""}>
-                  Notification{" "}
+                  Notification
                 </DropdownItem>
               </DropdownSection>
 
@@ -125,8 +135,11 @@ const ProfileNav = () => {
               </DropdownSection>
 
               <DropdownSection aria-label="Help & Feedback">
-                <DropdownItem key="help_and_feedback">
-                  Help & Feedback
+                <DropdownItem
+                  key="help_and_feedback"
+                  onPress={() => router.push("/help-and-support")}
+                >
+                  Help & Support
                 </DropdownItem>
                 <DropdownItem
                   key="logout"

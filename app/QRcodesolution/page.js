@@ -474,7 +474,7 @@ const page = () => {
           <h6 className="text-xl font-bold">Enter QR details</h6>
           <div className="mb-6 mt-4 w-full">
             <label
-              for="Enter your QR Name *"
+              htmlFor="Enter your QR Name *"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >
               Enter your QR Name <span className="text-red-500">*</span>
@@ -492,7 +492,7 @@ const page = () => {
           {qrType === "Map" ? (
             <div className="mb-6 w-full">
               <label
-                for="email"
+                htmlFor="email"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
               >
                 Enter Latitute And Longitude of Location
@@ -523,7 +523,7 @@ const page = () => {
           ) : (
             <div className="mb-6 w-full">
               <label
-                for="email"
+                htmlFor="email"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
               >
                 Enter URL of webpage <span className="text-red-500">*</span>{" "}
