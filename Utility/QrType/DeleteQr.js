@@ -1,5 +1,4 @@
 import {
-  
   DeleteAudioQr,
   DeleteImageQr,
   DeleteMapQr,
