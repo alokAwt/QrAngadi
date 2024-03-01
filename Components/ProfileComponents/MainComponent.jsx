@@ -1,5 +1,5 @@
 'use client'
-import React from "react";
+import React, { useState } from "react";
 import {
   Table,
   TableHeader,
@@ -28,6 +28,11 @@ import { MdDownloadForOffline } from "react-icons/md";
 import { BsFillBarChartFill } from "react-icons/bs";
 import { FaEye } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
+import { IoCloseCircle } from "react-icons/io5";
+import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure} from "@nextui-org/react";
+import EditQR from "./EditQR";
+import { useRouter } from 'next/navigation'
+
 
 
 
@@ -148,6 +153,8 @@ const users = [
   }
 
 export default function MainComponent() {
+  const router = useRouter()
+  const [ID,Setid]=useState('')
   const [filterValue, setFilterValue] = React.useState("");
   const [selectedKeys, setSelectedKeys] = React.useState(new Set([]));
   const [visibleColumns, setVisibleColumns] = React.useState(new Set(INITIAL_VISIBLE_COLUMNS));
@@ -158,6 +165,14 @@ export default function MainComponent() {
     direction: "ascending",
   });
   const [page, setPage] = React.useState(1);
+
+const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const {isOpen2, onOpen2, onClose2} = useDisclosure();
+
+  const Redirectanalytics=(ID)=>{
+         router.push(`/Analytics/${ID}`)
+  }
+
 
   const pages = Math.ceil(users.length / rowsPerPage);
 
@@ -241,31 +256,31 @@ export default function MainComponent() {
         );
       case "Actions":
         return (
-          <div className="relative flex justify-start  items-start gap-6 w-full">
-          <Tooltip content="Edit">
-            <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
-              <MdEdit />
-            </span>
+          <div  className="relative flex justify-start  items-start gap-6 w-full">
+          <Tooltip  content="Edit">
+            <div  onClick={onOpen} className="text-lg p-1 rounded-md ring-1 ring-buttoncolor text-default-400 cursor-pointer active:opacity-50">
+              <MdEdit className="text-buttoncolor"  />
+            </div>
           </Tooltip>
           <Tooltip content="Download">
-            <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
-              <MdDownloadForOffline />
-            </span>
+            <div  className="text-lg ring-1 p-1 rounded-md ring-buttoncolor text-default-400 cursor-pointer active:opacity-50">
+              <MdDownloadForOffline className="text-buttoncolor"/>
+            </div>
           </Tooltip>
-          <Tooltip color="danger" content="Insights">
-            <span className="text-lg text-danger cursor-pointer active:opacity-50">
-              <BsFillBarChartFill />
-            </span>
+          <Tooltip  content="Insights">
+            <div onClick={() => Redirectanalytics(user.id)} className="text-lg p-1 rounded-md ring-1 ring-buttoncolor text-default-400 cursor-pointer active:opacity-50">
+              <BsFillBarChartFill className="text-buttoncolor"/>
+            </div>
           </Tooltip>
-          <Tooltip color="danger" content="View">
-            <span className="text-lg text-danger cursor-pointer active:opacity-50">
-              <FaEye />
-            </span>
+          <Tooltip  content="View">
+            <div  className="text-lg p-1 rounded-md ring-1 ring-buttoncolor text-default-400 cursor-pointer active:opacity-50">
+              <FaEye className="text-buttoncolor" />
+            </div>
           </Tooltip>
-          <Tooltip color="danger" content="Delete">
-            <span className="text-lg text-danger cursor-pointer active:opacity-50">
-              <MdDelete  />
-            </span>
+          <Tooltip  content="Delete">
+            <div  className="text-lg ring-1 p-1 rounded-md ring-buttoncolor text-default-400 cursor-pointer active:opacity-50">
+              <MdDelete className="text-buttoncolor" />
+            </div>
           </Tooltip>
         </div>
         );
@@ -311,7 +326,7 @@ export default function MainComponent() {
   const topContent = React.useMemo(() => {
     return (
       <div className="flex flex-col gap-4">
-        <div className="flex justify-between gap-3 flex-row  items-center px-4">
+        <div className="flex justify-between gap-3 flex-row  items-center px-4 mt-4">
           <Input
             isClearable
             className='focus:border-0 border-0 md:w-60 bg-buttonopacitycolor'
@@ -472,11 +487,11 @@ export default function MainComponent() {
 
   return (
     <>
-    <div className="flex flex-col justify-start items-start gap-1 w-full pb-2 px-2">
+    {/* <div className="flex flex-col justify-start items-start gap-1 w-full mb-2 px-2">
       <h6 className="font-semibold text-lg">My QR Codes</h6>
       <p className="text-sm font-medium">You can Create, Customize, View, Edit, Share & Download your QR Codes.</p>
-    </div>
-<div className="flex w-full overflow-x-auto	 ">
+    </div> */}
+<div className="flex w-full overflow-scroll mt-12 ">
     <Table
       isCompact
       // isStriped 
@@ -491,7 +506,7 @@ export default function MainComponent() {
       }}
       classNames={classNames}
       selectedKeys={selectedKeys}
-      selectionMode="multiple"
+      selectionMode="single"
       sortDescriptor={sortDescriptor}
       topContent={topContent}
       topContentPlacement="outside"
@@ -512,13 +527,60 @@ export default function MainComponent() {
       <TableBody emptyContent={"No users found"} items={sortedItems}>
         {(item) => (
           <TableRow key={item.id}>
-            {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}
+            {(columnKey) => <TableCell onClick={()=>Setid(item.id)}>{renderCell(item, columnKey)}</TableCell>}
           </TableRow>
         )}
       </TableBody>
     </Table>
 
 </div>
+
+
+
+
+
+
+{/* modal for Edit */}
+<Modal
+        size="5xl"
+        isOpen={isOpen}
+        closeButton={<p><IoCloseCircle size={24} className="bg-buttoncolor text-white rounded-full text-xl "/></p>}
+        onOpenChange={onOpenChange}
+        isKeyboardDismissDisabled={true}
+        placement="center"
+        isDismissable={false}
+        motionProps={{
+          variants: {
+            enter: {
+              y: 0,
+              opacity: 1,
+              transition: {
+                duration: 0.3,
+                ease: "easeOut",
+              },
+            },
+            exit: {
+              y: -20,
+              opacity: 0,
+              transition: {
+                duration: 0.2,
+                ease: "easeIn",
+              },
+            },
+          },
+        }}
+      >
+        <ModalContent className="h-auto   w-full">
+          {(onClose1) => (
+            <>
+            <ModalBody className="w-full flex justify-center items-center mx-auto">
+               <EditQR id={ID}/>
+              </ModalBody>
+              
+            </>
+          )}
+        </ModalContent>
+      </Modal>
     </>
   );
 }
