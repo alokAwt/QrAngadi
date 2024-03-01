@@ -3,7 +3,7 @@ import { Button } from "@nextui-org/react";
 import React from "react";
 import { Accordion, AccordionItem } from "@nextui-org/react";
 import { GoArrowDown } from "react-icons/go";
-
+import Link from "next/link";
 
 const FAQ = () => {
   const defaultContent =
@@ -19,7 +19,7 @@ const FAQ = () => {
         </p>
         <div className="flex  items-center ">
           <Button className="rounded-sm w-auto bg-buttoncolor text-white font-medium">
-            Contact us
+            <Link href={"/Contactus"}>Contact us</Link>
           </Button>
         </div>
       </div>
@@ -64,11 +64,10 @@ const FAQ = () => {
           </AccordionItem>
         </Accordion>
         <div className="flex justify-end items-center px-1 gap-2">
-        <Button variant="light">
-
-        <p className="text-buttoncolor text-sm">See more questions</p>
-        <GoArrowDown className="text-buttoncolor text-sm" />
-        </Button>
+          <Button variant="light">
+            <p className="text-buttoncolor text-sm">See more questions</p>
+            <GoArrowDown className="text-buttoncolor text-sm" />
+          </Button>
         </div>
       </div>
     </div>
