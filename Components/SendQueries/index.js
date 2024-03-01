@@ -5,21 +5,12 @@ import Image from "next/image";
 // import { Contactus } from "../../Api/Users";
 import "react-toastify/dist/ReactToastify.css";
 
-import telePic from "@/public/letsTalk/contactUs.png";
-import call from "@/public/letsTalk/call.png";
-import emailIcon from "@/public/letsTalk/email.png";
-import location from "@/public/letsTalk/location.png";
-import instagram from "@/public/letsTalk/instagram.png";
-import linkedin from "@/public/letsTalk/linkedin.png";
-import pintrest from "@/public/letsTalk/pintrest.png";
-import youtube from "@/public/letsTalk/youtube.png";
-
 function Input({ label, type, placeholder, value, setValue }) {
   console.log(label);
   return (
     <>
       <label
-        className="absolute top-[-12px] left-3 bg-white text-appThemeTwo font-semibold py-1 px-2 font-poppins text-[12px]"
+        className="absolute top-[-12px] left-3 bg-white text-buttoncolor font-semibold py-1 px-2 font-poppins text-[12px]"
         htmlFor={label}
       >
         {label}
@@ -35,21 +26,66 @@ function Input({ label, type, placeholder, value, setValue }) {
   );
 }
 
+function HelpTopicItem({ img, head, text }) {
+  return (
+    <div className="flex gap-3 items-center flex-1 min-w-[200px]">
+      <Image
+        src={img}
+        height={60}
+        width={60}
+        style={{
+          minHeight: "60px",
+          minWidth: "60px",
+          maxHeight: "60px",
+          maxWidth: "60px",
+        }}
+      />
+      <div className="flex flex-col">
+        <span className="text-[12px] font-semibold">{head}</span>
+        <span className="text-[12px]">{text}</span>
+      </div>
+    </div>
+  );
+}
 function SendQueries() {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const helpTopics = [
+    {
+      img: "/help-support/one.png",
+      head: "Getting started",
+      text: "Basic info. how to create account and your first QR Code.",
+    },
+    {
+      img: "/help-support/four.png",
+      head: "Copy rights & Legal",
+      text: "Read our terms and conditions & Privacy policy.",
+    },
+    {
+      img: "/help-support/five.png",
+      head: "My Account",
+      text: "Set up your personal profile, enter required informations.",
+    },
+    {
+      img: "/help-support/three.png",
+      head: "Billing & Payments",
+      text: "See information regarding the billing and payment options.",
+    },
+    {
+      img: "/help-support/six.png",
+      head: "Deactivation Account",
+      text: "Set up your personal profile, enter required informations.",
+    },
+    {
+      img: "/help-support/two.png",
+      head: "QR setup",
+      text: "Set up your dashboard and learn how to create QR codes.",
+    },
+  ];
   const [email, setEmail] = useState("");
   const [queries, setQueries] = useState("");
   const [message, setMessage] = useState("");
 
   const SubmitButton = () => {
-    if (!firstName) {
-      toast.warning("Please enter first name");
-      return false;
-    } else if (!lastName) {
-      toast.warning("Please enter last name");
-      return false;
-    } else if (!email) {
+    if (!email) {
       toast.warning("Please enter email");
       return false;
     } else if (!queries) {
@@ -82,12 +118,48 @@ function SendQueries() {
   return (
     <>
       <ToastContainer />
-      <div className="max-sm:w-[90%] w-[85%]  m-auto mt-5 flex gap-10 flex-wrap-reverse mb-10 pt-5 md:px-10">
+      <div className="max-sm:w-[90%] w-full  m-auto mt-5 flex gap-10 flex-wrap-reverse mb-10 pt-5 md:px-10">
         <div className="p-3 flex flex-col flex-1 min-w-[280px] w-full">
           <h2 className="text-2xl font-bold mb-3">Help Topics</h2>
           <div className="min-h-[1px] bg-buttoncolor my-5"></div>
-          <div></div>
+          <div className="flex gap-3 flex-wrap">
+            <HelpTopicItem
+              img={helpTopics[0].img}
+              head={helpTopics[0].head}
+              text={helpTopics[0].text}
+            />
+            <HelpTopicItem
+              img={helpTopics[1].img}
+              head={helpTopics[1].head}
+              text={helpTopics[1].text}
+            />
+          </div>
           <div className="min-h-[1px] bg-buttoncolor my-5"></div>
+          <div className="flex gap-3 flex-wrap">
+            <HelpTopicItem
+              img={helpTopics[2].img}
+              head={helpTopics[2].head}
+              text={helpTopics[2].text}
+            />
+            <HelpTopicItem
+              img={helpTopics[3].img}
+              head={helpTopics[3].head}
+              text={helpTopics[3].text}
+            />
+          </div>
+          <div className="min-h-[1px] bg-buttoncolor my-5"></div>
+          <div className="flex gap-3 flex-wrap">
+            <HelpTopicItem
+              img={helpTopics[4].img}
+              head={helpTopics[4].head}
+              text={helpTopics[4].text}
+            />
+            <HelpTopicItem
+              img={helpTopics[5].img}
+              head={helpTopics[5].head}
+              text={helpTopics[5].text}
+            />
+          </div>
           <div className="min-h-[1px] bg-buttoncolor my-5"></div>
         </div>
 
@@ -116,7 +188,7 @@ function SendQueries() {
               <div className="relative">
                 <label
                   htmlFor="message"
-                  className="absolute top-[-12px]  left-3 bg-white text-appThemeTwo font-semibold py-1 px-2 font-poppins text-[12px]"
+                  className="absolute top-[-12px]  left-3 bg-white text-buttoncolor font-semibold py-1 px-2 font-poppins text-[12px]"
                 >
                   Your Message
                 </label>
