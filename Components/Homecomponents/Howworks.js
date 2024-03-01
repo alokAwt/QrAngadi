@@ -74,10 +74,11 @@ const Howworks = () => {
             </div>
             <div className="flex justify-start items-start flex-col gap-1 ">
               <h6 className="md:text-lg text-md font-semibold text-gray-500">
-              Customize Your QR Code.              </h6>
+                Customize Your QR Code.{" "}
+              </h6>
               <p className="text-gray-500 text-xs md:w-96">
-              Customize it’s design with logos, colors and patterns to align with your brand or personal style.
-
+                Customize it’s design with logos, colors and patterns to align
+                with your brand or personal style.
               </p>
             </div>
           </div>
@@ -88,9 +89,11 @@ const Howworks = () => {
             </div>
             <div className="flex justify-start items-start flex-col gap-1 ">
               <h6 className="md:text-lg text-md font-semibold text-gray-500">
-              Generate and Implement.              </h6>
+                Generate and Implement.{" "}
+              </h6>
               <p className="text-gray-500 text-xs md:w-96">
-              Generate your QR code with a click. Easily use it in your marketing or compliance materials.
+                Generate your QR code with a click. Easily use it in your
+                marketing or compliance materials.
               </p>
             </div>
           </div>
@@ -101,14 +104,16 @@ const Howworks = () => {
             </div>
             <div className="flex justify-start items-start flex-col gap-1 ">
               <h6 className="md:text-lg text-md font-semibold text-gray-500">
-              Monitor with Analytics.
+                Monitor with Analytics.
               </h6>
               <p className="text-gray-500 text-xs md:w-96">
-              Track your QR code performance with our analytics dashboard. Gain insights on user engagement and geography to optimize your strategies.
+                Track your QR code performance with our analytics dashboard.
+                Gain insights on user engagement and geography to optimize your
+                strategies.
               </p>
             </div>
           </div>
-         </div>
+        </div>
 
         <div className="md:w-2/4  w-full">
           <Image src={Vector} />

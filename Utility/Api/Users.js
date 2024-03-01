@@ -1,7 +1,7 @@
 import { BaseUrl } from "./BaseUrl";
 
 //---------------Sign Up-------------------//
-export const SignUp = async (data) => {
+export const SignUpUsers = async (data) => {
   try {
     let result = await fetch(`${BaseUrl}/Users/Signup`, {
       method: "POST",
@@ -18,7 +18,7 @@ export const SignUp = async (data) => {
 };
 
 //----------------Sign In---------------------//
-export const SignIn = async (data) => {
+export const SignInUsers = async (data) => {
   try {
     let result = await fetch(`${BaseUrl}/Users/Signin`, {
       method: "POST",
