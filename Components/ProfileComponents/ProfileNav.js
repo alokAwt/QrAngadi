@@ -10,7 +10,7 @@ import {Dropdown, DropdownTrigger, DropdownMenu, DropdownSection, DropdownItem, 
 
 const ProfileNav = () => {
   return (
-    <nav className='h-12 w-full flex p-2 lg:p-6 mt-2 items-center justify-between sticky top-0  bg-white'>
+    <nav className='h-12 w-full flex p-4 lg:p-6  items-center justify-between sticky top-0 z-10  bg-slate-100 border-b-1 border-gray-300'>
         <div>
           <p className='text-xs text-gray-500 font-medium'> Hello, Santosh </p>
           <p className='md:text-md text-xs font-semibold '>Let’s create QR Codes.</p>
@@ -37,7 +37,7 @@ const ProfileNav = () => {
                 }}
               >
                 <DropdownTrigger>
-                 <Button className='w-12'  variant='light'>Emma <span><MdKeyboardArrowDown/></span></Button>
+                 <Button className='w-12'  variant='light'>Santosh <span><MdKeyboardArrowDown/></span></Button>
                 </DropdownTrigger>
                 <DropdownMenu
                   aria-label="Custom item styles"

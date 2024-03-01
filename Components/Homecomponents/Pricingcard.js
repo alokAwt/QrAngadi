@@ -125,10 +125,10 @@ const Pricingcard = () => {
               <div className="flex flex-col p-2">
                 <p className="text-xs text-buttoncolor">BASIC</p>
                 <p className="text-xl text-black font-semibold">Free</p>
-                <p className="text-xl text-black font-semibold">
+                {/* <p className="text-xl text-black font-semibold">
                   ${price != undefined ? price[0]?.Price : null}/
                   <span className="text-sm text-gray-500">Month</span>
-                </p>
+                </p> */}
               </div>
             </CardHeader>
             <Divider className="w-10/12 mx-auto" />
