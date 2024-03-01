@@ -1,5 +1,5 @@
-'use client'
-import React, { useState,useEffect } from "react";
+"use client";
+import React, { useState, useEffect } from "react";
 import {
   Carousel,
   CarouselContent,
@@ -14,25 +14,27 @@ import { Button } from "@nextui-org/react";
 import AnimateQR from "./AnimateQR";
 import Groupimage from "./Groupimage";
 import QRsticker from "./QRsticker";
-import slide3 from '../../public/slide/slide3.png'
-import slide4 from '../../public/slide/slide4.png'
-import slide5 from '../../public/slide/Lottery.png'
-
+import slide3 from "../../public/slide/slide3.png";
+import slide4 from "../../public/slide/slide4.png";
+import slide5 from "../../public/slide/Lottery.png";
+import { useRouter } from "next/navigation";
 
 function Imageslider() {
-  const [api, setApi] = useState(null); 
-  const [current, setCurrent] = useState(0); 
-  const [count, setCount] = useState(0); 
+  const router = useRouter();
+  const [api, setApi] = useState(null);
+  const [current, setCurrent] = useState(0);
+  const [count, setCount] = useState(0);
 
   const slidesData = [
     {
       image: Slider,
       title: `Empower Your QR Experience to Perfection with- QR Angadi`,
-      description:"Elevate Your Information Sharing Game with QR Angadi - The Best in User-Friendly QR Code Generation.",
-      component:<AnimateQR/>,
-      Buttontext1: "Create QR Code",
-      Buttontext2: "My Dashboard",
-      secoundimage:""
+      description:
+        "Elevate Your Information Sharing Game with QR Angadi - The Best in User-Friendly QR Code Generation.",
+      component: <AnimateQR />,
+      Buttontext1: { text: "Create QR Code", to: "/QRcodesolution" },
+      Buttontext2: { text: "My Dashboard", to: "/Profile" },
+      secoundimage: "",
     },
 
     {
@@ -40,10 +42,10 @@ function Imageslider() {
       title: `Revamp Your Marketing Assets!`,
       description:
         "Create sleek QR codes that blend seamlessly with your brand. Boost engagement and amplify your brand presence effortlessly.",
-      component:<QRsticker/>,
-      Buttontext1: "Create QR Code",
-      Buttontext2: "My Dashboard",
-      secoundimage:""
+      component: <QRsticker />,
+      Buttontext1: { text: "Create QR Code", to: "/QRcodesolution" },
+      Buttontext2: { text: "My Dashboard", to: "/Profile" },
+      secoundimage: "",
     },
     {
       image: Slider1,
@@ -51,19 +53,19 @@ function Imageslider() {
       description:
         "QR Angadi takes QR code basics to the next level. Simplify compliance with our comprehensive solution. Easily manage and track regulatory requirements for your business.",
       component: "",
-      Buttontext1: "Create QR Code",
-      Buttontext2: "My Dashboard",
-      secoundimage:slide3
+      Buttontext1: { text: "Create QR Code", to: "/QRcodesolution" },
+      Buttontext2: { text: "My Dashboard", to: "/Profile" },
+      secoundimage: slide3,
     },
     {
       image: Slider1,
       title: "Track your Progress!",
       description:
         "QR Angadi enables you to monitor various metrics including click counts, views, and popular QR for your codes.",
-      component:<Groupimage/>,
-      Buttontext1: "Create QR Code",
-      Buttontext2: "My Dashboard",
-      secoundimage:''
+      component: <Groupimage />,
+      Buttontext1: { text: "Create QR Code", to: "/QRcodesolution" },
+      Buttontext2: { text: "My Dashboard", to: "/Profile" },
+      secoundimage: "",
     },
     {
       image: Slider1,
@@ -71,9 +73,9 @@ function Imageslider() {
       description:
         "Keep your data safe, tailor your codes, and simplify your process with QR Angadi. It's your secure, customizable, and efficient QR solution.",
       component: "",
-      Buttontext1: "Create QR Code",
-      Buttontext2: "My Dashboard",
-      secoundimage:slide4
+      Buttontext1: { text: "Create QR Code", to: "/QRcodesolution" },
+      Buttontext2: { text: "My Dashboard", to: "/Profile" },
+      secoundimage: slide4,
     },
     {
       image: Slider1,
@@ -83,10 +85,9 @@ function Imageslider() {
       component: "",
       Buttontext1: "Try Now",
       Buttontext2: "",
-      secoundimage:slide5
+      secoundimage: slide5,
     },
   ];
-
 
   useEffect(() => {
     if (!api) return;
@@ -99,12 +100,14 @@ function Imageslider() {
     });
   }, [api]);
 
-
   return (
-    <Carousel setApi={setApi} className="flex  justify-center items-center bg-white ">
+    <Carousel
+      setApi={setApi}
+      className="flex  justify-center items-center bg-white "
+    >
       <CarouselContent className="bg-white">
         {slidesData.map((slide, index) => (
-          <CarouselItem key={index} >
+          <CarouselItem key={index}>
             <div className="p-1">
               <div>
                 <div className="flex items-center justify-center ">
@@ -122,31 +125,38 @@ function Imageslider() {
                         {slide.description}
                       </p>
                       <div className="flex  items-center gap-2 mt-2">
-                        {slide.Buttontext1 && (
-                          <Button variant="bordered" className="rounded-sm w-auto border-buttoncolor text-buttoncolor font-medium">
-                            {slide.Buttontext1}
+                        {slide.Buttontext1.text && (
+                          <Button
+                            variant="bordered"
+                            className="rounded-sm w-auto border-buttoncolor text-buttoncolor font-medium"
+                            onClick={() => router.push(slide.Buttontext1.to)}
+                          >
+                            {slide.Buttontext1.text}
                           </Button>
                         )}
-                        {slide.Buttontext2 && (
+                        {slide.Buttontext2.text && (
                           <Button
-                            
                             className="rounded-sm w-auto bg-buttoncolor text-white font-medium"
+                            onClick={() => router.push(slide.Buttontext2.to)}
                           >
-                            {slide.Buttontext2}
+                            {slide.Buttontext2.text}
                           </Button>
                         )}
                       </div>
                     </div>
                     <div>
-                    {slide.component}
-                    {slide.secoundimage && <Image className="md:w-96 md:h-96 w-80 h-80" src={slide.secoundimage}/>}
+                      {slide.component}
+                      {slide.secoundimage && (
+                        <Image
+                          className="md:w-96 md:h-96 w-80 h-80"
+                          src={slide.secoundimage}
+                        />
+                      )}
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-
-          
           </CarouselItem>
         ))}
       </CarouselContent>
@@ -155,12 +165,12 @@ function Imageslider() {
           <div
             key={index}
             className={`w-2 h-2 mx-1 rounded-full cursor-pointer ${
-              current === index + 1 ? 'bg-buttoncolor' : 'bg-gray-300'
+              current === index + 1 ? "bg-buttoncolor" : "bg-gray-300"
             }`}
           />
         ))}
       </div>
-     
+
       <CarouselPrevious className="hidden absolute md:flex justify-center items-center left-4 bg-[rgb(0,0,0,0.4)] text-white" />
       <CarouselNext className="hidden absolute md:flex justify-center items-center right-4 bg-[rgb(0,0,0,0.4)] text-white" />
     </Carousel>

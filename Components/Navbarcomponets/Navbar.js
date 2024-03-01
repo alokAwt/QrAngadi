@@ -154,7 +154,12 @@ export default function App() {
                         Profile
                       </DropdownItem>
 
-                      <DropdownItem key="settings">Settings</DropdownItem>
+                      <DropdownItem
+                        key="settings"
+                        onPress={() => router.push("/Profile/settings")}
+                      >
+                        Settings
+                      </DropdownItem>
                       <DropdownItem key="new_project" endContent={""}>
                         Notification{" "}
                       </DropdownItem>
@@ -189,8 +194,11 @@ export default function App() {
                     </DropdownSection>
 
                     <DropdownSection aria-label="Help & Feedback">
-                      <DropdownItem key="help_and_feedback">
-                        Help & Feedback
+                      <DropdownItem
+                        key="help_and_feedback"
+                        onPress={() => router.push("/help-and-support")}
+                      >
+                        Help & support
                       </DropdownItem>
                       <DropdownItem onPress={onOpen} key="logout">
                         Log Out

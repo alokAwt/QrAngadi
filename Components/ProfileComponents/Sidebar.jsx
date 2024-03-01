@@ -1,19 +1,19 @@
-"use client"
+"use client";
 import React from "react";
 import "./Sidebar.css";
 import Image from "next/image";
 import QR from "../../public/My_Qr.png";
-import Logo from '../../public/QR_Angadi_logo.png'
+import Logo from "../../public/QR_Angadi_logo.png";
 import Create from "../../public/create.png";
 import Bulk from "../../public/bulk.png";
 import Upgrade from "../../public/upgrade.png";
 import Settings from "../../public/settings.png";
 import Help from "../../public/help.png";
 import Logout from "../../public/logout.png";
-import { useRouter,usePathname } from 'next/navigation'
-import { Button } from '@nextui-org/react'
-import {AiOutlineRight} from "react-icons/ai"
-import {RxDashboard} from "react-icons/rx"
+import { useRouter, usePathname } from "next/navigation";
+import { Button } from "@nextui-org/react";
+import { AiOutlineRight, AiFillHome } from "react-icons/ai";
+import { RxDashboard } from "react-icons/rx";
 import { TbBrandBooking } from "react-icons/tb";
 import { MdOutlinePayment } from "react-icons/md";
 import { IoMdHelpCircle } from "react-icons/io";
@@ -29,33 +29,32 @@ import { IoSettingsSharp } from "react-icons/io5";
 import { MdOutlineLogout } from "react-icons/md";
 import { IoIosHelpCircle } from "react-icons/io";
 
-
-
-
-
-
-
-
-
-
-
 export default function () {
-    const pathname=usePathname()
-    const router = useRouter()
+  const pathname = usePathname();
+  const router = useRouter();
 
-const active='flex justify-between  items-center bg-buttonopacitycolor  p-1 lg:p-2 rounded-md cursor-pointer text-white'
-const unactive='flex justify-between  items-center   p-1 lg:p-2 rounded-md cursor-pointer bg-buttoncolor text-white'
-
+  const active =
+    "flex justify-between  items-center bg-buttonopacitycolor  p-1 lg:p-2 rounded-md cursor-pointer text-white";
+  const unactive =
+    "flex justify-between  items-center   p-1 lg:p-2 rounded-md cursor-pointer bg-buttoncolor text-white";
 
   return (
-    <div
-      className="hidden h-[100vh]  sticky top-0   bg-buttoncolor rounded-tr-2xl p-4 w-12 lg:w-60 lg:flex lg:flex-col justify-between"
-    >
+    <div className="hidden h-[100vh]  sticky top-0   bg-buttoncolor rounded-tr-2xl p-4 w-12 lg:w-60 lg:flex lg:flex-col justify-between">
       <div className="flex flex-col gap-8 p-1 lg:p-2 ">
         <div className="flex gap-2 items-center ">
-          <Image className="h-16 w-32" src={Logo}/>
+          <Image className="h-16 w-32" src={Logo} />
         </div>
         <div className="flex flex-col gap-2 text-white">
+          <Button
+            onClick={() => router.push("/")}
+            className={pathname == "/" ? active : unactive}
+          >
+            <div className="flex items-center gap-2">
+              <AiFillHome />
+              <p className=" text-xs font-medium cursor-pointer">Home</p>
+            </div>
+            <AiOutlineRight className="font-medium text-xs" />
+          </Button>
           <Button
             onClick={() => router.push("/")}
             className={pathname == "/" ? active : unactive}
@@ -66,16 +65,18 @@ const unactive='flex justify-between  items-center   p-1 lg:p-2 rounded-md curso
             </div>
             <AiOutlineRight className="font-medium text-xs" />
           </Button>
-          <Button
+          {/* <Button
             onClick={() => router.push("/Addproperty")}
             className={pathname == "/Addproperty" ? active : unactive}
           >
             <div className="flex items-center gap-2">
               <TbSquarePlus2 />
-              <p className="font-medium text-xs cursor-pointer">Create QR Code</p>
+              <p className="font-medium text-xs cursor-pointer">
+                Create QR Code
+              </p>
             </div>
             <AiOutlineRight className="text-xs" />
-          </Button>
+          </Button> */}
           {/* <Button
             onClick={() => router.push("/Bookings")}
             className={pathname == "/Bookings" ? active : unactive}
@@ -87,7 +88,7 @@ const unactive='flex justify-between  items-center   p-1 lg:p-2 rounded-md curso
             <AiOutlineRight className="text-xs" />
           </Button> */}
 
-          <Button
+          {/* <Button
             onClick={() => router.push("/BulkOperation")}
             className={pathname == "/BulkOperation" ? active : unactive}
           >
@@ -96,10 +97,10 @@ const unactive='flex justify-between  items-center   p-1 lg:p-2 rounded-md curso
               <p className="text-xs font-medium">Bulk Operation</p>
             </div>
             <AiOutlineRight className="text-xs" />
-          </Button>
+          </Button> */}
           <Button
-            onClick={() => router.push("/UpgradePlan")}
-            className={pathname == "/UpgradePlan" ? active : unactive}
+            onClick={() => router.push("/Pricing")}
+            className={pathname == "/Pricing" ? active : unactive}
           >
             <div className="flex items-center gap-2">
               <FaWandMagicSparkles />
@@ -108,8 +109,8 @@ const unactive='flex justify-between  items-center   p-1 lg:p-2 rounded-md curso
             <AiOutlineRight className="text-xs" />
           </Button>
           <Button
-            onClick={() => router.push("/Settings")}
-            className={pathname == "/Settings" ? active : unactive}
+            onClick={() => router.push("Profile/settings")}
+            className={pathname == "Profile/settings" ? active : unactive}
           >
             <div className="flex items-center gap-2">
               <IoSettingsSharp />
@@ -120,26 +121,29 @@ const unactive='flex justify-between  items-center   p-1 lg:p-2 rounded-md curso
         </div>
       </div>
       <div className="flex flex-col items-start gap-2 bg-buttonopacitycolor ">
-      <Button
-            onClick={() => router.push("/Settings")}
-            className={pathname == "/Settings" ? active : unactive}
+        <Button
+          onClick={() => router.push("/Settings")}
+          className={pathname == "/Settings" ? active : unactive}
+        >
+          <div
+            className="flex items-center gap-2"
+            onPress={() => router.push("/help-and-support")}
           >
-            <div className="flex items-center gap-2">
-              <IoIosHelpCircle />
-              <p className="text-xs font-medium">Help & Support</p>
-            </div>
-            <AiOutlineRight className="text-xs" />
-          </Button>
-          <Button
-            onClick={() => router.push("/Settings")}
-            className={pathname == "/Settings" ? active : unactive}
-          >
-            <div className="flex items-center gap-2">
+            <IoIosHelpCircle />
+            <p className="text-xs font-medium">Help & Support</p>
+          </div>
+          <AiOutlineRight className="text-xs" />
+        </Button>
+        <Button
+          onClick={() => router.push("/")}
+          className={pathname == "/" ? active : unactive}
+        >
+          <div className="flex items-center gap-2">
             <MdOutlineLogout />
-              <p className="text-xs font-medium">Logout</p>
-            </div>
-            <AiOutlineRight className="text-xs" />
-          </Button>
+            <p className="text-xs font-medium">Logout</p>
+          </div>
+          <AiOutlineRight className="text-xs" />
+        </Button>
       </div>
     </div>
   );
