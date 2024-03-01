@@ -25,7 +25,7 @@ function Footernav() {
               col
               className="flex flex-col justify-center text-xs items-start text-white no-underline"
             >
-              <Footer.Link href="#">QR Solutions</Footer.Link>
+              <Link href="/QRcodesolution">QR Solutions</Link>
               <Footer.Link href="#">Gamification Solutions</Footer.Link>
             </Footer.LinkGroup>
           </div>
@@ -35,14 +35,12 @@ function Footernav() {
               col
               className="flex flex-col justify-center text-xs items-start text-white no-underline"
             >
-              <Footer.Link className="no-underline" href="/Aboutus">
+              <Link className="no-underline" href="/Aboutus">
                 About Us
-              </Footer.Link>
-
-              <Footer.Link href="#">News</Footer.Link>
+              </Link>
               <Link href={"/blog"}>Blog</Link>
 
-              <Footer.Link href="#">Help & Support</Footer.Link>
+              <Link href="/help-and-support">Help & Support</Link>
             </Footer.LinkGroup>
           </div>
           <div>
@@ -98,7 +96,6 @@ function Footernav() {
       <div className="bg-buttoncolor min-h-[1px] w-[90%] mx-auto mt-5"></div>
       <div className="w-[90%] mx-auto text-white flex flex-wrap-reverse gap-y-3 pag-x-5 py-4 justify-center sm:justify-between">
         <Footer.Copyright
-          href="#"
           // by="Mockup. All Rights Reserved.™"
           by="2024 QR Angadi - All rights reserved."
           year={2024}
