@@ -6,7 +6,7 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "@/components/ui/carousel";
+} from "/components/ui/carousel";
 import Slider from "../../public/Slider2.png";
 import Slider1 from "../../public/Slider1.png";
 import Image from "next/image";
