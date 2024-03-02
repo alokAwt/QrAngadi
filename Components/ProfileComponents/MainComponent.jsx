@@ -154,9 +154,12 @@ export default function MainComponent() {
 
     if (hasSearchFilter) {
       filteredUsers = filteredUsers.filter((user) =>
-        data.QrName.toLowerCase().includes(filterValue.toLowerCase())
+        (user.QrName?.toLowerCase() || '').includes(filterValue.toLowerCase())
       );
     }
+    filteredUsers = filteredUsers.filter((user) =>
+    user.QrName !== "use client"
+  );
     if (
       statusFilter !== "all" &&
       Array.from(statusFilter).length !== statusOptions.length
@@ -290,9 +293,9 @@ export default function MainComponent() {
     return (
       <div className="flex flex-col gap-4">
         <div className="flex justify-between gap-3 flex-row  items-center px-4 mt-4">
-          <Input
+          <input
             isClearable
-            className="focus:border-0 border-0 md:w-60 bg-buttonopacitycolor"
+            className="focus:border-0 border-0 md:w-60 bg-buttonopacitycolor h-12 rounded-sm p-2"
             classNames={{
               base: "w-full sm:max-w-[44%]",
               inputWrapper: "border-0 focus:border-none ",
@@ -304,7 +307,7 @@ export default function MainComponent() {
             value={filterValue}
             variant="light"
             onClear={() => setFilterValue("")}
-            onSearchChange={onSearchChange}
+            onChange={(e)=>onSearchChange(e.target.value)}
           />
           <div className="flex gap-3">
             {/* <Dropdown>
