@@ -361,6 +361,7 @@ export default function MainComponent() {
               className="ring-1 ring-buttoncolor text-buttoncolor"
               size="sm"
               variant="light"
+              onClick={()=>router.push("/QRcodesolution")}
             >
               + Create QR Code
             </Button>

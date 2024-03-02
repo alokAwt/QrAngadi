@@ -123,9 +123,9 @@ const ProfileNav = () => {
                 >
                   Settings
                 </DropdownItem>
-                <DropdownItem key="new_project" endContent={""}>
+                {/* <DropdownItem key="new_project" endContent={""}>
                   Notification
-                </DropdownItem>
+                </DropdownItem> */}
               </DropdownSection>
 
               <DropdownSection aria-label="Preferences" showDivider>
