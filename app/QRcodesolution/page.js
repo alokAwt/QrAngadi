@@ -303,7 +303,7 @@ const Page = () => {
         }
       );
       const file = await res.json();
-      if (file.secure_url.length > 10) {
+      if (file?.secure_url.length > 10) {
         let result = CreateQr(
           qrName,
           qrType,
@@ -384,17 +384,17 @@ const Page = () => {
               key={index}
                 variant="light"
                 className={
-                  qrType === item.type
+                  qrType === item?.type
                     ? "flex flex-col justify-center items-center gap-1 h-auto py-2 ring-1 ring-buttoncolor"
                     : "flex flex-col justify-center items-center gap-1 h-auto py-2"
                 }
                 onClick={() => setQrType(item.type)}
               >
                 <div>
-                  <Image className="h-8 w-8 object-contain" alt="itemimage" src={item.Image} />
+                  <Image className="h-8 w-8 object-contain" alt="itemimage" src={item?.Image} />
                 </div>
                 <p className="text-center md:text-xs text-[0.65rem]">
-                  {item.name}
+                  {item?.name}
                 </p>
               </Button>
             ))}
@@ -613,20 +613,20 @@ const Page = () => {
                             {/* Button with image */}
                             <Button
                               className={`flex justify-center items-center gap-2 flex-col h-auto w-auto bg-slate-100 rounded-md p-2 cursor-pointer ${
-                                selectedOptions.includes(option.label)
+                                selectedOptions?.includes(option?.label)
                                   ? "bg-buttonopacitycolor ring-1 ring-buttoncolor"
                                   : ""
                               }`}
-                              onClick={() => handleOptionSelect(option.label)}
+                              onClick={() => handleOptionSelect(option?.label)}
                             >
                               <Image
                                 className="md:h-20 md:w-20"
                                 alt="optionimage"
-                                src={option.imageSrc}
+                                src={option?.imageSrc}
                               />
                             </Button>
                             <p className="md:text-xs text-[0.55rem] font-medium">
-                              {option.label}
+                              {option?.label}
                             </p>
                           </div>
                         ))}
@@ -661,28 +661,28 @@ const Page = () => {
                               },
                             ].map((option) => (
                               <div
-                                key={option.label}
+                                key={option?.label}
                                 className="flex justify-center flex-col items-center gap-2 w-full"
                               >
                                 {/* Button with image */}
                                 <Button
                                   className={`flex justify-center items-center gap-2 h-auto w-auto flex-col bg-slate-100 rounded-md p-2 cursor-pointer ${
-                                    cornersSquareOption.includes(option.label)
+                                    cornersSquareOption?.includes(option?.label)
                                       ? "bg-buttonopacitycolor ring-1 ring-buttoncolor"
                                       : ""
                                   }`}
                                   onClick={() =>
-                                    handleSquareOptionSelect(option.label)
+                                    handleSquareOptionSelect(option?.label)
                                   }
                                 >
                                   <Image
                                     className="md:h-20 md:w-20"
                                     alt="option image"
-                                    src={option.imageSrc}
+                                    src={option?.imageSrc}
                                   />
                                 </Button>
                                 <p className="md:text-xs text-[0.55rem] font-medium">
-                                  {option.label}
+                                  {option?.label}
                                 </p>
                               </div>
                             ))}
@@ -701,28 +701,28 @@ const Page = () => {
                               { label: "dot", imageSrc: Dotscorner1 },
                             ].map((option) => (
                               <div
-                                key={option.label}
+                                key={option?.label}
                                 className="flex justify-center flex-col items-center gap-2 w-full"
                               >
                                 {/* Button with image */}
                                 <Button
                                   className={`flex h-auto w-auto justify-center items-center gap-2 flex-col bg-slate-100 rounded-md p-2 cursor-pointer ${
-                                    cornersDotOption.includes(option.label)
+                                    cornersDotOption.includes(option?.label)
                                       ? "bg-buttonopacitycolor ring-1 ring-buttoncolor"
                                       : ""
                                   }`}
                                   onClick={() =>
-                                    handleDotOptionSelect(option.label)
+                                    handleDotOptionSelect(option?.label)
                                   }
                                 >
                                   <Image
                                     className="md:h-20 md:w-20"
                                     alt="opyionimage"
-                                    src={option.imageSrc}
+                                    src={option?.imageSrc}
                                   />
                                 </Button>
                                 <p className="md:text-xs text-[0.55rem] font-medium">
-                                  {option.label}
+                                  {option?.label}
                                 </p>
                               </div>
                             ))}
@@ -748,7 +748,7 @@ const Page = () => {
 
                           <div className=" bg-slate-100 w-full p-1 rounded-md border-1 border-gray-300 flex items-center gap-2">
                             <ColorPicker
-                              defaultValue={token.colorPrimary}
+                              defaultValue={token?.colorPrimary}
                               format={formatHex}
                               value={dotColorHex}
                               onChange={setDotColorHex}
@@ -770,7 +770,7 @@ const Page = () => {
                           <h6 className="text-xs font-medium">Eye Options</h6>
                           <div className=" bg-slate-100 w-full p-1 rounded-md border-1 border-gray-300 flex items-center gap-2">
                             <ColorPicker
-                              defaultValue={token.colorPrimary}
+                              defaultValue={token?.colorPrimary}
                               format={formatHex}
                               value={eyeColorHex}
                               onChange={setEyeColorHex}
@@ -794,7 +794,7 @@ const Page = () => {
                           </h6>
                           <div className=" bg-slate-100 w-full p-1 rounded-md border-1 border-gray-300 flex items-center gap-2">
                             <ColorPicker
-                              defaultValue={token.colorPrimary}
+                              defaultValue={token?.colorPrimary}
                               format={formatHex}
                               value={cornersColorHex}
                               onChange={setCornersColorHex}
@@ -817,7 +817,7 @@ const Page = () => {
                           <h6 className="text-xs font-medium">Background</h6>
                           <div className=" bg-slate-100 w-full p-1 rounded-md border-1 border-gray-300 flex items-center gap-2">
                             <ColorPicker
-                              defaultValue={token.colorPrimary}
+                              defaultValue={token?.colorPrimary}
                               format={formatHex}
                               value={backgroundColorHex}
                               onChange={setBackgroundColorHex}
@@ -974,7 +974,7 @@ const Page = () => {
               size="sm"
               className="text-sm mt-2 bg-white flex justify-center rounded-md border-buttoncolor border-2 items-center  w-full  text-buttoncolor"
             >
-              {Extension.map((ext) => (
+              {Extension?.map((ext) => (
                 <SelectItem
                   key={ext.value}
                   onPress={() => setFileExt(ext.value)}

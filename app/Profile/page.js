@@ -2,8 +2,12 @@
 import React, { useState } from "react";
 import MainComponent from "@/components/ProfileComponents/MainComponent";
 
+
 const Page = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
+
+
+ 
 
   const toggleSidebar = () => {
     setSidebarOpen(!isSidebarOpen);
