@@ -1,9 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import Sidebar from "../../Components/ProfileComponents/Sidebar";
-import MainComponent from "@/Components/ProfileComponents/MainComponent";
-import Notification from "../../public/Notification.png";
-import Image from "next/image";
+import MainComponent from "@/components/ProfileComponents/MainComponent";
 
 const page = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);

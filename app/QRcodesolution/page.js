@@ -41,7 +41,7 @@ import Sunflower from "../../public/QRgenerate/Samplelogo/Sunflower.png";
 import QRCodeStyling from "qr-code-styling";
 import { QrType } from "@/Utility/QrType/QrType";
 import { CreateQr } from "@/Utility/CreateQr";
-import { useToast } from "../../Components/ui/usetoast";
+import { useToast } from "../../components/ui/usetoast";
 import { ToastAction } from "@/components/ui/toast";
 import { useRouter } from "next/navigation";
 
