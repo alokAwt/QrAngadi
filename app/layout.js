@@ -1,6 +1,6 @@
 import { Poppins } from "next/font/google";
 import "./globals.css";
-import NextUIprovider from "../Components/NextUIprovider";
+import NextUIprovider from "../components/NextUIprovider";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 
 const font = Poppins({
