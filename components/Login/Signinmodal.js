@@ -21,7 +21,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { IoCloseCircle } from "react-icons/io5";
 import { OtpSend, SignInUsers, SignUpUsers } from "@/Utility/Api/Users";
-import { useToast } from "../../Components/ui/usetoast";
+import { useToast } from "../../components/ui/usetoast";
 import { ToastAction } from "@/components/ui/toast";
 import { useRouter } from "next/navigation";
 
