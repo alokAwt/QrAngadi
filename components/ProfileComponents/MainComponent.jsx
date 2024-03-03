@@ -86,8 +86,8 @@ export default function MainComponent() {
 
   const GetQr = () => {
     GetProfile().then((res) => {
-      setData(res.data.Qr.reverse());
-      setProile(res.data);
+      setData(res?.data?.Qr?.reverse());
+      setProile(res?.data);
     });
   };
 
@@ -137,7 +137,7 @@ export default function MainComponent() {
     router.push(`/Analytics/${ID}`);
   };
 
-  const pages = Math.ceil(data.length / rowsPerPage);
+  const pages = Math.ceil(data?.length / rowsPerPage);
 
   const hasSearchFilter = Boolean(filterValue);
 
@@ -150,6 +150,9 @@ export default function MainComponent() {
   }, [visibleColumns]);
 
   const filteredItems = React.useMemo(() => {
+    if (!Array.isArray(data)) {
+      return [];
+    }
     let filteredUsers = [...data];
 
     if (hasSearchFilter) {
@@ -395,7 +398,7 @@ export default function MainComponent() {
     visibleColumns,
     onSearchChange,
     onRowsPerPageChange,
-    data.length,
+    data?.length,
     hasSearchFilter,
   ]);
 
