@@ -232,6 +232,7 @@ const Page = () => {
               <div className="text-center">
                 <Image
                   className="mt-4 p-4 h-24 w-32 object-contain"
+                  alt="logo"
                   src={Logo}
                 />
                 {/* <Image
@@ -248,6 +249,7 @@ const Page = () => {
               <div className="text-center" onClick={() => setDashBoard(false)}>
                 <Image
                   onClick={getImage1}
+                  alt="getImage1"
                   style={{ marginTop: "50px", width: 150 }}
                   src={Overview}
                 ></Image>
@@ -347,6 +349,7 @@ const Page = () => {
                         className="d-lg-none d-md-block d-sm-block d-block"
                       >
                         <Image
+                        alt="profile"
                           src={Profile}
                           style={{ height: 40, width: 40, borderRadius: 50 }}
                         ></Image>
@@ -354,6 +357,7 @@ const Page = () => {
                       <Image
                         className="d-lg-block d-md-none d-sm-none d-none"
                         src={Profile}
+                        alt="profile"
                         style={{
                           height: 40,
                           width: 40,
@@ -553,6 +557,7 @@ const Page = () => {
                     }}
                   ></p>
                   <Image
+                  alt="high"
                     src={High}
                     height={15}
                     width={15}
@@ -629,7 +634,7 @@ const Page = () => {
                           >
                             {DayType && DayType.length > 0
                               ? DayType.map((item, index) => (
-                                  <div style={{ display: "flex" }}>
+                                  <div key={index} style={{ display: "flex" }}>
                                     <p
                                       style={{
                                         marginTop: 2,
@@ -691,6 +696,7 @@ const Page = () => {
                                         onClick={() => {
                                           setselect(index);
                                         }}
+                                        alt="Scanicon"
                                         src={ChartActive[index]}
                                         style={{
                                           height: 20,
@@ -706,6 +712,7 @@ const Page = () => {
                                           setselect(index);
                                         }}
                                         src={item}
+                                        alt="Scaniconv"
                                         style={{
                                           height: 20,
                                           padding: 5,
@@ -772,6 +779,7 @@ const Page = () => {
                               <Image
                                 style={{ height: 10, width: 15 }}
                                 className="mt-2"
+                                alt="Scanicon"
                                 src={Scanicon}
                               ></Image>
                               <p
@@ -823,6 +831,7 @@ const Page = () => {
                               <Image
                                 style={{ height: 10, width: 15 }}
                                 className="mt-2"
+                                alt="Scanicon"
                                 src={Scanicon}
                               ></Image>
                               <p
@@ -904,6 +913,7 @@ const Page = () => {
                               <Image
                                 style={{ height: 10, width: 15 }}
                                 className="mt-2"
+                                alt="Scaniconv"
                                 src={Scanicon}
                               ></Image>
                               <p
@@ -989,6 +999,7 @@ const Page = () => {
                             {ChartType && ChartType.length > 0
                               ? ChartType.map((item, index) => (
                                   <div
+                                  key={index}    //key added
                                     style={{
                                       height: 30,
                                       width: 30,
@@ -1000,6 +1011,7 @@ const Page = () => {
                                         onClick={() => {
                                           setselect(index);
                                         }}
+                                        alt="ChartActivea"
                                         src={ChartActive[index]}
                                         style={{
                                           height: 20,
@@ -1016,6 +1028,7 @@ const Page = () => {
                                         onClick={() => {
                                           setselect1(index);
                                         }}
+                                        alt="item3"
                                         src={item}
                                         style={{
                                           height: 20,
@@ -1075,6 +1088,7 @@ select1 === 0 ? (
                               <Image
                                 style={{ height: 10, width: 15 }}
                                 className="mt-2"
+                                alt="Scaniconj"
                                 src={Scanicon}
                               ></Image>
                               <p
@@ -1159,6 +1173,7 @@ select1 === 0 ? (
                                 width: 60,
                                 marginTop: 10,
                               }}
+                              alt="ExportAll"
                               src={ExportAll}
                               onClick={() => handleExport()}
                             ></Image>
@@ -1239,6 +1254,7 @@ select1 === 0 ? (
                             {ChartType && ChartType.length > 0
                               ? ChartType.map((item, index) => (
                                   <div
+                                  key={index}  //added key index
                                     style={{
                                       height: 30,
                                       width: 30,
@@ -1250,6 +1266,7 @@ select1 === 0 ? (
                                         onClick={() => {
                                           setselect2(index);
                                         }}
+                                        alt="ChartActive"
                                         src={ChartActive[index]}
                                         style={{
                                           height: 20,
@@ -1266,6 +1283,7 @@ select1 === 0 ? (
                                         onClick={() => {
                                           setselect2(index);
                                         }}
+                                        alt="item2"
                                         src={item}
                                         style={{
                                           height: 20,
@@ -1308,6 +1326,7 @@ select1 === 0 ? (
                           <Image
                             style={{ height: 10, width: 15 }}
                             className="mt-2"
+                            alt="Scaniconn"
                             src={Scanicon}
                           ></Image>
                           <p
@@ -1405,6 +1424,7 @@ select1 === 0 ? (
                                         onClick={() => {
                                           setselect3(index);
                                         }}
+                                        alt="ChartActive"
                                         src={ChartActive[index]}
                                         style={{
                                           height: 20,
@@ -1421,6 +1441,7 @@ select1 === 0 ? (
                                         onClick={() => {
                                           setselect3(index);
                                         }}
+                                        alt="item1"
                                         src={item}
                                         style={{
                                           height: 20,
@@ -1469,6 +1490,7 @@ select1 === 0 ? (
                             <Image
                               style={{ height: 10, width: 15 }}
                               className="mt-2"
+                              alt="Scaniconn"
                               src={Scanicon}
                             ></Image>
                             <p
@@ -1548,6 +1570,7 @@ select1 === 0 ? (
                                 marginTop: 10,
                                 cursor: "pointer",
                               }}
+                              alt="ExportAlll"
                               src={ExportAll}
                               onClick={() => handleExport()}
                             ></Image>
@@ -1575,6 +1598,7 @@ select1 === 0 ? (
                           <Image
                             style={{ height: 10, width: 15 }}
                             className="mt-2"
+                            alt='Scaniconn'
                             src={Scanicon}
                           ></Image>
                           <p
