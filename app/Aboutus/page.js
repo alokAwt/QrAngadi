@@ -1,10 +1,10 @@
-import Fifthcard from '@/Components/Aboutuscomponets/Fifthcard'
-import Firstcard from '@/Components/Aboutuscomponets/Firstcard'
-import Formcard from '@/Components/Aboutuscomponets/Formcard'
-import Fourthcard from '@/Components/Aboutuscomponets/Fourthcard'
-import Loading from '@/Components/Aboutuscomponets/Loading'
-import Secoundcard from '@/Components/Aboutuscomponets/Secoundcard'
-import ThirdCard from '@/Components/Aboutuscomponets/ThirdCard'
+import Fifthcard from '@/components/Aboutuscomponets/Fifthcard'
+import Firstcard from '@/components/Aboutuscomponets/Firstcard'
+import Formcard from '@/components/Aboutuscomponets/Formcard'
+import Fourthcard from '@/components/Aboutuscomponets/Fourthcard'
+import Loading from '@/components/Aboutuscomponets/Loading'
+import Secoundcard from '@/components/Aboutuscomponets/Secoundcard'
+import ThirdCard from '@/components/Aboutuscomponets/ThirdCard'
 import React from 'react'
 
 const page = () => {

@@ -16,7 +16,7 @@ import { IoCheckmarkCircleSharp } from "react-icons/io5";
 import { MdRadioButtonChecked } from "react-icons/md";
 import { CreateOrder, GetPlans, PayOrder } from "@/Utility/Api/Users";
 import Script from "next/script";
-import { useToast } from "../../Components/ui/usetoast";
+import { useToast } from "../../components/ui/usetoast";
 import { ToastAction } from "@/components/ui/toast";
 const Pricingcard = () => {
   const { toast } = useToast();
