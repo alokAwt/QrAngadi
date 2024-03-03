@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import MainComponent from "@/components/ProfileComponents/MainComponent";
 
-const page = () => {
+const Page = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
 
   const toggleSidebar = () => {
@@ -15,4 +15,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

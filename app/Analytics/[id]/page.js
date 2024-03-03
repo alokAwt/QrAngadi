@@ -685,6 +685,7 @@ const Page = () => {
                             {ChartType && ChartType.length > 0
                               ? ChartType.map((item, index) => (
                                   <div
+                                  key={index}
                                     style={{
                                       height: 30,
                                       width: 30,
@@ -1413,6 +1414,7 @@ select1 === 0 ? (
                             {ChartType && ChartType.length > 0
                               ? ChartType.map((item, index) => (
                                   <div
+                                  key={index}
                                     style={{
                                       height: 30,
                                       width: 30,

@@ -52,7 +52,7 @@ const Extension = [
   { label: "svg", value: "svg" },
 ];
 
-const page = () => {
+const Page = () => {
   const { toast } = useToast();
   const [selected, setSelected] = React.useState("STATIC");
   const [image, setImages] = useState("");
@@ -1031,4 +1031,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
