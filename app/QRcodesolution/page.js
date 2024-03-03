@@ -372,8 +372,8 @@ const Page = () => {
           Create your <span className="text-buttoncolor">Own</span> QR Code!
         </h6>
         <p className="text-sm font-medium mt-2">
-          Easily generate personalized QR Codes in minutes with QR Angadi's QR
-          Code Generator!
+          {`Easily generate personalized QR Codes in minutes with QR Angadi's QR
+          Code Generator!`}
         </p>
       </div>
       <div className="flex flex-col justify-center items-center w-full mt-8 mx-auto">
@@ -381,6 +381,7 @@ const Page = () => {
           {QrType &&
             QrType.map((item, index) => (
               <Button
+              key={index}
                 variant="light"
                 className={
                   qrType === item.type
@@ -390,7 +391,7 @@ const Page = () => {
                 onClick={() => setQrType(item.type)}
               >
                 <div>
-                  <Image className="h-8 w-8 object-contain" src={item.Image} />
+                  <Image className="h-8 w-8 object-contain" alt="itemimage" src={item.Image} />
                 </div>
                 <p className="text-center md:text-xs text-[0.65rem]">
                   {item.name}
@@ -620,6 +621,7 @@ const Page = () => {
                             >
                               <Image
                                 className="md:h-20 md:w-20"
+                                alt="optionimage"
                                 src={option.imageSrc}
                               />
                             </Button>
@@ -675,6 +677,7 @@ const Page = () => {
                                 >
                                   <Image
                                     className="md:h-20 md:w-20"
+                                    alt="option image"
                                     src={option.imageSrc}
                                   />
                                 </Button>
@@ -714,6 +717,7 @@ const Page = () => {
                                 >
                                   <Image
                                     className="md:h-20 md:w-20"
+                                    alt="opyionimage"
                                     src={option.imageSrc}
                                   />
                                 </Button>
@@ -855,6 +859,7 @@ const Page = () => {
                               <Button className="flex justify-center items-center gap-2 h-auto w-auto flex-col bg-slate-100 rounded-md p-2  cursor-pointer">
                                 <Image
                                   className="md:h-20 md:w-20 h-8 w-8 object-contain"
+                                  alt="nosample"
                                   src={Nosample}
                                 />
                               </Button>
@@ -863,6 +868,7 @@ const Page = () => {
                               <Button className="flex h-auto w-auto justify-center items-center gap-2 flex-col bg-slate-100 rounded-md p-2 cursor-pointer">
                                 <Image
                                   className="md:h-20 md:w-20 h-8 w-8"
+                                  alt="apple"
                                   src={Apple}
                                 />
                               </Button>
@@ -870,6 +876,7 @@ const Page = () => {
                             <div className="flex justify-center flex-col items-center gap-2">
                               <Button className="flex md:h-24 md:w-24  h-12 w-10 justify-center items-center gap-2 flex-col bg-slate-100 rounded-md p-2 cursor-pointer">
                                 <Image
+                                alt="sunflower"
                                   className="md:h-14 md:w-14 h-6 w-6"
                                   src={Sunflower}
                                 />
@@ -1004,11 +1011,11 @@ const Page = () => {
               <p className="text-xs font-bold">Quick Share</p>
             </div>
             <div className="flex justify-start items-center gap-2 ">
-              <Image className="h-8 w-8" src={Linkdin} />
-              <Image className="h-8 w-8" src={Pintrest} />
-              <Image className="h-8 w-8" src={Insta} />
-              <Image className="h-8 w-8" src={Music} />
-              <Image className="h-8 w-8" src={Youtube} />
+              <Image alt="linkdin" className="h-8 w-8" src={Linkdin} />
+              <Image alt="pintrest" className="h-8 w-8" src={Pintrest} />
+              <Image alt="insta" className="h-8 w-8" src={Insta} />
+              <Image alt="music" className="h-8 w-8" src={Music} />
+              <Image alt="youtube" className="h-8 w-8" src={Youtube} />
             </div>
           </div>
           <div className="flex flex-col gap-2 justify-start items-start md:w-2/4 w-full">

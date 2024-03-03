@@ -18,7 +18,6 @@ export default function RootLayout({ children }) {
     <html lang="en" className={font.className}>
       <body className='scrollbar-hide md:scrollbar-default sm:scrollbar-default lg:scrollbar-default'>
         <AntdRegistry>
-
           <NextUIprovider children={children} />
         </AntdRegistry>
       </body>
