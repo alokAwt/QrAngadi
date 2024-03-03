@@ -1,8 +1,8 @@
 import React from "react";
-import Faqs from "@/Components/Faqs";
-import LetsTalk from "@/Components/contact-us-page-components/LetsTalk";
-import Formcard from "@/Components/Aboutuscomponets/Formcard";
-import FAQ from "@/Components/Homecomponents/FAQ";
+import Faqs from "@/components/Faqs";
+import LetsTalk from "@/components/contact-us-page-components/LetsTalk";
+import Formcard from "@/components/Aboutuscomponets/Formcard";
+import FAQ from "@/components/Homecomponents/FAQ";
 const page = () => {
   return (
     <>
