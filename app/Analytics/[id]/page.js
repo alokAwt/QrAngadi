@@ -53,7 +53,7 @@ const ImageDownload = (uri) => {
   a.click();
 };
 
-const page = () => {
+const Page = () => {
   const params = useParams();
   const router = useRouter();
   const pathname = usePathname();
@@ -1606,4 +1606,4 @@ select1 === 0 ? (
   );
 };
 
-export default page;
+export default Page;
