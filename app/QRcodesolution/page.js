@@ -44,6 +44,8 @@ import { CreateQr } from "@/Utility/CreateQr";
 import { useToast } from "../../components/ui/usetoast";
 import { ToastAction } from "@/components/ui/toast";
 import { useRouter } from "next/navigation";
+import dynamic from 'next/dynamic'
+
 
 const Extension = [
   { label: "png", value: "png" },
@@ -1038,4 +1040,6 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default dynamic(() => Promise.resolve(Page), {
+  ssr: false
+})

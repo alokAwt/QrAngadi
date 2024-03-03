@@ -1,6 +1,8 @@
 "use client";
 import React, { useState } from "react";
 import MainComponent from "@/components/ProfileComponents/MainComponent";
+import dynamic from 'next/dynamic'
+
 
 
 const Page = () => {
@@ -19,4 +21,6 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default dynamic(() => Promise.resolve(Page), {
+  ssr: false
+})
