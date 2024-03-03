@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, createRef, useRef, useEffect } from "react";
 import "./Dashboard.module.css";
-import "../../../Components/Analyticscomponets/App.module.css";
+import "../../../components/Analyticscomponets/App.module.css";
 import Logo from "../../../public/qr-angadi.png";
 import Overview from "../../../public/Analyticsimage/overviewBtn.png";
 import Logout from "../../../public/Analyticsimage/Logout.png";
@@ -9,7 +9,7 @@ import Profile from "../../../public/Aboutus/Angadilogo.png";
 // import Form from "react-bootstrap/Form";
 import High from "../../../public/Analyticsimage/high.png";
 import { DatePicker } from "antd";
-import { Lines } from "../../../Components/Analyticscomponets/Charts/Line";
+import { Lines } from "../../../components/Analyticscomponets/Charts/Line";
 import exportimg from "../../../public/Analyticsimage/export.png";
 import barimg from "../../../public/Analyticsimage/bar.png";
 // import pieimg from "../../Images/pie.png";
@@ -21,8 +21,8 @@ import LineActive from "../../../public/Analyticsimage/selectedChart.png";
 // import PieActive from "../../Images/pieactive.png";
 import BarActive from "../../../public/Analyticsimage/baractive.png";
 // import Textactive from "../../Images/textactive.png";
-import { PieChart } from "../../../Components/Analyticscomponets/Charts/PieChart";
-import { BarChart } from "../../../Components/Analyticscomponets/Charts/Bar";
+import { PieChart } from "../../../components/Analyticscomponets/Charts/PieChart";
+import { BarChart } from "../../../components/Analyticscomponets/Charts/Bar";
 // import TextChart from "../../Charts/Text";
 import * as XLSX from "xlsx";
 import { ToastContainer, toast } from "react-toastify";
@@ -33,7 +33,7 @@ import Dropdown from "react-bootstrap/Dropdown";
 import { SpinnerRoundOutlined, SpinnerCircularFixed } from "spinners-react";
 import GeoGraph, {
   Geo,
-} from "../../../Components/Analyticscomponets/Charts/Geo";
+} from "../../../components/Analyticscomponets/Charts/Geo";
 // import { GetAnalytices } from "../../../../Api/Users";                                // API CALLING
 // import { useScreenshot } from "use-react-screenshot";
 // import { WhatsappIcon, WhatsappShareButton } from "react-share";
