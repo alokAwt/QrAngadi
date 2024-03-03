@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import Forgotpassword from "@/Components/Forgotpassword";
+import Forgotpassword from "@/components/Forgotpassword";
 function page() {
   return (
     <div className="bg-[url('/Auth/auth.png')] p-5 md:p-10">

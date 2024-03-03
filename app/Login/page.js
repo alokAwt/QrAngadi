@@ -1,6 +1,6 @@
 import React from "react";
-import AuthLayout from "@/Components/AuthLayout";
-import Login from "@/Components/Login";
+import AuthLayout from "@/components/AuthLayout";
+import Login from "@/components/Login";
 function page() {
   return (
     <AuthLayout>
