@@ -8,6 +8,7 @@ import {usePathname } from 'next/navigation'
 import Navbar from "../components/Navbarcomponets/Navbar";
 import Footernav from "../components/Homecomponents/Footer";
 import { Toaster } from "../components/ui/toaster";
+import { useEffect } from "react";
 
 
 
@@ -23,6 +24,14 @@ const font = Poppins({
 
 export default function RootLayout({ children }) {
   const pathname=usePathname()
+
+  useEffect(() => {
+    // Any code here will only run on the client
+    const self = window.self;
+    // You can use 'self' here
+  }, []);
+
+ 
 
   return (
     <html lang="en" className={font.className}>
