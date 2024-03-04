@@ -103,25 +103,26 @@ function Imageslider() {
   return (
     <Carousel
       setApi={setApi}
-      className="flex  justify-center items-center bg-white "
+      className="flex  justify-center items-center w-full h-[90vh] mx-auto"
     >
-      <CarouselContent className="bg-white">
+      <CarouselContent style={{width:'100%'}}  className="mx-auto h-[90hvh] w-full">
         {slidesData.map((slide, index) => (
           <CarouselItem key={index}>
-            <div className="p-1">
-              <div>
-                <div className="flex items-center justify-center ">
+            <div className="p-1 w-full justify-center items-center mx-auto">
+              <div className="w-full justify-center items-center mx-auto">
+                <div style={{width:'100%'}} className="flex items-center justify-center w-full ">
                   <Image
                     loading="lazy"
-                    className="md:h-[90vh] h-[90vh] w-full  object-fill "
+                     style={{width:"100%"}}
+                    className="md:h-[90vh] sm:h-{90vh]  h-[90vh] lg:h-[90vh]  object-fill "
                     src={slide.image}
                   />
-                  <div className="absolute  font-semibold w-[85%] flex justify-between items-center flex-col-reverse md:flex-row ">
+                  <div className="absolute  font-semibold w-[85%] flex justify-between items-center flex-col-reverse md:flex-row lg:flex-row">
                     <div className="gap-6 flex flex-col justify-start md:mt-0 mt-4">
-                      <h6 className="md:text-3xl text-sm font-bold md:w-[24rem] w-[20rem] leading-9">
+                      <h6 className="md:text-3xl lg:text-3xl text-sm font-bold md:w-[24rem] lg:w-[24rem] w-[20rem] leading-9">
                         {slide.title}
                       </h6>
-                      <p className="md:w-[30rem] text-md font-normal text-gray-600 leading-6">
+                      <p className="md:w-[30rem] lg:w-[30rem] text-md font-normal text-gray-600 leading-6">
                         {slide.description}
                       </p>
                       <div className="flex  items-center gap-2 mt-2">
