@@ -105,7 +105,7 @@ function Imageslider() {
       setApi={setApi}
       className="flex  justify-center items-center w-full h-[90vh] mx-auto"
     >
-      <CarouselContent  className="mx-auto h-[90hvh] w-full">
+      <CarouselContent style={{width:1200}}  className="mx-auto h-[90hvh] w-full">
         {slidesData.map((slide, index) => (
           <CarouselItem key={index}>
             <div className="p-1 w-full justify-center items-center mx-auto">
