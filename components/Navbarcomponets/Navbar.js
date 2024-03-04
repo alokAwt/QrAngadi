@@ -17,6 +17,7 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
+  SheetClose,
 } from "@/components/ui/sheet";
 import Sidebarnav from "./Sidebarnav";
 import Link from "next/link";
@@ -41,6 +42,10 @@ import {
 } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 import { GetProfile } from "@/Utility/Api/Users";
+import { MdDashboard } from "react-icons/md";
+import { FaUserCircle } from "react-icons/fa";
+import { RiQrCodeFill } from "react-icons/ri";
+import { IoIosArrowForward } from "react-icons/io";
 
 export default function App() {
   const [islogged, setislogin] = useState(false);
@@ -61,6 +66,10 @@ export default function App() {
     getToken();
   }, []);
 
+  const handleNavigation = (route) => {
+    router.push(route);
+  };
+
   return (
     <>
       <Navbar className="p-1  w-full" maxWidth="full" shouldHideOnScroll>
@@ -76,17 +85,99 @@ export default function App() {
                   QR-Angadi
                 </SheetTitle>
                 <SheetDescription>
-                  <Sidebarnav />
+                  <div className="w-full">
+                    <div className="h-auto  p-4 left-0 mx-auto flex flex-col justify-center items-center gap-4">
+                      <div className="w-full mx-auto">
+                        <SheetClose className="w-full">
+                          <div
+                            onClick={() => handleNavigation("/")}
+                            variant="solid"
+                            className="flex h-10 justify-between items-center px-3 w-full bg-buttoncolor rounded-sm"
+                          >
+                            <div className="flex justify-center items-center gap-2 text-white">
+                              <MdDashboard />
+                              <span>Home</span>
+                            </div>
+                            <IoIosArrowForward className="text-white" />
+                          </div>
+                        </SheetClose>
+                      </div>
+                      <div className="w-full mx-auto">
+                        <SheetClose className="w-full">
+                          <div
+                            onClick={() => handleNavigation("/Aboutus")}
+                            variant="solid"
+                            className="flex h-10 justify-between items-center px-3 w-full bg-buttoncolor rounded-sm"
+                          >
+                            <div className="flex justify-center items-center gap-2 text-white">
+                              <MdDashboard />
+                              <span>Aboutus</span>
+                            </div>
+                            <IoIosArrowForward className="text-white" />
+                          </div>
+                        </SheetClose>
+                      </div>
+                      <div className="w-full mx-auto">
+                        <SheetClose className="w-full">
+                          <div
+                            onClick={() => handleNavigation("/QRcodesolution")}
+                            variant="solid"
+                            className="flex h-10 justify-between items-center px-3 w-full bg-buttoncolor rounded-sm"
+                          >
+                            <div className="flex justify-center items-center gap-2 text-white">
+                              <MdDashboard />
+                              <span>QR Code Solution</span>
+                            </div>
+                            <IoIosArrowForward className="text-white" />
+                          </div>
+                        </SheetClose>
+                      </div>
+                      <div className="w-full mx-auto">
+                        <SheetClose className="w-full">
+                          <div
+                            onClick={() => handleNavigation("/Pricing")}
+                            variant="solid"
+                            className="flex h-10 justify-between items-center px-3 w-full bg-buttoncolor rounded-sm"
+                          >
+                            <div className="flex justify-center items-center gap-2 text-white">
+                              <MdDashboard />
+                              <span>Pricing</span>
+                            </div>
+                            <IoIosArrowForward className="text-white" />
+                          </div>
+                        </SheetClose>
+                      </div>
+                      <div className="w-full mx-auto">
+                        <SheetClose className="w-full">
+                          <div
+                            onClick={() => handleNavigation("/Contactus")}
+                            variant="solid"
+                            className="flex h-10 justify-between items-center px-3 w-full bg-buttoncolor rounded-sm"
+                          >
+                            <div className="flex justify-center items-center gap-2 text-white">
+                              <MdDashboard />
+                              <span>Contactus</span>
+                            </div>
+                            <IoIosArrowForward className="text-white" />
+                          </div>
+                        </SheetClose>
+                      </div>
+                      
+                    </div>
+                  </div>
                 </SheetDescription>
               </SheetHeader>
             </SheetContent>
           </Sheet>
           <Image
-            className="hidden md:block lg:block lg:h-10 lg:w-24 md:h-10 md:w-24 "
+            className="hidden md:block lg:block lg:h-10 lg:w-24 md:h-8 md:w-24 "
             src={logo}
           />
         </NavbarBrand>
-        <NavbarContent className="hidden sm:hidden md:flex lg:flex " justify="center">
+        <NavbarContent
+          className="hidden sm:hidden md:flex lg:flex "
+          justify="center"
+        >
           <Navtab />
         </NavbarContent>
         <NavbarContent justify="end">

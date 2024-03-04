@@ -8,12 +8,18 @@ import { FaUserCircle } from "react-icons/fa";
 import { RiQrCodeFill } from "react-icons/ri";
 import { IoIosArrowForward } from "react-icons/io";
 import { Button } from "@nextui-org/react";
+import {
+  SheetClose,
+  
+} from "@/components/ui/sheet"
 
 function Sidebarnav() {
   return (
     <div className="w-full">
       <div className="h-auto  p-4 left-0 mx-auto flex flex-col justify-center items-center gap-4">
         <div className="w-full mx-auto">
+        <SheetClose>
+
           <Button
             variant="solid"
             className="flex justify-between items-center px-3 w-full bg-buttoncolor rounded-sm"
@@ -26,6 +32,7 @@ function Sidebarnav() {
             </div>
             <IoIosArrowForward className="text-white" />
           </Button>
+        </SheetClose>
         </div>
         <div className="w-full mx-auto">
           <Button
