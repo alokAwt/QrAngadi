@@ -192,11 +192,7 @@ export default function Signinmodal() {
       <Modal
         size="5xl"
         isOpen={isOpen}
-        closeButton={
-          <p>
-            <IoCloseCircle className="bg-buttoncolor text-white rounded-full text-xl" />
-          </p>
-        }
+        hideCloseButton
         onOpenChange={onOpenChange}
         isKeyboardDismissDisabled={true}
         placement="center"
@@ -228,6 +224,15 @@ export default function Signinmodal() {
               <ModalBody className="w-full flex justify-center items-center mx-auto">
                 <div className="bg-white rounded-md md:p-4 lg:p-4 p-2 md:w-[95%] lg:w-full flex flex-col justify-center gap-4">
                   <div className="mt-4 md:w-96 lg:w-96 mx-auto">
+                    <div
+                      variant="light"
+                      onClick={onClose}
+                      className="absolute top-8 bg-buttoncolor right-8 rounded-full cursor-pointer"
+                    >
+                     
+                        <IoCloseCircle className="text-white rounded-full text-xl" />
+                    
+                    </div>
                     <Tabs
                       variant="bordered"
                       fullWidth
@@ -302,7 +307,10 @@ export default function Signinmodal() {
                           </div>
                         ) : (
                           <>
-                            <div style={{borderRadius:'16px'}} className=" border-1.5 border-gray-300 rounded-2xl md:w-3/6 lg:w-3/6 w-full h-auto flex flex-col justify-start items-start gap-2 px-4 py-2">
+                            <div
+                              style={{ borderRadius: "16px" }}
+                              className=" border-1.5 border-gray-300 rounded-2xl md:w-3/6 lg:w-3/6 w-full h-auto flex flex-col justify-start items-start gap-2 px-4 py-2"
+                            >
                               <Image
                                 className="h-6 w-24"
                                 src={backgroundimage}
@@ -422,7 +430,10 @@ export default function Signinmodal() {
                       </>
                     )}
                     {selected === "LOGIN" && (
-                      <div  style={{borderRadius:'16px'}} className=" border-1.5 border-gray-300 rounded-2xl md:w-3/6 lg:w-3/6 md:h-[81vh] lg:h-[90vh] h-auto w-full flex flex-col justify-start items-start gap-2 px-4 py-2">
+                      <div
+                        style={{ borderRadius: "16px" }}
+                        className=" border-1.5 border-gray-300 rounded-2xl md:w-3/6 lg:w-3/6 md:h-[81vh] lg:h-[81vh] h-auto w-full flex flex-col justify-start items-start gap-2 px-4 py-2"
+                      >
                         <Image className="h-10 w-24" src={backgroundimage} />
                         <h6 className="text-xl font-medium">Welcome Back!</h6>
                         <p className="text-md">
@@ -498,7 +509,10 @@ export default function Signinmodal() {
                     )}
 
                     <div className="hidden md:flex lg:flex md:w-3/6 lg:w-3/6">
-                      <Image src={Authgif}  className="md:w-[400] md:h-[300] lg:w-[400] lg:h-[300]" />
+                      <Image
+                        src={Authgif}
+                        className="md:w-[400] md:h-[300] lg:w-[400] lg:h-[300]"
+                      />
                     </div>
                   </div>
                 </div>
