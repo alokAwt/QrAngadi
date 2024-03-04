@@ -67,7 +67,7 @@ export default function App() {
         <NavbarBrand className="gap-2">
           <Sheet>
             <SheetTrigger>
-              <TiThMenu className="lg:hidden md:block sm:block block" />
+              <TiThMenu className="lg:hidden md:hidden sm:block block" />
             </SheetTrigger>
             <SheetContent side="left" className="">
               <SheetHeader>
