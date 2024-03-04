@@ -103,9 +103,9 @@ function Imageslider() {
   return (
     <Carousel
       setApi={setApi}
-      className="flex  justify-center items-center bg-white w-full "
+      className="flex  justify-center items-center w-full h-[90vh] mx-auto"
     >
-      <CarouselContent className="bg-white w-full">
+      <CarouselContent  className="mx-auto h-[90hvh] w-full">
         {slidesData.map((slide, index) => (
           <CarouselItem key={index}>
             <div className="p-1 w-full justify-center items-center mx-auto">
@@ -113,7 +113,7 @@ function Imageslider() {
                 <div className="flex items-center justify-center w-full ">
                   <Image
                     loading="lazy"
-                    className="md:h-[90vh] lg:h-[90vh] h-[90vh] w-full lg:w-full  object-fill "
+                    className="md:h-[90vh] sm:h-{90vh]  h-[90vh] lg:h-[90vh] w-full  object-fill "
                     src={slide.image}
                   />
                   <div className="absolute  font-semibold w-[85%] flex justify-between items-center flex-col-reverse md:flex-row lg:flex-row">
