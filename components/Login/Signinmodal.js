@@ -226,7 +226,7 @@ export default function Signinmodal() {
           {(onClose) => (
             <>
               <ModalBody className="w-full flex justify-center items-center mx-auto">
-                <div className="bg-white rounded-md md:p-4 lg:p-2 p-2 md:w-[95%] lg:w-full flex flex-col justify-center gap-4">
+                <div className="bg-white rounded-md md:p-4 lg:p-4 p-2 md:w-[95%] lg:w-full flex flex-col justify-center gap-4">
                   <div className="mt-4 md:w-96 lg:w-96 mx-auto">
                     <Tabs
                       variant="bordered"
@@ -302,7 +302,7 @@ export default function Signinmodal() {
                           </div>
                         ) : (
                           <>
-                            <div className=" border-1.5 border-gray-300 rounded-2xl md:w-3/6 lg:w-3/6 w-full h-auto flex flex-col justify-start items-start gap-2 px-4 py-2">
+                            <div style={{borderRadius:'16px'}} className=" border-1.5 border-gray-300 rounded-2xl md:w-3/6 lg:w-3/6 w-full h-auto flex flex-col justify-start items-start gap-2 px-4 py-2">
                               <Image
                                 className="h-6 w-24"
                                 src={backgroundimage}
