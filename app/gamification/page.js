@@ -10,9 +10,11 @@ import Brand3 from "../../public/Brand/Brand3.png";
 import Brand4 from "../../public/Brand/Brand4.png";
 import Brand5 from "../../public/Brand/Brand5.png";
 import Image from "next/image";
+import CreateCoupons from "@/components/GamificationComponents/main/CreateCoupons";
 function Page() {
   return (
     <div>
+      <CreateCoupons />
       <GamificationSolutions />
       <HowItWorks />
       <BenefitsOfGamification />
