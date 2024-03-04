@@ -113,15 +113,15 @@ function Imageslider() {
                 <div className="flex items-center justify-center ">
                   <Image
                     loading="lazy"
-                    className="md:h-[90vh] h-[90vh] w-full  object-fill "
+                    className="md:h-[90vh] lg:h-[90vh] h-[90vh] w-full  object-fill "
                     src={slide.image}
                   />
-                  <div className="absolute  font-semibold w-[85%] flex justify-between items-center flex-col-reverse md:flex-row ">
+                  <div className="absolute  font-semibold w-[85%] flex justify-between items-center flex-col-reverse md:flex-row lg:flex-row">
                     <div className="gap-6 flex flex-col justify-start md:mt-0 mt-4">
-                      <h6 className="md:text-3xl text-sm font-bold md:w-[24rem] w-[20rem] leading-9">
+                      <h6 className="md:text-3xl lg:text-3xl text-sm font-bold md:w-[24rem] lg:w-[24rem] w-[20rem] leading-9">
                         {slide.title}
                       </h6>
-                      <p className="md:w-[30rem] text-md font-normal text-gray-600 leading-6">
+                      <p className="md:w-[30rem] lg:w-[30rem] text-md font-normal text-gray-600 leading-6">
                         {slide.description}
                       </p>
                       <div className="flex  items-center gap-2 mt-2">
