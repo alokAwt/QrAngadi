@@ -226,7 +226,7 @@ export default function Signinmodal() {
           {(onClose) => (
             <>
               <ModalBody className="w-full flex justify-center items-center mx-auto">
-                <div className="bg-white rounded-md md:p-4 lg:p-4 p-2 md:w-[95%] lg:w-[98%] flex flex-col justify-center gap-4">
+                <div className="bg-white rounded-md md:p-4 lg:p-2 p-2 md:w-[95%] lg:w-full flex flex-col justify-center gap-4">
                   <div className="mt-4 md:w-96 lg:w-96 mx-auto">
                     <Tabs
                       variant="bordered"
@@ -497,7 +497,7 @@ export default function Signinmodal() {
                       </div>
                     )}
 
-                    <div className="hidden md:flex lg:flex">
+                    <div className="hidden md:flex lg:flex md:w-3/6 lg:w-3/6">
                       <Image src={Authgif} height={300} width={400} />
                     </div>
                   </div>
