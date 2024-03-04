@@ -248,7 +248,7 @@ export default function Signinmodal() {
                       <Tab key="SIGNUP" title="SIGNUP"></Tab>
                     </Tabs>
                   </div>
-                  <div className="flex flex-row justify-between items-center md:px-4 lg:px-4 mt-1 w-full">
+                  <div className="flex flex-row justify-between items-center md:px-4 lg:px-6 mt-1 w-full">
                     {selected === "SIGNUP" && (
                       <>
                         {otpOpen ? (
@@ -422,7 +422,7 @@ export default function Signinmodal() {
                       </>
                     )}
                     {selected === "LOGIN" && (
-                      <div className=" border-1.5 border-gray-300 rounded-2xl md:w-3/6 lg:w-3/6 md:h-[81vh] lg:h-[81vh] h-auto w-full flex flex-col justify-start items-start gap-2 px-4 py-2">
+                      <div  style={{borderRadius:'16px'}} className=" border-1.5 border-gray-300 rounded-2xl md:w-3/6 lg:w-3/6 md:h-[81vh] lg:h-[81vh] h-auto w-full flex flex-col justify-start items-start gap-2 px-4 py-2">
                         <Image className="h-10 w-24" src={backgroundimage} />
                         <h6 className="text-xl font-medium">Welcome Back!</h6>
                         <p className="text-md">
