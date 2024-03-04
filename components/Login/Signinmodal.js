@@ -498,7 +498,7 @@ export default function Signinmodal() {
                     )}
 
                     <div className="hidden md:flex lg:flex md:w-3/6 lg:w-3/6">
-                      <Image src={Authgif} height={300} width={400} />
+                      <Image src={Authgif}  className="md:w-[400] md:h-[300] lg:w-[500] lg:h-[400]" />
                     </div>
                   </div>
                 </div>
