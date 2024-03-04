@@ -109,14 +109,14 @@ function Imageslider() {
         {slidesData.map((slide, index) => (
           <CarouselItem key={index}>
             <div className="p-1">
-              <div>
+              <div className="w-full">
                 <div className="flex items-center justify-center w-full ">
                   <Image
                     loading="lazy"
                     className="md:h-[90vh] lg:h-[90vh] h-[90vh] w-full lg:w-full  object-fill "
                     src={slide.image}
                   />
-                  <div className="absolute  font-semibold bg-red-400 w-[85%] flex justify-between items-center flex-col-reverse md:flex-row lg:flex-row">
+                  <div className="absolute  font-semibold w-[85%] flex justify-between items-center flex-col-reverse md:flex-row lg:flex-row">
                     <div className="gap-6 flex flex-col justify-start md:mt-0 mt-4">
                       <h6 className="md:text-3xl lg:text-3xl text-sm font-bold md:w-[24rem] lg:w-[24rem] w-[20rem] leading-9">
                         {slide.title}
