@@ -1,26 +1,30 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import MainComponent from "@/components/ProfileComponents/MainComponent";
-import dynamic from 'next/dynamic'
 
-
+const isBrowser = typeof window !== 'undefined';
 
 const Page = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
-
-
- 
+  
+  useEffect(() => {
+    if (isBrowser) {
+      import('../../components/ProfileComponents/MainComponent').then((module) => {
+      }).catch((error) => {
+        console.error("Failed to load MainComponent:", error);
+      });
+    }
+  }, []);
 
   const toggleSidebar = () => {
     setSidebarOpen(!isSidebarOpen);
   };
+
   return (
-   <div className="flex flex-col justify-center items-center mx-auto w-full px-4 ">
-    <MainComponent/>
-   </div>
+    <div className="flex flex-col justify-center items-center mx-auto w-full px-4 ">
+      <MainComponent />
+    </div>
   );
 };
 
-export default dynamic(() => Promise.resolve(Page), {
-  ssr: false
-})
+export default Page;
