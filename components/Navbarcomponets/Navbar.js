@@ -170,7 +170,7 @@ export default function App() {
             </SheetContent>
           </Sheet>
           <Image
-            className="hidden md:block lg:block lg:h-6 lg:w-24 md:h-6 md:w-24 sm:hidden "
+            className="hidden md:block lg:block lg:h-10 lg:w-24 md:h-8 md:w-24 sm:hidden "
             src={logo}
           />
         </NavbarBrand>

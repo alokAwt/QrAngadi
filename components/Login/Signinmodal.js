@@ -119,7 +119,7 @@ export default function Signinmodal() {
           setSelected("LOGIN");
         } else {
           toast({
-            variant: "",
+            variant: "destructive",
             title: "SignUp Failed.",
             description: res.message,
           });
@@ -128,7 +128,7 @@ export default function Signinmodal() {
       });
     } else {
       toast({
-        variant: "",
+        variant: "destructive",
         title: "Otp not Matched.",
         description: "",
       });
@@ -139,7 +139,7 @@ export default function Signinmodal() {
   const Login = () => {
     if (!email) {
       toast({
-        variant: "",
+        variant: "destructive",
         title: "Email is Required.",
         description: "",
         action: <ToastAction altText="Try again">Try again</ToastAction>,
@@ -147,7 +147,7 @@ export default function Signinmodal() {
       return false;
     } else if (!password) {
       toast({
-        variant: "",
+        variant: "destructive",
         title: "Password is Required.",
         description: "",
         action: <ToastAction altText="Try again">Try again</ToastAction>,
@@ -172,7 +172,7 @@ export default function Signinmodal() {
       } else {
         setIsloding(false);
         toast({
-          variant: "",
+          variant: "destructive",
           title: "Loged in faild.",
           description: res.message,
           action: <ToastAction altText="Try again">Try again</ToastAction>,
@@ -226,8 +226,8 @@ export default function Signinmodal() {
           {(onClose) => (
             <>
               <ModalBody className="w-full flex justify-center items-center mx-auto">
-                <div className="bg-white rounded-md md:p-4 p-2 md:w-[95%] flex flex-col justify-center gap-4">
-                  <div className="mt-4 md:w-96 mx-auto">
+                <div className="bg-white rounded-md md:p-4 p-2 md:w-[95%] lg:w-[95%] flex flex-col justify-center gap-4">
+                  <div className="mt-4 md:w-96 lg:w-96 mx-auto">
                     <Tabs
                       variant="bordered"
                       fullWidth
@@ -248,11 +248,11 @@ export default function Signinmodal() {
                       <Tab key="SIGNUP" title="SIGNUP"></Tab>
                     </Tabs>
                   </div>
-                  <div className="flex flex-row justify-between items-center md:px-4 mt-1 w-full">
+                  <div className="flex flex-row justify-between items-center md:px-4 lg:px-4 mt-1 w-full">
                     {selected === "SIGNUP" && (
                       <>
                         {otpOpen ? (
-                          <div className=" border-1.5 border-gray-300 rounded-2xl md:w-3/6 w-full h-auto flex flex-col justify-start items-start gap-2 px-4 py-2">
+                          <div className=" border-1.5 border-gray-300 rounded-2xl md:w-3/6 lg:w-3/6 w-full h-auto flex flex-col justify-start items-start gap-2 px-4 py-2">
                             <Image className="h-6 w-24" src={backgroundimage} />
                             <h6 className="text-md font-medium">
                               Verification!
@@ -302,7 +302,7 @@ export default function Signinmodal() {
                           </div>
                         ) : (
                           <>
-                            <div className=" border-1.5 border-gray-300 rounded-2xl md:w-3/6 w-full h-auto flex flex-col justify-start items-start gap-2 px-4 py-2">
+                            <div className=" border-1.5 border-gray-300 rounded-2xl md:w-3/6 lg:w-3/6 w-full h-auto flex flex-col justify-start items-start gap-2 px-4 py-2">
                               <Image
                                 className="h-6 w-24"
                                 src={backgroundimage}
@@ -422,7 +422,7 @@ export default function Signinmodal() {
                       </>
                     )}
                     {selected === "LOGIN" && (
-                      <div className=" border-1.5 border-gray-300 rounded-2xl md:w-3/6 md:h-[81vh] h-auto w-full flex flex-col justify-start items-start gap-2 px-4 py-2">
+                      <div className=" border-1.5 border-gray-300 rounded-2xl md:w-3/6 lg:w-3/6 md:h-[81vh] lg:h-[81vh] h-auto w-full flex flex-col justify-start items-start gap-2 px-4 py-2">
                         <Image className="h-10 w-24" src={backgroundimage} />
                         <h6 className="text-xl font-medium">Welcome Back!</h6>
                         <p className="text-md">
@@ -461,17 +461,17 @@ export default function Signinmodal() {
                             required
                           />
                         </div>
-                        <div className="flex py-2 px-1 justify-between  items-center md:gap-24 gap-4">
+                        <div className="flex py-2 px-1 justify-between  items-center md:gap-24 lg:gap-24 gap-4">
                           <Checkbox
                             color="warning"
                             classNames={{
-                              label: "md:text-small text-xs",
+                              label: "md:text-small lg:text-small text-xs",
                             }}
                           >
                             Remember me
                           </Checkbox>
                           <Link color="primary" href="#" size="sm">
-                            <span className="ml-auto md:text-sm text-xs">
+                            <span className="ml-auto md:text-sm lg:text-sm text-xs">
                               Forgot password?
                             </span>
                           </Link>
@@ -497,7 +497,7 @@ export default function Signinmodal() {
                       </div>
                     )}
 
-                    <div className="hidden md:flex">
+                    <div className="hidden md:flex lg:flex">
                       <Image src={Authgif} height={300} width={400} />
                     </div>
                   </div>
