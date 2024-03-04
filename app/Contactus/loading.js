@@ -1,4 +1,4 @@
-import Loading from '@/Components/Aboutuscomponets/Loading'
+import Loading from '@/components/Aboutuscomponets/Loading'
 import React from 'react'
 
 

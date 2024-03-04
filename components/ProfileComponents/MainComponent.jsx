@@ -86,8 +86,8 @@ export default function MainComponent() {
 
   const GetQr = () => {
     GetProfile().then((res) => {
-      setData(res.data.Qr.reverse());
-      setProile(res.data);
+      setData(res?.data?.Qr?.reverse());
+      setProile(res?.data);
     });
   };
 
@@ -137,7 +137,7 @@ export default function MainComponent() {
     router.push(`/Analytics/${ID}`);
   };
 
-  const pages = Math.ceil(data.length / rowsPerPage);
+  const pages = Math.ceil(data?.length / rowsPerPage);
 
   const hasSearchFilter = Boolean(filterValue);
 
@@ -150,6 +150,9 @@ export default function MainComponent() {
   }, [visibleColumns]);
 
   const filteredItems = React.useMemo(() => {
+    if (!Array.isArray(data)) {
+      return [];
+    }
     let filteredUsers = [...data];
 
     if (hasSearchFilter) {
@@ -196,13 +199,13 @@ export default function MainComponent() {
       case "QR Code Name":
         return (
           <div className="flex justify-center  items-center ">
-            <p className="">{user.QrName}</p>
+            <p className="">{user?.QrName}</p>
           </div>
         );
       case "Category":
         return (
           <div className="flex flex-col justify-start items-start">
-            <p className="text-bold text-small capitalize">{user.Qrtype}</p>
+            <p className="text-bold text-small capitalize">{user?.Qrtype}</p>
           </div>
         );
 
@@ -219,7 +222,7 @@ export default function MainComponent() {
             </Tooltip>
             <Tooltip content="Download">
               <div
-                onClick={() => handleDownload(user.QrImage, user.QrName)}
+                onClick={() => handleDownload(user?.QrImage, user?.QrName)}
                 className="text-lg ring-1 p-1 rounded-md ring-buttoncolor text-default-400 cursor-pointer active:opacity-50"
               >
                 <MdDownloadForOffline className="text-buttoncolor" />
@@ -227,7 +230,7 @@ export default function MainComponent() {
             </Tooltip>
             <Tooltip content="Insights">
               <div
-                onClick={() => Redirectanalytics(user._id)}
+                onClick={() => Redirectanalytics(user?._id)}
                 className="text-lg p-1 rounded-md ring-1 ring-buttoncolor text-default-400 cursor-pointer active:opacity-50"
               >
                 <BsFillBarChartFill className="text-buttoncolor" />
@@ -235,7 +238,7 @@ export default function MainComponent() {
             </Tooltip>
             <Tooltip content="View">
               <div
-                onClick={() => openQrInNewWindow(user.QrImage)}
+                onClick={() => openQrInNewWindow(user?.QrImage)}
                 className="text-lg p-1 rounded-md ring-1 ring-buttoncolor text-default-400 cursor-pointer active:opacity-50"
               >
                 <FaEye className="text-buttoncolor" />
@@ -243,7 +246,7 @@ export default function MainComponent() {
             </Tooltip>
             <Tooltip content="Delete">
               <div
-                onClick={() => DeleteQr(user._id, user.Qrtype)}
+                onClick={() => DeleteQr(user?._id, user?.Qrtype)}
                 className="text-lg ring-1 p-1 rounded-md ring-buttoncolor text-default-400 cursor-pointer active:opacity-50"
               >
                 <MdDelete className="text-buttoncolor" />
@@ -355,7 +358,7 @@ export default function MainComponent() {
               >
                 {columns.map((column) => (
                   <DropdownItem key={column.uid} className="capitalize">
-                    {capitalize(column.name)}
+                    {capitalize(column?.name)}
                   </DropdownItem>
                 ))}
               </DropdownMenu>
@@ -372,7 +375,7 @@ export default function MainComponent() {
         </div>
         <div className="flex justify-between items-center">
           <span className="text-default-400 text-small">
-            Total {data.length} Qr
+            Total {data?.length} Qr
           </span>
           <label className="flex items-center text-default-400 text-small">
             Rows per page:
@@ -395,7 +398,7 @@ export default function MainComponent() {
     visibleColumns,
     onSearchChange,
     onRowsPerPageChange,
-    data.length,
+    data?.length,
     hasSearchFilter,
   ]);
 
@@ -405,7 +408,7 @@ export default function MainComponent() {
         <span className="text-small text-default-400">
           {selectedKeys === "all"
             ? "All items selected"
-            : `${selectedKeys.size} of ${items.length} selected`}
+            : `${selectedKeys?.size} of ${items?.length} selected`}
         </span>
         <Pagination
           showControls
@@ -523,9 +526,9 @@ export default function MainComponent() {
               <TableColumn
                 key={column.uid}
                 align={column.uid === "Actions" ? "center" : "start"}
-                allowsSorting={column.sortable}
+                allowsSorting={column?.sortable}
               >
-                {column.name}
+                {column?.name}
               </TableColumn>
             )}
           </TableHeader>

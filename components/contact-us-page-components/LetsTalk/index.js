@@ -111,7 +111,7 @@ function LetsTalk() {
         </div>
       </div>
       <div className="p-3 flex-1 min-w-[280px]">
-        <h2 className="text-2xl font-bold">Let's Talk</h2>
+        <h2 className="text-2xl font-bold">{`Let's Talk`}</h2>
         <p className="text-[#878787] text-md">Provide the necessary details.</p>
         <div className="flex flex-col gap-4 mt-4">
           <div className="flex gap-4">

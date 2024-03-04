@@ -1,5 +1,5 @@
-import ProfileNav from '@/Components/ProfileComponents/ProfileNav'
-import Sidebar from '@/Components/ProfileComponents/Sidebar'
+import ProfileNav from '@/components/ProfileComponents/ProfileNav'
+import Sidebar from '@/components/ProfileComponents/Sidebar'
 import React from 'react'
 
 const layout = ({ children }) => {
