@@ -113,7 +113,8 @@ function Imageslider() {
                 <div style={{width:'100%'}} className="flex items-center justify-center w-full ">
                   <Image
                     loading="lazy"
-                    className="md:h-[90vh] sm:h-{90vh]  h-[90vh] lg:h-[90vh] w-full  object-fill "
+                    width={1300}
+                    className="md:h-[90vh] sm:h-{90vh]  h-[90vh] lg:h-[90vh]   object-fill "
                     src={slide.image}
                   />
                   <div className="absolute  font-semibold w-[85%] flex justify-between items-center flex-col-reverse md:flex-row lg:flex-row">
