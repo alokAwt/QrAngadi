@@ -16,13 +16,13 @@ const Howworks = () => {
   return (
     <div className="flex flex-col justify-center items-center gap-4 mt-16">
       <div className="">
-        <h6 className="font-bold md:text-3xl text-2xl mt-8 text-center">
+        <h6 className="font-bold md:text-3xl lg:text-3xl text-2xl mt-8 text-center">
           How <span className="text-buttoncolor">QR Angadi</span> works?
         </h6>
       </div>
 
-      <div className="flex justify-center items-center gap-12 mt-12 w-11/12 mx-auto flex-col-reverse md:flex-row">
-        <div className="flex flex-col items-center gap-6 p-4 md:w-2/4  w-full">
+      <div className="flex justify-center items-center gap-12 lg:gap-12 mt-12 w-11/12 mx-auto flex-col-reverse md:flex-row">
+        <div className="flex flex-col items-center gap-6 p-4 md:w-2/4 lg:w-2/4 w-full">
           {/* <div className="flex flex-row items-center  mx-auto gap-2 ">
               <div className="bg-buttoncolor p-2 rounded-full text-white  flex justify-center items-center">
                 <FiLogIn />
@@ -115,7 +115,7 @@ const Howworks = () => {
           </div>
         </div>
 
-        <div className="md:w-2/4  w-full">
+        <div className="md:w-2/4 lg:w-2/4 w-full">
           <Image src={Vector} />
         </div>
       </div>
