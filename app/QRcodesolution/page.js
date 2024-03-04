@@ -38,13 +38,21 @@ import Apple from "../../public/QRgenerate/Samplelogo/Apple.png";
 import Kiwi from "../../public/QRgenerate/Samplelogo/Kiwi.png";
 import Heart from "../../public/QRgenerate/Samplelogo/Heart.png";
 import Sunflower from "../../public/QRgenerate/Samplelogo/Sunflower.png";
-import QRCodeStyling from "qr-code-styling";
+// import QRCodeStyling from "qr-code-styling";
 import { QrType } from "@/Utility/QrType/QrType";
 import { CreateQr } from "@/Utility/CreateQr";
 import { useToast } from "../../components/ui/usetoast";
 import { ToastAction } from "@/components/ui/toast";
 import { useRouter } from "next/navigation";
 import dynamic from 'next/dynamic'
+
+const isBrowser = typeof window !== 'undefined';
+let QRCodeStyling;
+
+if (isBrowser) {
+  QRCodeStyling = require('qr-code-styling');
+}
+
 
 
 const Extension = [
