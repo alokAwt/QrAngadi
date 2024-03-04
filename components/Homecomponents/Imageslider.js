@@ -110,7 +110,7 @@ function Imageslider() {
           <CarouselItem key={index}>
             <div className="p-1">
               <div>
-                <div className="flex items-center justify-center ">
+                <div className="flex items-center justify-center w-full ">
                   <Image
                     loading="lazy"
                     className="md:h-[90vh] lg:h-[90vh] h-[90vh] w-full lg:w-full  object-fill "
