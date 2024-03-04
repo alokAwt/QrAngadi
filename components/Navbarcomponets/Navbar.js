@@ -67,7 +67,7 @@ export default function App() {
         <NavbarBrand className="gap-2">
           <Sheet>
             <SheetTrigger>
-              <TiThMenu className="lg:hidden md:block" />
+              <TiThMenu className="lg:hidden md:block sm:block block" />
             </SheetTrigger>
             <SheetContent side="left" className="">
               <SheetHeader>
@@ -82,11 +82,11 @@ export default function App() {
             </SheetContent>
           </Sheet>
           <Image
-            className="hidden md:hidden lg:block lg:h-10 lg:w-24"
+            className="hidden md:hidden lg:block lg:h-10 lg:w-24 "
             src={logo}
           />
         </NavbarBrand>
-        <NavbarContent className="hidden md:hidden lg:flex " justify="center">
+        <NavbarContent className="hidden sm:hidden md:flex lg:flex " justify="center">
           <Navtab />
         </NavbarContent>
         <NavbarContent justify="end">
