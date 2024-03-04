@@ -110,7 +110,7 @@ function Imageslider() {
           <CarouselItem key={index}>
             <div className="p-1 w-full justify-center items-center mx-auto">
               <div className="w-full justify-center items-center mx-auto">
-                <div className="flex items-center justify-center w-full ">
+                <div style={{width:'100%'}} className="flex items-center justify-center w-full ">
                   <Image
                     loading="lazy"
                     className="md:h-[90vh] sm:h-{90vh]  h-[90vh] lg:h-[90vh] w-full  object-fill "
