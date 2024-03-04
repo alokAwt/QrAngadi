@@ -11,9 +11,9 @@ import Slider from "../../public/Slider2.png";
 import Slider1 from "../../public/Slider1.png";
 import Image from "next/image";
 import { Button } from "@nextui-org/react";
-import AnimateQR from "./AnimateQR";
-import Groupimage from "./Groupimage";
-import QRsticker from "./QRsticker";
+import Animateqr from "../Homecomponents/Animateqr";  //edited
+import Groupimage from "../Homecomponents/Groupimage";
+import QRsticker from "..//Homecomponents/QRsticker";
 import slide3 from "../../public/slide/slide3.png";
 import slide4 from "../../public/slide/slide4.png";
 import slide5 from "../../public/slide/Lottery.png";
@@ -31,7 +31,7 @@ function Imageslider() {
       title: `Empower Your QR Experience to Perfection with- QR Angadi`,
       description:
         "Elevate Your Information Sharing Game with QR Angadi - The Best in User-Friendly QR Code Generation.",
-      component: <AnimateQR />,
+      component: <Animateqr />,
       Buttontext1: { text: "Create QR Code", to: "/QRcodesolution" },
       Buttontext2: { text: "My Dashboard", to: "/Profile" },
       secoundimage: "",

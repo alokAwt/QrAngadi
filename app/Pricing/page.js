@@ -1,12 +1,12 @@
 "use client";
 import React, { useEffect, useState } from "react";
 // import PricingCards from "../../components/pricingCards/PricingCards";
-import Faqs from "@/Components/Faqs";
-import GamificationAddOns from "@/Components/pricing-page-components/GamificationAddOns";
-import PricingCards from "@/Components/PricingCards";
-import Pricingcard from "@/Components/Homecomponents/Pricingcard";
-import FAQ from "@/Components/Homecomponents/FAQ";
-import Gamification from "@/Components/Homecomponents/Gamification";
+import Faqs from "@/components/Faqs";
+import GamificationAddOns from "@/components/pricing-page-components/GamificationAddOns";
+import PricingCards from "@/components/PricingCards";
+import Pricingcard from "@/components/Homecomponents/Pricingcard";
+import FAQ from "@/components/Homecomponents/FAQ";
+import Gamification from "@/components/Homecomponents/Gamification";
 import { GetPlans } from "@/Utility/Api/Users";
 
 function Pricing() {

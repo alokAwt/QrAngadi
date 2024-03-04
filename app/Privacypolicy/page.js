@@ -51,10 +51,11 @@ const page = () => {
           <span className="text-buttoncolor font-semibold">
             Angadi World Technologies Pvt Ltd
           </span>
-          , prioritizes the privacy and security of its users' information. This
-          privacy policy outlines how we collect, use, and protect your personal
-          information when you use our flagship product, QR Angadi. By using QR
-          Angadi, you agree to the practices described in this policy.
+          {`,prioritizes the privacy and security of its users' information. This
+privacy policy outlines how we collect, use, and protect your personal
+information when you use our flagship product, QR Angadi. By using QR
+Angadi, you agree to the practices described in this policy.`}
+
         </div>
       </div>
       <div>

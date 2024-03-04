@@ -41,9 +41,11 @@ import Sunflower from "../../public/QRgenerate/Samplelogo/Sunflower.png";
 import QRCodeStyling from "qr-code-styling";
 import { QrType } from "@/Utility/QrType/QrType";
 import { CreateQr } from "@/Utility/CreateQr";
-import { useToast } from "../../Components/ui/usetoast";
+import { useToast } from "../../components/ui/usetoast";
 import { ToastAction } from "@/components/ui/toast";
 import { useRouter } from "next/navigation";
+import dynamic from 'next/dynamic'
+
 
 const Extension = [
   { label: "png", value: "png" },
@@ -52,7 +54,7 @@ const Extension = [
   { label: "svg", value: "svg" },
 ];
 
-const page = () => {
+const Page = () => {
   const { toast } = useToast();
   const [selected, setSelected] = React.useState("STATIC");
   const [image, setImages] = useState("");
@@ -303,7 +305,7 @@ const page = () => {
         }
       );
       const file = await res.json();
-      if (file.secure_url.length > 10) {
+      if (file?.secure_url.length > 10) {
         let result = CreateQr(
           qrName,
           qrType,
@@ -372,8 +374,8 @@ const page = () => {
           Create your <span className="text-buttoncolor">Own</span> QR Code!
         </h6>
         <p className="text-sm font-medium mt-2">
-          Easily generate personalized QR Codes in minutes with QR Angadi's QR
-          Code Generator!
+          {`Easily generate personalized QR Codes in minutes with QR Angadi's QR
+          Code Generator!`}
         </p>
       </div>
       <div className="flex flex-col justify-center items-center w-full mt-8 mx-auto">
@@ -381,19 +383,20 @@ const page = () => {
           {QrType &&
             QrType.map((item, index) => (
               <Button
+              key={index}
                 variant="light"
                 className={
-                  qrType === item.type
+                  qrType === item?.type
                     ? "flex flex-col justify-center items-center gap-1 h-auto py-2 ring-1 ring-buttoncolor"
                     : "flex flex-col justify-center items-center gap-1 h-auto py-2"
                 }
                 onClick={() => setQrType(item.type)}
               >
                 <div>
-                  <Image className="h-8 w-8 object-contain" src={item.Image} />
+                  <Image className="h-8 w-8 object-contain" alt="itemimage" src={item?.Image} />
                 </div>
                 <p className="text-center md:text-xs text-[0.65rem]">
-                  {item.name}
+                  {item?.name}
                 </p>
               </Button>
             ))}
@@ -612,19 +615,20 @@ const page = () => {
                             {/* Button with image */}
                             <Button
                               className={`flex justify-center items-center gap-2 flex-col h-auto w-auto bg-slate-100 rounded-md p-2 cursor-pointer ${
-                                selectedOptions.includes(option.label)
+                                selectedOptions?.includes(option?.label)
                                   ? "bg-buttonopacitycolor ring-1 ring-buttoncolor"
                                   : ""
                               }`}
-                              onClick={() => handleOptionSelect(option.label)}
+                              onClick={() => handleOptionSelect(option?.label)}
                             >
                               <Image
                                 className="md:h-20 md:w-20"
-                                src={option.imageSrc}
+                                alt="optionimage"
+                                src={option?.imageSrc}
                               />
                             </Button>
                             <p className="md:text-xs text-[0.55rem] font-medium">
-                              {option.label}
+                              {option?.label}
                             </p>
                           </div>
                         ))}
@@ -659,27 +663,28 @@ const page = () => {
                               },
                             ].map((option) => (
                               <div
-                                key={option.label}
+                                key={option?.label}
                                 className="flex justify-center flex-col items-center gap-2 w-full"
                               >
                                 {/* Button with image */}
                                 <Button
                                   className={`flex justify-center items-center gap-2 h-auto w-auto flex-col bg-slate-100 rounded-md p-2 cursor-pointer ${
-                                    cornersSquareOption.includes(option.label)
+                                    cornersSquareOption?.includes(option?.label)
                                       ? "bg-buttonopacitycolor ring-1 ring-buttoncolor"
                                       : ""
                                   }`}
                                   onClick={() =>
-                                    handleSquareOptionSelect(option.label)
+                                    handleSquareOptionSelect(option?.label)
                                   }
                                 >
                                   <Image
                                     className="md:h-20 md:w-20"
-                                    src={option.imageSrc}
+                                    alt="option image"
+                                    src={option?.imageSrc}
                                   />
                                 </Button>
                                 <p className="md:text-xs text-[0.55rem] font-medium">
-                                  {option.label}
+                                  {option?.label}
                                 </p>
                               </div>
                             ))}
@@ -698,27 +703,28 @@ const page = () => {
                               { label: "dot", imageSrc: Dotscorner1 },
                             ].map((option) => (
                               <div
-                                key={option.label}
+                                key={option?.label}
                                 className="flex justify-center flex-col items-center gap-2 w-full"
                               >
                                 {/* Button with image */}
                                 <Button
                                   className={`flex h-auto w-auto justify-center items-center gap-2 flex-col bg-slate-100 rounded-md p-2 cursor-pointer ${
-                                    cornersDotOption.includes(option.label)
+                                    cornersDotOption.includes(option?.label)
                                       ? "bg-buttonopacitycolor ring-1 ring-buttoncolor"
                                       : ""
                                   }`}
                                   onClick={() =>
-                                    handleDotOptionSelect(option.label)
+                                    handleDotOptionSelect(option?.label)
                                   }
                                 >
                                   <Image
                                     className="md:h-20 md:w-20"
-                                    src={option.imageSrc}
+                                    alt="opyionimage"
+                                    src={option?.imageSrc}
                                   />
                                 </Button>
                                 <p className="md:text-xs text-[0.55rem] font-medium">
-                                  {option.label}
+                                  {option?.label}
                                 </p>
                               </div>
                             ))}
@@ -744,7 +750,7 @@ const page = () => {
 
                           <div className=" bg-slate-100 w-full p-1 rounded-md border-1 border-gray-300 flex items-center gap-2">
                             <ColorPicker
-                              defaultValue={token.colorPrimary}
+                              defaultValue={token?.colorPrimary}
                               format={formatHex}
                               value={dotColorHex}
                               onChange={setDotColorHex}
@@ -766,7 +772,7 @@ const page = () => {
                           <h6 className="text-xs font-medium">Eye Options</h6>
                           <div className=" bg-slate-100 w-full p-1 rounded-md border-1 border-gray-300 flex items-center gap-2">
                             <ColorPicker
-                              defaultValue={token.colorPrimary}
+                              defaultValue={token?.colorPrimary}
                               format={formatHex}
                               value={eyeColorHex}
                               onChange={setEyeColorHex}
@@ -790,7 +796,7 @@ const page = () => {
                           </h6>
                           <div className=" bg-slate-100 w-full p-1 rounded-md border-1 border-gray-300 flex items-center gap-2">
                             <ColorPicker
-                              defaultValue={token.colorPrimary}
+                              defaultValue={token?.colorPrimary}
                               format={formatHex}
                               value={cornersColorHex}
                               onChange={setCornersColorHex}
@@ -813,7 +819,7 @@ const page = () => {
                           <h6 className="text-xs font-medium">Background</h6>
                           <div className=" bg-slate-100 w-full p-1 rounded-md border-1 border-gray-300 flex items-center gap-2">
                             <ColorPicker
-                              defaultValue={token.colorPrimary}
+                              defaultValue={token?.colorPrimary}
                               format={formatHex}
                               value={backgroundColorHex}
                               onChange={setBackgroundColorHex}
@@ -855,6 +861,7 @@ const page = () => {
                               <Button className="flex justify-center items-center gap-2 h-auto w-auto flex-col bg-slate-100 rounded-md p-2  cursor-pointer">
                                 <Image
                                   className="md:h-20 md:w-20 h-8 w-8 object-contain"
+                                  alt="nosample"
                                   src={Nosample}
                                 />
                               </Button>
@@ -863,6 +870,7 @@ const page = () => {
                               <Button className="flex h-auto w-auto justify-center items-center gap-2 flex-col bg-slate-100 rounded-md p-2 cursor-pointer">
                                 <Image
                                   className="md:h-20 md:w-20 h-8 w-8"
+                                  alt="apple"
                                   src={Apple}
                                 />
                               </Button>
@@ -870,6 +878,7 @@ const page = () => {
                             <div className="flex justify-center flex-col items-center gap-2">
                               <Button className="flex md:h-24 md:w-24  h-12 w-10 justify-center items-center gap-2 flex-col bg-slate-100 rounded-md p-2 cursor-pointer">
                                 <Image
+                                alt="sunflower"
                                   className="md:h-14 md:w-14 h-6 w-6"
                                   src={Sunflower}
                                 />
@@ -967,7 +976,7 @@ const page = () => {
               size="sm"
               className="text-sm mt-2 bg-white flex justify-center rounded-md border-buttoncolor border-2 items-center  w-full  text-buttoncolor"
             >
-              {Extension.map((ext) => (
+              {Extension?.map((ext) => (
                 <SelectItem
                   key={ext.value}
                   onPress={() => setFileExt(ext.value)}
@@ -1004,11 +1013,11 @@ const page = () => {
               <p className="text-xs font-bold">Quick Share</p>
             </div>
             <div className="flex justify-start items-center gap-2 ">
-              <Image className="h-8 w-8" src={Linkdin} />
-              <Image className="h-8 w-8" src={Pintrest} />
-              <Image className="h-8 w-8" src={Insta} />
-              <Image className="h-8 w-8" src={Music} />
-              <Image className="h-8 w-8" src={Youtube} />
+              <Image alt="linkdin" className="h-8 w-8" src={Linkdin} />
+              <Image alt="pintrest" className="h-8 w-8" src={Pintrest} />
+              <Image alt="insta" className="h-8 w-8" src={Insta} />
+              <Image alt="music" className="h-8 w-8" src={Music} />
+              <Image alt="youtube" className="h-8 w-8" src={Youtube} />
             </div>
           </div>
           <div className="flex flex-col gap-2 justify-start items-start md:w-2/4 w-full">
@@ -1031,4 +1040,6 @@ const page = () => {
   );
 };
 
-export default page;
+export default dynamic(() => Promise.resolve(Page), {
+  ssr: false
+})

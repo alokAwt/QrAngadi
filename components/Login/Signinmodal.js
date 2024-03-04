@@ -21,7 +21,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { IoCloseCircle } from "react-icons/io5";
 import { OtpSend, SignInUsers, SignUpUsers } from "@/Utility/Api/Users";
-import { useToast } from "../../Components/ui/usetoast";
+import { useToast } from "../../components/ui/usetoast";
 import { ToastAction } from "@/components/ui/toast";
 import { useRouter } from "next/navigation";
 
@@ -422,13 +422,13 @@ export default function Signinmodal() {
                       </>
                     )}
                     {selected === "LOGIN" && (
-                      <div className=" border-1.5 border-gray-300 rounded-2xl md:w-3/6 h-auto w-full flex flex-col justify-start items-start gap-2 px-4 py-2">
-                        <Image className="h-8 w-24" src={backgroundimage} />
-                        <h6 className="text-lg font-medium">Welcome Back!</h6>
-                        <p className="text-xs">
+                      <div className=" border-1.5 border-gray-300 rounded-2xl md:w-3/6 md:h-[81vh] h-auto w-full flex flex-col justify-start items-start gap-2 px-4 py-2">
+                        <Image className="h-10 w-24" src={backgroundimage} />
+                        <h6 className="text-xl font-medium">Welcome Back!</h6>
+                        <p className="text-md">
                           Log In to your account to proceed.
                         </p>
-                        <div className="mb-2 w-full mt-2">
+                        <div className="mb-4 w-full mt-4">
                           <label
                             for="email"
                             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -444,7 +444,7 @@ export default function Signinmodal() {
                             placeholder="Enter Your Email"
                           />
                         </div>
-                        <div className="mb-2 w-full">
+                        <div className="mb-4 w-full">
                           <label
                             for="email"
                             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -487,7 +487,7 @@ export default function Signinmodal() {
                           <p className="text-sm">
                             New member?
                             <span
-                              className="text-md underline text-buttoncolor cursor-pointer"
+                              className="text-md underline text-buttoncolor cursor-pointer mt-2 mb-12"
                               onClick={() => setSelected("SIGNUP")}
                             >
                               Sign In

@@ -12,7 +12,7 @@ import Icon6 from "../../public/Icons/Icon16.png";
 import Icon7 from "../../public/Icons/Icon17.png";
 import Icon8 from "../../public/Icons/Icon18.png";
 
-const AnimateQR = () => {
+const Animateqr = () => {
   const [isAnimated, setIsAnimated] = useState(false);
   const [isparentAnimated, setisparentAnimated] = useState(false);
   const [isiconAnimated, seticonAnimated] = useState(false);
@@ -150,4 +150,4 @@ const AnimateQR = () => {
   );
 };
 
-export default AnimateQR;
+export default Animateqr;

@@ -1,7 +1,7 @@
-import FAQ from "@/Components/Homecomponents/FAQ";
+import FAQ from "@/components/Homecomponents/FAQ";
 import { FaSearch } from "react-icons/fa";
 import React from "react";
-import SendQueries from "@/Components/SendQueries";
+import SendQueries from "@/components/SendQueries";
 function Page() {
   return (
     <div>

@@ -29,7 +29,7 @@ import { IoSettingsSharp } from "react-icons/io5";
 import { MdOutlineLogout } from "react-icons/md";
 import { IoIosHelpCircle } from "react-icons/io";
 
-export default function () {
+export default function Sidebar() {
   const pathname = usePathname();
   const router = useRouter();
 

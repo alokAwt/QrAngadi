@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
-import AuthLayout from "@/Components/AuthLayout";
-import SignUp from "@/Components/SignUp";
+import AuthLayout from "@/components/AuthLayout";
+import SignUp from "@/components/SignUp";
 function page() {
   return (
     <AuthLayout>

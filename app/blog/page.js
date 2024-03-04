@@ -2,7 +2,7 @@
 import Image from "next/image";
 import React, { useState } from "react";
 
-function page() {
+function Page() {
   const [comment, setComment] = useState("");
   const mainArticle = {
     imageUrl: "/gamification/main.png",
@@ -156,4 +156,4 @@ function page() {
   );
 }
 
-export default page;
+export default Page;

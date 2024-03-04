@@ -19,10 +19,10 @@ export default function NextUIprovider({ children }) {
     <NextUIProvider>
       <main className="">
         <div className="">
-        {(pathname === '/Profile' || pathname.startsWith('/Analytics')) ? null : <Navbar />}
+        {(pathname === '/Profile' || pathname.startsWith('/Analytics') || pathname === '/Profile/settings' )   ? null : <Navbar />}
           {children}
           <Toaster/>
-          {(pathname === '/Profile' || pathname.startsWith('/Analytics')) ? null : <Footernav/>}
+          {(pathname === '/Profile' || pathname.startsWith('/Analytics')|| pathname === '/Profile/settings') ? null : <Footernav/>}
         </div>
       </main>
     </NextUIProvider>
