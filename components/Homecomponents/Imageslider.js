@@ -108,8 +108,8 @@ function Imageslider() {
       <CarouselContent className="bg-white w-full">
         {slidesData.map((slide, index) => (
           <CarouselItem key={index}>
-            <div className="p-1">
-              <div className="w-full">
+            <div className="p-1 w-full justify-center items-center mx-auto">
+              <div className="w-full justify-center items-center mx-auto">
                 <div className="flex items-center justify-center w-full ">
                   <Image
                     loading="lazy"
