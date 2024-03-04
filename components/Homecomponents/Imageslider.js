@@ -103,7 +103,7 @@ function Imageslider() {
   return (
     <Carousel
       setApi={setApi}
-      className="flex  justify-center items-center bg-white "
+      className="flex  justify-center items-center bg-white w-full "
     >
       <CarouselContent className="bg-white">
         {slidesData.map((slide, index) => (
