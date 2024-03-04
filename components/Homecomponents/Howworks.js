@@ -21,7 +21,7 @@ const Howworks = () => {
         </h6>
       </div>
 
-      <div className="flex justify-center items-center gap-12 lg:gap-12 mt-12 w-11/12 mx-auto flex-col-reverse md:flex-row">
+      <div className="flex justify-center items-center gap-12  mt-12 w-11/12 mx-auto flex-col-reverse md:flex-row">
         <div className="flex flex-col items-center gap-6 lg:gap-6 p-4 md:w-2/4 lg:w-2/4 w-full">
           {/* <div className="flex flex-row items-center  mx-auto gap-2 ">
               <div className="bg-buttoncolor p-2 rounded-full text-white  flex justify-center items-center">
