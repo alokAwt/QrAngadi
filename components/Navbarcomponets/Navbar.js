@@ -257,6 +257,7 @@ export default function App() {
                       </DropdownItem>
 
                       <DropdownItem
+                      className="mt-2"
                         onPress={() => router.push("/Profile")}
                         key="Profile"
                       >
@@ -277,12 +278,11 @@ export default function App() {
                     <DropdownSection aria-label="Preferences" showDivider>
                       <DropdownItem
                         key="quick_search"
-                        shortcut="⌘K"
                         onClick={() => router.push("/Profile")}
                       >
                         Dashboard
                       </DropdownItem>
-                      <DropdownItem
+                      {/* <DropdownItem
                         isReadOnly
                         key="theme"
                         className="cursor-default"
@@ -299,7 +299,7 @@ export default function App() {
                         }
                       >
                         Theme
-                      </DropdownItem>
+                      </DropdownItem> */}
                     </DropdownSection>
 
                     <DropdownSection aria-label="Help & Feedback">
@@ -328,6 +328,26 @@ export default function App() {
         isDismissable={false}
         placement={"center"}
         onOpenChange={onOpenChange}
+        motionProps={{
+          variants: {
+            enter: {
+              y: 0,
+              opacity: 1,
+              transition: {
+                duration: 0.3,
+                ease: "easeOut",
+              },
+            },
+            exit: {
+              y: -20,
+              opacity: 0,
+              transition: {
+                duration: 0.2,
+                ease: "easeIn",
+              },
+            },
+          },
+        }}
       >
         <ModalContent>
           {(onClose) => (

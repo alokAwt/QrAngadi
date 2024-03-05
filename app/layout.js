@@ -68,10 +68,10 @@ export default function RootLayout({ children }) {
         <NextUIProvider>
       <main className="">
         <div className="">
-        {(pathname === '/Profile' || pathname.startsWith('/Analytics') || pathname === '/Profile/settings' )   ? null : <Navbar />}
+        {(pathname === '/Profile' || pathname.startsWith('/Analytics') || pathname === ('/Profile/settings') || pathname ==='/Login' )   ? null : <Navbar />}
           {children}
           <Toaster/>
-          {(pathname === '/Profile' || pathname.startsWith('/Analytics')|| pathname === '/Profile/settings') ? null : <Footernav/>}
+          {(pathname === '/Profile' || pathname.startsWith('/Analytics')|| pathname === ('/Profile/settings') || pathname ==='/Login') ? null : <Footernav/>}
         </div>
       </main>
     </NextUIProvider>

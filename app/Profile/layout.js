@@ -19,8 +19,8 @@ const Layout = ({ children }) => {
       "/QRcodesolution",
     ];
     if (
-      protectedRoutes.includes(pathname) ||
-      pathname.startsWith("/Analytics")
+      protectedRoutes.includes(pathname)
+     
     ) {
       if (token === null) {
         router.replace("/Login");

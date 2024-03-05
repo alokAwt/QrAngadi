@@ -25,10 +25,11 @@ import { useToast } from "../../components/ui/usetoast";
 import { ToastAction } from "@/components/ui/toast";
 import { useRouter } from "next/navigation";
 import { UseStatevalue } from "@/Utility/Contextfiles/StateProvider";
+import { Spin } from "antd";
 
 
 export default function Signinmodal() {
-  const [{token},dispatch]=UseStatevalue()
+  const [{ token }, dispatch] = UseStatevalue();
   const { toast } = useToast();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [selected, setSelected] = React.useState("LOGIN");
@@ -40,12 +41,9 @@ export default function Signinmodal() {
   const [otp, setOtp] = useState("");
   const [otpOpen, setOtpOpen] = useState(false);
   const [incomingOtp, setIncomingOtp] = useState("");
-  const [tokenn,Settokenn]=useState('')
+  const [tokenn, Settokenn] = useState("");
 
   const router = useRouter();
-
-
-   
 
   const SignUp = () => {
     if (!Name) {
@@ -167,8 +165,8 @@ export default function Signinmodal() {
       Password: password,
     }).then((res) => {
       if (res.message === "success") {
-        Settokenn(res.token)
-        dispatch({ type: 'SET_TOKEN', tokenn })
+        Settokenn(res.token);
+        dispatch({ type: "SET_TOKEN", tokenn });
         localStorage.setItem("token", res.token);
         toast({
           variant: "",
@@ -190,9 +188,6 @@ export default function Signinmodal() {
     });
   };
 
-
-  
-
   return (
     <>
       <Button
@@ -201,11 +196,16 @@ export default function Signinmodal() {
       >
         Login
       </Button>
-      
+
       <Modal
         size="5xl"
         isOpen={isOpen}
-        closeButton={<p> <IoCloseCircle className="text-white bg-buttoncolor mt-2 hover:bg-none rounded-full text-3xl" /></p>}
+        closeButton={
+          <p>
+            {" "}
+            <IoCloseCircle className="text-white bg-buttoncolor mt-2 hover:bg-none rounded-full text-3xl" />
+          </p>
+        }
         onOpenChange={onOpenChange}
         isKeyboardDismissDisabled={true}
         placement="center"
@@ -237,7 +237,6 @@ export default function Signinmodal() {
               <ModalBody className="w-full flex justify-center items-center mx-auto">
                 <div className="bg-white rounded-md md:p-4 lg:p-4 p-2 md:w-[95%] lg:w-full flex flex-col justify-center gap-4">
                   <div className="mt-4 md:w-96 lg:w-96 mx-auto">
-                    
                     <Tabs
                       variant="bordered"
                       fullWidth
@@ -294,7 +293,11 @@ export default function Signinmodal() {
                                 onClick={OtpVerification}
                               >
                                 {isloading ? (
-                                  <Spinner></Spinner>
+                                  <Spin
+                                    size="large"
+                                    spinning={isloading}
+                                    fullscreen
+                                  />
                                 ) : (
                                   "Verify Account"
                                 )}
@@ -417,7 +420,15 @@ export default function Signinmodal() {
                                   className="bg-buttoncolor rounded-sm h-9 text-white w-full"
                                   onClick={SignUp}
                                 >
-                                  {isloading ? <Spinner></Spinner> : "Sign up"}
+                                  {isloading ? (
+                                    <Spin
+                                      size="large"
+                                      spinning={isloading}
+                                      fullscreen
+                                    />
+                                  ) : (
+                                    "Sign up"
+                                  )}
                                 </Button>
                                 <p className="text-xs">
                                   Already a member?
@@ -498,7 +509,15 @@ export default function Signinmodal() {
                             className="bg-buttoncolor rounded-sm text-white w-full"
                             onClick={Login}
                           >
-                            {isloading ? <Spinner></Spinner> : "Log in"}
+                            {isloading ? (
+                              <Spin
+                                size="large"
+                                spinning={isloading}
+                                fullscreen
+                              />
+                            ) : (
+                              "Log in"
+                            )}
                           </Button>
                           <p className="text-sm">
                             New member?
@@ -529,5 +548,3 @@ export default function Signinmodal() {
     </>
   );
 }
-
-
