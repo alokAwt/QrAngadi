@@ -24,8 +24,11 @@ import { OtpSend, SignInUsers, SignUpUsers } from "@/Utility/Api/Users";
 import { useToast } from "../../components/ui/usetoast";
 import { ToastAction } from "@/components/ui/toast";
 import { useRouter } from "next/navigation";
+import { useStatevalue } from "@/Utility/Contextfiles/StateProvider";
+
 
 export default function Signinmodal() {
+  const [{token},dispatch]=useStatevalue()
   const { toast } = useToast();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [selected, setSelected] = React.useState("LOGIN");
@@ -37,8 +40,12 @@ export default function Signinmodal() {
   const [otp, setOtp] = useState("");
   const [otpOpen, setOtpOpen] = useState(false);
   const [incomingOtp, setIncomingOtp] = useState("");
+  const [tokenn,Settokenn]=useState('')
 
   const router = useRouter();
+
+
+   
 
   const SignUp = () => {
     if (!Name) {
@@ -160,6 +167,8 @@ export default function Signinmodal() {
       Password: password,
     }).then((res) => {
       if (res.message === "success") {
+        Settokenn(res.token)
+        dispatch({ type: 'SET_TOKEN', tokenn })
         localStorage.setItem("token", res.token);
         toast({
           variant: "",
@@ -168,7 +177,7 @@ export default function Signinmodal() {
         });
         setIsloding(false);
         onOpenChange();
-        router.push("/Profile");
+        router.push("/");
       } else {
         setIsloding(false);
         toast({
@@ -181,6 +190,9 @@ export default function Signinmodal() {
     });
   };
 
+
+  
+
   return (
     <>
       <Button
@@ -189,6 +201,7 @@ export default function Signinmodal() {
       >
         Login
       </Button>
+      
       <Modal
         size="5xl"
         isOpen={isOpen}
@@ -516,3 +529,5 @@ export default function Signinmodal() {
     </>
   );
 }
+
+
