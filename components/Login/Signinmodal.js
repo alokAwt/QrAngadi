@@ -24,11 +24,11 @@ import { OtpSend, SignInUsers, SignUpUsers } from "@/Utility/Api/Users";
 import { useToast } from "../../components/ui/usetoast";
 import { ToastAction } from "@/components/ui/toast";
 import { useRouter } from "next/navigation";
-import { useStatevalue } from "@/Utility/Contextfiles/StateProvider";
+import { UseStatevalue } from "@/Utility/Contextfiles/StateProvider";
 
 
 export default function Signinmodal() {
-  const [{token},dispatch]=useStatevalue()
+  const [{token},dispatch]=UseStatevalue()
   const { toast } = useToast();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [selected, setSelected] = React.useState("LOGIN");

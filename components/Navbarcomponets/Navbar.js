@@ -47,12 +47,12 @@ import { GetProfile } from "@/Utility/Api/Users";
 import { MdDashboard } from "react-icons/md";
 import { RiQrCodeFill } from "react-icons/ri";
 import { IoIosArrowForward } from "react-icons/io";
-import { useStatevalue } from "@/Utility/Contextfiles/StateProvider";
+import { UseStatevalue } from "@/Utility/Contextfiles/StateProvider";
 import {usePathname } from 'next/navigation'
 
 
 export default function App() {
-  const [{token},dispatch]=useStatevalue()
+  const [{token},dispatch]=UseStatevalue()
   const pathname=usePathname()
 
 

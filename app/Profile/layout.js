@@ -2,13 +2,13 @@
 import ProfileNav from '@/components/ProfileComponents/ProfileNav'
 import Sidebar from '@/components/ProfileComponents/Sidebar'
 import React, { useEffect } from 'react'
-import { useStatevalue } from '@/Utility/Contextfiles/StateProvider'
+import { UseStatevalue } from '@/Utility/Contextfiles/StateProvider'
 import {usePathname } from 'next/navigation'
 import { useRouter } from "next/navigation";
 
 
 const layout = ({ children }) => {
-  const [{token}]=useStatevalue()
+  const [{token}]=UseStatevalue()
   const pathname=usePathname()
   const router = useRouter();
 
