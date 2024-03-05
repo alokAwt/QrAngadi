@@ -1,30 +1,35 @@
 "use client";
-import React from "react";
-import { NextUIProvider } from "@nextui-org/react";
-import Navbar from "./Navbarcomponets/Navbar";
-import Footernav from "./Homecomponents/Footer";
-import { Toaster } from "./ui/toaster";
-import {usePathname } from 'next/navigation'
-
-
-
+import ProfileNav from "@/components/ProfileComponents/ProfileNav";
+import Sidebar from "@/components/ProfileComponents/Sidebar";
+import React, { useEffect } from "react";
+import { UseStatevalue } from "@/Utility/Contextfiles/StateProvider";
+import { usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export default function NextUIprovider({ children }) {
+  const [{token}]=UseStatevalue()
   const pathname=usePathname()
+  const router = useRouter();
+
+  useEffect(() => {
+    const protectedRoutes = ['/Profile', '/Analytics', '/gamification','/QRcodesolution'];
+    if (protectedRoutes.includes(pathname) || pathname.startsWith('/Analytics')) {
+      if (token===null) {
+        router.replace('/Login');
+      }
+    }
+  }, [pathname, token]);
 
 
-  console.log(pathname)
- 
   return (
-    <NextUIProvider>
-      <main className="">
-        <div className="">
-        {(pathname === '/Profile' || pathname.startsWith('/Analytics') || pathname === '/Profile/settings' )   ? null : <Navbar />}
-          {children}
-          <Toaster/>
-          {(pathname === '/Profile' || pathname.startsWith('/Analytics')|| pathname === '/Profile/settings') ? null : <Footernav/>}
-        </div>
-      </main>
-    </NextUIProvider>
+    <main className="flex sticky top-0">
+      <div className="">
+        <Sidebar />
+      </div>
+      <div className="flex flex-col w-full">
+        <ProfileNav />
+        {children}
+      </div>
+    </main>
   );
 }
