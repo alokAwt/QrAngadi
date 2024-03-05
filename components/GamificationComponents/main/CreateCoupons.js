@@ -1,5 +1,6 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import spinWheel from "../../../public/gamification/spinWheel.png";
 import celeb from "../../../public/gamification/celeb.png";
@@ -17,7 +18,9 @@ import {
 } from "@nextui-org/react";
 import { IoCloseCircle } from "react-icons/io5";
 function CreateCoupons() {
+  const [game, setGame] = useState("");
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const router = useRouter();
   return (
     <>
       <div
@@ -67,7 +70,10 @@ function CreateCoupons() {
         closeButton={
           <p>
             {" "}
-            <IoCloseCircle className="text-white bg-buttoncolor mt-2 hover:bg-none rounded-full text-3xl" />
+            <IoCloseCircle
+              className="text-white bg-buttoncolor mt-2 hover:bg-none rounded-full text-3xl"
+              onClick={() => setGame("")}
+            />
           </p>
         }
         onOpenChange={onOpenChange}
@@ -101,17 +107,46 @@ function CreateCoupons() {
               <ModalBody className="w-full flex justify-center items-center mx-auto">
                 <div className="bg-white rounded-md md:p-4 lg:p-4 p-2 md:w-[95%] lg:w-full flex flex-col justify-center gap-4">
                   <p className="font-semibold text-2xl">Select a Game Type</p>
-                  <div className="flex ">
-                    <Image src={spin} className="flex-1 h-[200px] w-[200px]" />
-                    <Image
-                      src={scratch}
-                      className="flex-1 h-[200px] w-[200px]"
-                    />
-                    <Image src={slot} className="flex-1 h-[200px] w-[200px]" />
+                  <div className="flex justify-between">
+                    <div className={``}>
+                      <Image
+                        src={spin}
+                        className={`flex-1 h-[200px] w-[200px] rounded-[50%] cursor-pointer ${
+                          game == "spin-wheel"
+                            ? "shadow-[0px_0px_20px_3px_#FF714340]"
+                            : ""
+                        }`}
+                        onClick={() => setGame("spin-wheel")}
+                      />
+                    </div>
+
+                    <div>
+                      <Image
+                        src={scratch}
+                        className={`flex-1 h-[200px] w-[200px] rounded-[50%] cursor-pointer ${
+                          game == "scratch-card"
+                            ? "shadow-[0px_0px_20px_3px_#FF714340]"
+                            : ""
+                        }`}
+                        onClick={() => setGame("scratch-card")}
+                      />
+                    </div>
+                    <div>
+                      <Image
+                        src={slot}
+                        className={`flex-1 h-[200px] w-[200px] rounded-[50%] cursor-pointer ${
+                          game == "slot-machine"
+                            ? "shadow-[0px_0px_20px_3px_#FF714340]"
+                            : ""
+                        }`}
+                        onClick={() => setGame("slot-machine")}
+                      />
+                    </div>
                   </div>
                   <Button
                     className="bg-buttoncolor max-w-[200px] py-2 px-6 text-white font-normal rounded-md self-center"
                     onPress={onOpen}
+                    onClick={() => router.push(`/gamification/${game}`)}
                   >
                     Confirm
                   </Button>
