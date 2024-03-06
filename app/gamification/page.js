@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useEffect } from "react";
 import FAQ from "@/components/Homecomponents/FAQ";
 import Trustedcomp from "@/components/Homecomponents/Trustedcomp";
 import BenefitsOfGamification from "@/components/GamificationComponents/main/BenefitsOfGamification";
@@ -11,6 +12,7 @@ import Brand4 from "../../public/Brand/Brand4.png";
 import Brand5 from "../../public/Brand/Brand5.png";
 import Image from "next/image";
 import CreateCoupons from "@/components/GamificationComponents/main/CreateCoupons";
+
 function Page() {
   return (
     <div>

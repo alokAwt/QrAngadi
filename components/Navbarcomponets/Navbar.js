@@ -23,6 +23,7 @@ import Sidebarnav from "./Sidebarnav";
 import Link from "next/link";
 import Signinmodal from "../Login/Signinmodal";
 import { FaUserCircle } from "react-icons/fa";
+import { deleteTokenCookie } from "@/Utility/Authutils";
 
 import {
   Dropdown,
@@ -66,10 +67,9 @@ export default function App() {
   
   
   
-  
 
   useEffect(() => {
-    const protectedRoutes = ['/Profile', '/Analytics', '/gamification','/QRcodesolution'];
+    const protectedRoutes = ['/Profile', '/Analytics','/QRcodesolution'];
     if (protectedRoutes.includes(pathname) || pathname.startsWith('/Analytics')) {
       if (token===null) {
         router.replace('/Login');
@@ -374,6 +374,7 @@ export default function App() {
                 <Button
                   className="bg-buttoncolor text-white"
                   onPress={() => (
+                    deleteTokenCookie(),
                     dispatch({ type: 'LOGOUT'}),
                     localStorage.clear(),
                     getToken(),
