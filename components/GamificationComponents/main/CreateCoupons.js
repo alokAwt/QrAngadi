@@ -33,8 +33,8 @@ function CreateCoupons() {
             <span className="text-buttoncolor">coupons!</span>
           </div>
           <div>
-            Create interactive marketing games online to boost conversions
-            without any coding. It's your hassle-free gamification platform!
+            {` Create interactive marketing games online to boost conversions
+            without any coding. It's your hassle-free gamification platform!`}
           </div>
           <div className="flex gap-5 flex-wrap">
             {" "}
@@ -55,12 +55,14 @@ function CreateCoupons() {
             height={500}
             width={500}
             style={{ minWidth: "280px" }}
+            alt=""
           />
           <Image
             src={spinWheel}
             height={200}
             width={200}
             style={{ position: "absolute" }}
+            alt=""
           />
         </div>
       </div>
@@ -110,6 +112,7 @@ function CreateCoupons() {
                   <div className="flex justify-between">
                     <div className={``}>
                       <Image
+                        alt=""
                         src={spin}
                         className={`flex-1 h-[200px] w-[200px] rounded-[50%] cursor-pointer ${
                           game == "spin-wheel"
@@ -122,6 +125,7 @@ function CreateCoupons() {
 
                     <div>
                       <Image
+                        alt=""
                         src={scratch}
                         className={`flex-1 h-[200px] w-[200px] rounded-[50%] cursor-pointer ${
                           game == "scratch-card"
@@ -133,6 +137,7 @@ function CreateCoupons() {
                     </div>
                     <div>
                       <Image
+                        alt=""
                         src={slot}
                         className={`flex-1 h-[200px] w-[200px] rounded-[50%] cursor-pointer ${
                           game == "slot-machine"

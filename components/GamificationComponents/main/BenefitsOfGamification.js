@@ -64,6 +64,7 @@ function BenefitsOfGamification() {
               <div className="bg-red min-h-[50%] min-w-[5px] absolute left-[-11.5px]"></div>
               <div className="bg-buttoncolor min-h-[20px] min-w-[20px]  rounded-[50%] absolute left-[-11.5px]"></div>
               <Image
+                alt=""
                 src={data.img}
                 height={100}
                 width={100}

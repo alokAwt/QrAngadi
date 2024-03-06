@@ -26,11 +26,11 @@ function Page() {
             </h6>
           </div>
           <div className="flex justify-center mt-8 items-center gap-12 py-6 w-11/12 flex-col md:flex-row">
-            <Image className="w-auto h-12" src={Brand1} />
-            <Image className="w-auto h-12" src={Brand2} />
-            <Image className="w-auto h-12" src={Brand3} />
-            <Image className="w-auto h-8" src={Brand4} />
-            <Image className="w-auto h-12" src={Brand5} />
+            <Image className="w-auto h-12" src={Brand1} alt="" />
+            <Image className="w-auto h-12" src={Brand2} alt="" />
+            <Image className="w-auto h-12" src={Brand3} alt="" />
+            <Image className="w-auto h-8" src={Brand4} alt="" />
+            <Image className="w-auto h-12" src={Brand5} alt="" />
           </div>
         </div>
       </div>

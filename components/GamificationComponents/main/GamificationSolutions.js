@@ -61,13 +61,13 @@ function GamificationSolutions() {
                     </button>
                   </div>
                   <div>
-                    <Image src={info.img} height={200} width={200} />
+                    <Image src={info.img} height={200} width={200} alt="" />
                   </div>
                 </>
               ) : (
                 <>
                   <div>
-                    <Image src={info.img} height={200} width={200} />
+                    <Image src={info.img} height={200} width={200} alt="" />
                   </div>
                   <div className="flex flex-col flex-1 gap-3 max-w-[360px]">
                     <div className="font-semibold text-4xl">{info.head}</div>

@@ -78,7 +78,7 @@ function Footernav() {
             />
 
             <button className="rounded-md  bg-buttoncolor text-black h-full w-[50px] flex justify-center items-center">
-              <Image src={paparPlane} height={15} width={15} />
+              <Image src={paparPlane} height={15} width={15} alt="" />
             </button>
           </div>
           {/* <div className="flex justify-evenly items-center gap-2 mt-4 md:ml-auto ">
