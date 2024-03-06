@@ -74,6 +74,7 @@ function Page() {
               src={mainArticle.imageUrl}
               height={500}
               width={500}
+              alt=""
               unoptimized
             />
             <div className="font-semibold text-md">{mainArticle.head}</div>
@@ -117,6 +118,7 @@ function Page() {
                       height={100}
                       width={100}
                       style={{ maxHeight: "100px", maxWidth: "100px" }}
+                      alt=""
                     />
                     <div className="flex flex-col gap-1 min-w-[250px]">
                       <span className="font-semibold text-md">
