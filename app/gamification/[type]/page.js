@@ -11,13 +11,17 @@ import Validation from "@/components/GamificationComponents/Validation";
 function page() {
   const [selected, setSelected] = useState("general");
   const params = useParams();
+
+  // general settings
+  const [couponName, setCouponName] = useState("");
   let data = {
-    type: params.type,
+    couponName,
+    setCouponName,
   };
   return (
-    <div>
-      {params.type}
-      <div className="flex gap-10 font-[700] text-[#919191]">
+    <div className="p-20">
+      <div className="text-3xl font-semibold">Customize your Machine.</div>
+      <div className="flex gap-10 font-[700] text-[#919191] text-md">
         <span
           onClick={() => setSelected("general")}
           className={`${
