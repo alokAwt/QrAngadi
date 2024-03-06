@@ -7,9 +7,19 @@ import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
 
 const Layout = ({ children }) => {
-  const [{ token }] = UseStatevalue();
+  const [{token},dispatch]=UseStatevalue()
   const pathname = usePathname();
   const router = useRouter();
+
+  const getToken = () => {
+    let tokenn = localStorage.getItem("token");
+    if (tokenn) {
+    dispatch({ type: 'SET_TOKEN', tokenn })
+    }  
+  };
+  useEffect(() => {
+    getToken();
+  }, [pathname]);
 
   useEffect(() => {
     const protectedRoutes = [
@@ -27,6 +37,9 @@ const Layout = ({ children }) => {
       }
     }
   }, [pathname, token]);
+
+
+  
 
   return (
     <main className="flex sticky top-0">
