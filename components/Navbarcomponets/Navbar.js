@@ -61,6 +61,13 @@ export default function App() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const router = useRouter();
 
+
+  
+  
+  
+  
+  
+
   useEffect(() => {
     const protectedRoutes = ['/Profile', '/Analytics', '/gamification','/QRcodesolution'];
     if (protectedRoutes.includes(pathname) || pathname.startsWith('/Analytics')) {

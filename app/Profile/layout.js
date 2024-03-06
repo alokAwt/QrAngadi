@@ -21,6 +21,9 @@ const Layout = ({ children }) => {
     getToken();
   }, [pathname]);
 
+
+
+
   useEffect(() => {
     const protectedRoutes = [
       "/Profile",
@@ -28,15 +31,30 @@ const Layout = ({ children }) => {
       "/gamification",
       "/QRcodesolution",
     ];
-    if (
-      protectedRoutes.includes(pathname)
-     
-    ) {
+  
+    if (protectedRoutes.some(route => pathname.startsWith(route))) {
       if (token === null) {
         router.replace("/Login");
       }
     }
   }, [pathname, token]);
+  
+  // useEffect(() => {
+  //   const protectedRoutes = [
+  //     "/Profile",
+  //     "/Analytics",
+  //     "/gamification",
+  //     "/QRcodesolution",
+  //   ];
+  //   if (
+  //     protectedRoutes.includes(pathname)
+     
+  //   ) {
+  //     if (token === null) {
+  //       router.replace("/Login");
+  //     }
+  //   }
+  // }, [pathname, token]);
 
 
   

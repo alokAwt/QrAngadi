@@ -44,6 +44,7 @@ import { useParams } from "next/navigation";
 import Image from "next/image";
 import { GetAnalytices } from "@/Utility/Api/Users";
 
+
 const { RangePicker } = DatePicker;
 
 const ImageDownload = (uri) => {
@@ -103,6 +104,9 @@ const Page = () => {
   const devices = [];
   const map = [];
   const State = [];
+
+ 
+
 
   const { id } = params;
   console.log(id);
@@ -210,6 +214,8 @@ const Page = () => {
   //---------------------------End Get Range api call------------------------//
 
   //---------------------------Screenshots----------------------//
+
+
 
   return (
     <div
