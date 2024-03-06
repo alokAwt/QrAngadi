@@ -22,6 +22,8 @@ import {
 import Sidebarnav from "./Sidebarnav";
 import Link from "next/link";
 import Signinmodal from "../Login/Signinmodal";
+import { FaUserCircle } from "react-icons/fa";
+
 import {
   Dropdown,
   DropdownTrigger,
@@ -43,19 +45,35 @@ import {
 import { useRouter } from "next/navigation";
 import { GetProfile } from "@/Utility/Api/Users";
 import { MdDashboard } from "react-icons/md";
-import { FaUserCircle } from "react-icons/fa";
 import { RiQrCodeFill } from "react-icons/ri";
 import { IoIosArrowForward } from "react-icons/io";
+import { UseStatevalue } from "@/Utility/Contextfiles/StateProvider";
+import {usePathname } from 'next/navigation'
+
 
 export default function App() {
+  const [{token},dispatch]=UseStatevalue()
+  const pathname=usePathname()
+
+
   const [islogged, setislogin] = useState(false);
   const [data, setData] = useState("");
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const router = useRouter();
 
+  useEffect(() => {
+    const protectedRoutes = ['/Profile', '/Analytics', '/gamification','/QRcodesolution'];
+    if (protectedRoutes.includes(pathname) || pathname.startsWith('/Analytics')) {
+      if (token===null) {
+        router.replace('/Login');
+      }
+    }
+  }, [pathname, token]);
+
   const getToken = () => {
     let token = localStorage.getItem("token");
     if (token) {
+    dispatch({ type: 'SET_TOKEN', token })
       setislogin(true);
     }
     GetProfile().then((res) => {
@@ -82,7 +100,7 @@ export default function App() {
               <SheetHeader>
                 <SheetTitle className="flex  items-center gap-2">
                   <Image className="w-16 h-10" src={logo} />
-                  QR-Angadi
+                  QR-Angadi {token}
                 </SheetTitle>
                 <SheetDescription>
                   <div className="w-full">
@@ -182,7 +200,7 @@ export default function App() {
         </NavbarContent>
         <NavbarContent justify="end">
           <NavbarItem>
-            {islogged ? (
+            {( token !==null) ? (
               <>
                 <Dropdown
                   showArrow
@@ -194,8 +212,8 @@ export default function App() {
                 >
                   <DropdownTrigger>
                     <Avatar
+                     icon={<FaUserCircle className="text-4xl text-buttoncolor"/>}
                       className="ring-2 ring-buttoncolor  rounded-full"
-                      src="https://i.pravatar.cc/150?u=a04258114e29026302d"
                       size="md"
                     />
                   </DropdownTrigger>
@@ -239,6 +257,7 @@ export default function App() {
                       </DropdownItem>
 
                       <DropdownItem
+                      className="mt-2"
                         onPress={() => router.push("/Profile")}
                         key="Profile"
                       >
@@ -259,12 +278,11 @@ export default function App() {
                     <DropdownSection aria-label="Preferences" showDivider>
                       <DropdownItem
                         key="quick_search"
-                        shortcut="⌘K"
                         onClick={() => router.push("/Profile")}
                       >
                         Dashboard
                       </DropdownItem>
-                      <DropdownItem
+                      {/* <DropdownItem
                         isReadOnly
                         key="theme"
                         className="cursor-default"
@@ -281,7 +299,7 @@ export default function App() {
                         }
                       >
                         Theme
-                      </DropdownItem>
+                      </DropdownItem> */}
                     </DropdownSection>
 
                     <DropdownSection aria-label="Help & Feedback">
@@ -310,6 +328,26 @@ export default function App() {
         isDismissable={false}
         placement={"center"}
         onOpenChange={onOpenChange}
+        motionProps={{
+          variants: {
+            enter: {
+              y: 0,
+              opacity: 1,
+              transition: {
+                duration: 0.3,
+                ease: "easeOut",
+              },
+            },
+            exit: {
+              y: -20,
+              opacity: 0,
+              transition: {
+                duration: 0.2,
+                ease: "easeIn",
+              },
+            },
+          },
+        }}
       >
         <ModalContent>
           {(onClose) => (
@@ -329,6 +367,7 @@ export default function App() {
                 <Button
                   className="bg-buttoncolor text-white"
                   onPress={() => (
+                    dispatch({ type: 'LOGOUT'}),
                     localStorage.clear(),
                     getToken(),
                     onClose(),
