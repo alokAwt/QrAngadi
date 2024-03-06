@@ -1,28 +1,32 @@
+"use client";
 import React from "react";
 import scratchNdWin from "../../../public/gamification/scratchNdWin.png";
 import slotMachine from "../../../public/gamification/slotMachine.png";
 import spin from "../../../public/gamification/spin.png";
 import Image from "next/image";
 
+import { useRouter } from "next/navigation";
+
 function GamificationSolutions() {
+  const router = useRouter();
   const data = [
     {
       img: scratchNdWin,
       head: "Scratch & Win",
       text: "Transform your marketing strategy with personalized scratch & win cards, crafted and shared effortlessly.",
-      to: "#",
+      to: "/scratch-card",
     },
     {
       img: spin,
       head: "Spin & Win",
       text: "Transform your marketing strategy with personalized spin & win wheel, crafted and shared effortlessly.",
-      to: "#",
+      to: "/spin-wheel",
     },
     {
       img: slotMachine,
       head: "Slot Machine",
       text: "Transform your marketing strategy with personalized slot machine, crafted and shared effortlessly.",
-      to: "#",
+      to: "/slot-machine",
     },
   ];
   return (
@@ -47,7 +51,12 @@ function GamificationSolutions() {
                   <div className="flex flex-col flex-1 gap-3 max-w-[360px]">
                     <div className="font-semibold text-4xl">{info.head}</div>
                     <div>{info.text}</div>
-                    <button className="bg-buttoncolor max-w-[200px] py-2 text-white font-semibold rounded-md">
+                    <button
+                      className="bg-buttoncolor max-w-[200px] py-2 text-white font-semibold rounded-md"
+                      onClick={() => {
+                        router.push(`/gamification/${info.to}`);
+                      }}
+                    >
                       Create Now
                     </button>
                   </div>
@@ -63,7 +72,12 @@ function GamificationSolutions() {
                   <div className="flex flex-col flex-1 gap-3 max-w-[360px]">
                     <div className="font-semibold text-4xl">{info.head}</div>
                     <div>{info.text}</div>
-                    <button className="bg-buttoncolor max-w-[200px] py-2 text-white font-semibold rounded-md">
+                    <button
+                      className="bg-buttoncolor max-w-[200px] py-2 text-white font-semibold rounded-md"
+                      onClick={() => {
+                        router.push(`/gamification/${info.to}`);
+                      }}
+                    >
                       Create Now
                     </button>
                   </div>
