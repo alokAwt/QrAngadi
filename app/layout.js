@@ -9,6 +9,13 @@ import Navbar from "../components/Navbarcomponets/Navbar";
 import Footernav from "../components/Homecomponents/Footer";
 import { Toaster } from "../components/ui/toaster";
 import { useEffect } from "react";
+import { StateProvider } from "@/Utility/Contextfiles/StateProvider";
+import { initialState } from "@/Utility/Contextfiles/initialState";
+import reducer from "@/Utility/Contextfiles/reducer";
+import { useStatevalue } from "@/Utility/Contextfiles/StateProvider";
+import { useRouter } from 'next/navigation'
+
+
 
 
 
@@ -23,7 +30,10 @@ const font = Poppins({
 // };
 
 export default function RootLayout({ children }) {
+
   const pathname=usePathname()
+  const router = useRouter()
+
 
   useEffect(() => {
     // Any code here will only run on the client
@@ -31,24 +41,43 @@ export default function RootLayout({ children }) {
     // You can use 'self' here
   }, []);
 
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      const storedToken = localStorage.getItem('token');
+      console.log(`storedtoken`,storedToken)
+      if (storedToken) {
+        console.log("Token exists:", storedToken);
+      } else {
+        console.log("Token does not exist in localStorage");
+      }
+    }
+  }, []); 
+
+
+  
+
  
 
   return (
     <html lang="en" className={font.className}>
+      <StateProvider initialState={initialState} reducer={reducer}>
+
       <body className='scrollbar-hide md:scrollbar-default sm:scrollbar-default lg:scrollbar-default'>
         <AntdRegistry>
         <NextUIProvider>
       <main className="">
         <div className="">
-        {(pathname === '/Profile' || pathname.startsWith('/Analytics') || pathname === '/Profile/settings' )   ? null : <Navbar />}
+        {(pathname === '/Profile' || pathname.startsWith('/Analytics') || pathname === ('/Profile/settings') || pathname ==='/Login' )   ? null : <Navbar />}
           {children}
           <Toaster/>
-          {(pathname === '/Profile' || pathname.startsWith('/Analytics')|| pathname === '/Profile/settings') ? null : <Footernav/>}
+          {(pathname === '/Profile' || pathname.startsWith('/Analytics')|| pathname === ('/Profile/settings') || pathname ==='/Login') ? null : <Footernav/>}
         </div>
       </main>
     </NextUIProvider>
         </AntdRegistry>
       </body>
+      </StateProvider>
     </html>
   );
 }

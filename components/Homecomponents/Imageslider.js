@@ -18,6 +18,7 @@ import slide3 from "../../public/slide/slide3.png";
 import slide4 from "../../public/slide/slide4.png";
 import slide5 from "../../public/slide/Lottery.png";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 function Imageslider() {
   const router = useRouter();
