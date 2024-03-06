@@ -12,7 +12,6 @@ import { useEffect } from "react";
 import { StateProvider } from "@/Utility/Contextfiles/StateProvider";
 import { initialState } from "@/Utility/Contextfiles/initialState";
 import reducer from "@/Utility/Contextfiles/reducer";
-import { useStatevalue } from "@/Utility/Contextfiles/StateProvider";
 import { useRouter } from 'next/navigation'
 
 
@@ -42,17 +41,7 @@ export default function RootLayout({ children }) {
   }, []);
 
 
-  useEffect(() => {
-    if (typeof window !== 'undefined' && window.localStorage) {
-      const storedToken = localStorage.getItem('token');
-      console.log(`storedtoken`,storedToken)
-      if (storedToken) {
-        console.log("Token exists:", storedToken);
-      } else {
-        console.log("Token does not exist in localStorage");
-      }
-    }
-  }, []); 
+  
 
 
   
