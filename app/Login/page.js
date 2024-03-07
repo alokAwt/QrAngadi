@@ -20,7 +20,12 @@ import Authgif from "../../public/Auth/authGif.gif";
 import Image from "next/image";
 import Link from "next/link";
 import { IoCloseCircle } from "react-icons/io5";
-import { OtpSend, SignInUsers, SignUpUsers } from "@/Utility/Api/Users";
+import {
+  OtpSend,
+  SignInUsers,
+  SignUpUsers,
+  CheckUserValidation,
+} from "@/Utility/Api/Users";
 import { useToast } from "../../components/ui/usetoast";
 import { ToastAction } from "@/components/ui/toast";
 import { useRouter } from "next/navigation";
@@ -43,8 +48,53 @@ export default function Loginpage() {
   const [otpOpen, setOtpOpen] = useState(false);
   const [incomingOtp, setIncomingOtp] = useState("");
   const [tokenn, Settokenn] = useState("");
+  const [signupchecked, setSignupchecked] = useState(false);
 
   const router = useRouter();
+
+  const CheckUser = (email, number) => {
+    CheckUserValidation({
+      email: email,
+      number: number,
+    }).then((res) => {
+      console.log(res);
+      if (res.message) {
+        toast({
+          variant: "",
+          title: res.message,
+          description: "",
+          action: <ToastAction altText="Try again">Try again</ToastAction>,
+        });
+        return false;
+      } else if (res.status === "success") {
+        if (res.data) {
+          setIsloding(true);
+          OtpSend({
+            Email: email,
+          }).then((res) => {
+            console.log(res);
+            if (res.message === "success") {
+              toast({
+                variant: "",
+                title: "Otp Send Successfully.",
+                description: "",
+              });
+              setIncomingOtp(res.otp);
+              setIsloding(false);
+              setOtpOpen(true);
+            } else {
+              toast({
+                variant: "",
+                title: "Failed to Send Otp.",
+                description: res.message,
+              });
+              setIsloding(false);
+            }
+          });
+        }
+      }
+    });
+  };
 
   const SignUp = () => {
     if (!Name) {
@@ -59,6 +109,14 @@ export default function Loginpage() {
       toast({
         variant: "",
         title: "Number is Required.",
+        description: "",
+        action: <ToastAction altText="Try again">Try again</ToastAction>,
+      });
+      return false;
+    } else if (number.length != 10) {
+      toast({
+        variant: "",
+        title: "Number must be 10 digit.",
         description: "",
         action: <ToastAction altText="Try again">Try again</ToastAction>,
       });
@@ -79,30 +137,24 @@ export default function Loginpage() {
         action: <ToastAction altText="Try again">Try again</ToastAction>,
       });
       return false;
+    } else if (password.length < 8) {
+      toast({
+        variant: "",
+        title: "Password must be minimum 8 digit.",
+        description: "",
+        action: <ToastAction altText="Try again">Try again</ToastAction>,
+      });
+      return false;
+    } else if (signupchecked === false) {
+      toast({
+        variant: "",
+        title: "You must need to agree Terms and Conditions.",
+        description: "",
+        action: <ToastAction altText="Try again">Try again</ToastAction>,
+      });
+      return false;
     }
-    setIsloding(true);
-    OtpSend({
-      Email: email,
-    }).then((res) => {
-      console.log(res);
-      if (res.message === "success") {
-        toast({
-          variant: "",
-          title: "Otp Send Successfully.",
-          description: "",
-        });
-        setIncomingOtp(res.otp);
-        setIsloding(false);
-        setOtpOpen(true);
-      } else {
-        toast({
-          variant: "",
-          title: "Failed to Send Otp.",
-          description: res.message,
-        });
-        setIsloding(false);
-      }
-    });
+    CheckUser(email, number);
   };
 
   const OtpVerification = () => {
@@ -317,8 +369,10 @@ export default function Loginpage() {
                         </label>
                         <input
                           value={number}
-                          onChange={(e) => setNumber(e.target.value)}
-                          type="email"
+                          onChange={(e) =>
+                            setNumber(e.target.value.replace(/[^0-9]/g, ""))
+                          }
+                          type="number"
                           id="email"
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-buttoncolor focus:border-buttoncolor block w-full p-2 "
                           placeholder="Enter Your Number"
@@ -349,10 +403,12 @@ export default function Loginpage() {
                           classNames={{
                             label: "text-xs",
                           }}
+                          value={signupchecked}
+                          onChange={(e) => setSignupchecked(e.target.checked)}
                         >
                           I agree -
                         </Checkbox>
-                        <Link color="primary" href="#" size="xs">
+                        <Link color="primary" href="/Termsandconditions" h size="xs">
                           <span className="ml-auto text-xs text-buttoncolor">
                             Terms & Condition
                           </span>
@@ -463,7 +519,7 @@ export default function Loginpage() {
                       className="text-md underline text-buttoncolor cursor-pointer mt-2 mb-12"
                       onClick={() => setSelected("SIGNUP")}
                     >
-                      Sign In
+                      Sign Up
                     </span>
                   </p>
                 </div>

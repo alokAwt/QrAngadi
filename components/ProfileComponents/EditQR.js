@@ -33,12 +33,13 @@ import { useToast } from "../../components/ui/usetoast";
 import { ToastAction } from "@/components/ui/toast";
 import { useRouter } from "next/navigation";
 import { UpdateProfileQrImages } from "@/Utility/QrType/UpdateQrImages";
+import { UpdateProfileQr } from "@/Utility/QrType/UpdateQr";
 
-const isBrowser = typeof window !== 'undefined';
+const isBrowser = typeof window !== "undefined";
 let QRCodeStyling;
 
 if (isBrowser) {
-  QRCodeStyling = require('qr-code-styling');
+  QRCodeStyling = require("qr-code-styling");
 }
 
 const Extension = [
@@ -69,6 +70,7 @@ const EditQR = ({ id, type, profie, close }) => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
+  console.log("type", type);
   const [options, setOptions] = useState({
     width: 300,
     height: 300,
@@ -306,6 +308,22 @@ const EditQR = ({ id, type, profie, close }) => {
         ""
       );
     }
+  };
+
+  const UpdateQrdata = () => {
+    setLoading(true);
+    UpdateProfileQr(
+      type,
+      id,
+      qrName,
+      Url,
+      lat,
+      lon,
+      setLoading,
+      toast,
+      profie,
+      close
+    );
   };
 
   const genPresets = (presets = presetPalettes) =>
@@ -762,102 +780,88 @@ const EditQR = ({ id, type, profie, close }) => {
         </div>
       )}
 
+      {selected === "DYNAMIC" && (
+        <div className="flex flex-col justify-start items-start gap-2 p-4 w-full rounded-sm border-1 border-buttoncolor border-opacity-50 mt-4">
+          <h6 className="text-xl font-bold">Enter QR details</h6>
+          <div className="mb-6 mt-4 w-full">
+            <label
+              htmlFor="Enter your QR Name *"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Enter your QR Name <span className="text-red-500">*</span>
+            </label>
+            <input
+              onChange={(e) => setQrName(e.target.value)}
+              value={qrName}
+              type="email"
+              id="email"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-buttoncolor focus:border-buttoncolor block w-full p-2.5 "
+              placeholder="Enter QR Name"
+              required
+            />
+          </div>
+          {type === "GoogleMap" ? (
+            <div className="mb-6 w-full">
+              <label
+                htmlFor="email"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Enter Latitude And Longitude of Location
+                <span className="text-red-500">*</span>{" "}
+                <span className="text-xs text-gray-500">
+                  (eg: 10.2022,20.400)
+                </span>
+              </label>
+              <input
+                onChange={(e) => setLat(e.target.value)}
+                value={lat}
+                type="text"
+                id="email"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-buttoncolor focus:border-buttoncolor block w-full p-2.5 d "
+                placeholder="Enter Latitude of Location"
+                required
+              />
+              <input
+                onChange={(e) => setLon(e.target.value)}
+                value={lon}
+                type="text"
+                id="email"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-buttoncolor focus:border-buttoncolor block w-full p-2.5 d mt-2"
+                placeholder="Enter Longitude of Location"
+                required
+              />
+            </div>
+          ) : (
+            <div className="mb-6 w-full">
+              <label
+                htmlFor="email"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Enter URL of webpage <span className="text-red-500">*</span>{" "}
+                <span className="text-xs text-gray-500">
+                  (eg: https://www.designdaddie.com/)
+                </span>
+              </label>
+              <input
+                onChange={(e) => onDataChange(e)}
+                value={Url}
+                type="text"
+                id="email"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-buttoncolor focus:border-buttoncolor block w-full p-2.5 d "
+                placeholder="Enter webpage URL"
+                required
+              />
+            </div>
+          )}
 
-      {selected === 'DYNAMIC' && (
-  <div className="flex flex-col justify-start items-start gap-2 p-4 w-full rounded-sm border-1 border-buttoncolor border-opacity-50 mt-4">
-    <h6 className="text-xl font-bold">Enter QR details</h6>
-    <div className="mb-6 mt-4 w-full">
-      <label
-        htmlFor="Enter your QR Name *"
-        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-      >
-        Enter your QR Name <span className="text-red-500">*</span>
-      </label>
-      <input
-        // onChange={(e) => setQrName(e.target.value)}
-        // value={qrName}
-        type="email"
-        id="email"
-        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-buttoncolor focus:border-buttoncolor block w-full p-2.5 "
-        placeholder="Enter QR Name"
-        required
-      />
-    </div>
-    {qrType === "Map" ? (
-      <div className="mb-6 w-full">
-        <label
-          htmlFor="email"
-          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-        >
-          Enter Latitude And Longitude of Location
-          <span className="text-red-500">*</span>{" "}
-          <span className="text-xs text-gray-500">
-            (eg: 10.2022,20.400)
-          </span>
-        </label>
-        <input
-          // onChange={(e) => setLat(e.target.value)}
-          // value={lat}
-          type="text"
-          id="email"
-          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-buttoncolor focus:border-buttoncolor block w-full p-2.5 d "
-          placeholder="Enter Latitude of Location"
-          required
-        />
-        <input
-          // onChange={(e) => setLon(e.target.value)}
-          // value={lon}
-          type="text"
-          id="email"
-          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-buttoncolor focus:border-buttoncolor block w-full p-2.5 d mt-2"
-          placeholder="Enter Longitude of Location"
-          required
-        />
-      </div>
-    ) : (
-      <div className="mb-6 w-full">
-        <label
-          htmlFor="email"
-          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-        >
-          Enter URL of webpage <span className="text-red-500">*</span>{" "}
-          <span className="text-xs text-gray-500">
-            (eg: https://www.designdaddie.com/)
-          </span>
-        </label>
-        <input
-          // onChange={(e) => onDataChange(e)}
-          // value={Url}
-          type="text"
-          id="email"
-          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-buttoncolor focus:border-buttoncolor block w-full p-2.5 d "
-          placeholder="Enter webpage URL"
-          required
-        />
-      </div>
-    )}
-
-    <Button className="bg-buttoncolor rounded-sm text-white ">Update Date</Button>
-  </div>
-)}
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+          <Button
+            className="bg-buttoncolor rounded-sm text-white "
+            onClick={UpdateQrdata}
+          >
+            Update Data
+          </Button>
+        </div>
+      )}
     </div>
   );
 };
