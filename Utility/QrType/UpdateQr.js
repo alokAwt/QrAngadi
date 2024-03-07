@@ -10,31 +10,34 @@ import {
 } from "../Api/QR";
 
 export const UpdateProfileQr = (
-  Url,
-  Id,
   type,
-  ChangeLoad,
-  Profile,
-  closeModal,
+  Id,
+  qrName,
+  Url,
   lat,
-  lon
+  lon,
+  setLoading,
+  toast,
+  profie,
+  close
 ) => {
   switch (type) {
     case "Website": {
       UpdateWebsiteQr({
         Url: Url,
         UniqueId: Id,
+        qrName: qrName,
       }).then((res) => {
         console.log(res);
         if (res.message === "success") {
-          ChangeLoad();
-          closeModal();
-          alert("Qr Updated Success");
-          Profile();
+          close();
+          setLoading(false);
+          toast("Qr Updated Success");
+          profie();
         } else {
-          ChangeLoad();
-          closeModal();
-          alert(res);
+          setLoading(false);
+          close();
+          toast(res);
         }
       });
       break;
@@ -43,17 +46,18 @@ export const UpdateProfileQr = (
       UpdatePlayStoreQr({
         Url: Url,
         UniqueId: Id,
+        qrName: qrName,
       }).then((res) => {
         console.log(res);
         if (res.message === "success") {
-          ChangeLoad();
-          closeModal();
-          alert("Qr Updated Success");
-          Profile();
+          close();
+          setLoading(false);
+          toast("Qr Updated Success");
+          profie();
         } else {
-          ChangeLoad();
-          closeModal();
-          alert(res);
+          setLoading(false);
+          close();
+          toast(res);
         }
       });
       break;
@@ -62,16 +66,18 @@ export const UpdateProfileQr = (
       UpdateAudioQr({
         Url: Url,
         UniqueId: Id,
+        qrName: qrName,
       }).then((res) => {
+        console.log(res);
         if (res.message === "success") {
-          ChangeLoad();
-          closeModal();
-          alert("Qr Updated Success");
-          Profile();
+          close();
+          setLoading(false);
+          toast("Qr Updated Success");
+          profie();
         } else {
-          ChangeLoad();
-          closeModal();
-          alert(res);
+          setLoading(false);
+          close();
+          toast(res);
         }
       });
       break;
@@ -80,16 +86,18 @@ export const UpdateProfileQr = (
       UpdateVideoQr({
         Url: Url,
         UniqueId: Id,
+        qrName: qrName,
       }).then((res) => {
+        console.log(res);
         if (res.message === "success") {
-          ChangeLoad();
-          closeModal();
-          alert("Qr Updated Success");
-          Profile();
+          close();
+          setLoading(false);
+          toast("Qr Updated Success");
+          profie();
         } else {
-          ChangeLoad();
-          closeModal();
-          alert(res);
+          setLoading(false);
+          close();
+          toast(res);
         }
       });
       break;
@@ -98,16 +106,18 @@ export const UpdateProfileQr = (
       UpdateImageQr({
         Url: Url,
         UniqueId: Id,
+        qrName: qrName,
       }).then((res) => {
+        console.log(res);
         if (res.message === "success") {
-          ChangeLoad();
-          closeModal();
-          alert("Qr Updated Success");
-          Profile();
+          close();
+          setLoading(false);
+          toast("Qr Updated Success");
+          profie();
         } else {
-          ChangeLoad();
-          closeModal();
-          alert(res);
+          setLoading(false);
+          close();
+          toast(res);
         }
       });
       break;
@@ -116,16 +126,18 @@ export const UpdateProfileQr = (
       UpdateDocumentQr({
         Url: Url,
         UniqueId: Id,
+        qrName: qrName,
       }).then((res) => {
+        console.log(res);
         if (res.message === "success") {
-          ChangeLoad();
-          closeModal();
-          alert("Qr Updated Success");
-          Profile();
+          close();
+          setLoading(false);
+          toast("Qr Updated Success");
+          profie();
         } else {
-          ChangeLoad();
-          closeModal();
-          alert(res);
+          setLoading(false);
+          close();
+          toast(res);
         }
       });
       break;
@@ -135,16 +147,18 @@ export const UpdateProfileQr = (
         lat: lat,
         lon: lon,
         UniqueId: Id,
+        qrName: qrName,
       }).then((res) => {
+        console.log(res);
         if (res.message === "success") {
-          ChangeLoad();
-          closeModal();
-          alert("Qr Updated Success");
-          Profile();
+          close();
+          setLoading(false);
+          toast("Qr Updated Success");
+          profie();
         } else {
-          ChangeLoad();
-          closeModal();
-          alert(res);
+          setLoading(false);
+          close();
+          toast(res);
         }
       });
       break;
@@ -153,16 +167,18 @@ export const UpdateProfileQr = (
       UpdateSocialQr({
         Url: Url,
         UniqueId: Id,
+        qrName: qrName,
       }).then((res) => {
+        console.log(res);
         if (res.message === "success") {
-          ChangeLoad();
-          closeModal();
-          alert("Qr Updated Success");
-          Profile();
+          close();
+          setLoading(false);
+          toast("Qr Updated Success");
+          profie();
         } else {
-          ChangeLoad();
-          closeModal();
-          alert(res);
+          setLoading(false);
+          close();
+          toast(res);
         }
       });
       break;

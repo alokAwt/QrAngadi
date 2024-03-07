@@ -187,20 +187,25 @@ const Page = () => {
       QrId: id,
     })
       .then((res) => {
-        console.log(res)
-        toast(res.message);
-        setData(res.month);
-        setTotalscan(res.TotalScans);
-        setWeek(res.week);
-        setDatetype(res.date);
-        setBrowser(res.Browser);
-        setOs(res.Os);
-        // setDevice(res.device);
-        setTime(res.time);
-        setLoad(false);
-        setDocument(res.result);
-        setMap(res.map);
-        // setCity(res.citycode);
+        if (res.message) {
+          toast(res.message);
+          setLoad(false);
+        } else {
+          console.log("response", res);
+          toast(res.message);
+          setData(res.month);
+          setTotalscan(res.TotalScans);
+          setWeek(res.week);
+          setDatetype(res.date);
+          setBrowser(res.Browser);
+          setOs(res.Os);
+          // setDevice(res.device);
+          setTime(res.time);
+          setLoad(false);
+          setDocument(res.result);
+          setMap(res.map);
+          // setCity(res.citycode);
+        }
       })
       .catch((err) => {
         setLoad(false);
@@ -349,7 +354,7 @@ const Page = () => {
                         className="d-lg-none d-md-block d-sm-block d-block"
                       >
                         <Image
-                        alt="profile"
+                          alt="profile"
                           src={Profile}
                           style={{ height: 40, width: 40, borderRadius: 50 }}
                         ></Image>
@@ -557,7 +562,7 @@ const Page = () => {
                     }}
                   ></p>
                   <Image
-                  alt="high"
+                    alt="high"
                     src={High}
                     height={15}
                     width={15}
@@ -685,7 +690,7 @@ const Page = () => {
                             {ChartType && ChartType.length > 0
                               ? ChartType.map((item, index) => (
                                   <div
-                                  key={index}
+                                    key={index}
                                     style={{
                                       height: 30,
                                       width: 30,
@@ -740,14 +745,14 @@ const Page = () => {
                           {select === 0 ? (
                             <BarChart
                               data={[
-                                week.sun,
-                                week.mon,
-                                week.wed,
-                                week.thues,
-                                week.tues,
-                                week.fri,
-                                week.sat,
-                                week.sun,
+                                week?.sun,
+                                week?.mon,
+                                week?.wed,
+                                week?.thues,
+                                week?.tues,
+                                week?.fri,
+                                week?.sat,
+                                week?.sun,
                               ]}
                               type={"day"}
                             ></BarChart>
@@ -1000,7 +1005,7 @@ const Page = () => {
                             {ChartType && ChartType.length > 0
                               ? ChartType.map((item, index) => (
                                   <div
-                                  key={index}    //key added
+                                    key={index} //key added
                                     style={{
                                       height: 30,
                                       width: 30,
@@ -1255,7 +1260,7 @@ select1 === 0 ? (
                             {ChartType && ChartType.length > 0
                               ? ChartType.map((item, index) => (
                                   <div
-                                  key={index}  //added key index
+                                    key={index} //added key index
                                     style={{
                                       height: 30,
                                       width: 30,
@@ -1414,7 +1419,7 @@ select1 === 0 ? (
                             {ChartType && ChartType.length > 0
                               ? ChartType.map((item, index) => (
                                   <div
-                                  key={index}
+                                    key={index}
                                     style={{
                                       height: 30,
                                       width: 30,
@@ -1600,7 +1605,7 @@ select1 === 0 ? (
                           <Image
                             style={{ height: 10, width: 15 }}
                             className="mt-2"
-                            alt='Scaniconn'
+                            alt="Scaniconn"
                             src={Scanicon}
                           ></Image>
                           <p

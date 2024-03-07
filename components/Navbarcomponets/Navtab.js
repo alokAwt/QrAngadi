@@ -1,9 +1,40 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Tabs, Tab, Card, CardBody } from "@nextui-org/react";
 import Link from "next/link";
+import { usePathname } from 'next/navigation'
+
 
 export default function Navtab() {
+  const [selected, setSelected] =useState("Home");
+  const pathname = usePathname()
+
+  // console.log(`tab`,pathname)
+
+
+  useEffect(() => {
+    switch (pathname) {
+      case "/":
+        setSelected("Home");
+        break;
+      case "/Aboutus":
+        setSelected("Aboutus");
+        break;
+      case "/QRcodesolution":
+        setSelected("QRCodeSolutions");
+        break;
+      case "/Pricing":
+        setSelected("Pricing");
+        break;
+      case "/Contactus":
+        setSelected("Contactus");
+        break;
+      default:
+        setSelected("Home");
+    }
+  }, [pathname]);
+
+
   return (
     <div className="flex max-w-full flex-col ">
       <Tabs
@@ -14,6 +45,8 @@ export default function Navtab() {
           tab: " px-4 h-6 flex justify-center items-center w-auto text-black no-underline text-gray-400 ",
         }}
         variant=""
+        selectedKey={selected}
+        onSelectionChange={setSelected}
       >
         <Tab
           key="Home"
@@ -26,7 +59,7 @@ export default function Navtab() {
           }
         ></Tab>
         <Tab
-          key="About us"
+          key="Aboutus"
           title={
             <Link href="/Aboutus">
               <div className="flex items-center space-x-2  ">
@@ -36,7 +69,7 @@ export default function Navtab() {
           }
         ></Tab>
         <Tab
-          key="QR Code Solutions"
+          key="QRCodeSolutions"
           title={
             <Link href="/QRcodesolution">
               <div className="flex items-center space-x-2  ">
@@ -66,7 +99,7 @@ export default function Navtab() {
           }
         ></Tab> */}
         <Tab
-          key="Contact us"
+          key="Contactus"
           title={
             <Link href="Contactus">
               <div className="flex items-center space-x-2  ">
