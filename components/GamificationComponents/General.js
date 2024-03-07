@@ -1,3 +1,4 @@
+"use client";
 import React, { useContext } from "react";
 import { DataContext } from "@/app/gamification/[type]/page";
 import { BsInfoCircleFill } from "react-icons/bs";
@@ -39,6 +40,24 @@ function General() {
     setTitle,
     termsAndConditions,
     setTermsAndConditions,
+    couponMainColor,
+    setCouponMainColor,
+    couponHFColor,
+    setCouponHFColor,
+    font,
+    setFont,
+    fontColor,
+    setColor,
+    buttonStyle,
+    setButtonStyle,
+    buttonColor,
+    setButtonColor,
+    buttonTextColor,
+    setButtonTextColor,
+    backgroundType,
+    setBackgrountType,
+    backgroundImage,
+    setBackgroundImage,
   } = useContext(DataContext);
   let arr = [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25];
   let language = ["English", "Hindi", "Telugu", "Kannada"];
@@ -419,6 +438,81 @@ function General() {
             />
           ) : null}
         </div>
+      </div>
+      {/* coupon main color, header footer color */}
+      <div className="flex gap-4">
+        <div className="w-[330px] min-w-fit mt-3">
+          <div className="flex items-center">
+            <label className="text-sm font-[600]">Coupon Main Color</label>
+            <span className="text-[#ED0000]">*</span>
+            <BsInfoCircleFill className="text-[#1877f2] ms-2" />
+          </div>
+          <div className="border-1 border-[#C8C8C8] max-w-fit rounded-md">
+            <input
+              id="mainColorInput"
+              placeholder={"click here"}
+              type="text"
+              value={couponMainColor}
+              onChange={(e) => {}}
+              className={`border-0 focus:ring-0 rounded-md placeholder:text-sm w-[330px] text-white font-semibold`}
+              onFocus={() => {
+                let mainC = document.getElementById("maincolor");
+                mainC.click();
+              }}
+            />
+            <input
+              id="maincolor"
+              style={{ display: "none" }}
+              placeholder={couponMainColor}
+              type="color"
+              value={couponMainColor}
+              onChange={(e) => {
+                const mainCI = document.getElementById("mainColorInput");
+                mainCI.style.backgroundColor = e.target.value;
+                mainCI.style.borderColor = e.target.value;
+                setCouponMainColor(e.target.value);
+                console.log(e.target.value);
+              }}
+              className="border-0 focus:ring-0 rounded-md placeholder:text-sm w-[330px]"
+            />
+          </div>
+        </div>{" "}
+        <div className="w-[330px] min-w-fit mt-3">
+          <div className="flex items-center">
+            <label className="text-sm font-[600]">
+              Coupon Header/Footer Color*
+            </label>
+            <span className="text-[#ED0000]">*</span>
+            <BsInfoCircleFill className="text-[#1877f2] ms-2" />
+          </div>
+          <div className="border-1 border-[#C8C8C8] max-w-fit rounded-md">
+            <input
+              id="couponHF"
+              placeholder={"click here"}
+              type="text"
+              value={couponHFColor}
+              className={`border-0 focus:ring-0 rounded-md placeholder:text-sm w-[330px] text-white font-semibold`}
+              onFocus={() => {
+                let mainC = document.getElementById("hfcolor");
+                mainC.click();
+              }}
+            />
+            <input
+              id="hfcolor"
+              style={{ display: "none" }}
+              placeholder={couponHFColor}
+              type="color"
+              value={couponHFColor}
+              onChange={(e) => {
+                const couponHF = document.getElementById("couponHF");
+                couponHF.style.backgroundColor = e.target.value;
+                couponHF.style.borderColor = e.target.value;
+                setCouponHFColor(e.target.value);
+              }}
+              className="border-0 focus:ring-0 rounded-md placeholder:text-sm w-[330px]"
+            />
+          </div>
+        </div>{" "}
       </div>
       <div className="min-h-[1px] bg-[#C8C8C8] my-3"></div>
       <div className="font-semibold text-lg mb-5">Terms & Condition</div>

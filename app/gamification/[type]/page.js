@@ -40,6 +40,15 @@ function Page() {
   const [termsAndConditions, setTermsAndConditions] = useState("");
   const [couponLogo, setCouponLogo] = useState("");
   const [couponImage, setCouponImage] = useState("");
+  const [couponMainColor, setCouponMainColor] = useState("");
+  const [couponHFColor, setCouponHFColor] = useState("");
+  const [font, setFont] = useState("");
+  const [fontColor, setColor] = useState("");
+  const [buttonStyle, setButtonStyle] = useState("");
+  const [buttonColor, setButtonColor] = useState("");
+  const [buttonTextColor, setButtonTextColor] = useState("");
+  const [backgroundType, setBackgrountType] = useState("");
+  const [backgroundImage, setBackgroundImage] = useState("");
 
   let data = {
     couponName,
@@ -66,20 +75,37 @@ function Page() {
     setEndDate,
     title,
     setTitle,
-    // addcoupon appearance
     couponLogo,
     setCouponLogo,
     couponImage,
     setCouponImage,
     termsAndConditions,
     setTermsAndConditions,
+    couponMainColor,
+    setCouponMainColor,
+    couponHFColor,
+    setCouponHFColor,
+    font,
+    setFont,
+    fontColor,
+    setColor,
+    buttonStyle,
+    setButtonStyle,
+    buttonColor,
+    setButtonColor,
+    buttonTextColor,
+    setButtonTextColor,
+    backgroundType,
+    setBackgrountType,
+    backgroundImage,
+    setBackgroundImage,
   };
   return (
     <div className={`p-20`}>
       <div className={`text-3xl font-semibold`}>Customize your Machine.</div>
 
       <DataContext.Provider value={data}>
-        {/* <MobileScreen /> */}
+        <MobileScreen />
 
         <Tabs
           aria-label="Options"
