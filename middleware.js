@@ -15,6 +15,16 @@ export function middleware(request) {
         return NextResponse.rewrite(new URL('/Login', request.url))
       }
   }
+  if (request.nextUrl.pathname.startsWith('/Profile')) {
+    if (token?.value===undefined) {
+        return NextResponse.rewrite(new URL('/Login', request.url))
+      }
+  }
+  if (request.nextUrl.pathname.startsWith('/QRcodesolution')) {
+    if (token?.value===undefined) {
+        return NextResponse.rewrite(new URL('/Login', request.url))
+      }
+  }
 
   return NextResponse.next()
 }

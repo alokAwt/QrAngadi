@@ -68,14 +68,7 @@ export default function App() {
   
   
 
-  useEffect(() => {
-    const protectedRoutes = ['/Profile', '/Analytics','/QRcodesolution'];
-    if (protectedRoutes.includes(pathname) || pathname.startsWith('/Analytics')) {
-      if (token===null) {
-        router.replace('/Login');
-      }
-    }
-  }, [pathname, token]);
+  
 
   const getToken = () => {
     let token = localStorage.getItem("token");
