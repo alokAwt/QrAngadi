@@ -178,6 +178,7 @@ export default function Signinmodal() {
         setIsloding(false);
         onOpenChange();
         router.push("/");
+        router.refresh()
       } else {
         setIsloding(false);
         toast({
