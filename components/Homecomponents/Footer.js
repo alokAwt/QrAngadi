@@ -26,7 +26,7 @@ function Footernav() {
               className="flex flex-col justify-center text-xs items-start text-white no-underline"
             >
               <Link href="/QRcodesolution">QR Solutions</Link>
-              <Footer.Link href="#">Gamification Solutions</Footer.Link>
+              <Link href="/gamification">Gamification Solutions</Link>
             </Footer.LinkGroup>
           </div>
           <div>
@@ -78,7 +78,7 @@ function Footernav() {
             />
 
             <button className="rounded-md  bg-buttoncolor text-black h-full w-[50px] flex justify-center items-center">
-              <Image src={paparPlane} height={15} width={15} />
+              <Image src={paparPlane} height={15} width={15} alt="" />
             </button>
           </div>
           {/* <div className="flex justify-evenly items-center gap-2 mt-4 md:ml-auto ">

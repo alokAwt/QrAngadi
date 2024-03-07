@@ -1,0 +1,36 @@
+.benefitsContainer > div {
+  border-left: 2px solid rgb(255 113 67);
+}
+.benefitsContainer > .idfOne {
+  border-left: 1px solid;
+  border-image: linear-gradient(to right, #000 50%, transparent 50%) 100% 1;
+}
+.benefitsContainer > .idfOne:before {
+  content: "";
+  display: block;
+  height: 50%;
+  width: 2px;
+  box-shadow: -4px 2px 0px 0 rgb(255 113 67);
+  /* left: -30px;
+  top: -31px; */
+  bottom: 0;
+  left: 3px;
+  position: absolute;
+}
+
+.benefitsContainer > .idfTwo {
+  border-left: 1px solid;
+  border-image: linear-gradient(to right, #000 50%, transparent 50%) 100% 1;
+}
+.benefitsContainer > .idfTwo:before {
+  content: "";
+  display: block;
+  height: 50%;
+  width: 2px;
+  box-shadow: -4px 2px 0px 0 rgb(255 113 67);
+  /* left: -30px;
+  top: -31px; */
+  top: -3px;
+  left: 3px;
+  position: absolute;
+}

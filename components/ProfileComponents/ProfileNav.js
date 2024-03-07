@@ -11,12 +11,27 @@ import {
   DropdownItem,
   User,
 } from "@nextui-org/react";
+import {
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  useDisclosure,
+} from "@nextui-org/react";
 import { GetProfile } from "@/Utility/Api/Users";
 import { useRouter } from "next/navigation";
+import { deleteTokenCookie } from "@/Utility/Authutils";
+import { UseStatevalue } from "@/Utility/Contextfiles/StateProvider";
+
 
 const ProfileNav = () => {
   const [profile, setProfile] = useState("");
   const router = useRouter();
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [{token},dispatch]=UseStatevalue()
+
+
 
   useEffect(() => {
     GetProfile().then((res) => {
@@ -24,6 +39,7 @@ const ProfileNav = () => {
     });
   }, []);
   return (
+    <>
     <nav className="h-12 w-full flex p-4 lg:p-6  items-center justify-between sticky top-0 z-10  bg-slate-100 border-b-1 border-gray-300">
       <div>
         <p className="text-xs text-gray-500 font-medium">
@@ -143,7 +159,7 @@ const ProfileNav = () => {
                 </DropdownItem>
                 <DropdownItem
                   key="logout"
-                  onClick={() => (localStorage.clear(), router.push("/"))}
+                  onPress={onOpen}
                 >
                   Log Out
                 </DropdownItem>
@@ -153,6 +169,67 @@ const ProfileNav = () => {
         </div>
       </div>
     </nav>
+
+
+    <Modal
+        isOpen={isOpen}
+        isDismissable={false}
+        placement={"center"}
+        onOpenChange={onOpenChange}
+        motionProps={{
+          variants: {
+            enter: {
+              y: 0,
+              opacity: 1,
+              transition: {
+                duration: 0.3,
+                ease: "easeOut",
+              },
+            },
+            exit: {
+              y: -20,
+              opacity: 0,
+              transition: {
+                duration: 0.2,
+                ease: "easeIn",
+              },
+            },
+          },
+        }}
+      >
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1">Logout</ModalHeader>
+              <ModalBody>
+                <h6 className="">Do you want to logout?</h6>
+              </ModalBody>
+              <ModalFooter>
+                <Button
+                  variant="light"
+                  className="ring-buttoncolor text-buttoncolor"
+                  onPress={onClose}
+                >
+                  Close
+                </Button>
+                <Button
+                  className="bg-buttoncolor text-white"
+                  onPress={() => (
+                    deleteTokenCookie(router),
+                    dispatch({ type: 'LOGOUT'}),
+                    localStorage.clear(),
+                    onClose(),
+                    router.push("/")
+                  )}
+                >
+                  Logout
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
+    </>
   );
 };
 

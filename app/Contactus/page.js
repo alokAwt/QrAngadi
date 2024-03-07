@@ -3,13 +3,12 @@ import Faqs from "@/components/Faqs";
 import LetsTalk from "@/components/contact-us-page-components/LetsTalk";
 import Formcard from "@/components/Aboutuscomponets/Formcard";
 import FAQ from "@/components/Homecomponents/FAQ";
-const page = () => {
+const Page = () => {
   return (
     <>
-       <div className="flex flex-col justify-center items-center w-11/12 mx-auto">
-
-      <Formcard />
-       </div>
+      <div className="flex flex-col justify-center items-center w-11/12 mx-auto">
+        <Formcard />
+      </div>
       <FAQ />
       {/* <div className="mt-0 lg:mt-10">
         <p className="text-4xl font-bold text-center mb-4">Get in Touch</p>
@@ -28,4 +27,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
