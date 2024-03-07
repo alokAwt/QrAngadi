@@ -39,6 +39,7 @@ function Page() {
   const [title, setTitle] = useState("");
   const [termsAndConditions, setTermsAndConditions] = useState("");
   let data = {
+    params,
     couponName,
     setCouponName,
     couponTitle,
@@ -67,6 +68,8 @@ function Page() {
     termsAndConditions,
     setTermsAndConditions,
   };
+
+
   return (
     <div className={`p-20`}>
       <div className={`text-3xl font-semibold`}>Customize your Machine.</div>
