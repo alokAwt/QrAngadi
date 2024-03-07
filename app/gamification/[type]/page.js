@@ -8,7 +8,7 @@ import General from "@/components/GamificationComponents/General";
 import PrizeSetting from "@/components/GamificationComponents/PrizeSetting";
 import ClaimAction from "@/components/GamificationComponents/ClaimAction";
 import Validation from "@/components/GamificationComponents/Validation";
-
+import MobileScreen from "@/components/MobileScreen/MobileScreen";
 function Page() {
   const params = useParams();
 
@@ -38,6 +38,9 @@ function Page() {
   const [endDate, setEndDate] = useState("");
   const [title, setTitle] = useState("");
   const [termsAndConditions, setTermsAndConditions] = useState("");
+  const [couponLogo, setCouponLogo] = useState("");
+  const [couponImage, setCouponImage] = useState("");
+
   let data = {
     couponName,
     setCouponName,
@@ -64,6 +67,10 @@ function Page() {
     title,
     setTitle,
     // addcoupon appearance
+    couponLogo,
+    setCouponLogo,
+    couponImage,
+    setCouponImage,
     termsAndConditions,
     setTermsAndConditions,
   };
@@ -72,6 +79,8 @@ function Page() {
       <div className={`text-3xl font-semibold`}>Customize your Machine.</div>
 
       <DataContext.Provider value={data}>
+        {/* <MobileScreen /> */}
+
         <Tabs
           aria-label="Options"
           color="primary"

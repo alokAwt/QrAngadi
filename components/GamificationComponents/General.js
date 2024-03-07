@@ -1,6 +1,8 @@
 import React, { useContext } from "react";
 import { DataContext } from "@/app/gamification/[type]/page";
 import { BsInfoCircleFill } from "react-icons/bs";
+import { Button, Select, SelectItem } from "@nextui-org/react";
+
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import "./index.css";
@@ -29,6 +31,10 @@ function General() {
     setStartDate,
     endDate,
     setEndDate,
+    couponLogo,
+    setCouponLogo,
+    couponImage,
+    setCouponImage,
     title,
     setTitle,
     termsAndConditions,
@@ -37,7 +43,6 @@ function General() {
   let arr = [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25];
   let language = ["English", "Hindi", "Telugu", "Kannada"];
   const timezones = ["Asia/kolkata", "Asia/Hongkong"];
-  console.log(couponTitle.pixel);
   return (
     <div className="mt-5">
       <p>Enter the details and set up the general settings of your coupon.</p>
@@ -345,7 +350,76 @@ function General() {
       </div>
       <div className="min-h-[1px] bg-[#C8C8C8] my-3"></div>
       <div className="font-semibold text-lg mb-5">Coupon Appearance</div>
-      TO DO
+      {/* upload logo */}
+      <div className="w-[330px] min-w-fit mt-3">
+        <div className="flex items-center">
+          <label className="text-sm font-[600]">Logo</label>
+          <span className="text-[#ED0000]">*</span>
+          <BsInfoCircleFill className="text-[#1877f2] ms-2" />
+        </div>
+        <div className="flex justify-center items-center gap-4">
+          <Button className=" w-full bg-white border-1 border-buttoncolor text-buttoncolor font-medium rounded-sm">
+            <label htmlFor="couponLogo">Upload</label>
+            <input
+              type="file"
+              id="couponLogo"
+              style={{ display: "none" }}
+              onChange={(e) => {
+                setCouponLogo("");
+                if (e.target.files[0]) {
+                  const reader = new FileReader();
+                  reader.addEventListener("load", () => {
+                    setCouponLogo(reader.result);
+                  });
+                  reader.readAsDataURL(e.target.files[0]);
+                }
+              }}
+            />
+          </Button>
+          {couponLogo ? (
+            <img
+              className="w-40 h-32 object-contain"
+              alt="upload image"
+              src={couponLogo}
+            />
+          ) : null}
+        </div>
+      </div>
+      {/* upload Image */}
+      <div className="w-[330px] min-w-fit mt-3">
+        <div className="flex items-center">
+          <label className="text-sm font-[600]">Coupon Image</label>
+          <span className="text-[#ED0000]">*</span>
+          <BsInfoCircleFill className="text-[#1877f2] ms-2" />
+        </div>
+        <div className="flex justify-center items-center gap-4">
+          <Button className=" w-full bg-white border-1 border-buttoncolor text-buttoncolor font-medium rounded-sm">
+            <label htmlFor="couponImage">Upload</label>
+            <input
+              type="file"
+              id="couponImage"
+              style={{ display: "none" }}
+              onChange={(e) => {
+                setCouponImage("");
+                if (e.target.files[0]) {
+                  const reader = new FileReader();
+                  reader.addEventListener("load", () => {
+                    setCouponImage(reader.result);
+                  });
+                  reader.readAsDataURL(e.target.files[0]);
+                }
+              }}
+            />
+          </Button>
+          {couponImage ? (
+            <img
+              className="w-40 h-32 object-contain"
+              alt="upload image"
+              src={couponImage}
+            />
+          ) : null}
+        </div>
+      </div>
       <div className="min-h-[1px] bg-[#C8C8C8] my-3"></div>
       <div className="font-semibold text-lg mb-5">Terms & Condition</div>
       {/* coupon name */}
