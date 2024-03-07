@@ -44,16 +44,14 @@ import { CreateQr } from "@/Utility/CreateQr";
 import { useToast } from "../../components/ui/usetoast";
 import { ToastAction } from "@/components/ui/toast";
 import { useRouter } from "next/navigation";
-import dynamic from 'next/dynamic'
+import dynamic from "next/dynamic";
 
-const isBrowser = typeof window !== 'undefined';
+const isBrowser = typeof window !== "undefined";
 let QRCodeStyling;
 
 if (isBrowser) {
-  QRCodeStyling = require('qr-code-styling');
+  QRCodeStyling = require("qr-code-styling");
 }
-
-
 
 const Extension = [
   { label: "png", value: "png" },
@@ -391,7 +389,7 @@ const Page = () => {
           {QrType &&
             QrType.map((item, index) => (
               <Button
-              key={index}
+                key={index}
                 variant="light"
                 className={
                   qrType === item?.type
@@ -401,7 +399,11 @@ const Page = () => {
                 onClick={() => setQrType(item.type)}
               >
                 <div>
-                  <Image className="h-8 w-8 object-contain" alt="itemimage" src={item?.Image} />
+                  <Image
+                    className="h-8 w-8 object-contain"
+                    alt="itemimage"
+                    src={item?.Image}
+                  />
                 </div>
                 <p className="text-center md:text-xs text-[0.65rem]">
                   {item?.name}
@@ -886,7 +888,7 @@ const Page = () => {
                             <div className="flex justify-center flex-col items-center gap-2">
                               <Button className="flex md:h-24 md:w-24  h-12 w-10 justify-center items-center gap-2 flex-col bg-slate-100 rounded-md p-2 cursor-pointer">
                                 <Image
-                                alt="sunflower"
+                                  alt="sunflower"
                                   className="md:h-14 md:w-14 h-6 w-6"
                                   src={Sunflower}
                                 />
@@ -1049,5 +1051,5 @@ const Page = () => {
 };
 
 export default dynamic(() => Promise.resolve(Page), {
-  ssr: false
-})
+  ssr: false,
+});

@@ -165,7 +165,7 @@ export const GetPlans = async () => {
 //-----------------Create Order------------------------//
 
 export const CreateOrder = async (data) => {
-  let token =localStorage.getItem('token');
+  let token = localStorage.getItem("token");
   try {
     let result = await fetch(`${BaseUrl}/Suscription/Createorder`, {
       method: "POST",
@@ -183,7 +183,7 @@ export const CreateOrder = async (data) => {
 };
 
 export const PayOrder = async (data) => {
-  let token =localStorage.getItem('token');
+  let token = localStorage.getItem("token");
   try {
     let result = await fetch(`${BaseUrl}/Suscription/Pay`, {
       method: "POST",
@@ -191,6 +191,24 @@ export const PayOrder = async (data) => {
       headers: {
         "content-type": "application/json",
         token: token,
+      },
+    });
+    result = await result.json();
+    return result;
+  } catch (error) {
+    return error.message;
+  }
+};
+
+//----------------CheckUser----------------//
+export const CheckUserValidation = async (data) => {
+  console.log(data);
+  try {
+    let result = await fetch(`${BaseUrl}/Users/CheckUser`, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "content-type": "application/json",
       },
     });
     result = await result.json();
