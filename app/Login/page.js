@@ -167,7 +167,6 @@ export default function Loginpage() {
     }).then((res) => {
       if (res.message === "success") {
         sendTokenToServer(res.token);
-
         Settokenn(res.token);
         dispatch({ type: "SET_TOKEN", tokenn });
         localStorage.setItem("token", res.token);

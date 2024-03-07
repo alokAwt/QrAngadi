@@ -100,7 +100,7 @@ export default function App() {
               <SheetHeader>
                 <SheetTitle className="flex  items-center gap-2">
                   <Image className="w-16 h-10" src={logo} />
-                  QR-Angadi {token}
+                  QR-Angadi 
                 </SheetTitle>
                 <SheetDescription>
                   <div className="w-full">
@@ -367,7 +367,7 @@ export default function App() {
                 <Button
                   className="bg-buttoncolor text-white"
                   onPress={() => (
-                    deleteTokenCookie(),
+                    deleteTokenCookie(router),
                     dispatch({ type: 'LOGOUT'}),
                     localStorage.clear(),
                     getToken(),
