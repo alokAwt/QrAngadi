@@ -47,7 +47,7 @@ function General() {
     font,
     setFont,
     fontColor,
-    setColor,
+    setFontColor,
     buttonStyle,
     setButtonStyle,
     buttonColor,
@@ -62,6 +62,9 @@ function General() {
   let arr = [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25];
   let language = ["English", "Hindi", "Telugu", "Kannada"];
   const timezones = ["Asia/kolkata", "Asia/Hongkong"];
+  const fontsList = ["Poppins", "Sans Serif", "Roboto"];
+  const backgroundTypes = ["Image", "gif", "mp4"];
+  const buttonStyles = ["Square", "rounded"];
   return (
     <div className="mt-5">
       <p>Enter the details and set up the general settings of your coupon.</p>
@@ -513,6 +516,234 @@ function General() {
             />
           </div>
         </div>{" "}
+      </div>
+      {/* Font and font color */}
+      <div className="flex gap-4">
+        <div className="w-[330px] min-w-fit mt-3">
+          <div className="flex items-center">
+            <label htmlFor="font" className="text-sm font-[600]">
+              Font
+            </label>
+            <span className="text-[#ED0000]">*</span>
+            <BsInfoCircleFill className="text-[#1877f2] ms-2" />
+          </div>
+          <div className="flex gap-2">
+            <div className="border-1 border-[#C8C8C8] max-w-fit rounded-md flex justify-center items-center  text-normal">
+              <select
+                onChange={(e) => setFont(e.target.value)}
+                value={font}
+                className="border-0 focus:ring-0 rounded-md w-[330px]"
+              >
+                {fontsList.map((item, index) => {
+                  return (
+                    <option value={item} key={index}>
+                      {item}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+          </div>
+        </div>
+        <div className="w-[330px] min-w-fit mt-3">
+          <div className="flex items-center">
+            <label className="text-sm font-[600]">Font Color</label>
+            <span className="text-[#ED0000]">*</span>
+            <BsInfoCircleFill className="text-[#1877f2] ms-2" />
+          </div>
+          <div className="border-1 border-[#C8C8C8] max-w-fit rounded-md">
+            <input
+              id="fontColor"
+              placeholder={"click here"}
+              type="text"
+              value={fontColor}
+              className={`border-0 focus:ring-0 rounded-md placeholder:text-sm w-[330px] text-white font-semibold`}
+              onFocus={() => {
+                let mainC = document.getElementById("fontColorMain");
+                mainC.click();
+              }}
+            />
+            <input
+              id="fontColorMain"
+              style={{ display: "none" }}
+              placeholder={fontColor}
+              type="color"
+              value={fontColor}
+              onChange={(e) => {
+                const fontcolor = document.getElementById("fontColor");
+                fontcolor.style.backgroundColor = e.target.value;
+                fontcolor.style.borderColor = e.target.value;
+                setFontColor(e.target.value);
+              }}
+              className="border-0 focus:ring-0 rounded-md placeholder:text-sm w-[330px]"
+            />
+          </div>
+        </div>{" "}
+      </div>
+      {/* button styles button color, button text color */}
+      <div className="flex gap-4">
+        <div className="w-[330px] min-w-fit mt-3">
+          <div className="flex items-center">
+            <label htmlFor="buttonStyle" className="text-sm font-[600]">
+              Button Style
+            </label>
+            <span className="text-[#ED0000]">*</span>
+            <BsInfoCircleFill className="text-[#1877f2] ms-2" />
+          </div>
+          <div className="flex gap-2">
+            <div className="border-1 border-[#C8C8C8] max-w-fit rounded-md flex justify-center items-center  text-normal">
+              <select
+                onChange={(e) => setButtonStyle(e.target.value)}
+                value={buttonStyle}
+                className="border-0 focus:ring-0 rounded-md w-[330px]"
+              >
+                {buttonStyles.map((item, index) => {
+                  return (
+                    <option value={item} key={index}>
+                      {item}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+          </div>
+        </div>
+        <div className="w-[330px] max-w-[330px] mt-3 flex gap-4 ">
+          <div className="flex-1 w-[40%]">
+            <div className="flex items-center">
+              <label className="text-sm font-[600]">Button Color</label>
+              <span className="text-[#ED0000]">*</span>
+              <BsInfoCircleFill className="text-[#1877f2] ms-2" />
+            </div>
+            <div className="border-1 border-[#C8C8C8] max-w-fit rounded-md">
+              <input
+                id="btnColor"
+                placeholder={"click here"}
+                type="text"
+                value={buttonColor}
+                onChange={(e) => {}}
+                className={`border-0 focus:ring-0 w-full rounded-md placeholder:text-sm text-white font-semibold`}
+                onFocus={() => {
+                  let elem = document.getElementById("mainBtnColor");
+                  elem.click();
+                }}
+              />
+              <input
+                id="mainBtnColor"
+                style={{ display: "none" }}
+                placeholder={buttonColor}
+                type="color"
+                value={buttonColor}
+                onChange={(e) => {
+                  const mainCI = document.getElementById("btnColor");
+                  mainCI.style.backgroundColor = e.target.value;
+                  mainCI.style.borderColor = e.target.value;
+                  setButtonColor(e.target.value);
+                }}
+                className="border-0 focus:ring-0 rounded-md placeholder:text-sm"
+              />
+            </div>
+          </div>{" "}
+          <div className="flex-1 w-[40%]">
+            <div className="flex items-center">
+              <label className="text-sm font-[600]">Button Text Color</label>
+              <span className="text-[#ED0000]">*</span>
+              <BsInfoCircleFill className="text-[#1877f2] ms-2" />
+            </div>
+            <div className="border-1 border-[#C8C8C8] max-w-fit rounded-md">
+              <input
+                id="btnTextColor"
+                placeholder={"click here"}
+                type="text"
+                value={buttonTextColor}
+                className={`border-0 focus:ring-0 w-full  rounded-md placeholder:text-sm text-white font-semibold`}
+                onFocus={() => {
+                  let elem = document.getElementById("mainBtnTextColor");
+                  elem.click();
+                }}
+              />
+              <input
+                id="mainBtnTextColor"
+                style={{ display: "none" }}
+                placeholder={buttonTextColor}
+                type="color"
+                value={buttonTextColor}
+                onChange={(e) => {
+                  const couponHF = document.getElementById("btnTextColor");
+                  couponHF.style.backgroundColor = e.target.value;
+                  couponHF.style.borderColor = e.target.value;
+                  setButtonTextColor(e.target.value);
+                }}
+                className="border-0 focus:ring-0 rounded-md placeholder:text-sm"
+              />
+            </div>
+          </div>{" "}
+        </div>
+      </div>
+      {/* image type and upload background Image */}
+      <div className="flex gap-4">
+        <div className="w-[330px] min-w-fit mt-3">
+          <div className="flex items-center">
+            <label htmlFor="backgroundType" className="text-sm font-[600]">
+              Background
+            </label>
+            <span className="text-[#ED0000]">*</span>
+            <BsInfoCircleFill className="text-[#1877f2] ms-2" />
+          </div>
+          <div className="flex gap-2">
+            <div className="border-1 border-[#C8C8C8] max-w-fit rounded-md flex justify-center items-center  text-normal">
+              <select
+                onChange={(e) => setBackgrountType(e.target.value)}
+                value={backgroundType}
+                className="border-0 focus:ring-0 rounded-md w-[330px]"
+              >
+                {backgroundTypes.map((item, index) => {
+                  return (
+                    <option value={item} key={index}>
+                      {item}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+          </div>
+        </div>
+        <div className="w-[330px] min-w-fit mt-3">
+          <div className="flex items-center">
+            <label className="text-sm font-[600]">
+              Upload Background Image
+            </label>
+            <span className="text-[#ED0000]">*</span>
+            <BsInfoCircleFill className="text-[#1877f2] ms-2" />
+          </div>
+          <div className="flex justify-center items-center gap-4">
+            <Button className=" w-full bg-white border-1 border-buttoncolor text-buttoncolor font-medium rounded-sm">
+              <label htmlFor="backgroundImage">Upload</label>
+              <input
+                type="file"
+                id="backgroundImage"
+                style={{ display: "none" }}
+                onChange={(e) => {
+                  setBackgroundImage("");
+                  if (e.target.files[0]) {
+                    const reader = new FileReader();
+                    reader.addEventListener("load", () => {
+                      setBackgroundImage(reader.result);
+                    });
+                    reader.readAsDataURL(e.target.files[0]);
+                  }
+                }}
+              />
+            </Button>
+            {backgroundImage ? (
+              <img
+                className="w-40 h-32 object-contain"
+                alt="upload image"
+                src={backgroundImage}
+              />
+            ) : null}
+          </div>
+        </div>
       </div>
       <div className="min-h-[1px] bg-[#C8C8C8] my-3"></div>
       <div className="font-semibold text-lg mb-5">Terms & Condition</div>

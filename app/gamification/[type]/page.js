@@ -43,7 +43,7 @@ function Page() {
   const [couponMainColor, setCouponMainColor] = useState("");
   const [couponHFColor, setCouponHFColor] = useState("");
   const [font, setFont] = useState("");
-  const [fontColor, setColor] = useState("");
+  const [fontColor, setFontColor] = useState("");
   const [buttonStyle, setButtonStyle] = useState("");
   const [buttonColor, setButtonColor] = useState("");
   const [buttonTextColor, setButtonTextColor] = useState("");
@@ -88,7 +88,7 @@ function Page() {
     font,
     setFont,
     fontColor,
-    setColor,
+    setFontColor,
     buttonStyle,
     setButtonStyle,
     buttonColor,
@@ -105,7 +105,7 @@ function Page() {
       <div className={`text-3xl font-semibold`}>Customize your Machine.</div>
 
       <DataContext.Provider value={data}>
-        <MobileScreen />
+        {/* <MobileScreen /> */}
 
         <Tabs
           aria-label="Options"
