@@ -1,34 +1,438 @@
 import React, { useContext } from "react";
 import { DataContext } from "@/app/gamification/[type]/page";
-import { InfoIcon } from "lucide-react";
+import { BsInfoCircleFill } from "react-icons/bs";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+import "./index.css";
+// BsInfoCircleFill
 function General() {
-  const { couponName, setCouponName } = useContext(DataContext);
-
+  const {
+    couponName,
+    setCouponName,
+    couponTitle,
+    setCouponTitle,
+    couponSubtitle,
+    setCouponSubtitle,
+    campaignLanguage,
+    setCampaignLanguage,
+    timeZone,
+    setTimeZone,
+    domainName,
+    setDomainName,
+    poweredByName,
+    setPoweredByName,
+    poweredByWebsite,
+    setPoweredByWebsite,
+    appearsAs,
+    setAppeasAs,
+    startDate,
+    setStartDate,
+    endDate,
+    setEndDate,
+    title,
+    setTitle,
+    termsAndConditions,
+    setTermsAndConditions,
+  } = useContext(DataContext);
+  let arr = [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25];
+  let language = ["English", "Hindi", "Telugu", "Kannada"];
+  const timezones = ["Asia/kolkata", "Asia/Hongkong"];
+  console.log(couponTitle.pixel);
   return (
     <div className="mt-5">
       <p>Enter the details and set up the general settings of your coupon.</p>
-      <div className="min-h-[1px] bg-[#919191] my-3"></div>
-
+      <div className="min-h-[1px] bg-[#C8C8C8] my-3"></div>
       <div className="font-semibold text-lg mb-5">General Setting</div>
-      <div>
-        <div>
+      {/* coupon name */}
+      <div className="w-[330px] min-w-fit mt-3">
+        <div className="flex items-center">
           <label htmlFor="couponName" className="text-sm font-[600]">
             Coupon Name
           </label>
           <span className="text-[#ED0000]">*</span>
+          <BsInfoCircleFill className="text-[#1877f2] ms-2" />
         </div>
-        <div className="border-1 border-[#919191] max-w-fit">
+        <div className="border-1 border-[#C8C8C8] max-w-fit rounded-md">
           <input
+            placeholder="Enter your Coupon Name"
             type="text"
             id="couponName"
             value={couponName}
             onChange={(e) => setCouponName(e.target.value)}
-            className="border-0 focus:ring-0"
+            className="border-0 focus:ring-0 rounded-md placeholder:text-sm w-[330px]"
           />
         </div>
+      </div>
+      {/* coupon title */}
+      <div className="w-[330px] min-w-fit mt-3">
+        <div className="flex items-center">
+          <label htmlFor="couponName" className="text-sm font-[600]">
+            Coupon Title
+          </label>
+          <span className="text-[#ED0000]">*</span>
+          <BsInfoCircleFill className="text-[#1877f2] ms-2" />
+        </div>
+        <div className="flex gap-2">
+          <div className="border-1 border-[#C8C8C8] max-w-fit rounded-md">
+            <input
+              placeholder="Enter Coupon Title"
+              type="text"
+              id="couponTitle"
+              value={couponTitle.title}
+              onChange={(e) =>
+                setCouponTitle((prev) => {
+                  return { ...prev, title: e.target.value };
+                })
+              }
+              className="border-0 focus:ring-0 rounded-md placeholder:text-sm w-[330px]"
+            />
+          </div>
+          <div className="border-1 border-[#C8C8C8] max-w-fit rounded-md flex justify-center items-center min-w-[42px] italic text-xl">
+            <select
+              onChange={(e) =>
+                setCouponTitle((prev) => {
+                  return { ...prev, pixel: e.target.value };
+                })
+              }
+              value={couponTitle.pixel}
+              className="border-0 focus:ring-0 rounded-md"
+            >
+              {arr.map((item, index) => {
+                return (
+                  <option value={item} key={index}>
+                    {item} px
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+          <div className="border-1 border-[#C8C8C8] max-w-fit rounded-md flex justify-center items-center min-w-[42px] font-semibold text-xl">
+            B
+          </div>
+          <div className="border-1 border-[#C8C8C8] max-w-fit rounded-md flex justify-center items-center min-w-[42px] italic text-xl">
+            I
+          </div>
+        </div>
+      </div>
+      {/* coupon subtitle */}
+      <div className="w-[330px] min-w-fit mt-3">
+        <div className="flex items-center">
+          <label htmlFor="couponSubTitle" className="text-sm font-[600]">
+            Coupon Subtitle
+          </label>
+          <span className="text-[#ED0000]">*</span>
+          <BsInfoCircleFill className="text-[#1877f2] ms-2" />
+        </div>
+        <div className="flex gap-2">
+          <div className="border-1 border-[#C8C8C8] max-w-fit rounded-md">
+            <input
+              placeholder="Enter Coupon Subtitle"
+              type="text"
+              id="couponSubTitle"
+              value={couponSubtitle.title}
+              onChange={(e) =>
+                setCouponSubtitle((prev) => {
+                  return { ...prev, title: e.target.value };
+                })
+              }
+              className="border-0 focus:ring-0 rounded-md placeholder:text-sm w-[330px]"
+            />
+          </div>
+          <div className="border-1 border-[#C8C8C8] max-w-fit rounded-md flex justify-center items-center min-w-[42px] italic text-xl">
+            <select
+              onChange={(e) =>
+                setCouponSubtitle((prev) => {
+                  return { ...prev, pixel: e.target.value };
+                })
+              }
+              value={couponSubtitle.pixel}
+              className="border-0 focus:ring-0 rounded-md"
+            >
+              {arr.map((item, index) => {
+                return (
+                  <option value={item} key={index}>
+                    {item} px
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+          <div className="border-1 border-[#C8C8C8] max-w-fit rounded-md flex justify-center items-center min-w-[42px] font-semibold text-xl">
+            B
+          </div>
+          <div className="border-1 border-[#C8C8C8] max-w-fit rounded-md flex justify-center items-center min-w-[42px] italic text-xl">
+            I
+          </div>
+        </div>
+      </div>
+      {/* Campaign Language */}
+      <div className="w-[330px] min-w-fit mt-3">
+        <div className="flex items-center">
+          <label htmlFor="campaignLanguage" className="text-sm font-[600]">
+            Campaign Language
+          </label>
+          <span className="text-[#ED0000]">*</span>
+          <BsInfoCircleFill className="text-[#1877f2] ms-2" />
+        </div>
+        <div className="flex gap-2">
+          <div className="border-1 border-[#C8C8C8] max-w-fit rounded-md flex justify-center items-center  text-normal">
+            <select
+              onChange={(e) => setCampaignLanguage(e.target.value)}
+              value={campaignLanguage}
+              className="border-0 focus:ring-0 rounded-md w-[330px]"
+            >
+              {language.map((item, index) => {
+                return (
+                  <option value={item} key={index}>
+                    {item}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+        </div>
+      </div>
+      {/* domain name */}
+      <div className="w-[330px] min-w-fit mt-3">
+        <div className="flex items-center">
+          <label htmlFor="domainName" className="text-sm font-[600]">
+            Domain Name
+          </label>
+          <span className="text-[#ED0000]">*</span>
+          <BsInfoCircleFill className="text-[#1877f2] ms-2" />
+        </div>
+        <div className="border-1 border-[#C8C8C8] max-w-fit rounded-md">
+          <input
+            placeholder="Enter your Domain Name"
+            type="text"
+            id="domainName"
+            value={domainName}
+            onChange={(e) => setDomainName(e.target.value)}
+            className="border-0 focus:ring-0 rounded-md placeholder:text-sm w-[330px]"
+          />
+        </div>
+      </div>
+      {/* Time Zone */}
+      <div className="w-[330px] min-w-fit mt-3">
+        <div className="flex items-center">
+          <label htmlFor="timeZone" className="text-sm font-[600]">
+            Time Zone
+          </label>
+          <span className="text-[#ED0000]">*</span>
+          <BsInfoCircleFill className="text-[#1877f2] ms-2" />
+        </div>
+        <div className="flex gap-2">
+          <div className="border-1 border-[#C8C8C8] max-w-fit rounded-md flex justify-center items-center  text-normal">
+            <select
+              onChange={(e) => setTimeZone(e.target.value)}
+              value={timeZone}
+              className="border-0 focus:ring-0 rounded-md w-[330px]"
+            >
+              {timezones.map((item, index) => {
+                return (
+                  <option value={item} key={index}>
+                    {item}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+        </div>
+      </div>
+      <div className="min-h-[1px] bg-[#C8C8C8] my-3"></div>
+      <div className="font-semibold text-lg mb-5">Your Company</div>
+      {/* powered by name */}
+      <div className="w-[330px] min-w-fit mt-3">
+        <div className="flex items-center">
+          <label htmlFor="poweredBy" className="text-sm font-[600]">
+            Powered By Name
+          </label>
+          <span className="text-[#ED0000]">*</span>
+          <BsInfoCircleFill className="text-[#1877f2] ms-2" />
+        </div>
+        <div className="border-1 border-[#C8C8C8] max-w-fit rounded-md">
+          <input
+            placeholder="QR Angadi"
+            type="text"
+            id="poweredBy"
+            value={poweredByName}
+            onChange={(e) => setPoweredByName(e.target.value)}
+            className="border-0 focus:ring-0 rounded-md placeholder:text-sm w-[330px]"
+          />
+        </div>
+      </div>
+      {/* powewed by website */}
+      <div className="w-[330px] min-w-fit mt-3">
+        <div className="flex items-center">
+          <label htmlFor="poweredByWebsite" className="text-sm font-[600]">
+            Powered By Website
+          </label>
+          <span className="text-[#ED0000]">*</span>
+          <BsInfoCircleFill className="text-[#1877f2] ms-2" />
+        </div>
+        <div className="border-1 border-[#C8C8C8] max-w-fit rounded-md">
+          <input
+            placeholder="www.qrangadi.com"
+            type="text"
+            id="poweredByWebsite"
+            value={poweredByWebsite}
+            onChange={(e) => setPoweredByWebsite(e.target.value)}
+            className="border-0 focus:ring-0 rounded-md placeholder:text-sm w-[330px]"
+          />
+        </div>
+      </div>
+      {/* appears as */}
+      <div className="w-[330px] min-w-fit mt-3">
+        <div className="flex items-center">
+          <label htmlFor="appearsAs" className="text-sm font-[600]">
+            Appears As
+          </label>
+          <span className="text-[#ED0000]">*</span>
+          <BsInfoCircleFill className="text-[#1877f2] ms-2" />
+        </div>
+        <div className="border-1 border-[#C8C8C8] max-w-fit rounded-md">
+          <input
+            placeholder="POWERED BY QR ANGADI"
+            type="text"
+            id="appearsAs"
+            value={appearsAs}
+            onChange={(e) => setAppeasAs(e.target.value)}
+            className="border-0 focus:ring-0 rounded-md placeholder:text-sm w-[330px]"
+          />
+        </div>
+      </div>
+      <div className="min-h-[1px] bg-[#C8C8C8] my-3"></div>
+      <div className="font-semibold text-lg mb-5">Start & Expiration date</div>
+      {/* start date */}
+      <div className="w-[330px] min-w-fit mt-3">
+        <div className="flex items-center">
+          <label htmlFor="startTime" className="text-sm font-[600]">
+            Starts On
+          </label>
+          <span className="text-[#ED0000]">*</span>
+          <BsInfoCircleFill className="text-[#1877f2] ms-2" />
+        </div>
+        <div className="border-1 border-[#C8C8C8] max-w-fit rounded-md">
+          <input
+            placeholder="Enter your Coupon Name"
+            type="datetime-local"
+            id="startTime"
+            value={startDate}
+            onChange={(e) => setStartDate(e.target.value)}
+            className="border-0 focus:ring-0 rounded-md placeholder:text-sm w-[330px]"
+          />
+        </div>
+      </div>{" "}
+      {/* End date */}
+      <div className="w-[330px] min-w-fit mt-3">
+        <div className="flex items-center">
+          <label htmlFor="endTime" className="text-sm font-[600]">
+            Ends On
+          </label>
+          <span className="text-[#ED0000]">*</span>
+          <BsInfoCircleFill className="text-[#1877f2] ms-2" />
+        </div>
+        <div className="border-1 border-[#C8C8C8] max-w-fit rounded-md">
+          <input
+            placeholder="Enter your Coupon Name"
+            type="datetime-local"
+            id="endTime"
+            value={endDate}
+            onChange={(e) => setEndDate(e.target.value)}
+            className="border-0 focus:ring-0 rounded-md placeholder:text-sm w-[330px]"
+          />
+        </div>
+      </div>
+      <div className="min-h-[1px] bg-[#C8C8C8] my-3"></div>
+      <div className="font-semibold text-lg mb-5">Coupon Appearance</div>
+      TO DO
+      <div className="min-h-[1px] bg-[#C8C8C8] my-3"></div>
+      <div className="font-semibold text-lg mb-5">Terms & Condition</div>
+      {/* coupon name */}
+      <div className="w-[330px] min-w-fit mt-3">
+        <div className="flex items-center">
+          <label htmlFor="title" className="text-sm font-[600]">
+            Title
+          </label>
+          <span className="text-[#ED0000]">*</span>
+          <BsInfoCircleFill className="text-[#1877f2] ms-2" />
+        </div>
+        <div className="border-1 border-[#C8C8C8] max-w-fit rounded-md">
+          <input
+            placeholder="Enter Title"
+            type="text"
+            id="title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            className="border-0 focus:ring-0 rounded-md placeholder:text-sm w-[330px]"
+          />
+        </div>
+      </div>
+      <div className=" min-w-fit mt-3 w-full">
+        <div className="flex items-center">
+          <label className="text-sm font-[600]">Content</label>
+          <span className="text-[#ED0000]">*</span>
+          <BsInfoCircleFill className="text-[#1877f2] ms-2" />
+        </div>
+        {/* <div className="border-1 border-[#C8C8C8] max-w-fit rounded-md"> */}
+        <ReactQuill
+          placeholder="Enter Terms and Conditions"
+          type="text"
+          modules={modules}
+          formats={formats}
+          bounds={".app"}
+          id="title"
+          value={termsAndConditions}
+          onChange={setTermsAndConditions}
+          className={`border-0 focus:ring-0 rounded-md placeholder:text-sm w-full editorContainer h-fit `}
+        />
+        {/* </div> */}
       </div>
     </div>
   );
 }
 
+/*
+ * Quill modules to attach to editor
+ * See https://quilljs.com/docs/modules/ for complete options
+ */
+let modules = {
+  toolbar: [
+    [{ header: "1" }, { header: "2" }, { font: [] }],
+    [{ size: [] }],
+    ["bold", "italic", "underline", "strike", "blockquote"],
+    [
+      { list: "ordered" },
+      { list: "bullet" },
+      { indent: "-1" },
+      { indent: "+1" },
+    ],
+    ["link", "image", "video"],
+    ["clean"],
+  ],
+  clipboard: {
+    // toggle to add extra line breaks when pasting HTML:
+    matchVisual: false,
+  },
+};
+/*
+ * Quill editor formats
+ * See https://quilljs.com/docs/formats/
+ */
+let formats = [
+  "header",
+  "font",
+  "size",
+  "bold",
+  "italic",
+  "underline",
+  "strike",
+  "blockquote",
+  "list",
+  "bullet",
+  "indent",
+  "link",
+  "image",
+  "video",
+];
 export default General;
