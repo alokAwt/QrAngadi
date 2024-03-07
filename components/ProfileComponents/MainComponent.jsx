@@ -42,6 +42,8 @@ import EditQR from "./EditQR";
 import { useRouter } from "next/navigation";
 import { GetProfile } from "@/Utility/Api/Users";
 import { DeleteProfileQr } from "@/Utility/QrType/DeleteQr";
+import { Spin } from "antd";
+
 
 const statusColorMap = {
   Dynamic: "success",
@@ -75,8 +77,9 @@ export default function MainComponent() {
   const [data, setData] = useState([]);
   const [profile, setProile] = useState("");
   const [isloading, setIsloading] = useState(false);
+
   const [sortDescriptor, setSortDescriptor] = React.useState({
-    column: "age",
+    column: "Qrtype",
     direction: "ascending",
   });
   const [page, setPage] = React.useState(1);
@@ -84,16 +87,30 @@ export default function MainComponent() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const { isOpen2, onOpen2, onClose2 } = useDisclosure();
 
+
   const GetQr = () => {
+    setIsloading(true); 
     GetProfile().then((res) => {
       setData(res?.data?.Qr?.reverse());
       setProile(res?.data);
+      setIsloading(false); 
     });
   };
-
+  
   useEffect(() => {
     GetQr();
   }, []);
+
+  // const GetQr = () => {
+  //   GetProfile().then((res) => {
+  //     setData(res?.data?.Qr?.reverse());
+  //     setProile(res?.data);
+  //   });
+  // };
+
+  // useEffect(() => {
+  //   GetQr();
+  // }, []);
 
   const handleDownload = (imageUrl, fileName) => {
     console.log("alok", imageUrl, fileName);
@@ -105,9 +122,9 @@ export default function MainComponent() {
     document.body.removeChild(link);
   };
 
-  const CloseLoading = () => {
-    setIsloading(false);
-  };
+  // const CloseLoading = () => {
+  //   setIsloading(false);
+  // };
 
   const DeleteQr = (id, type) => {
     setIsloading(true);
@@ -483,20 +500,9 @@ export default function MainComponent() {
     </div> */}
       <div className="flex w-full overflow-scroll mt-12 ">
         {isloading ? (
-          <div
-            style={{
-              position: "absolute",
-              left: "50%",
-              top: "50%",
-              transform: "translate(-50%, -50%)",
-              backgroundColor: "#fff",
-              padding: 20,
-              borderRadius: 20,
-              boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)", // Add box shadow here
-            }}
-          >
-            <Spinner></Spinner>
-          </div>
+
+          <Spin size="large" spinning={isloading} fullscreen />
+         
         ) : null}
 
         <Table
@@ -532,7 +538,10 @@ export default function MainComponent() {
               </TableColumn>
             )}
           </TableHeader>
-          <TableBody emptyContent={"No Qr found"} items={sortedItems}>
+          <TableBody emptyContent={"No Qr found"} items={sortedItems}
+          //  isLoading={isloading}
+          //  loadingContent={<Spinner label="Loading..." />}
+           >
             {(item) => (
               <TableRow
                 key={item.UniqueId}
