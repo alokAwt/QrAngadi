@@ -8,7 +8,7 @@ import General from "@/components/GamificationComponents/General";
 import PrizeSetting from "@/components/GamificationComponents/PrizeSetting";
 import ClaimAction from "@/components/GamificationComponents/ClaimAction";
 import Validation from "@/components/GamificationComponents/Validation";
-
+import MobileScreen from "@/components/MobileScreen/MobileScreen";
 function Page() {
   const params = useParams();
 
@@ -38,6 +38,18 @@ function Page() {
   const [endDate, setEndDate] = useState("");
   const [title, setTitle] = useState("");
   const [termsAndConditions, setTermsAndConditions] = useState("");
+  const [couponLogo, setCouponLogo] = useState("");
+  const [couponImage, setCouponImage] = useState("");
+  const [couponMainColor, setCouponMainColor] = useState("");
+  const [couponHFColor, setCouponHFColor] = useState("");
+  const [font, setFont] = useState("");
+  const [fontColor, setFontColor] = useState("");
+  const [buttonStyle, setButtonStyle] = useState("");
+  const [buttonColor, setButtonColor] = useState("");
+  const [buttonTextColor, setButtonTextColor] = useState("");
+  const [backgroundType, setBackgrountType] = useState("");
+  const [backgroundImage, setBackgroundImage] = useState("");
+
   let data = {
     params,
     couponName,
@@ -64,9 +76,30 @@ function Page() {
     setEndDate,
     title,
     setTitle,
-    // addcoupon appearance
+    couponLogo,
+    setCouponLogo,
+    couponImage,
+    setCouponImage,
     termsAndConditions,
     setTermsAndConditions,
+    couponMainColor,
+    setCouponMainColor,
+    couponHFColor,
+    setCouponHFColor,
+    font,
+    setFont,
+    fontColor,
+    setFontColor,
+    buttonStyle,
+    setButtonStyle,
+    buttonColor,
+    setButtonColor,
+    buttonTextColor,
+    setButtonTextColor,
+    backgroundType,
+    setBackgrountType,
+    backgroundImage,
+    setBackgroundImage,
   };
 
 
@@ -75,6 +108,8 @@ function Page() {
       <div className={`text-3xl font-semibold`}>Customize your Machine.</div>
 
       <DataContext.Provider value={data}>
+        {/* <MobileScreen /> */}
+
         <Tabs
           aria-label="Options"
           color="primary"

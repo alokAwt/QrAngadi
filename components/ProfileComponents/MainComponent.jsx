@@ -44,7 +44,6 @@ import { GetProfile } from "@/Utility/Api/Users";
 import { DeleteProfileQr } from "@/Utility/QrType/DeleteQr";
 import { Spin } from "antd";
 
-
 const statusColorMap = {
   Dynamic: "success",
   Static: "danger",
@@ -87,16 +86,15 @@ export default function MainComponent() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const { isOpen2, onOpen2, onClose2 } = useDisclosure();
 
-
   const GetQr = () => {
-    setIsloading(true); 
+    setIsloading(true);
     GetProfile().then((res) => {
       setData(res?.data?.Qr?.reverse());
       setProile(res?.data);
-      setIsloading(false); 
+      setIsloading(false);
     });
   };
-  
+
   useEffect(() => {
     GetQr();
   }, []);
@@ -122,9 +120,9 @@ export default function MainComponent() {
     document.body.removeChild(link);
   };
 
-  // const CloseLoading = () => {
-  //   setIsloading(false);
-  // };
+  const CloseLoading = () => {
+    setIsloading(false);
+  };
 
   const DeleteQr = (id, type) => {
     setIsloading(true);
@@ -174,12 +172,12 @@ export default function MainComponent() {
 
     if (hasSearchFilter) {
       filteredUsers = filteredUsers.filter((user) =>
-        (user.QrName?.toLowerCase() || '').includes(filterValue.toLowerCase())
+        (user.QrName?.toLowerCase() || "").includes(filterValue.toLowerCase())
       );
     }
-    filteredUsers = filteredUsers.filter((user) =>
-    user.QrName !== "use client"
-  );
+    filteredUsers = filteredUsers.filter(
+      (user) => user.QrName !== "use client"
+    );
     if (
       statusFilter !== "all" &&
       Array.from(statusFilter).length !== statusOptions.length
@@ -327,7 +325,7 @@ export default function MainComponent() {
             value={filterValue}
             variant="light"
             onClear={() => setFilterValue("")}
-            onChange={(e)=>onSearchChange(e.target.value)}
+            onChange={(e) => onSearchChange(e.target.value)}
           />
           <div className="flex gap-3">
             {/* <Dropdown>
@@ -384,7 +382,7 @@ export default function MainComponent() {
               className="ring-1 ring-buttoncolor text-buttoncolor"
               size="sm"
               variant="light"
-              onClick={()=>router.push("/QRcodesolution")}
+              onClick={() => router.push("/QRcodesolution")}
             >
               + Create QR Code
             </Button>
@@ -500,9 +498,7 @@ export default function MainComponent() {
     </div> */}
       <div className="flex w-full overflow-scroll mt-12 ">
         {isloading ? (
-
           <Spin size="large" spinning={isloading} fullscreen />
-         
         ) : null}
 
         <Table
@@ -538,10 +534,12 @@ export default function MainComponent() {
               </TableColumn>
             )}
           </TableHeader>
-          <TableBody emptyContent={"No Qr found"} items={sortedItems}
-          //  isLoading={isloading}
-          //  loadingContent={<Spinner label="Loading..." />}
-           >
+          <TableBody
+            emptyContent={"No Qr found"}
+            items={sortedItems}
+            //  isLoading={isloading}
+            //  loadingContent={<Spinner label="Loading..." />}
+          >
             {(item) => (
               <TableRow
                 key={item.UniqueId}
