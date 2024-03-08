@@ -15,6 +15,13 @@ import Preview from "../../public/gamification/Preview.png";
 import Spinwheel from "../../public/gamification/spinWheel.png";
 import Scratchcard from "../../public/gamification/scratch2.png";
 
+export const dataselect = [
+  {label: "option1", value: "option1" },
+  {label: "option2", value: "option2" },
+  {label: "option3", value:'option3' },
+ ]
+
+
 function PrizeSetting() {
   const data = useContext(DataContext);
   const [logo, setLogo] = useState(false);
@@ -22,6 +29,9 @@ function PrizeSetting() {
   const [backgroundColorwin, setBackgroundColorwin] = useState("#FFFF00");
   const [StrokeColor, setStrokeColor] = useState("#FFFF00");
   const [formatHex, setFormatHex] = useState("hex");
+  const [value, setValue] = React.useState(new Set([]));  //controlled select example
+
+  
 
   console.log(data.params.type);
 
@@ -82,9 +92,9 @@ function PrizeSetting() {
   return (
     <>
       <div className="flex flex-col justify-start items-start">
-        <div className="flex md:flex-row flex-col-reverse justify-between   w-full items-center mt-2">
-          <div className="flex flex-col justify-start items-start gap-4">
-            <p className="text-xs font-medium">
+        <div className="flex md:flex-row flex-col-reverse justify-between   w-full items-start mt-2">
+          <div className="flex flex-col justify-start items-start gap-2">
+            <p className="text-sm font-medium">
               Enter the details and set up the general settings of your coupon.
             </p>
             <Divider className="h-0.5 bg-gray-300" />
@@ -628,14 +638,24 @@ function PrizeSetting() {
               <p className="text-xs">
                 Action after Winning,<span className="text-red-400">*</span>
               </p>
+
+              {/* Controlled selectoption example */}
               <Select
+                      selectedKeys={value}
+                      onSelectionChange={setValue}
+
                 variant="bordered"
                 radius="sm"
                 size="sm"
-                label="Show Proceed button"
+                placeholder={ "Show Proceed button" || value}
+
                 className="w-96 bg-white rounded-none"
               >
-                <SelectItem>hii</SelectItem>
+                 {dataselect.map((item) => (
+          <SelectItem key={item.value} value={item.value}>
+            {item.label}
+          </SelectItem>
+        ))}
               </Select>
             </div>
             <div className="flex flex-col justify-start items-start gap-2">
@@ -646,7 +666,7 @@ function PrizeSetting() {
                 variant="bordered"
                 radius="sm"
                 size="sm"
-                className="w-96 bg-white rounded-none"
+                className="w-96 bg-white rounded-none hover:ring-buttoncolor"
               >
                 <SelectItem>hii</SelectItem>
               </Select>
