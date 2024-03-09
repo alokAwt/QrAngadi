@@ -84,7 +84,7 @@ function Imageslider() {
       description:
         "Get customers engaged with fun games like Spin and Win, Scratch Cards, and Lucky Draw. Upgrade your marketing with QR Angadi's gamification!",
       component: "",
-      Buttontext1: "Try Now",
+      Buttontext1:{ text: "Try Now", to: "/gamification" },
       Buttontext2: "",
       secoundimage: slide5,
     },
@@ -117,6 +117,7 @@ function Imageslider() {
                      style={{width:"100%"}}
                     className="md:h-[90vh] sm:h-{90vh]  h-[90vh] lg:h-[90vh]  object-fill "
                     src={slide.image}
+                    alt="sliderimage"
                   />
                   <div className="absolute  font-semibold w-[85%] flex justify-between items-center flex-col-reverse md:flex-row lg:flex-row">
                     <div className="gap-6 flex flex-col justify-start md:mt-0 mt-4">
@@ -152,6 +153,7 @@ function Imageslider() {
                         <Image
                           className="md:w-96 md:h-96 w-80 h-80"
                           src={slide.secoundimage}
+                          alt="sliderimage"
                         />
                       )}
                     </div>

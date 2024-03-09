@@ -74,7 +74,7 @@ const Formcard = () => {
       </div>
 
       <div className=" mt-12 shadow-2xl rounded-md h-auto mb-4 mx-auto w-full border-1 border-gray-300 p-4 flex flex-col md:flex-row justify-between items-center gap-12">
-        <div className="flex justify-center flex-col items-center px-2 w-full">
+        <div className="flex justify-center flex-col items-center md:px-2 w-full">
           <div>
             <Image className="h-72 w-72" src={Form} />
           </div>
@@ -102,7 +102,7 @@ const Formcard = () => {
           </div>
         </div>
 
-        <div className="w-full justify-center items-start gap-4 px-8">
+        <div className="w-full justify-center items-start gap-4 md:px-8">
           <div>
             <h6 className="font-bold text-2xl ">
               Let’s <span className="text-buttoncolor">talk!</span>
@@ -115,7 +115,7 @@ const Formcard = () => {
             <div className="flex w-full flex-wrap md:flex-nowrap gap-4 ">
               <form className="w-full">
                 <div className="grid gap-6 mb-6 md:grid-cols-2 w-full">
-                  <div>
+                  <div className="w-full">
                     <label
                       htmlFor="first_name"
                       className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
