@@ -42,6 +42,8 @@ function ValidationProvider({ children }) {
     setAfterValidationDescription,
     showDetailedInformation,
     setShowDetailedInformation,
+    buttonText,
+    setButtonText,
   };
   return (
     <ValidationContext.Provider value={validationData}>
