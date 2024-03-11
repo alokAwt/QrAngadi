@@ -43,28 +43,25 @@ import {
   Button,
   useDisclosure,
 } from "@nextui-org/react";
-import { Tabs, Tab  } from "@nextui-org/react";
+import { Tabs, Tab } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 import { GetProfile } from "@/Utility/Api/Users";
 import { MdDashboard } from "react-icons/md";
 import { RiQrCodeFill } from "react-icons/ri";
 import { IoIosArrowForward } from "react-icons/io";
 import { UseStatevalue } from "@/Utility/Contextfiles/StateProvider";
-import {usePathname } from 'next/navigation'
-
+import { usePathname } from "next/navigation";
 
 export default function App() {
-  const [{token},dispatch]=UseStatevalue()
-  const [selected, setSelected] =useState("Home");
+  const [{ token }, dispatch] = UseStatevalue();
+  const [selected, setSelected] = useState("Home");
 
-  const pathname=usePathname()
-
+  const pathname = usePathname();
 
   const [islogged, setislogin] = useState(false);
   const [data, setData] = useState("");
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const router = useRouter();
-
 
   useEffect(() => {
     switch (pathname) {
@@ -83,20 +80,18 @@ export default function App() {
       case "/Contactus":
         setSelected("Contactus");
         break;
+      case "/gamification":
+        setSelected("gamification");
+        break;
       default:
         setSelected("Home");
     }
   }, [pathname]);
-  
-  
-  
-
-  
 
   const getToken = () => {
     let token = localStorage.getItem("token");
     if (token) {
-    dispatch({ type: 'SET_TOKEN', token })
+      dispatch({ type: "SET_TOKEN", token });
       setislogin(true);
     }
     GetProfile().then((res) => {
@@ -123,7 +118,7 @@ export default function App() {
               <SheetHeader>
                 <SheetTitle className="flex  items-center gap-2">
                   <Image className="w-16 h-10" src={logo} />
-                  QR-Angadi 
+                  QR-Angadi
                 </SheetTitle>
                 <SheetDescription>
                   <div className="w-full">
@@ -203,7 +198,6 @@ export default function App() {
                           </div>
                         </SheetClose>
                       </div>
-                      
                     </div>
                   </div>
                 </SheetDescription>
@@ -220,58 +214,69 @@ export default function App() {
           justify="center"
         >
           <div className="flex max-w-full flex-col ">
-      <Tabs
-        aria-label="Options"
-        classNames={{
-          tabList: "gap-8 md:w-full lg:w-full  relative rounded-full p-1  text-black ",
-          cursor: "w-full bg-buttoncolor rounded-full   ",
-          tab: " px-4 h-6 flex justify-center items-center w-auto text-black no-underline text-gray-400 ",
-        }}
-        variant=""
-        selectedKey={selected}
-        onSelectionChange={setSelected}
-      >
-        <Tab
-          key="Home"
-          title={
-            <Link href="/">
-              <div className="flex items-center space-x-2 text-center">
-                <span className="font-medium">Home</span>
-              </div>
-            </Link>
-          }
-        ></Tab>
-        <Tab
-          key="Aboutus"
-          title={
-            <Link href="/Aboutus">
-              <div className="flex items-center space-x-2  ">
-                <span className="font-medium">About us</span>
-              </div>
-            </Link>
-          }
-        ></Tab>
-        <Tab
-          key="QRCodeSolutions"
-          title={
-            <Link href="/QRcodesolution">
-              <div className="flex items-center space-x-2  ">
-                <span className="font-medium">QR Code Solutions</span>
-              </div>
-            </Link>
-          }
-        ></Tab>
-        <Tab
-          key="Pricing"
-          title={
-            <Link href="/Pricing">
-              <div className="flex items-center space-x-2  ">
-                <span className="font-medium">Pricing</span>
-              </div>
-            </Link>
-          }
-        ></Tab>
-        {/* <Tab
+            <Tabs
+              aria-label="Options"
+              classNames={{
+                tabList:
+                  "gap-8 md:w-full lg:w-full  relative rounded-full p-1  text-black ",
+                cursor: "w-full bg-buttoncolor rounded-full   ",
+                tab: " px-4 h-6 flex justify-center items-center w-auto text-black no-underline text-gray-400 ",
+              }}
+              variant=""
+              selectedKey={selected}
+              onSelectionChange={setSelected}
+            >
+              <Tab
+                key="Home"
+                title={
+                  <Link href="/">
+                    <div className="flex items-center space-x-2 text-center">
+                      <span className="font-medium">Home</span>
+                    </div>
+                  </Link>
+                }
+              ></Tab>
+              <Tab
+                key="Aboutus"
+                title={
+                  <Link href="/Aboutus">
+                    <div className="flex items-center space-x-2  ">
+                      <span className="font-medium">About us</span>
+                    </div>
+                  </Link>
+                }
+              ></Tab>
+              <Tab
+                key="QRCodeSolutions"
+                title={
+                  <Link href="/QRcodesolution">
+                    <div className="flex items-center space-x-2  ">
+                      <span className="font-medium">QR Code Solutions</span>
+                    </div>
+                  </Link>
+                }
+              ></Tab>
+              <Tab
+                key="gamification"
+                title={
+                  <Link href="/gamification">
+                    <div className="flex items-center space-x-2  ">
+                      <span className="font-medium">Gamification</span>
+                    </div>
+                  </Link>
+                }
+              ></Tab>
+              <Tab
+                key="Pricing"
+                title={
+                  <Link href="/Pricing">
+                    <div className="flex items-center space-x-2  ">
+                      <span className="font-medium">Pricing</span>
+                    </div>
+                  </Link>
+                }
+              ></Tab>
+              {/* <Tab
           key="Profile"
           title={
             <Link href="/Profile">
@@ -281,22 +286,22 @@ export default function App() {
             </Link>
           }
         ></Tab> */}
-        <Tab
-          key="Contactus"
-          title={
-            <Link href="Contactus">
-              <div className="flex items-center space-x-2  ">
-                <span className="font-medium">Contact us</span>
-              </div>
-            </Link>
-          }
-        ></Tab>
-      </Tabs>
-    </div>
+              <Tab
+                key="Contactus"
+                title={
+                  <Link href="Contactus">
+                    <div className="flex items-center space-x-2  ">
+                      <span className="font-medium">Contact us</span>
+                    </div>
+                  </Link>
+                }
+              ></Tab>
+            </Tabs>
+          </div>
         </NavbarContent>
         <NavbarContent justify="end">
           <NavbarItem>
-            {( token !==null) ? (
+            {token !== null ? (
               <>
                 <Dropdown
                   showArrow
@@ -308,7 +313,9 @@ export default function App() {
                 >
                   <DropdownTrigger>
                     <Avatar
-                     icon={<FaUserCircle className="text-4xl text-buttoncolor"/>}
+                      icon={
+                        <FaUserCircle className="text-4xl text-buttoncolor" />
+                      }
                       className="ring-2 ring-buttoncolor  rounded-full"
                       size="md"
                     />
@@ -353,7 +360,7 @@ export default function App() {
                       </DropdownItem>
 
                       <DropdownItem
-                      className="mt-2"
+                        className="mt-2"
                         onPress={() => router.push("/Profile")}
                         key="Profile"
                       >
@@ -464,13 +471,12 @@ export default function App() {
                   className="bg-buttoncolor text-white"
                   onPress={() => (
                     deleteTokenCookie(router),
-                    dispatch({ type: 'LOGOUT'}),
+                    dispatch({ type: "LOGOUT" }),
                     localStorage.clear(),
                     getToken(),
                     onClose(),
                     router.push("/"),
                     router.refresh()
-                    
                   )}
                 >
                   Logout
