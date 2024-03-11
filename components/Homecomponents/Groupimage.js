@@ -6,13 +6,13 @@ import Image from 'next/image'
 
 const Groupimage = () => {
   return (
-    <div className='w-full flex flex-col items-center p-2'>
+    <div className='w-11/12 md:w-full flex flex-col items-center p-2'>
         <div className='flex justify-center items-center gap-2 ml-3 '>
-            <Image className='md:w-64 md:h-40' src={Group1}/>
-            <Image className='md:w-64 md:h-44 mt-3' src={Group2}/>
+            <Image className='md:w-64 md:h-40' src={Group1} alt='group1'/>
+            <Image className='md:w-64 md:h-44 mt-3' src={Group2} alt='group2'/>
         </div>
         <div className='md:w-11/12 w-full'>
-        <Image className='' src={Group3}/>
+        <Image className='' src={Group3} alt='group3'/>
         </div>
     </div>
   )

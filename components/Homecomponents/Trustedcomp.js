@@ -1,3 +1,4 @@
+'use client'
 import Image from "next/image";
 import React from "react";
 import Brand1 from "../../public/Brand/Brand1.png";
@@ -7,8 +8,10 @@ import Brand4 from "../../public/Brand/Brand4.png";
 import Brand5 from "../../public/Brand/Brand5.png";
 import { Button } from "@nextui-org/react";
 import { FaArrowRightLong } from "react-icons/fa6";
+import {  useRouter } from "next/navigation";
 
 const Trustedcomp = () => {
+  const router=useRouter()
   return (
     <div className="flex flex-col justify-center items-center gap-4 mt-16 mx-auto ">
     <div className="flex flex-col justify-center items-center mx-auto mt-12">
@@ -26,7 +29,7 @@ const Trustedcomp = () => {
         <Image className="w-auto h-12" src={Brand5} />
       </div>
     </div>
-      <div className="flex justify-center items-center md:gap-12 gap-12 mt-12  md:p-0 p-2 mx-auto flex-col md:flex-row">
+      <div className="flex justify-between items-center md:gap-24 gap-12 mt-12  md:p-0 p-2 mx-auto flex-col md:flex-row">
         <div className="flex flex-col justify-center gap-2 items-center mx-auto w-full ">
           <Button className="flex justify-between px-4 text-center h-20 bg-buttonopacitycolor rounded-sm md:w-96 w-full ">
             <span className="font-bold text-lg text-buttoncolor pt-6">
@@ -36,7 +39,7 @@ const Trustedcomp = () => {
               <FaArrowRightLong />
             </span>
           </Button>
-          <Button className="flex justify-between px-4 text-center h-20 bg-buttonopacitycolor rounded-sm md:w-96 w-full">
+          <Button onPress={()=>router.push('/gamification')} className="flex justify-between px-4 text-center h-20 bg-buttonopacitycolor rounded-sm md:w-96 w-full">
             <span className="font-bold text-lg text-buttoncolor pt-6">
               Gamification Solutions
             </span>
