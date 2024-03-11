@@ -15,7 +15,7 @@ const Layout = ({ children }) => {
 
   return (
     <main className="flex sticky top-0">
-      <div className="">
+      <div className="hidden md:flex">
         <Sidebar />
       </div>
       <div className="flex flex-col w-full">

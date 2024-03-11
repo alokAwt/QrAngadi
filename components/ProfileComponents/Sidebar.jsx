@@ -39,7 +39,7 @@ export default function Sidebar() {
     "flex justify-between  items-center   p-1 lg:p-2 rounded-md cursor-pointer bg-buttoncolor text-white";
 
   return (
-    <div className="hidden h-[100vh]  sticky top-0   bg-buttoncolor rounded-tr-2xl p-4 w-12 lg:w-60 lg:flex lg:flex-col justify-between">
+    <div className=" h-[100vh]  sticky top-0   bg-buttoncolor rounded-tr-2xl p-4 w-full lg:w-60 lg:flex lg:flex-col justify-between">
       <div className="flex flex-col gap-8 p-1 lg:p-2 ">
         <div className="flex gap-2 items-center ">
           <Image className="h-16 w-32" src={Logo} />

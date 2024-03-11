@@ -55,10 +55,10 @@ const Animateqr = () => {
           transition={{ duration: 1 }}
           onAnimationComplete={startAnimation}
         >
-          <Image className="md:w-96 md:h-96" src={QR} />
+          <Image className="md:w-96 md:h-96" src={QR} alt="QRimage" />
           {isShown && (
             <motion.div
-              className="md:w-40 w-32 h-1 bg-buttoncolor rounded-sm absolute md:top-24 top-20 md:ml-28 ml-24"
+              className="md:w-40 w-32 h-1 bg-buttoncolor rounded-sm absolute md:top-24 top-14 md:ml-28 ml-24"
               animate={isAnimated ? { y: [0, 160, 180, 50, 0] } : {}}
               transition={{ duration: 2 }}
               onAnimationComplete={handleAnimationComplete}
@@ -78,7 +78,7 @@ const Animateqr = () => {
                 }
                 transition={{ duration: 1, repeat: Infinity }}
               >
-                <Image className="h-10 w-10" src={Icon1} />
+                <Image className="h-10 w-10" src={Icon1} alt="iconsimage" />
               </motion.div>
               <motion.div
                 animate={
@@ -96,7 +96,7 @@ const Animateqr = () => {
                 }
                 transition={{ duration: 1, repeat: Infinity }}
               >
-                <Image className="h-10 w-10" src={Icon3} />
+                <Image className="h-10 w-10" src={Icon3} alt="iconimage"/>
               </motion.div>
               <motion.div
                 animate={
@@ -104,7 +104,7 @@ const Animateqr = () => {
                 }
                 transition={{ duration: 1, repeat: Infinity }}
               >
-                <Image className="h-10 w-10 " src={Icon4} />
+                <Image className="h-10 w-10 " src={Icon4} alt="iconimage"/>
               </motion.div>
             </div>
             <div className="flex justify-between items-center md:w-96 w-64">
@@ -114,7 +114,7 @@ const Animateqr = () => {
                 }
                 transition={{ duration: 1, repeat: Infinity }}
               >
-                <Image className="h-10 w-10" src={Icon5} />
+                <Image className="h-10 w-10" src={Icon5} alt="iconimage"/>
               </motion.div>
               <motion.div
                 animate={
@@ -122,7 +122,7 @@ const Animateqr = () => {
                 }
                 transition={{ duration: 1, repeat: Infinity }}
               >
-                <Image className="h-10 w-10" src={Icon3} />
+                <Image className="h-10 w-10" src={Icon3} alt="iconiamge" />
               </motion.div>
             </div>
             <div className="flex justify-between items-center md:w-72 w-52">
@@ -132,7 +132,7 @@ const Animateqr = () => {
                 }
                 transition={{ duration: 1, repeat: Infinity }}
               >
-                <Image className="h-10 w-10" src={Icon7} />
+                <Image className="h-10 w-10" src={Icon7} alt="iconiamge" />
               </motion.div>
               <motion.div
                 animate={
@@ -140,7 +140,7 @@ const Animateqr = () => {
                 }
                 transition={{ duration: 1, repeat: Infinity }}
               >
-                <Image className="h-10 w-10" src={Icon8} />
+                <Image className="h-10 w-10" src={Icon8} alt="iconiamge"/>
               </motion.div>
             </div>
           </motion.div>

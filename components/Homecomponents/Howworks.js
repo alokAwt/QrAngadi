@@ -116,7 +116,7 @@ const Howworks = () => {
         </div>
 
         <div className="md:w-2/4 lg:w-2/4 w-full">
-          <Image src={Vector} />
+          <Image src={Vector} alt="vectorimage"/>
         </div>
       </div>
     </div>

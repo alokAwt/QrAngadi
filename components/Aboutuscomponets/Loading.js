@@ -17,7 +17,7 @@ function Loading() {
         <Image className="md:w-80 md:h-80" src={QR} />
 
         <motion.div
-          className="md:w-40  w-32 h-1 bg-buttoncolor rounded-sm absolute md:top-72 top-36 md:ml-20 ml-24"
+          className="md:w-40  w-32 h-1 bg-buttoncolor rounded-sm absolute md:top-72 top-36 md:ml-20 ml-28"
           animate={{ y: [0, 150, 150, 50, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
         />
