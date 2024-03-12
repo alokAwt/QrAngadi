@@ -31,6 +31,7 @@ import { ToastAction } from "@/components/ui/toast";
 import { useRouter } from "next/navigation";
 import { UseStatevalue } from "@/Utility/Contextfiles/StateProvider";
 import { Spin } from "antd";
+import {sendTokenToServer} from '../../Utility/Authutils'
 
 export default function Signinmodal() {
   const [{ token }, dispatch] = UseStatevalue();
@@ -217,6 +218,7 @@ export default function Signinmodal() {
       Password: password,
     }).then((res) => {
       if (res.message === "success") {
+        sendTokenToServer(res.token)
         Settokenn(res.token);
         dispatch({ type: "SET_TOKEN", tokenn });
         localStorage.setItem("token", res.token);
@@ -228,6 +230,7 @@ export default function Signinmodal() {
         setIsloding(false);
         onOpenChange();
         router.push("/");
+        router.refresh()
       } else {
         setIsloding(false);
         toast({
@@ -254,7 +257,7 @@ export default function Signinmodal() {
         closeButton={
           <p>
             {" "}
-            <IoCloseCircle className="text-white bg-buttoncolor mt-2 hover:bg-none rounded-full text-3xl" />
+            <IoCloseCircle className="text-white bg-buttoncolor absolute md:right-8 md:top-8 right-2 top-2 hover:bg-none rounded-full text-3xl" />
           </p>
         }
         onOpenChange={onOpenChange}
@@ -282,11 +285,11 @@ export default function Signinmodal() {
           },
         }}
       >
-        <ModalContent className="h-auto py-4 flex justify-center items-center mx-auto bg-[url('/Auth/auth.png')] w-full">
+        <ModalContent className="h-auto md:py-4 flex justify-center items-center mx-auto md:bg-transparent bg-white w-full">
           {(onClose) => (
             <>
               <ModalBody className="w-full flex justify-center items-center mx-auto">
-                <div className="bg-white rounded-md md:p-4 lg:p-4 p-2 md:w-[95%] lg:w-full flex flex-col justify-center gap-4">
+                <div className="bg-white rounded-md md:p-4 lg:p-4  md:w-[95%] w-full p-2 lg:w-full flex flex-col justify-center gap-4">
                   <div className="mt-4 md:w-96 lg:w-96 mx-auto">
                     <Tabs
                       variant="bordered"

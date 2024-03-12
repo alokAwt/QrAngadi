@@ -10,7 +10,7 @@ const Gamification = () => {
     <div className="w-full bg-[#FFF4F1] h-auto mt-2 md:mt-12 flex justify-center items-center p-2">
       <div className="flex md:flex-row flex-col justify-center mx-auto items-center py-12">
         <div className="flex justify-start items-start md:mr-24 mr-0">
-          <Image className="md:w-[32rem] w-[20rem] md:h-80" src={Gamification1} />
+          <Image className="md:w-[32rem] w-[20rem] md:h-80" src={Gamification1} alt="gamification" />
         </div>
 
         <div className="gap-4 flex flex-col md:justify-start items-center md:mt-0 mt-4 p-2">
@@ -23,15 +23,15 @@ const Gamification = () => {
           <div className="flex justify-center items-center ">
             <div className="flex justify-between gap-8 items-center">
                 <div className="flex flex-col justify-center items-center gap-2">
-                    <Image className="md:h-24  md:w-24 h-20 w-20" src={Spinandwin}/>
+                    <Image className="md:h-24  md:w-24 h-20 w-20" src={Spinandwin} alt="sppinerimage"/>
                     <span className="text-sm font-medium">Spin & Win</span>
                 </div>
                 <div className="flex flex-col justify-center items-center gap-2">
-                    <Image className="md:h-24  md:w-24 h-20 w-20" src={Scratchandwin}/>
+                    <Image className="md:h-24  md:w-24 h-20 w-20" src={Scratchandwin} alt="scratchiamge"/>
                     <span className="text-sm font-medium">Scratch Cards</span>
                 </div>
                 <div className="flex flex-col justify-center items-center gap-2">
-                    <Image className="md:h-24  md:w-24 h-20 w-20" src={Luckywin}/>
+                    <Image className="md:h-24  md:w-24 h-20 w-20" src={Luckywin} alt="luckywin"/>
                     <span className="text-sm font-medium">Lucky Win</span>
                 </div>
             </div>

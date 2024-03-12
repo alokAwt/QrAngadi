@@ -32,6 +32,7 @@ import { useRouter } from "next/navigation";
 import { UseStatevalue } from "@/Utility/Contextfiles/StateProvider";
 import { LoadingOutlined } from "@ant-design/icons";
 import { Spin } from "antd";
+import { sendTokenToServer } from "../../Utility/Authutils";
 
 export default function Loginpage() {
   const [{ token }, dispatch] = UseStatevalue();
@@ -217,6 +218,7 @@ export default function Loginpage() {
       Password: password,
     }).then((res) => {
       if (res.message === "success") {
+        sendTokenToServer(res.token);
         Settokenn(res.token);
         dispatch({ type: "SET_TOKEN", tokenn });
         localStorage.setItem("token", res.token);
@@ -228,6 +230,7 @@ export default function Loginpage() {
         setIsloding(false);
         onOpenChange();
         router.push("/");
+        router.refresh()
       } else {
         setIsloding(false);
         toast({
