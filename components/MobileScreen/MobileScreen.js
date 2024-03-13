@@ -4,9 +4,9 @@ import styles from "./index.module.css";
 function MobileScreen() {
   return (
     <div
-      className={`relative min-h-[500px] max-w-[250px] ${styles.mobileContainer}`}
+      className={`relative min-h-[500px] max-w-[300px] ${styles.mobileContainer}`}
     >
-      <div className="w-[95%] mx-auto min-h-[500px] bg-[gray] relative p-5 pt-[50px] rounded-[55px]">
+      <div className="w-[95%] mx-auto min-h-[600px] bg-[gray] relative p-5 pt-[50px] rounded-[55px]">
         {/* data on mobie screen */}
       </div>
       <div className="absolute w-full h-full bg-transparent top-0 left-0 z-10">

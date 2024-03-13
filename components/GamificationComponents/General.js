@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import { DataContext } from "@/app/gamification/[type]/page";
 import { BsInfoCircleFill } from "react-icons/bs";
 import { Button, Select, SelectItem } from "@nextui-org/react";
-
+import MobileScreen from "../MobileScreen/MobileScreen";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import "./index.css";
@@ -71,6 +71,9 @@ function General() {
       <p>Enter the details and set up the general settings of your coupon.</p>
       <div className="min-h-[1px] bg-[#C8C8C8] my-3"></div>
       <div className="font-semibold text-lg mb-5">General Setting</div>
+      <div className="absolute w-[300px] right-[65px] top-[150px]">
+        <MobileScreen />
+      </div>
       {/* coupon name */}
       <div className="w-[330px] min-w-fit mt-3">
         <div className="flex items-center">

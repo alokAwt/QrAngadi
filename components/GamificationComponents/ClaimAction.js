@@ -7,7 +7,7 @@ import { RxCross1 } from "react-icons/rx";
 import { TbCheck } from "react-icons/tb";
 import Preview from "../../public/gamification/Preview.png";
 import Image from "next/image";
-
+import MobileScreen from "../MobileScreen/MobileScreen";
 const PersonalData = [{ label: "Personal Data", value: "personaldata" }];
 
 const classNamesforswitch = {
@@ -45,6 +45,9 @@ function ClaimAction() {
 
           <div className="flex flex-col justify-start items-start mt-2">
             <p className="text-sm  font-semibold">Choose action</p>
+          </div>
+          <div className="absolute w-[300px] right-[65px] top-[150px]">
+            <MobileScreen />
           </div>
           <div className="flex flex-col justify-start items-start gap-2 w-full">
             <p className="text-xs">
@@ -215,9 +218,9 @@ function ClaimAction() {
             />
           </div>
         </div>
-        <div>
+        {/* <div>
           <Image className="h-[40rem]" src={Preview} />
-        </div>
+        </div> */}
       </div>
       <Divider className="mt-4" />
     </div>

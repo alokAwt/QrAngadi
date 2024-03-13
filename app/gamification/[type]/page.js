@@ -377,7 +377,6 @@ function Page() {
             {data.params.type === "slot-machine" && `Customize your Machine.`}
             {data.params.type === "scratch-card" && `Customize your Card.`}
           </div>
-          {/* <MobileScreen /> */}
           <Tabs
             aria-label="Options"
             color="primary"
