@@ -217,3 +217,21 @@ export const CheckUserValidation = async (data) => {
     return error.message;
   }
 };
+
+//-------------------Google Login----------------------//
+
+export const GoogleLoginUser = async (token) => {
+  try {
+    let result = await fetch(`${BaseUrl}/Users/Login/Google`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        token: token,
+      },
+    });
+    result = await result.json();
+    return result;
+  } catch (error) {
+    return error.message;
+  }
+};

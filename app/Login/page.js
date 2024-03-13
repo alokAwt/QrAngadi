@@ -25,6 +25,7 @@ import {
   SignInUsers,
   SignUpUsers,
   CheckUserValidation,
+  GoogleLoginUser,
 } from "@/Utility/Api/Users";
 import { useToast } from "../../components/ui/usetoast";
 import { ToastAction } from "@/components/ui/toast";
@@ -33,6 +34,7 @@ import { UseStatevalue } from "@/Utility/Contextfiles/StateProvider";
 import { LoadingOutlined } from "@ant-design/icons";
 import { Spin } from "antd";
 import { sendTokenToServer } from "../../Utility/Authutils";
+import { GoogleLogin } from "@react-oauth/google";
 
 export default function Loginpage() {
   const [{ token }, dispatch] = UseStatevalue();
@@ -230,7 +232,7 @@ export default function Loginpage() {
         setIsloding(false);
         onOpenChange();
         router.push("/");
-        router.refresh()
+        router.refresh();
       } else {
         setIsloding(false);
         toast({
@@ -239,6 +241,25 @@ export default function Loginpage() {
           description: res.message,
           action: <ToastAction altText="Try again">Try again</ToastAction>,
         });
+      }
+    });
+  };
+
+  const LoginWithGoogle = (token) => {
+   GoogleLoginUser(token).then((res) => {
+      if (res.status === "success") {
+        sendTokenToServer(res.token);
+        Settokenn(res.token);
+        dispatch({ type: "SET_TOKEN", tokenn });
+        localStorage.setItem("token", res.token);
+        toast({
+          variant: "",
+          title: "Successfully Loged in.",
+          description: "",
+        });
+        onOpenChange();
+        router.push("/");
+        router.refresh();
       }
     });
   };
@@ -408,7 +429,12 @@ export default function Loginpage() {
                         >
                           I agree -
                         </Checkbox>
-                        <Link color="primary" href="/Termsandconditions" h size="xs">
+                        <Link
+                          color="primary"
+                          href="/Termsandconditions"
+                          h
+                          size="xs"
+                        >
                           <span className="ml-auto text-xs text-buttoncolor">
                             Terms & Condition
                           </span>
@@ -430,6 +456,14 @@ export default function Loginpage() {
                             "Sign up"
                           )}
                         </Button>
+                        <GoogleLogin
+                            onSuccess={(credentialResponse) => {
+                              LoginWithGoogle(credentialResponse.credential);
+                            }}
+                            onError={() => {
+                              console.log("Login Failed");
+                            }}
+                          />
                         <p className="text-xs">
                           Already a member?
                           <span
@@ -513,6 +547,14 @@ export default function Loginpage() {
                       "Log in"
                     )}
                   </Button>
+                  <GoogleLogin
+                            onSuccess={(credentialResponse) => {
+                              LoginWithGoogle(credentialResponse.credential);
+                            }}
+                            onError={() => {
+                              console.log("Login Failed");
+                            }}
+                          />
                   <p className="text-sm">
                     New member?
                     <span
