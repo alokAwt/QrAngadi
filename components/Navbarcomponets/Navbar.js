@@ -83,6 +83,15 @@ export default function App() {
       case "/gamification":
         setSelected("gamification");
         break;
+      case "/gamification/spin-wheel":
+        setSelected("gamification");
+        break;
+      case "/gamification/scratch-card":
+        setSelected("gamification");
+        break;
+      case "/gamification/slot-machine":
+        setSelected("gamification");
+        break;
       default:
         setSelected("Home");
     }

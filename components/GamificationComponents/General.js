@@ -65,6 +65,7 @@ function General() {
   const fontsList = ["Poppins", "Sans Serif", "Roboto"];
   const backgroundTypes = ["Image", "gif", "mp4"];
   const buttonStyles = ["Square", "rounded"];
+
   return (
     <div className="mt-5">
       <p>Enter the details and set up the general settings of your coupon.</p>
