@@ -31,7 +31,7 @@ import { ToastAction } from "@/components/ui/toast";
 import { useRouter } from "next/navigation";
 import { UseStatevalue } from "@/Utility/Contextfiles/StateProvider";
 import { Spin } from "antd";
-import {sendTokenToServer} from '../../Utility/Authutils'
+import { sendTokenToServer } from "../../Utility/Authutils";
 
 export default function Signinmodal() {
   const [{ token }, dispatch] = UseStatevalue();
@@ -218,7 +218,7 @@ export default function Signinmodal() {
       Password: password,
     }).then((res) => {
       if (res.message === "success") {
-        sendTokenToServer(res.token)
+        sendTokenToServer(res.token);
         Settokenn(res.token);
         dispatch({ type: "SET_TOKEN", tokenn });
         localStorage.setItem("token", res.token);
@@ -230,7 +230,7 @@ export default function Signinmodal() {
         setIsloding(false);
         onOpenChange();
         router.push("/");
-        router.refresh()
+        router.refresh();
       } else {
         setIsloding(false);
         toast({
