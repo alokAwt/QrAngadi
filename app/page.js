@@ -10,14 +10,10 @@ import FAQ from "@/components/Homecomponents/FAQ";
 import Loading from "@/components/Aboutuscomponets/Loading";
 
 export default function Home() {
-
-
-
-
   
   return (
-    <main >
-      <Imageslider/>
+    <main>
+      <Imageslider />
       <Trustedcomp />
       <Howworks />
       <TimelineQR />

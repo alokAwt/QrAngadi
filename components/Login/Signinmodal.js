@@ -20,11 +20,13 @@ import Authgif from "../../public/Auth/authGif.gif";
 import Image from "next/image";
 import Link from "next/link";
 import { IoCloseCircle } from "react-icons/io5";
+
 import {
   OtpSend,
   SignInUsers,
   SignUpUsers,
   CheckUserValidation,
+  GoogleLoginUser,
 } from "@/Utility/Api/Users";
 import { useToast } from "../../components/ui/usetoast";
 import { ToastAction } from "@/components/ui/toast";
@@ -32,6 +34,7 @@ import { useRouter } from "next/navigation";
 import { UseStatevalue } from "@/Utility/Contextfiles/StateProvider";
 import { Spin } from "antd";
 import { sendTokenToServer } from "../../Utility/Authutils";
+import { GoogleLogin } from "@react-oauth/google";
 
 export default function Signinmodal() {
   const [{ token }, dispatch] = UseStatevalue();
@@ -47,7 +50,6 @@ export default function Signinmodal() {
   const [otpOpen, setOtpOpen] = useState(false);
   const [incomingOtp, setIncomingOtp] = useState("");
   const [tokenn, Settokenn] = useState("");
-
   const [signupchecked, setSignupchecked] = useState(false);
 
   const router = useRouter();
@@ -239,6 +241,25 @@ export default function Signinmodal() {
           description: res.message,
           action: <ToastAction altText="Try again">Try again</ToastAction>,
         });
+      }
+    });
+  };
+
+  const LoginWithGoogle = (token) => {
+    GoogleLoginUser(token).then((res) => {
+      if (res.status === "success") {
+        sendTokenToServer(res.token);
+        Settokenn(res.token);
+        dispatch({ type: "SET_TOKEN", tokenn });
+        localStorage.setItem("token", res.token);
+        toast({
+          variant: "",
+          title: "Successfully Loged in.",
+          description: "",
+        });
+        onOpenChange();
+        router.push("/");
+        router.refresh();
       }
     });
   };
@@ -497,6 +518,17 @@ export default function Signinmodal() {
                                     "Sign up"
                                   )}
                                 </Button>
+                                <GoogleLogin
+                                  onSuccess={(credentialResponse) => {
+                                    LoginWithGoogle(
+                                      credentialResponse.credential
+                                    );
+                                  }}
+                                  onError={() => {
+                                    console.log("Login Failed");
+                                  }}
+                                />
+
                                 <p className="text-xs">
                                   Already a member?
                                   <span
@@ -586,6 +618,14 @@ export default function Signinmodal() {
                               "Log in"
                             )}
                           </Button>
+                          <GoogleLogin
+                            onSuccess={(credentialResponse) => {
+                              LoginWithGoogle(credentialResponse.credential);
+                            }}
+                            onError={() => {
+                              console.log("Login Failed");
+                            }}
+                          />
                           <p className="text-sm">
                             New member?
                             <span

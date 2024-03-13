@@ -13,6 +13,7 @@ import { StateProvider } from "@/Utility/Contextfiles/StateProvider";
 import { initialState } from "@/Utility/Contextfiles/initialState";
 import reducer from "@/Utility/Contextfiles/reducer";
 import { useRouter } from "next/navigation";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 const font = Poppins({
   subsets: ["latin"],
@@ -37,30 +38,32 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={font.className}>
       <StateProvider initialState={initialState} reducer={reducer}>
-        <body className="scrollbar-hide md:scrollbar-default sm:scrollbar-default lg:scrollbar-default">
-          <AntdRegistry>
-            <NextUIProvider>
-              <main className="">
-                <div className="">
-                  {pathname === "/Profile" ||
-                  pathname.startsWith("/Analytics") ||
-                  pathname === "/Profile/settings" ||
-                  pathname === "/Login" ? null : (
-                    <Navbar />
-                  )}
-                  {children}
-                  <Toaster />
-                  {pathname === "/Profile" ||
-                  pathname.startsWith("/Analytics") ||
-                  pathname === "/Profile/settings" ||
-                  pathname === "/Login" ? null : (
-                    <Footernav />
-                  )}
-                </div>
-              </main>
-            </NextUIProvider>
-          </AntdRegistry>
-        </body>
+        <GoogleOAuthProvider clientId="756205924792-fne212j4eil3dj99ain2deme3o083opr.apps.googleusercontent.com">
+          <body className="scrollbar-hide md:scrollbar-default sm:scrollbar-default lg:scrollbar-default">
+            <AntdRegistry>
+              <NextUIProvider>
+                <main className="">
+                  <div className="">
+                    {pathname === "/Profile" ||
+                    pathname.startsWith("/Analytics") ||
+                    pathname === "/Profile/settings" ||
+                    pathname === "/Login" ? null : (
+                      <Navbar />
+                    )}
+                    {children}
+                    <Toaster />
+                    {pathname === "/Profile" ||
+                    pathname.startsWith("/Analytics") ||
+                    pathname === "/Profile/settings" ||
+                    pathname === "/Login" ? null : (
+                      <Footernav />
+                    )}
+                  </div>
+                </main>
+              </NextUIProvider>
+            </AntdRegistry>
+          </body>
+        </GoogleOAuthProvider>
       </StateProvider>
     </html>
   );
