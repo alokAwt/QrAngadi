@@ -10,6 +10,8 @@ import ClaimAction from "@/components/GamificationComponents/ClaimAction";
 import Validation from "@/components/GamificationComponents/Validation";
 import MobileScreen from "@/components/MobileScreen/MobileScreen";
 import ValidationProvider from "@/Utility/Contextfiles/GamificationCustomizationContext/ValidationContext";
+import {sendDataToServer} from '../../../Utility/Api/Gamification'
+
 function Page() {
   const params = useParams();
 
@@ -76,7 +78,7 @@ function Page() {
     { slot: 1, prizeName: "Jackpot", amount: 200 },
   ]);
 
-  const [personaldata, Setpersonaldata] = useState([]);
+  const [personaldata, Setpersonaldata] = useState();
 
   //------------------------------------claim action state-----------------------------
   const [switchStates, setSwitchStates] = useState([
@@ -149,9 +151,7 @@ function Page() {
   };
 
   const sendDataToBackend = (labels) => {
-    console.log("Sending labels to backend:", labels);
     Setpersonaldata(labels);
-    console.log(personaldata);
   };
 
   useEffect(() => {
@@ -327,7 +327,7 @@ function Page() {
         RetryAfterLoss: data.retryAfterLoss,
       },
       ClaimAction: {
-        PersonalData: data.pesonaldata,
+        PersonalData: data.personaldata,
         ButtonText: data.ButtonText,
       },
       Validation: {
@@ -342,32 +342,16 @@ function Page() {
 
   const handleSubmit = async () => {
     try {
-      const formattedData = formatDataForServer(data);
-      await sendDataToServer(formattedData);
+      const formattedData =  formatDataForServer(data);
+      console.log(formattedData)
+      sendDataToServer(formattedData);
       console.log("game created successfully");
     } catch (error) {
       console.error("Error submitting data:", error);
-    }
+    } 
   };
 
-  // send data to send
-  function sendDataToServer(data) {
-    fetch("Gamification/game/create", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Failed to send data to the server");
-        }
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  }
+ 
 
   return (
     <div className={`p-16`}>
@@ -436,7 +420,7 @@ function Page() {
           </Tabs>
           {selected === "validation" ? (
             <div className="w-full flex-col mx-4 mt-4 flex justify-start items-start gap-2">
-              <Button className="bg-buttoncolor rounded-sm text-white w-44">
+              <Button onPress={handleSubmit} className="bg-buttoncolor rounded-sm text-white w-44">
                 Launch Campaign
               </Button>
               <Button
