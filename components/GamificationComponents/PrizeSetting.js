@@ -217,9 +217,6 @@ function PrizeSetting() {
             {params.type === "slot-machine" && (
               <div className="flex-col justify-start items-start gap-4  w-full">
                 <p className="font-sm font-semibold mb-2">Machine Appearance</p>
-                <div className="absolute w-[300px] right-[65px] top-[150px]">
-                  <MobileScreen />
-                </div>
                 <span className="md:text-sm text-xs font-bold flex flex-row items-center gap-1">
                   Machine<span className="text-red-500">*</span>
                 </span>
@@ -528,6 +525,10 @@ function PrizeSetting() {
                 />
               </div>
             </div>
+          </div>
+
+          <div  className="absolute w-[300px] right-[65px] top-[150px]">
+           <MobileScreen/>
           </div>
         </div>
 

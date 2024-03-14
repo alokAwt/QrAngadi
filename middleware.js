@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server'
 export function middleware(request) {
     let token = request.cookies.get('token')
 
-  if (request.nextUrl.pathname.startsWith('/gamification')) {
+  if (request.nextUrl.pathname.startsWith('/ggamification')) {
     if (token?.value===undefined) {
         return NextResponse.rewrite(new URL('/Login', request.url))
       }
