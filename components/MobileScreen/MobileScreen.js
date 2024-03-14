@@ -4,6 +4,9 @@ import Image from "next/image";
 import styles from "./index.module.css";
 import { DataContext } from "@/app/gamification/[type]/page";
 import test from "./util";
+import Spinwheel from "../../public/gamification/spinWheel.png";
+import Scratchcard from "../../public/gamification/scratch2.png";
+import Uploadimage from "../../public/QRgenerate/Upload.png";
 
 function Header({ color, logo }) {
   return (
@@ -30,7 +33,9 @@ function Header({ color, logo }) {
           }}
         />
       ) : (
-        <p>Logo</p>
+        <p className="text-black text-center text-4xl uppercase font-bold">
+          Your Logo
+        </p>
       )}
     </div>
   );
@@ -45,8 +50,25 @@ function MobileScreen() {
     couponLogo,
     couponHFColor,
     appearsAs,
+    buttonStyle,
+    buttonColor,
+    buttonTextColor,
     slotmachineimage,
+    Spinnerimage,
+    Scratchimage,
   } = data;
+
+  let machineImage = undefined;
+
+  if (data.params.type === "spin-wheel") {
+    machineImage = Spinnerimage;
+  }
+  if (data.params.type === "slot-machine") {
+    machineImage = slotmachineimage;
+  }
+  if (data.params.type === "scratch-card") {
+    machineImage = Spinnerimage;
+  }
 
   useEffect(() => {
     test(data.backgroundImage, "mobileContainer");
@@ -93,6 +115,76 @@ function MobileScreen() {
           {couponSubtitle.title}
         </p>
         {/* 5)machine appeareance from prize setting */}
+        {/* <Image
+          src={logo}
+          height={0}
+          width={100}
+          style={{
+            objectFit: "contain",
+            height: "auto",
+          }}
+        /> */}
+        <div className="flex justify-center items-center my-auto flex-col">
+          {data.params.type === "slot-machine" ? (
+            slotmachineimage ? (
+              <Image
+                className="w-40 h-32 object-contain"
+                width={160}
+                height={128}
+                alt="uploadslotmachine"
+                src={slotmachineimage}
+              />
+            ) : (
+              <Image
+                className="w-40 h-32 object-contain"
+                alt="upload image"
+                src={Uploadimage}
+              />
+            )
+          ) : null}
+          {data.params.type === "spin-wheel" ? (
+            Spinnerimage ? (
+              <Image
+                className="w-40 h-24 object-contain"
+                width={160}
+                height={128}
+                alt="upload image"
+                src={Spinnerimage}
+              />
+            ) : (
+              <Image
+                className="w-40 h-24 object-contain"
+                alt="upload image"
+                src={Spinwheel}
+              />
+            )
+          ) : null}
+          {data.params.type === "scratch-card" ? (
+            Scratchimage ? (
+              <img
+                className="w-40 h-24 object-contain"
+                alt="upload image"
+                src={Scratchimage}
+              />
+            ) : (
+              <Image
+                className="w-40 h-24 object-contain"
+                alt="upload image"
+                src={Scratchcard}
+              />
+            )
+          ) : null}
+          <button
+            className="border-0 text-sm font-semibold mt-2 p-2 w-full"
+            style={{
+              backgroundColor: buttonColor ? buttonColor : "red",
+              color: buttonTextColor ? buttonTextColor : "white",
+            }}
+          >
+            click here to play
+          </button>
+        </div>
+
         <div
           className="flex flex-col justify-center items-center"
           style={{
