@@ -16,16 +16,18 @@ function Page() {
   // general settings
   const [couponName, setCouponName] = useState("");
   const [couponTitle, setCouponTitle] = useState({
-    title: "",
+    title: "win mystery prize!",
     bold: false,
     italic: false,
     pixel: 20,
+    color: "",
   });
   const [couponSubtitle, setCouponSubtitle] = useState({
-    title: "",
+    title: "Here comes the subtitle",
     bold: false,
     italic: false,
     pixel: 20,
+    color: "",
   });
 
   const [campaignLanguage, setCampaignLanguage] = useState("English");
@@ -34,7 +36,7 @@ function Page() {
 
   const [poweredByName, setPoweredByName] = useState("");
   const [poweredByWebsite, setPoweredByWebsite] = useState("");
-  const [appearsAs, setAppeasAs] = useState("");
+  const [appearsAs, setAppeasAs] = useState("powered by qr angadi");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [title, setTitle] = useState("");
