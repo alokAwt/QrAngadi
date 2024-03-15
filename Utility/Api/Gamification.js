@@ -2,21 +2,57 @@ import { BaseUrl } from "./BaseUrl";
 
 export const sendDataToServer = async (data) => {
   let token = localStorage.getItem("token");
-
-  fetch(`${BaseUrl}/Gamification/game/create`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      token: token,
-    },
-    body: JSON.stringify(data),
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Failed to send data to the server");
-      }
-    })
-    .catch((error) => {
-      console.error("Error:", error);
+  try {
+    let result = await fetch(`${BaseUrl}/Gamification/game/create`, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "content-type": "application/json",
+        token: token,
+      },
     });
+    result = await result.json();
+    return result;
+  } catch (error) {
+    return error.message;
+  }
+};
+
+
+
+export const Getgames = async (id) => {
+  let token = localStorage.getItem("token");
+  try {
+    let result = await fetch(`${BaseUrl}/Gamification${id}`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        token: token,
+      },
+    });
+    result = await result.json();
+    return result;
+  } catch (error) {
+    return error.message;
+  }
+};
+
+
+
+export const Savedgames = async (data) => {
+  let token = localStorage.getItem("token");
+  try {
+    let result = await fetch(`${BaseUrl}/Gamification`, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "content-type": "application/json",
+        token: token,
+      },
+    });
+    result = await result.json();
+    return result;
+  } catch (error) {
+    return error.message;
+  }
 };

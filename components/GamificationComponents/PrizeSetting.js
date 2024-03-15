@@ -804,7 +804,7 @@ function PrizeSetting() {
                     e.preventDefault();
                     const newRow = {
                       slot: parseInt(e.target.slot.value),
-                      prizeName: e.target.prizeName.value,
+                      Name: e.target.prizeName.value,
                       amount: parseInt(e.target.amount.value),
                     };
                     SetprizeList([...prizeList, newRow]);
