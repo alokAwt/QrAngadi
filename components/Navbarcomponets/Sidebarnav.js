@@ -69,6 +69,21 @@ function Sidebarnav() {
             className="flex justify-between items-center px-3 w-full bg-buttoncolor rounded-sm"
           >
             <div className="flex justify-center items-center gap-2 text-white">
+              <MdDashboard />
+              <span>
+                {" "}
+                <Link href="/gamification">Gamification</Link>
+              </span>
+            </div>
+            <IoIosArrowForward className="text-white" />
+          </Button>
+        </div>
+        <div className="w-full mx-auto">
+          <Button
+            variant="solid"
+            className="flex justify-between items-center px-3 w-full bg-buttoncolor rounded-sm"
+          >
+            <div className="flex justify-center items-center gap-2 text-white">
               <RiQrCodeFill />
               <span>
                 <Link href="/Pricing">Pricing</Link>

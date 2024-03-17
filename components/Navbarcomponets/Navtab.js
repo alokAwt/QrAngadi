@@ -29,6 +29,9 @@ export default function Navtab() {
       case "/Contactus":
         setSelected("Contactus");
         break;
+      case "/gamification":
+        setSelected("gamification");
+        break;
       default:
         setSelected("Home");
     }
@@ -74,6 +77,16 @@ export default function Navtab() {
             <Link href="/QRcodesolution">
               <div className="flex items-center space-x-2  ">
                 <span className="font-medium">QR Code Solutions</span>
+              </div>
+            </Link>
+          }
+        ></Tab>
+        <Tab
+          key="gamification"
+          title={
+            <Link href="/gamification">
+              <div className="flex items-center space-x-2  ">
+                <span className="font-medium">Gamification</span>
               </div>
             </Link>
           }

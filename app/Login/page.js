@@ -26,6 +26,7 @@ import {
   SignUpUsers,
   CheckUserValidation,
   GoogleLoginUser,
+  ForgetPasswordUser,
 } from "@/Utility/Api/Users";
 import { useToast } from "../../components/ui/usetoast";
 import { ToastAction } from "@/components/ui/toast";
@@ -51,6 +52,14 @@ export default function Loginpage() {
   const [incomingOtp, setIncomingOtp] = useState("");
   const [tokenn, Settokenn] = useState("");
   const [signupchecked, setSignupchecked] = useState(false);
+
+
+  const [forgetEmail, setForgetEmail] = useState(false);
+  const [forgetOtp, setForgetOtp] = useState(false);
+  const [forgetPasswords, setForgetPasswords] = useState(false);
+  const [forgetPassword, setForgetPassword] = useState("");
+  const [conforms, setConforms] = useState("");
+
 
   const router = useRouter();
 
@@ -264,6 +273,105 @@ export default function Loginpage() {
     });
   };
 
+  const ChangePassword = () => {
+    CheckUserValidation({
+      email: email,
+      number: 10,
+    }).then((res) => {
+      console.log(res);
+      if (res.status === "failed") {
+        OtpSend({
+          Email: email,
+        }).then((res) => {
+          console.log(res);
+          if (res.message === "success") {
+            toast({
+              variant: "",
+              title: "Otp Send Successfully.",
+              description: "",
+            });
+            setForgetEmail(false);
+            setIncomingOtp(res.otp);
+            setIsloding(false);
+            setForgetOtp(true);
+          } else {
+            toast({
+              variant: "",
+              title: "Failed to Send Otp.",
+              description: res.message,
+            });
+            setIsloding(false);
+          }
+        });
+      } else {
+        toast({
+          variant: "",
+          title: "Email Don't have account.",
+          description: "",
+        });
+      }
+    });
+  };
+
+  const ForgetOtpVerification = () => {
+    console.log("hello");
+    console.log(incomingOtp, otp);
+    if (incomingOtp === otp) {
+      setForgetEmail(false);
+      setForgetOtp(false);
+      setForgetPasswords(true);
+    } else {
+      toast({
+        variant: "",
+        title: "Incorrect Otp",
+        description: "",
+      });
+    }
+  };
+
+  const ResetPassword = () => {
+    if (!forgetPassword) {
+      toast({
+        variant: "",
+        title: "Password is required",
+        description: "",
+      });
+      return false;
+    } else if (!conforms) {
+      toast({
+        variant: "",
+        title: "Conform Password is required",
+        description: "",
+      });
+      return false;
+    } else if (forgetPassword.length < 8) {
+      toast({
+        variant: "",
+        title: "Password must be minimum 8 characters",
+        description: "",
+      });
+      return false;
+    } else if (!conforms === forgetPassword) {
+      toast({
+        variant: "",
+        title: "Password Doesnot Matched",
+        description: "",
+      });
+      return false;
+    }
+
+    ForgetPasswordUser({ Email: email, Password: forgetPassword }).then(
+      (res) => {
+        if (res.message === "success") {
+          setForgetEmail(false);
+          setForgetOtp(false);
+          setForgetPasswords(false);
+        }
+      }
+    );
+  };
+
+
   return (
     <>
       <div className="w-full flex justify-center items-center mx-auto md:p-20 h-screen">
@@ -331,6 +439,15 @@ export default function Loginpage() {
                           onClick={() => setSelected("LOGIN")}
                         >
                           Login
+                        </span>
+                      </p>
+                      <p className="text-xs">
+                        Resend
+                        <span
+                          className="text-xs underline text-buttoncolor cursor-pointer ml-1"
+                          onClick={SignUp}
+                        >
+                          Otp
                         </span>
                       </p>
                     </div>
@@ -480,93 +597,273 @@ export default function Loginpage() {
               </>
             )}
             {selected === "LOGIN" && (
-              <div
-                style={{ borderRadius: "16px" }}
-                className=" border-1.5 border-gray-300 rounded-2xl md:w-3/6 lg:w-3/6 md:h-[81vh] lg:h-[81vh] h-auto w-full flex flex-col justify-start items-start gap-2 px-4 py-2"
-              >
-                <Image className="h-10 w-24" src={backgroundimage} />
-                <h6 className="text-xl font-medium">Welcome Back!</h6>
-                <p className="text-md">Log In to your account to proceed.</p>
-                <div className="mb-4 w-full mt-4">
-                  <label
-                    for="email"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                    Email<span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    type="email"
-                    id="email"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-buttoncolor focus:border-buttoncolor block w-full p-2.5 "
-                    placeholder="Enter Your Email"
-                  />
-                </div>
-                <div className="mb-4 w-full">
-                  <label
-                    for="email"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                    Password<span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    type="password"
-                    id="email"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-buttoncolor focus:border-buttoncolor block w-full p-2.5 "
-                    placeholder="Enter Your Password"
-                    required
-                  />
-                </div>
-                <div className="flex py-2 px-1 justify-between  items-center md:gap-24 lg:gap-24 gap-4">
-                  <Checkbox
-                    color="warning"
-                    classNames={{
-                      label: "md:text-small lg:text-small text-xs",
-                    }}
-                  >
-                    Remember me
-                  </Checkbox>
-                  <Link color="primary" href="#" size="sm">
-                    <span className="ml-auto md:text-sm lg:text-sm text-xs">
-                      Forgot password?
-                    </span>
-                  </Link>
-                </div>
+                      <>
+                        {forgetEmail ? (
+                          <div
+                            style={{ borderRadius: "16px" }}
+                            className=" border-1.5 border-gray-300 rounded-2xl md:w-3/6 lg:w-3/6 md:h-[81vh] lg:h-[81vh] h-auto w-full flex flex-col justify-start items-start gap-2 px-4 py-2"
+                          >
+                            <Image
+                              className="h-10 w-24"
+                              src={backgroundimage}
+                            />
+                            <h6 className="text-xl font-medium">
+                              Reset Password!
+                            </h6>
+                            <p className="text-md">
+                              Enter Your Email to Reset Password.
+                            </p>
+                            <div className="mb-4 w-full mt-4">
+                              <label
+                                for="email"
+                                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                              >
+                                Email<span className="text-red-500">*</span>
+                              </label>
+                              <input
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                type="email"
+                                id="email"
+                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-buttoncolor focus:border-buttoncolor block w-full p-2.5 "
+                                placeholder="Enter Your Email"
+                              />
+                            </div>
+                            <div className="w-full flex flex-col gap-2 items-center">
+                              <Button
+                                className="bg-buttoncolor rounded-sm text-white w-full"
+                                onClick={ChangePassword}
+                              >
+                                {isloading ? (
+                                  <Spin
+                                    size="large"
+                                    spinning={isloading}
+                                    fullscreen
+                                  />
+                                ) : (
+                                  "Proceed"
+                                )}
+                              </Button>
+                            </div>
+                          </div>
+                        ) : forgetOtp ? (
+                          <>
+                            <div
+                              style={{ borderRadius: "16px" }}
+                              className=" border-1.5 border-gray-300 rounded-2xl md:w-3/6 lg:w-3/6 md:h-[81vh] lg:h-[81vh] h-auto w-full flex flex-col justify-start items-start gap-2 px-4 py-2"
+                            >
+                              <Image
+                                className="h-10 w-24"
+                                src={backgroundimage}
+                              />
+                              <h6 className="text-xl font-medium">
+                                Otp Verification!
+                              </h6>
+                              <p className="text-md">
+                                Enter Your Otp to Reset Password.
+                              </p>
+                              <div className="mb-4 w-full mt-4">
+                                <label
+                                  for="email"
+                                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                >
+                                  Otp<span className="text-red-500">*</span>
+                                </label>
+                                <input
+                                  value={otp}
+                                  onChange={(e) => setOtp(e.target.value)}
+                                  type="text"
+                                  id="email"
+                                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-buttoncolor focus:border-buttoncolor block w-full p-2.5 "
+                                  placeholder="Enter Your Otp"
+                                />
+                              </div>
+                              <div className="w-full flex flex-col gap-2 items-center">
+                                <Button
+                                  className="bg-buttoncolor rounded-sm text-white w-full"
+                                  onClick={ForgetOtpVerification}
+                                >
+                                  Proceed
+                                </Button>
+                              </div>
+                            </div>
+                          </>
+                        ) : forgetPasswords ? (
+                          <>
+                            <div
+                              style={{ borderRadius: "16px" }}
+                              className=" border-1.5 border-gray-300 rounded-2xl md:w-3/6 lg:w-3/6 md:h-[81vh] lg:h-[81vh] h-auto w-full flex flex-col justify-start items-start gap-2 px-4 py-2"
+                            >
+                              <Image
+                                className="h-10 w-24"
+                                src={backgroundimage}
+                              />
+                              <h6 className="text-xl font-medium">
+                                Reset Password!
+                              </h6>
+                              <p className="text-md">
+                                Enter Your New Password.
+                              </p>
+                              <div className="mb-4 w-full mt-4">
+                                <label
+                                  for="email"
+                                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                >
+                                  New Password
+                                  <span className="text-red-500">*</span>
+                                </label>
+                                <input
+                                  value={forgetPassword}
+                                  onChange={(e) =>
+                                    setForgetPassword(e.target.value)
+                                  }
+                                  type="email"
+                                  id="email"
+                                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-buttoncolor focus:border-buttoncolor block w-full p-2.5 "
+                                  placeholder="Enter New Password"
+                                />
+                              </div>
+                              <div className="mb-4 w-full mt-4">
+                                <label
+                                  for="email"
+                                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                >
+                                  Conform Password
+                                  <span className="text-red-500">*</span>
+                                </label>
+                                <input
+                                  value={conforms}
+                                  onChange={(e) => setConforms(e.target.value)}
+                                  type="email"
+                                  id="email"
+                                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-buttoncolor focus:border-buttoncolor block w-full p-2.5 "
+                                  placeholder="Enter Conform Password"
+                                />
+                              </div>
+                              <div className="w-full flex flex-col gap-2 items-center">
+                                <Button
+                                  className="bg-buttoncolor rounded-sm text-white w-full"
+                                  onClick={ResetPassword}
+                                >
+                                  {isloading ? (
+                                    <Spin
+                                      size="large"
+                                      spinning={isloading}
+                                      fullscreen
+                                    />
+                                  ) : (
+                                    "Reset"
+                                  )}
+                                </Button>
+                              </div>
+                            </div>
+                          </>
+                        ) : (
+                          <div
+                            style={{ borderRadius: "16px" }}
+                            className=" border-1.5 border-gray-300 rounded-2xl md:w-3/6 lg:w-3/6 md:h-[81vh] lg:h-[81vh] h-auto w-full flex flex-col justify-start items-start gap-2 px-4 py-2"
+                          >
+                            <Image
+                              className="h-10 w-24"
+                              src={backgroundimage}
+                            />
+                            <h6 className="text-xl font-medium">
+                              Welcome Back!
+                            </h6>
+                            <p className="text-md">
+                              Log In to your account to proceed.
+                            </p>
+                            <div className="mb-4 w-full mt-4">
+                              <label
+                                for="email"
+                                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                              >
+                                Email<span className="text-red-500">*</span>
+                              </label>
+                              <input
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                type="email"
+                                id="email"
+                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-buttoncolor focus:border-buttoncolor block w-full p-2.5 "
+                                placeholder="Enter Your Email"
+                              />
+                            </div>
+                            <div className="mb-4 w-full">
+                              <label
+                                for="email"
+                                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                              >
+                                Password<span className="text-red-500">*</span>
+                              </label>
+                              <input
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                type="password"
+                                id="email"
+                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-buttoncolor focus:border-buttoncolor block w-full p-2.5 "
+                                placeholder="Enter Your Password"
+                                required
+                              />
+                            </div>
+                            <div className="flex py-2 px-1 justify-between  items-center md:gap-24 lg:gap-24 gap-4">
+                              <Checkbox
+                                color="warning"
+                                classNames={{
+                                  label: "md:text-small lg:text-small text-xs",
+                                }}
+                              >
+                                Remember me
+                              </Checkbox>
+                              <Link color="primary" href="#" size="sm">
+                                <span
+                                  className="ml-auto md:text-sm lg:text-sm text-xs"
+                                  onClick={() => setForgetEmail(true)}
+                                >
+                                  Forgot password?
+                                </span>
+                              </Link>
+                            </div>
 
-                <div className="w-full flex flex-col gap-2 items-center">
-                  <Button
-                    className="bg-buttoncolor rounded-sm text-white w-full"
-                    onClick={Login}
-                  >
-                    {isloading ? (
-                      <Spin size="large" spinning={isloading} fullscreen />
-                    ) : (
-                      "Log in"
+                            <div className="w-full flex flex-col gap-2 items-center">
+                              <Button
+                                className="bg-buttoncolor rounded-sm text-white w-full"
+                                onClick={Login}
+                              >
+                                {isloading ? (
+                                  <Spin
+                                    size="large"
+                                    spinning={isloading}
+                                    fullscreen
+                                  />
+                                ) : (
+                                  "Log in"
+                                )}
+                              </Button>
+                              <GoogleLogin
+                                onSuccess={(credentialResponse) => {
+                                  LoginWithGoogle(
+                                    credentialResponse.credential
+                                  );
+                                }}
+                                onError={() => {
+                                  console.log("Login Failed");
+                                }}
+                              />
+                              <p className="text-sm">
+                                New member?
+                                <span
+                                  className="text-md underline text-buttoncolor cursor-pointer mt-2 mb-12"
+                                  onClick={() => setSelected("SIGNUP")}
+                                >
+                                  Sign Up
+                                </span>
+                              </p>
+                            </div>
+                          </div>
+                        )}
+                      </>
                     )}
-                  </Button>
-                  <GoogleLogin
-                    onSuccess={(credentialResponse) => {
-                      LoginWithGoogle(credentialResponse.credential);
-                    }}
-                    onError={() => {
-                      console.log("Login Failed");
-                    }}
-                  />
-                  <p className="text-sm">
-                    New member?
-                    <span
-                      className="text-md underline text-buttoncolor cursor-pointer mt-2 mb-12"
-                      onClick={() => setSelected("SIGNUP")}
-                    >
-                      Sign Up
-                    </span>
-                  </p>
-                </div>
-              </div>
-            )}
 
             <div className="hidden md:flex lg:flex md:w-3/6 lg:w-3/6">
               <Image

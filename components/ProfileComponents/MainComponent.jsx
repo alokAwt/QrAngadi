@@ -125,6 +125,7 @@ export default function MainComponent() {
   };
 
   const DeleteQr = (id, type) => {
+    console.log(id);
     setIsloading(true);
     let res = DeleteProfileQr(id, type, GetQr, CloseLoading);
   };
@@ -221,6 +222,15 @@ export default function MainComponent() {
         return (
           <div className="flex flex-col justify-start items-start">
             <p className="text-bold text-small capitalize">{user?.Qrtype}</p>
+          </div>
+        );
+
+      case "Url":
+        return (
+          <div className="flex flex-col justify-start items-start">
+            <p className="text-bold text-small capitalize">
+              {user?.Url.slice(0, 50)}
+            </p>
           </div>
         );
 

@@ -10,6 +10,7 @@ import {
 } from "../Api/QR";
 
 export const DeleteProfileQr = (id, type, Profile, ChangeLoad) => {
+  console.log(id)
   switch (type) {
     case "Website": {
       DeleteWebsiteQr(id).then((res) => {
@@ -66,7 +67,7 @@ export const DeleteProfileQr = (id, type, Profile, ChangeLoad) => {
       });
       break;
     }
-    case "Image": {
+    case "Images": {
       DeleteImageQr(id).then((res) => {
         if (res.message === "Success") {
           ChangeLoad();
@@ -79,7 +80,7 @@ export const DeleteProfileQr = (id, type, Profile, ChangeLoad) => {
       });
       break;
     }
-    case "Pdf": {
+    case "Documents": {
       DeletedocumentQr(id).then((res) => {
         if (res.message === "Success") {
           ChangeLoad();

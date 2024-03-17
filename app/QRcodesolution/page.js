@@ -45,6 +45,8 @@ import { useToast } from "../../components/ui/usetoast";
 import { ToastAction } from "@/components/ui/toast";
 import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
+import { IoIosAddCircle } from "react-icons/io";
+import { MdDelete } from "react-icons/md";
 
 const isBrowser = typeof window !== "undefined";
 let QRCodeStyling;
@@ -80,6 +82,11 @@ const Page = () => {
   const [qrName, setQrName] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+
+  //QRIMAGE TYPE IMAGES/TEXTFILE/PDF STATE
+
+  const [QRimage, SetQRimage] = useState("");
+  const [QrData, setQrData] = useState("");
 
   const [options, setOptions] = useState({
     width: 300,
@@ -259,9 +266,25 @@ const Page = () => {
     };
   }, []);
 
+  const setQRimageMemoized = useMemo(() => {
+    return (file) => {
+      if (file) {
+        const QRreader = new FileReader();
+        QRreader.addEventListener("load", () => {
+          SetQRimage(QRreader.result);
+        });
+        QRreader.readAsDataURL(file);
+      }
+    };
+  }, []);
+
   const onChangePicture = (e) => {
     setImages(e.target.files[0]);
     setLogoMemoized(e.target.files[0]); // Use the memoized function to set the logo
+  };
+  const onChangeQRimage = (e) => {
+    setQRimageMemoized(e.target.files[0]);
+    setQrData(e.target.files[0]);
   };
 
   const genPresets = (presets = presetPalettes) =>
@@ -290,18 +313,62 @@ const Page = () => {
         description: "",
         action: <ToastAction altText="Try again">Try again</ToastAction>,
       });
-    } else if (qrType != "Map" ? !Url : !lat || !lon) {
+      return false;
+    } else if (!qrName) {
+      toast({
+        variant: "",
+        title: "QR Name is Required.",
+        description: "",
+        action: <ToastAction altText="Try again">Try again</ToastAction>,
+      });
+      return false;
+    } else if (qrType != "Map" ? false : !lat || !lon) {
       toast({
         variant: "",
         title: "QR Data is Required.",
         description: "",
         action: <ToastAction altText="Try again">Try again</ToastAction>,
       });
+      return false;
+    } else if (
+      (qrType === "Image" && !QrData) ||
+      (qrType === "Video" && !QrData) ||
+      (qrType === "Audio" && !QrData) ||
+      (qrType === "document" && !QrData) ||
+      (qrType === "document1" && !QrData)
+    ) {
+      console.log(QrData, qrType);
+      toast({
+        variant: "",
+        title: "Upload File Required.",
+        description: "",
+        action: <ToastAction altText="Try again">Try again</ToastAction>,
+      });
+      return false;
+    } else if (
+      (qrType === "Website" && !Url) ||
+      (qrType === "playstore" && !Url) ||
+      (qrType === "Social" && !Url)
+    ) {
+      toast({
+        variant: "",
+        title: "QR Data is Required.",
+        description: "",
+        action: <ToastAction altText="Try again">Try again</ToastAction>,
+      });
+      return false;
     }
+    setLoading(true);
 
-    if (image) {
+    if (
+      qrType === "Image" ||
+      qrType === "Video" ||
+      qrType === "Audio" ||
+      qrType === "document" ||
+      qrType === "document1"
+    ) {
       const data = new FormData();
-      data.append("file", image);
+      data.append("file", QrData);
       data.append("upload_preset", "vsqmoxq9");
       const res = await fetch(
         "https://api.cloudinary.com/v1_1/dxlmwq61j/image/upload",
@@ -310,9 +377,99 @@ const Page = () => {
           body: data,
         }
       );
-      const file = await res.json();
-      console.log("file", file);
-      if (file?.secure_url.length > 10) {
+      const file1 = await res.json();
+      if (file1) {
+        if (image) {
+          const data = new FormData();
+          data.append("file", image);
+          data.append("upload_preset", "vsqmoxq9");
+          const res = await fetch(
+            "https://api.cloudinary.com/v1_1/dxlmwq61j/image/upload",
+            {
+              method: "post",
+              body: data,
+            }
+          );
+          const file = await res.json();
+          if (file?.secure_url.length > 10) {
+            let result = CreateQr(
+              qrName,
+              qrType,
+              backgroundHexString,
+              dotHexString,
+              selectedOptions,
+              cornersHexString,
+              cornersDotOption,
+              eyeHexString,
+              cornersSquareOption,
+              setLoading,
+              toast,
+              ChangeScreen,
+              lat,
+              lon,
+              file1.secure_url,
+              file.secure_url,
+              file1.public_id
+            );
+            setImages("");
+          }
+        } else {
+          let result = CreateQr(
+            qrName,
+            qrType,
+            backgroundHexString,
+            dotHexString,
+            selectedOptions,
+            cornersHexString,
+            cornersDotOption,
+            eyeHexString,
+            cornersSquareOption,
+            setLoading,
+            toast,
+            ChangeScreen,
+            lat,
+            lon,
+            file1.secure_url,
+            "",
+            file1.public_id
+          );
+        }
+      }
+    } else {
+      if (image) {
+        const data = new FormData();
+        data.append("file", image);
+        data.append("upload_preset", "vsqmoxq9");
+        const res = await fetch(
+          "https://api.cloudinary.com/v1_1/dxlmwq61j/image/upload",
+          {
+            method: "post",
+            body: data,
+          }
+        );
+        const file = await res.json();
+        if (file?.secure_url.length > 10) {
+          let result = CreateQr(
+            qrName,
+            qrType,
+            backgroundHexString,
+            dotHexString,
+            selectedOptions,
+            cornersHexString,
+            cornersDotOption,
+            eyeHexString,
+            cornersSquareOption,
+            setLoading,
+            toast,
+            ChangeScreen,
+            lat,
+            lon,
+            Url,
+            file.secure_url
+          );
+          setImages("");
+        }
+      } else {
         let result = CreateQr(
           qrName,
           qrType,
@@ -329,29 +486,9 @@ const Page = () => {
           lat,
           lon,
           Url,
-          file.secure_url
+          ""
         );
-        setImages("");
       }
-    } else {
-      let result = CreateQr(
-        qrName,
-        qrType,
-        backgroundHexString,
-        dotHexString,
-        selectedOptions,
-        cornersHexString,
-        cornersDotOption,
-        eyeHexString,
-        cornersSquareOption,
-        setLoading,
-        toast,
-        ChangeScreen,
-        lat,
-        lon,
-        Url,
-        ""
-      );
     }
   };
 
@@ -411,72 +548,6 @@ const Page = () => {
                 </p>
               </Button>
             ))}
-
-          {/* <Button
-            variant="light"
-            className="flex flex-col justify-center items-center gap-1 h-auto py-2"
-          >
-            <div>
-              <Image className="h-8 w-8 object-contain" src={Videos} />
-            </div>
-            <p className="text-center md:text-xs text-[0.65rem]">Videos</p>
-          </Button>
-          <Button
-            variant="light"
-            className="flex flex-col justify-center items-center gap-1 h-auto py-2"
-          >
-            <div>
-              <Image className="h-8 w-8 object-contain" src={Media} />
-            </div>
-            <p className="text-center md:text-xs text-[0.65rem]">Images</p>
-          </Button>
-          <Button
-            variant="light"
-            className="flex flex-col justify-center items-center gap-1 h-auto py-2"
-          >
-            <div>
-              <Image className="h-8 w-8 object-contain" src={Share} />
-            </div>
-            <p className="text-center md:text-xs text-[0.65rem]">
-              Social Accounts
-            </p>
-          </Button>
-          <Button
-            variant="light"
-            className="flex flex-col justify-center items-center gap-1 h-auto py-2"
-          >
-            <div>
-              <Image className="h-8 w-8 object-contain" src={Textfile} />
-            </div>
-            <p className="text-center md:text-xs text-[0.65rem]">Text Files</p>
-          </Button>
-          <Button
-            variant="light"
-            className="flex flex-col justify-center items-center gap-1 h-auto py-2"
-          >
-            <div>
-              <Image className="h-8 w-8 object-contain" src={Mic} />
-            </div>
-            <p className="text-center md:text-xs text-[0.65rem]">Audio Files</p>
-          </Button>
-          <Button
-            variant="light"
-            className="flex flex-col justify-center items-center gap-1 h-auto py-2"
-          >
-            <div>
-              <Image className="h-8 w-8 object-contain" src={Location} />
-            </div>
-            <p className="text-center md:text-xs text-[0.65rem]">Location</p>
-          </Button>
-          <Button
-            variant="light"
-            className="flex flex-col justify-center items-center gap-1 h-auto py-2"
-          >
-            <div>
-              <Image className="h-8 w-8 object-contain" src={Pdf} />
-            </div>
-            <p className="text-center md:text-xs text-[0.65rem]">PDF Files</p>
-          </Button> */}
         </div>
 
         <div className="flex flex-col justify-start items-start gap-2 p-4 w-full rounded-sm border-1 border-buttoncolor border-opacity-50 mt-4">
@@ -504,7 +575,7 @@ const Page = () => {
             />
           </div>
           {qrType === "Map" ? (
-            <div className="mb-6 w-full">
+            <div className="mb-6 w-full ">
               <label
                 htmlFor="email"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -515,26 +586,28 @@ const Page = () => {
                   (eg: 10.2022,20.400)
                 </span>
               </label>
-              <input
-                onChange={(e) => setLat(e.target.value)}
-                value={lat}
-                type="text"
-                id="email"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-buttoncolor focus:border-buttoncolor block w-full p-2.5 d "
-                placeholder="Enter Latitude of Location"
-                required
-              />
-              <input
-                onChange={(e) => setLon(e.target.value)}
-                value={lon}
-                type="text"
-                id="email"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-buttoncolor focus:border-buttoncolor block w-full p-2.5 d mt-2"
-                placeholder="Enter Lonitude of Location"
-                required
-              />
+              <div>
+                <input
+                  onChange={(e) => setLat(e.target.value)}
+                  value={lat}
+                  type="text"
+                  id="email"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-buttoncolor focus:border-buttoncolor block w-full p-2.5 d "
+                  placeholder="Enter Latitude of Location"
+                  required
+                />
+                <input
+                  onChange={(e) => setLon(e.target.value)}
+                  value={lon}
+                  type="text"
+                  id="email"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-buttoncolor focus:border-buttoncolor block w-full p-2.5 d mt-2"
+                  placeholder="Enter Lonitude of Location"
+                  required
+                />
+              </div>
             </div>
-          ) : (
+          ) : qrType === "Website" ? (
             <div className="mb-6 w-full">
               <label
                 htmlFor="email"
@@ -555,6 +628,329 @@ const Page = () => {
                 required
               />
             </div>
+          ) : qrType === "playstore" ? (
+            <>
+              <div className="mb-6 w-full">
+                <label
+                  htmlFor="Android"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Enter URL for Android <span className="text-red-500">*</span>{" "}
+                  <span className="text-xs text-gray-500">
+                    {/* (eg: https://www.designdaddie.com/) */}
+                  </span>
+                </label>
+                <input
+                  onChange={(e) => onDataChange(e)}
+                  // value={Url}
+                  type="text"
+                  id="Android"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-buttoncolor focus:border-buttoncolor block w-full p-2.5 d "
+                  placeholder="Enter Android URL https://"
+                  required
+                />
+              </div>
+              <div className="mb-6 w-full">
+                <label
+                  htmlFor="Android"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Enter URL for Ios <span className="text-red-500">*</span>{" "}
+                  <span className="text-xs text-gray-500">
+                    {/* (eg: https://www.designdaddie.com/) */}
+                  </span>
+                </label>
+                <input
+                  onChange={(e) => onDataChange(e)}
+                  // value={Url}
+                  type="text"
+                  id="Android"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-buttoncolor focus:border-buttoncolor block w-full p-2.5 d "
+                  placeholder="Enter Ios URL https://"
+                  required
+                />
+              </div>
+            </>
+          ) : qrType === "Image" ? (
+            <div className="mb-6 w-full">
+              <p className="text-start p-2 text-sm font-medium">Upload image</p>
+              <div className="flex  justify-between gap-12 items-center border-1 border-buttonopacitycolor p-6 rounded-lg">
+                <div className="flex justify-center items-center gap-2 flex-col h-60 w-2/4 border-1.5 border-dashed rounded-lg">
+                  {QRimage ? (
+                    <div>
+                      <Image
+                        src={QRimage}
+                        width={400}
+                        height={150}
+                        className=" w-full h-60 object-contain rounded-md"
+                      />
+                    </div>
+                  ) : (
+                    <Button className="md:w-60 w-full h-14 bg-buttoncolor text-white font-medium rounded-sm">
+                      <IoIosAddCircle className="text-xl" />
+                      <label htmlFor="fileInputQRimage">Upload image</label>
+                      <input
+                        type="file"
+                        id="fileInputQRimage"
+                        style={{ display: "none" }}
+                        onChange={(e) => onChangeQRimage(e)}
+                      />
+                    </Button>
+                  )}
+                </div>
+                <div className="h-60 w-2/4 flex flex-col gap-4 justify-start items-start ">
+                  <p className="text-lg">Supported formats:</p>
+                  <div className="flex justify-evenly items-center gap-4">
+                    <span className="p-2 text-buttoncolor border border-buttoncolor rounded-md cursor-pointer">
+                      JPEG
+                    </span>
+                    <span className="p-2 text-buttoncolor border border-buttoncolor rounded-md cursor-pointer">
+                      JPG
+                    </span>
+                    <span className="p-2 text-buttoncolor border border-buttoncolor rounded-md cursor-pointer">
+                      PNG
+                    </span>
+                  </div>
+                  {QRimage && (
+                    <div className="flex items-center gap-4">
+                      <p className="text-md leading-5">Image.png</p>
+                      <Button
+                        onPress={() => SetQRimage("")}
+                        variant="light"
+                        className="text-buttoncolor"
+                      >
+                        <MdDelete size={24} />
+                      </Button>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          ) : qrType === "Video" ? (
+            <div className="mb-6 w-full">
+              <p className="text-start p-2 text-sm font-medium">Upload Video</p>
+              <div className="flex  justify-between gap-12 items-center border-1 border-buttonopacitycolor p-6 rounded-lg">
+                <div className="flex justify-center items-center gap-2 flex-col h-60 w-2/4 border-1.5 border-dashed rounded-lg">
+                  {QRimage ? (
+                    <div>
+                      <Image
+                        src={QRimage}
+                        width={400}
+                        height={150}
+                        className=" w-full h-60 object-contain rounded-md"
+                      />
+                    </div>
+                  ) : (
+                    <Button className="md:w-60 w-full h-14 bg-buttoncolor text-white font-medium rounded-sm">
+                      <IoIosAddCircle className="text-xl" />
+                      <label htmlFor="fileInputQRimage">Upload Video</label>
+                      <input
+                        type="file"
+                        id="fileInputQRimage"
+                        style={{ display: "none" }}
+                        onChange={(e) => onChangeQRimage(e)}
+                      />
+                    </Button>
+                  )}
+                </div>
+                <div className="h-60 w-2/4 flex flex-col gap-4 justify-start items-start ">
+                  <p className="text-lg">Supported formats:</p>
+                  <div className="flex justify-evenly items-center gap-4">
+                    <span className="p-2 text-buttoncolor border border-buttoncolor rounded-md cursor-pointer">
+                      MP4
+                    </span>
+                  </div>
+                  {QRimage && (
+                    <div className="flex items-center gap-4">
+                      <p className="text-md leading-5">Image.png</p>
+                      <Button
+                        onPress={() => SetQRimage("")}
+                        variant="light"
+                        className="text-buttoncolor"
+                      >
+                        <MdDelete size={24} />
+                      </Button>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          ) : qrType === "Audio" ? (
+            <div className="mb-6 w-full">
+              <p className="text-start p-2 text-sm font-medium">Upload Audio</p>
+              <div className="flex  justify-between gap-12 items-center border-1 border-buttonopacitycolor p-6 rounded-lg">
+                <div className="flex justify-center items-center gap-2 flex-col h-60 w-2/4 border-1.5 border-dashed rounded-lg">
+                  {QRimage ? (
+                    <div>
+                      <Image
+                        src={QRimage}
+                        width={400}
+                        height={150}
+                        className=" w-full h-60 object-contain rounded-md"
+                      />
+                    </div>
+                  ) : (
+                    <Button className="md:w-60 w-full h-14 bg-buttoncolor text-white font-medium rounded-sm">
+                      <IoIosAddCircle className="text-xl" />
+                      <label htmlFor="fileInputQRimage">Upload Audio</label>
+                      <input
+                        type="file"
+                        id="fileInputQRimage"
+                        style={{ display: "none" }}
+                        onChange={(e) => onChangeQRimage(e)}
+                      />
+                    </Button>
+                  )}
+                </div>
+                <div className="h-60 w-2/4 flex flex-col gap-4 justify-start items-start ">
+                  <p className="text-lg">Supported formats:</p>
+                  <div className="flex justify-evenly items-center gap-4">
+                    <span className="p-2 text-buttoncolor border border-buttoncolor rounded-md cursor-pointer">
+                      MP3
+                    </span>
+                    <span className="p-2 text-buttoncolor border border-buttoncolor rounded-md cursor-pointer">
+                      WAV
+                    </span>
+                  </div>
+                  {QRimage && (
+                    <div className="flex items-center gap-4">
+                      <p className="text-md leading-5">Image.png</p>
+                      <Button
+                        onPress={() => SetQRimage("")}
+                        variant="light"
+                        className="text-buttoncolor"
+                      >
+                        <MdDelete size={24} />
+                      </Button>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          ) : qrType === "Social" ? (
+            <div className="mb-6 w-full">
+              <label
+                htmlFor="email"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Enter URL of Social Account{" "}
+                <span className="text-red-500">*</span>{" "}
+                <span className="text-xs text-gray-500">
+                  (eg: https://www.facebook.com/)
+                </span>
+              </label>
+              <input
+                // onChange={(e) => onDataChange(e)}
+                // value={Url}
+                type="text"
+                id="email"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-buttoncolor focus:border-buttoncolor block w-full p-2.5 d "
+                placeholder="Enter  URL https://"
+                required
+              />
+            </div>
+          ) : qrType === "document" ? (
+            <div className="mb-6 w-full">
+              <p className="text-start p-2 text-sm font-medium">Upload PDF</p>
+              <div className="flex  justify-between gap-12 items-center border-1 border-buttonopacitycolor p-6 rounded-lg">
+                <div className="flex justify-center items-center gap-2 flex-col h-60 w-2/4 border-1.5 border-dashed rounded-lg">
+                  {QRimage ? (
+                    <div>
+                      <Image
+                        src={QRimage}
+                        width={400}
+                        height={150}
+                        className=" w-full h-60 object-contain rounded-md"
+                      />
+                    </div>
+                  ) : (
+                    <Button className="md:w-60 w-full h-14 bg-buttoncolor text-white font-medium rounded-sm">
+                      <IoIosAddCircle className="text-xl" />
+                      <label htmlFor="fileInputQRimage">Upload PDF</label>
+                      <input
+                        type="file"
+                        id="fileInputQRimage"
+                        style={{ display: "none" }}
+                        onChange={(e) => onChangeQRimage(e)}
+                      />
+                    </Button>
+                  )}
+                </div>
+                <div className="h-60 w-2/4 flex flex-col gap-4 justify-start items-start ">
+                  <p className="text-lg">Supported formats:</p>
+                  <div className="flex justify-evenly items-center gap-4">
+                    <span className="p-2 text-buttoncolor border border-buttoncolor rounded-md cursor-pointer">
+                      PDF
+                    </span>
+                  </div>
+                  {QRimage && (
+                    <div className="flex items-center gap-4">
+                      <p className="text-md leading-5">Image.png</p>
+                      <Button
+                        onPress={() => SetQRimage("")}
+                        variant="light"
+                        className="text-buttoncolor"
+                      >
+                        <MdDelete size={24} />
+                      </Button>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          ) : qrType === "document1" ? (
+            <div className="mb-6 w-full">
+              <p className="text-start p-2 text-sm font-medium">
+                Upload Textfile
+              </p>
+              <div className="flex  justify-between gap-12 items-center border-1 border-buttonopacitycolor p-6 rounded-lg">
+                <div className="flex justify-center items-center gap-2 flex-col h-60 w-2/4 border-1.5 border-dashed rounded-lg">
+                  {QRimage ? (
+                    <div>
+                      <Image
+                        src={QRimage}
+                        width={400}
+                        height={150}
+                        className=" w-full h-60 object-contain rounded-md"
+                      />
+                    </div>
+                  ) : (
+                    <Button className="md:w-60 w-full h-14 bg-buttoncolor text-white font-medium rounded-sm">
+                      <IoIosAddCircle className="text-xl" />
+                      <label htmlFor="fileInputQRimage">Upload Textfile</label>
+                      <input
+                        type="file"
+                        id="fileInputQRimage"
+                        style={{ display: "none" }}
+                        onChange={(e) => onChangeQRimage(e)}
+                      />
+                    </Button>
+                  )}
+                </div>
+                <div className="h-60 w-2/4 flex flex-col gap-4 justify-start items-start ">
+                  <p className="text-lg">Supported formats:</p>
+                  <div className="flex justify-evenly items-center gap-4">
+                    <span className="p-2 text-buttoncolor border border-buttoncolor rounded-md cursor-pointer">
+                      Txt
+                    </span>
+                  </div>
+                  {QRimage && (
+                    <div className="flex items-center gap-4">
+                      <p className="text-md leading-5">Image.png</p>
+                      <Button
+                        onPress={() => SetQRimage("")}
+                        variant="light"
+                        className="text-buttoncolor"
+                      >
+                        <MdDelete size={24} />
+                      </Button>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div></div>
           )}
 
           <h6 className="text-sm font-medium">

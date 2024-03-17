@@ -7,14 +7,8 @@ import { RxCross1 } from "react-icons/rx";
 import { TbCheck } from "react-icons/tb";
 import Preview from "../../public/gamification/Preview.png";
 import Image from "next/image";
-
-const PersonalData = [
-  { label: "First Name", value: "FirstName*" },
-  { label: "Last Name", value: "LastName" },
-  { label: "Email", value: "Email" },
-  { label: "Mobile No", value: "MobileNo" },
-  { label: "Address", value: "Address" },
-];
+import MobileScreen from "../MobileScreen/MobileScreen";
+const PersonalData = [{ label: "Personal Data", value: "personaldata" }];
 
 const classNamesforswitch = {
   base: cn("w-full "),
@@ -30,32 +24,15 @@ const classNamesforswitch = {
 };
 
 function ClaimAction() {
-  const data = useContext(DataContext);
-  const [values, setValues] = React.useState(new Set([]));
-  const [switchStates, setSwitchStates] = useState([
-    { label: "First Name", isSelected: false },
-    { label: "Last Name", isSelected: false },
-    { label: "Email", isSelected: false },
-    { label: "Mobile No.", isSelected: false },
-    { label: "Address", isSelected: false },
-    { label: "Custom Field", isSelected: false },
-  ]);
-  const handleSwitchChange = (index) => {
-    const newSwitchStates = [...switchStates];
-    newSwitchStates[index].isSelected = !newSwitchStates[index].isSelected;
-    setSwitchStates(newSwitchStates);
-    sendDataToBackend(getSelectedLabels(newSwitchStates));
-  };
-
-  const getSelectedLabels = (data) => {
-    return data
-      .filter((switchData) => switchData.isSelected)
-      .map((switchData) => switchData.label);
-  };
-
-  const sendDataToBackend = (labels) => {
-    console.log("Sending labels to backend:", labels);
-  };
+  const {
+    switchStates,
+    setSwitchStates,
+    handleSwitchChange,
+    ButtonText,
+    Setbuttontext,
+    personaldatavalues,
+    setpersonaldataValues,
+  } = useContext(DataContext);
 
   return (
     <div className="flex flex-col justify-start items-start w-full">
@@ -69,6 +46,9 @@ function ClaimAction() {
           <div className="flex flex-col justify-start items-start mt-2">
             <p className="text-sm  font-semibold">Choose action</p>
           </div>
+          <div className="absolute w-[300px] right-[65px] top-[150px]">
+            <MobileScreen />
+          </div>
           <div className="flex flex-col justify-start items-start gap-2 w-full">
             <p className="text-xs">
               Actions<span className="text-red-600">*</span>
@@ -77,9 +57,9 @@ function ClaimAction() {
               selectionMode="multiple"
               placeholder="Enter personal Data"
               variant="bordered"
-              selectedKeys={values}
+              selectedKeys={personaldatavalues}
               className=""
-              onSelectionChange={setValues}
+              onSelectionChange={setpersonaldataValues}
             >
               {PersonalData.map((personal) => (
                 <SelectItem key={personal.value} value={personal.value}>
@@ -230,15 +210,17 @@ function ClaimAction() {
               Button Text<span className="text-red-500">*</span>
             </span>
             <input
+              value={ButtonText}
+              onChange={(e) => Setbuttontext(e.target.value)}
               placeholder=""
               className="border-1 w-full border-gray-300 rounded-md focus:ring-1 focus:border-1 focus:border-gray-100 focus:ring-buttoncolor"
               type="text"
             />
           </div>
         </div>
-        <div>
+        {/* <div>
           <Image className="h-[40rem]" src={Preview} />
-        </div>
+        </div> */}
       </div>
       <Divider className="mt-4" />
     </div>
