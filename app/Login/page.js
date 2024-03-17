@@ -246,7 +246,7 @@ export default function Loginpage() {
   };
 
   const LoginWithGoogle = (token) => {
-   GoogleLoginUser(token).then((res) => {
+    GoogleLoginUser(token).then((res) => {
       if (res.status === "success") {
         sendTokenToServer(res.token);
         Settokenn(res.token);
@@ -457,13 +457,13 @@ export default function Loginpage() {
                           )}
                         </Button>
                         <GoogleLogin
-                            onSuccess={(credentialResponse) => {
-                              LoginWithGoogle(credentialResponse.credential);
-                            }}
-                            onError={() => {
-                              console.log("Login Failed");
-                            }}
-                          />
+                          onSuccess={(credentialResponse) => {
+                            LoginWithGoogle(credentialResponse.credential);
+                          }}
+                          onError={() => {
+                            console.log("Login Failed");
+                          }}
+                        />
                         <p className="text-xs">
                           Already a member?
                           <span
@@ -548,13 +548,13 @@ export default function Loginpage() {
                     )}
                   </Button>
                   <GoogleLogin
-                            onSuccess={(credentialResponse) => {
-                              LoginWithGoogle(credentialResponse.credential);
-                            }}
-                            onError={() => {
-                              console.log("Login Failed");
-                            }}
-                          />
+                    onSuccess={(credentialResponse) => {
+                      LoginWithGoogle(credentialResponse.credential);
+                    }}
+                    onError={() => {
+                      console.log("Login Failed");
+                    }}
+                  />
                   <p className="text-sm">
                     New member?
                     <span

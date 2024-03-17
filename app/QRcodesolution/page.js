@@ -311,6 +311,7 @@ const Page = () => {
         }
       );
       const file = await res.json();
+      console.log("file", file);
       if (file?.secure_url.length > 10) {
         let result = CreateQr(
           qrName,
