@@ -35,6 +35,9 @@ import { useRouter } from "next/navigation";
 import { UpdateProfileQrImages } from "@/Utility/QrType/UpdateQrImages";
 import { UpdateProfileQr } from "@/Utility/QrType/UpdateQr";
 import { Video } from "lucide-react";
+import { IoIosAddCircle } from "react-icons/io";
+import { MdDelete } from "react-icons/md";
+import { IoDocumentTextSharp } from "react-icons/io5";
 
 const isBrowser = typeof window !== "undefined";
 let QRCodeStyling;
