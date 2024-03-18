@@ -86,7 +86,7 @@ export default function Signinmodal() {
             if (res.message === "success") {
               toast({
                 variant: "",
-                title: "Otp Send Successfully.",
+                title: "Otp Send Successfully to Your Email.",
                 description: "",
               });
               setIncomingOtp(res.otp);
@@ -286,7 +286,7 @@ export default function Signinmodal() {
           if (res.message === "success") {
             toast({
               variant: "",
-              title: "Otp Send Successfully.",
+              title: "Otp Send Successfully to Your Email.",
               description: "",
             });
             setForgetEmail(false);

@@ -10,7 +10,7 @@ import {
 } from "../Api/QR";
 
 export const DeleteProfileQr = (id, type, Profile, ChangeLoad) => {
-  console.log(id)
+  console.log(id);
   switch (type) {
     case "Website": {
       DeleteWebsiteQr(id).then((res) => {
