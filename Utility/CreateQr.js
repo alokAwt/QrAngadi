@@ -26,8 +26,10 @@ export const CreateQr = (
   lat,
   lon,
   Url,
-  logo
+  logo,
+  publicid
 ) => {
+  console.log(publicid);
   if (qrType) {
     setLoading(true);
   }
@@ -134,6 +136,7 @@ export const CreateQr = (
         },
         image: logo,
         QrName: qrName,
+        PublicId: publicid,
       }).then((res) => {
         if (res.status === "success") {
           setLoading(false);
@@ -174,6 +177,7 @@ export const CreateQr = (
         },
         image: logo,
         QrName: qrName,
+        PublicId: publicid,
       }).then((res) => {
         if (res.status === "success") {
           setLoading(false);
@@ -214,6 +218,7 @@ export const CreateQr = (
         },
         image: logo,
         QrName: qrName,
+        PublicId: publicid,
       }).then((res) => {
         if (res.status === "success") {
           setLoading(false);
@@ -254,6 +259,7 @@ export const CreateQr = (
         },
         image: logo,
         QrName: qrName,
+        PublicId: publicid,
       }).then((res) => {
         if (res.status === "success") {
           setLoading(false);
@@ -294,6 +300,7 @@ export const CreateQr = (
         },
         image: logo,
         QrName: qrName,
+        PublicId: publicid,
       }).then((res) => {
         if (res.status === "success") {
           setLoading(false);

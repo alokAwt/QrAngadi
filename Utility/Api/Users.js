@@ -52,7 +52,7 @@ export const OtpSend = async (data) => {
 };
 
 //------------------Forget Password-------------------//
-export const ForgetPassword = async (data) => {
+export const ForgetPasswordUser = async (data) => {
   let token = localStorage.getItem("token");
   try {
     let result = await fetch(`${BaseUrl}/Users/ResetPassword`, {

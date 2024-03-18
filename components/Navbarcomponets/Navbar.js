@@ -83,6 +83,15 @@ export default function App() {
       case "/gamification":
         setSelected("gamification");
         break;
+      case "/gamification/spin-wheel":
+        setSelected("gamification");
+        break;
+      case "/gamification/scratch-card":
+        setSelected("gamification");
+        break;
+      case "/gamification/slot-machine":
+        setSelected("gamification");
+        break;
       default:
         setSelected("Home");
     }
@@ -163,6 +172,21 @@ export default function App() {
                             <div className="flex justify-center items-center gap-2 text-white">
                               <MdDashboard />
                               <span>QR Code Solution</span>
+                            </div>
+                            <IoIosArrowForward className="text-white" />
+                          </div>
+                        </SheetClose>
+                      </div>
+                      <div className="w-full mx-auto">
+                        <SheetClose className="w-full">
+                          <div
+                            onClick={() => handleNavigation("/gamification")}
+                            variant="solid"
+                            className="flex h-10 justify-between items-center px-3 w-full bg-buttoncolor rounded-sm"
+                          >
+                            <div className="flex justify-center items-center gap-2 text-white">
+                              <MdDashboard />
+                              <span>Gamification</span>
                             </div>
                             <IoIosArrowForward className="text-white" />
                           </div>

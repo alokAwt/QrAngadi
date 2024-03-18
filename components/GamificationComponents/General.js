@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import { DataContext } from "@/app/gamification/[type]/page";
 import { BsInfoCircleFill } from "react-icons/bs";
 import { Button, Select, SelectItem } from "@nextui-org/react";
-
+import MobileScreen from "../MobileScreen/MobileScreen";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import "./index.css";
@@ -65,11 +65,15 @@ function General() {
   const fontsList = ["Poppins", "Sans Serif", "Roboto"];
   const backgroundTypes = ["Image", "gif", "mp4"];
   const buttonStyles = ["Square", "rounded"];
+
   return (
     <div className="mt-5">
       <p>Enter the details and set up the general settings of your coupon.</p>
       <div className="min-h-[1px] bg-[#C8C8C8] my-3"></div>
       <div className="font-semibold text-lg mb-5">General Setting</div>
+      <div className="absolute w-[300px] right-[65px] top-[150px]">
+        <MobileScreen />
+      </div>
       {/* coupon name */}
       <div className="w-[330px] min-w-fit mt-3">
         <div className="flex items-center">
@@ -133,12 +137,63 @@ function General() {
               })}
             </select>
           </div>
-          <div className="border-1 border-[#C8C8C8] max-w-fit rounded-md flex justify-center items-center min-w-[42px] font-semibold text-xl">
+          <div
+            className="border-1 border-[#C8C8C8] max-w-fit rounded-md flex justify-center items-center min-w-[42px] font-semibold text-xl"
+            onClick={() =>
+              setCouponTitle((prev) => {
+                return { ...prev, bold: !couponTitle.bold };
+              })
+            }
+          >
             B
           </div>
-          <div className="border-1 border-[#C8C8C8] max-w-fit rounded-md flex justify-center items-center min-w-[42px] italic text-xl">
+          <div
+            className="border-1 border-[#C8C8C8] max-w-fit rounded-md flex justify-center items-center min-w-[42px] italic text-xl"
+            onClick={() =>
+              setCouponTitle((prev) => {
+                return { ...prev, italic: !couponTitle.italic };
+              })
+            }
+          >
             I
           </div>
+          <div className="min-w-fit">
+            <div className="border-1 border-[#C8C8C8] max-w-fit rounded-md">
+              <input
+                id="couponmainColorInput"
+                placeholder={"Title color"}
+                type="text"
+                value={couponTitle.color}
+                onChange={(e) => {}}
+                className={`border-0 focus:ring-0 rounded-md placeholder:text-sm text-white font-semibold`}
+                onFocus={() => {
+                  let mainC = document.getElementById("coupontitleMain");
+                  mainC.click();
+                }}
+              />
+              <input
+                id="coupontitleMain"
+                style={{ display: "none" }}
+                placeholder={couponTitle.color}
+                type="color"
+                value={couponTitle.color}
+                onChange={(e) => {
+                  const mainCI = document.getElementById(
+                    "couponmainColorInput"
+                  );
+                  mainCI.style.backgroundColor = e.target.value;
+                  mainCI.style.borderColor = e.target.value;
+                  setCouponTitle((prev) => {
+                    return {
+                      ...prev,
+                      color: e.target.value,
+                    };
+                  });
+                }}
+                className="border-0 focus:ring-0 rounded-md placeholder:text-sm"
+              />
+            </div>
+          </div>{" "}
         </div>
       </div>
       {/* coupon subtitle */}
@@ -184,12 +239,62 @@ function General() {
               })}
             </select>
           </div>
-          <div className="border-1 border-[#C8C8C8] max-w-fit rounded-md flex justify-center items-center min-w-[42px] font-semibold text-xl">
+          <div
+            className="border-1 border-[#C8C8C8] max-w-fit rounded-md flex justify-center items-center min-w-[42px] font-semibold text-xl"
+            onClick={() =>
+              setCouponSubtitle((prev) => {
+                return { ...prev, bold: !couponSubtitle.bold };
+              })
+            }
+          >
             B
           </div>
-          <div className="border-1 border-[#C8C8C8] max-w-fit rounded-md flex justify-center items-center min-w-[42px] italic text-xl">
+          <div
+            className="border-1 border-[#C8C8C8] max-w-fit rounded-md flex justify-center items-center min-w-[42px] italic text-xl"
+            onClick={() =>
+              setCouponSubtitle((prev) => {
+                return { ...prev, italic: !couponSubtitle.italic };
+              })
+            }
+          >
             I
           </div>
+          <div className="min-w-fit">
+            <div className="border-1 border-[#C8C8C8] max-w-fit rounded-md">
+              <input
+                id="couponsubmainColorInput"
+                placeholder={"Subtitle color"}
+                type="text"
+                value={couponSubtitle.color}
+                onChange={(e) => {}}
+                className={`border-0 focus:ring-0 rounded-md placeholder:text-sm text-white font-semibold`}
+                onFocus={() => {
+                  let mainC = document.getElementById("couponsubtitleMain");
+                  mainC.click();
+                }}
+              />
+              <input
+                id="couponsubtitleMain"
+                style={{ display: "none" }}
+                type="color"
+                value={couponSubtitle.color}
+                onChange={(e) => {
+                  const mainCI = document.getElementById(
+                    "couponsubmainColorInput"
+                  );
+                  mainCI.style.backgroundColor = e.target.value;
+                  mainCI.style.borderColor = e.target.value;
+                  setCouponSubtitle((prev) => {
+                    return {
+                      ...prev,
+                      color: e.target.value,
+                    };
+                  });
+                }}
+                className="border-0 focus:ring-0 rounded-md placeholder:text-sm"
+              />
+            </div>
+          </div>{" "}
         </div>
       </div>
       {/* Campaign Language */}

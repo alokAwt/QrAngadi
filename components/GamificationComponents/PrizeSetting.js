@@ -8,55 +8,73 @@ import { Select, SelectItem } from "@nextui-org/react";
 import Image from "next/image";
 import { Col, ColorPicker, Divider, Row, Space, theme } from "antd";
 import { generate, green, presetPalettes, red, cyan } from "@ant-design/colors";
+import {
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  useDisclosure,
+} from "@nextui-org/react";
 
 import Jackpot from "../../public/gamification/Jackpot.png";
 import Oops from "../../public/gamification/Oops.png";
 import Preview from "../../public/gamification/Preview.png";
 import Spinwheel from "../../public/gamification/spinWheel.png";
 import Scratchcard from "../../public/gamification/scratch2.png";
+import MobileScreen from "../MobileScreen/MobileScreen";
 
 export const dataselect = [
-  {label: "option1", value: "option1" },
-  {label: "option2", value: "option2" },
-  {label: "option3", value:'option3' },
- ]
-
+  { label: "option1", value: "option1" },
+  { label: "option2", value: "option2" },
+  { label: "option3", value: "option3" },
+];
 
 function PrizeSetting() {
-  const data = useContext(DataContext);
+  const {
+    params,
+    setBackgroundColorlose,
+    backgroundColorlose,
+    backgroundHexlose,
+    backgroundColorwin,
+    setBackgroundColorwin,
+    backgroundHexwin,
+    StrokeColor,
+    setStrokeColor,
+    StrokeColorstring,
+    slotmachineimage,
+    Setslotmachineimage,
+    limitation,
+    Setlimitation,
+    Setwinnerimage,
+    winnerImage,
+    winnerText,
+    Setwinnertext,
+    loserImage,
+    Setloserimage,
+    loserText,
+    Setlosertext,
+    Setspinnerimage,
+    Spinnerimage,
+    Setspinnerstrokecolor,
+    spinnerstrokecolor,
+    StrokespinnerColorstring,
+    Scratchimage,
+    Setscratchimage,
+    Scratcharea,
+    Setscratcharea,
+    scratchrstrokecolor,
+    Setscratchstrokecolor,
+    StrokescratchColorstring,
+    retryAfterLoss,
+    SetretryAfterLoss,
+    prizeList,
+    SetprizeList,
+  } = useContext(DataContext);
   const [logo, setLogo] = useState(false);
-  const [backgroundColorlose, setBackgroundColorlose] = useState("#FF0000");
-  const [backgroundColorwin, setBackgroundColorwin] = useState("#FFFF00");
-  const [StrokeColor, setStrokeColor] = useState("#FFFF00");
   const [formatHex, setFormatHex] = useState("hex");
-  const [value, setValue] = React.useState(new Set([]));  //controlled select example
-
-  
-
-  console.log(data.params.type);
-
-  const backgroundHexwin = useMemo(
-    () =>
-      typeof backgroundColorwin === "string"
-        ? backgroundColorwin
-        : backgroundColorwin?.toHexString(),
-    [backgroundColorwin]
-  );
-
-  const backgroundHexlose = useMemo(
-    () =>
-      typeof backgroundColorlose === "string"
-        ? backgroundColorlose
-        : backgroundColorlose?.toHexString(),
-    [backgroundColorlose]
-  );
-  const StrokeColorstring = useMemo(
-    () =>
-      typeof StrokeColor === "string"
-        ? StrokeColor
-        : StrokeColor?.toHexString(),
-    [StrokeColor]
-  );
+  const [value, setValue] = React.useState(new Set([])); //controlled select example
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const genPresets = (presets = presetPalettes) =>
     Object.entries(presets).map(([label, colors]) => ({
@@ -89,6 +107,102 @@ function PrizeSetting() {
     </Row>
   );
 
+  //slot-machine-image
+  const setLogoMemoized = useMemo(() => {
+    return (file) => {
+      if (file) {
+        const reader = new FileReader();
+        reader.addEventListener("load", () => {
+          Setslotmachineimage(reader.result);
+        });
+        reader.readAsDataURL(file);
+      }
+    };
+  }, []);
+  // winner-image
+  const setwnnerinerimageMemoized = useMemo(() => {
+    return (file) => {
+      if (file) {
+        const winnerReader = new FileReader();
+        winnerReader.addEventListener("load", () => {
+          Setwinnerimage(winnerReader.result);
+        });
+        winnerReader.readAsDataURL(file);
+      }
+    };
+  }, []);
+
+  //loser-image
+  const setloserimageMemoized = useMemo(() => {
+    return (file) => {
+      if (file) {
+        const loserReader = new FileReader();
+        loserReader.addEventListener("load", () => {
+          Setloserimage(loserReader.result);
+        });
+        loserReader.readAsDataURL(file);
+      }
+    };
+  }, []);
+
+  //spinner-image
+  const setSpinnerimageMemoized = useMemo(() => {
+    return (file) => {
+      if (file) {
+        const Spinnerreader = new FileReader();
+        Spinnerreader.addEventListener("load", () => {
+          Setspinnerimage(Spinnerreader.result);
+        });
+        Spinnerreader.readAsDataURL(file);
+      }
+    };
+  }, []);
+
+  //scratch-image
+  const setscratchimageMemoized = useMemo(() => {
+    return (file) => {
+      if (file) {
+        const scratchreader = new FileReader();
+        scratchreader.addEventListener("load", () => {
+          Setscratchimage(scratchreader.result);
+        });
+        scratchreader.readAsDataURL(file);
+      }
+    };
+  }, []);
+
+  //scratch-area
+  const setscratchareaMemoized = useMemo(() => {
+    return (file) => {
+      if (file) {
+        const scratcharea = new FileReader();
+        scratcharea.addEventListener("load", () => {
+          Setscratcharea(scratcharea.result);
+        });
+        scratcharea.readAsDataURL(file);
+      }
+    };
+  }, []);
+
+  const onChangePicture = (e) => {
+    setLogoMemoized(e.target.files[0]);
+  };
+  const onChangeWinnerPicture = (e) => {
+    setwnnerinerimageMemoized(e.target.files[0]);
+  };
+  const onChangeloserPicture = (e) => {
+    setloserimageMemoized(e.target.files[0]);
+  };
+  const onChangeSpinnerPicture = (e) => {
+    setSpinnerimageMemoized(e.target.files[0]);
+  };
+  const onChangescratchPicture = (e) => {
+    setscratchimageMemoized(e.target.files[0]);
+  };
+  const onChangescratchareaPicture = (e) => {
+    setscratchareaMemoized(e.target.files[0]);
+  };
+
   return (
     <>
       <div className="flex flex-col justify-start items-start">
@@ -100,7 +214,7 @@ function PrizeSetting() {
             <Divider className="h-0.5 bg-gray-300" />
 
             {/* slot-machine */}
-            {data.params.type === "slot-machine" && (
+            {params.type === "slot-machine" && (
               <div className="flex-col justify-start items-start gap-4  w-full">
                 <p className="font-sm font-semibold mb-2">Machine Appearance</p>
                 <span className="md:text-sm text-xs font-bold flex flex-row items-center gap-1">
@@ -109,11 +223,13 @@ function PrizeSetting() {
 
                 <div className="flex md:flex-row flex-col w-full items-center gap-4 mt-4 border-1 border-buttoncolor border-opacity-50 rounded-sm px-4 py-2">
                   <div>
-                    {logo ? (
-                      <img
+                    {slotmachineimage ? (
+                      <Image
                         className="w-40 h-32 object-contain"
-                        alt="upload image"
-                        src={logo}
+                        width={160}
+                        height={128}
+                        alt="uploadslotmachine"
+                        src={slotmachineimage}
                       />
                     ) : (
                       <Image
@@ -130,11 +246,11 @@ function PrizeSetting() {
                         type="file"
                         id="fileInput"
                         style={{ display: "none" }}
-                        // onChange={(e) => onChangePicture(e)}
+                        onChange={(e) => onChangePicture(e)}
                       />
                     </Button>
                     <Button
-                      // onPress={() => (setLogo(""), setImages(""))}
+                      onPress={() => Setslotmachineimage("")}
                       variant="light"
                       className="md:w-60 w-full h-8 ring-2 ring-buttoncolor rounded-sm text-buttoncolor font-medium"
                     >
@@ -146,7 +262,7 @@ function PrizeSetting() {
             )}
 
             {/* spin-wheel */}
-            {data.params.type === "spin-wheel" && (
+            {params.type === "spin-wheel" && (
               <div className="mt-4 flex flex-col justify-start items-center gap-4">
                 <div className="flex flex-col justify-start items-start gap-4">
                   <p className="flex items-center gap-2 text-sm font-semibold">
@@ -159,11 +275,13 @@ function PrizeSetting() {
 
                     <div className="flex md:flex-row flex-col w-full items-center gap-4 mt-2 border-1 border-buttoncolor border-opacity-50 rounded-sm px-4 py-2">
                       <div>
-                        {logo ? (
-                          <img
+                        {Spinnerimage ? (
+                          <Image
                             className="w-40 h-24 object-contain"
+                            width={160}
+                            height={128}
                             alt="upload image"
-                            src={logo}
+                            src={Spinnerimage}
                           />
                         ) : (
                           <Image
@@ -175,16 +293,16 @@ function PrizeSetting() {
                       </div>
                       <div className="flex flex-col justify-center items-center gap-4">
                         <Button className="md:w-60 w-full h-8 bg-buttoncolor text-white font-medium rounded-sm">
-                          <label htmlFor="fileInput">Upload</label>
+                          <label htmlFor="fileInputspinner">Upload</label>
                           <input
                             type="file"
-                            id="fileInput"
+                            id="fileInputspinner"
                             style={{ display: "none" }}
-                            // onChange={(e) => onChangePicture(e)}
+                            onChange={(e) => onChangeSpinnerPicture(e)}
                           />
                         </Button>
                         <Button
-                          // onPress={() => (setLogo(""), setImages(""))}
+                          onPress={() => Setspinnerimage("")}
                           variant="light"
                           className="md:w-60 w-full h-8 ring-2 ring-buttoncolor rounded-sm text-buttoncolor font-medium"
                         >
@@ -195,7 +313,7 @@ function PrizeSetting() {
                   </div>
                 </div>
                 <div className="flex flex-col justify-start items-start gap-4">
-                  <div className="flex-col justify-start items-start gap-2 mt-2 w-full">
+                  {/* <div className="flex-col justify-start items-start gap-2 mt-2 w-full">
                     <span className="md:text-xs text-xs  flex flex-row items-center gap-1">
                       Center<span className="text-red-500">*</span>
                     </span>
@@ -203,7 +321,7 @@ function PrizeSetting() {
                     <div className="flex md:flex-row flex-col w-full items-center gap-4 mt-2 border-1 border-buttoncolor border-opacity-50 rounded-sm px-4 py-2">
                       <div>
                         {logo ? (
-                          <img
+                          <Image
                             className="w-40 h-24 object-contain"
                             alt="upload image"
                             src={logo}
@@ -212,6 +330,8 @@ function PrizeSetting() {
                           <Image
                             className="w-40 h-24 object-contain"
                             alt="upload image"
+                            height={128}
+                            width={160}
                             src={logo}
                           />
                         )}
@@ -235,17 +355,17 @@ function PrizeSetting() {
                         </Button>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
                 <div className="flex flex-col justify-start items-start gap-4 mt-4 w-full">
                   <span className="md:text-sm text-xs font-normal flex flex-row items-center gap-1">
-                    Stroke Color*<span className="text-red-500">*</span>
+                    Stroke Color<span className="text-red-500">*</span>
                   </span>
                   <ColorPicker
                     defaultValue={token?.colorPrimary}
                     format={formatHex}
-                    value={StrokeColor}
-                    onChange={setStrokeColor}
+                    value={spinnerstrokecolor}
+                    onChange={Setspinnerstrokecolor}
                     onFormatChange={setFormatHex}
                     styles={{
                       popupOverlayInner: {
@@ -256,10 +376,10 @@ function PrizeSetting() {
                     panelRender={customPanelRender}
                   >
                     <Button
-                      style={{ backgroundColor: StrokeColorstring }}
+                      style={{ backgroundColor: StrokespinnerColorstring }}
                       className="w-full rounded-sm  text-white text-start"
                     >
-                      {StrokeColorstring}
+                      {StrokespinnerColorstring}
                     </Button>
                   </ColorPicker>
                 </div>
@@ -267,7 +387,7 @@ function PrizeSetting() {
             )}
 
             {/* scratch-card */}
-            {data.params.type === "scratch-card" && (
+            {params.type === "scratch-card" && (
               <div className="mt-4 flex flex-col justify-start items-center gap-4">
                 <div className="flex flex-col justify-start items-start gap-4">
                   <p className="flex items-center gap-2 text-sm font-semibold">
@@ -280,11 +400,11 @@ function PrizeSetting() {
 
                     <div className="flex md:flex-row flex-col w-full items-center gap-4 mt-2 border-1 border-buttoncolor border-opacity-50 rounded-sm px-4 py-2">
                       <div>
-                        {logo ? (
+                        {Scratchimage ? (
                           <img
                             className="w-40 h-24 object-contain"
                             alt="upload image"
-                            src={logo}
+                            src={Scratchimage}
                           />
                         ) : (
                           <Image
@@ -296,16 +416,16 @@ function PrizeSetting() {
                       </div>
                       <div className="flex flex-col justify-center items-center gap-4">
                         <Button className="md:w-60 w-full h-8 bg-buttoncolor text-white font-medium rounded-sm">
-                          <label htmlFor="fileInput">Upload</label>
+                          <label htmlFor="fileInputscratch">Upload</label>
                           <input
                             type="file"
-                            id="fileInput"
+                            id="fileInputscratch"
                             style={{ display: "none" }}
-                            // onChange={(e) => onChangePicture(e)}
+                            onChange={(e) => onChangescratchPicture(e)}
                           />
                         </Button>
                         <Button
-                          // onPress={() => (setLogo(""), setImages(""))}
+                          onPress={() => Setscratchimage("")}
                           variant="light"
                           className="md:w-60 w-full h-8 ring-2 ring-buttoncolor rounded-sm text-buttoncolor font-medium"
                         >
@@ -323,17 +443,17 @@ function PrizeSetting() {
 
                     <div className="flex md:flex-row flex-col w-full items-center gap-4 mt-2 border-1 border-buttoncolor border-opacity-50 rounded-sm px-4 py-2">
                       <div>
-                        {logo ? (
+                        {Scratcharea ? (
                           <img
                             className="w-40 h-24 object-contain"
                             alt="upload image"
-                            src={logo}
+                            src={Scratcharea}
                           />
                         ) : (
                           <Image
                             className="w-40 h-24 object-contain"
                             alt="upload image"
-                            src={logo}
+                            src={Scratchcard}
                           />
                         )}
                       </div>
@@ -344,11 +464,11 @@ function PrizeSetting() {
                             type="file"
                             id="fileInput"
                             style={{ display: "none" }}
-                            // onChange={(e) => onChangePicture(e)}
+                            onChange={(e) => onChangescratchareaPicture(e)}
                           />
                         </Button>
                         <Button
-                          // onPress={() => (setLogo(""), setImages(""))}
+                          onPress={() => Setscratcharea("")}
                           variant="light"
                           className="md:w-60 w-full h-8 ring-2 ring-buttoncolor rounded-sm text-buttoncolor font-medium"
                         >
@@ -360,13 +480,13 @@ function PrizeSetting() {
                 </div>
                 <div className="flex flex-col justify-start items-start gap-4 mt-4 w-full">
                   <span className="md:text-sm text-xs font-normal flex flex-row items-center gap-1">
-                    Stroke Color*<span className="text-red-500">*</span>
+                    Stroke Color<span className="text-red-500">*</span>
                   </span>
                   <ColorPicker
                     defaultValue={token?.colorPrimary}
                     format={formatHex}
-                    value={StrokeColor}
-                    onChange={setStrokeColor}
+                    value={scratchrstrokecolor}
+                    onChange={Setscratchstrokecolor}
                     onFormatChange={setFormatHex}
                     styles={{
                       popupOverlayInner: {
@@ -377,10 +497,10 @@ function PrizeSetting() {
                     panelRender={customPanelRender}
                   >
                     <Button
-                      style={{ backgroundColor: StrokeColorstring }}
+                      style={{ backgroundColor: StrokescratchColorstring }}
                       className="w-full rounded-sm  text-white text-start"
                     >
-                      {StrokeColorstring}
+                      {StrokescratchColorstring}
                     </Button>
                   </ColorPicker>
                 </div>
@@ -398,14 +518,17 @@ function PrizeSetting() {
                   </span>
                 </span>
                 <input
+                  value={limitation}
+                  onChange={(e) => Setlimitation(e.target.value)}
                   className="border-1 border-gray-300 rounded-md focus:ring-1 focus:border-1 focus:border-gray-100 focus:ring-buttoncolor"
                   type="number"
                 />
               </div>
             </div>
           </div>
-          <div>
-            <Image className="h-[40rem]" src={Preview} />
+
+          <div  className="absolute w-[300px] right-[65px] top-[150px]">
+           <MobileScreen/>
           </div>
         </div>
 
@@ -418,39 +541,46 @@ function PrizeSetting() {
                     Slot
                   </th>
                   <th scope="col" className="px-6 py-3 items-center  ">
-                    Prize Value
+                    Prize Name
                     <MdInfo className="inline-block ml-2 items-center text-blue-600 text-sm" />
                   </th>
                   <th scope="col" className="px-6 py-3 flex items-center gap-1">
-                    Chances %
+                    Amount
                     <MdInfo className="inline-block text-blue-600 text-sm" />
                   </th>
-                  <th scope="col" className="px-6 py-3"></th>
                 </tr>
               </thead>
               <tbody>
-                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                  <th
-                    scope="row"
-                    className="px-4 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                {prizeList.map((item, index) => (
+                  <tr
+                    key={index}
+                    className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
                   >
-                    1
-                  </th>
-                  <td className="px-6 py-4">Prize 1</td>
-                  <td className="px-6 py-4">
-                    <p className="border-1 border-gray-300 w-16 p-1">20/100</p>
-                  </td>
-                  <td className="px-6 py-4">
-                    <p className="text-sm font-bold text-buttoncolor">
-                      + Upload Image
-                    </p>
-                  </td>
-                </tr>
+                    <th
+                      scope="row"
+                      className="px-4 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    >
+                      {item.slot}
+                    </th>
+                    <td className="px-6 py-4">{item.prizeName}</td>
+                    <td className="px-6 py-4">
+                      <p className="border-1 border-gray-300 w-16 p-1">
+                        {item.amount}
+                      </p>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
           <div className="mb-4">
-            <p className="text-sm font-bold text-buttoncolor">+Add Slot</p>
+            <Button
+              onPress={onOpen}
+              variant="light"
+              className="text-sm font-bold ring-1 ring-buttoncolor text-buttoncolor "
+            >
+              +Add Slot
+            </Button>
           </div>
         </div>
         <Divider className="h-0.5 bg-gray-300 mt-4" />
@@ -468,11 +598,13 @@ function PrizeSetting() {
 
               <div className="flex md:flex-row flex-col w-full items-center gap-4 mt-2 border-1 border-buttoncolor border-opacity-50 rounded-sm px-4 py-2">
                 <div>
-                  {logo ? (
-                    <img
+                  {winnerImage ? (
+                    <Image
                       className="w-40 h-24 object-contain"
                       alt="upload image"
-                      src={logo}
+                      width={160}
+                      height={128}
+                      src={winnerImage}
                     />
                   ) : (
                     <Image
@@ -484,16 +616,16 @@ function PrizeSetting() {
                 </div>
                 <div className="flex flex-col justify-center items-center gap-4">
                   <Button className="md:w-60 w-full h-8 bg-buttoncolor text-white font-medium rounded-sm">
-                    <label htmlFor="fileInput">Upload</label>
+                    <label htmlFor="fileInputforwinner">Upload</label>
                     <input
                       type="file"
-                      id="fileInput"
+                      id="fileInputforwinner"
                       style={{ display: "none" }}
-                      // onChange={(e) => onChangePicture(e)}
+                      onChange={(e) => onChangeWinnerPicture(e)}
                     />
                   </Button>
                   <Button
-                    // onPress={() => (setLogo(""), setImages(""))}
+                    onPress={() => Setwinnerimage("")}
                     variant="light"
                     className="md:w-60 w-full h-8 ring-2 ring-buttoncolor rounded-sm text-buttoncolor font-medium"
                   >
@@ -510,6 +642,8 @@ function PrizeSetting() {
                   placeholder="Winner!"
                   className="border-1 w-full border-gray-300 rounded-md focus:ring-1 focus:border-1 focus:border-gray-100 focus:ring-buttoncolor"
                   type="text"
+                  value={winnerText}
+                  onChange={(e) => Setwinnertext(e.target.value)}
                 />
               </div>
 
@@ -553,11 +687,11 @@ function PrizeSetting() {
 
               <div className="flex md:flex-row flex-col w-full items-center gap-4 mt-2 border-1 border-buttoncolor border-opacity-50 rounded-sm px-4 py-2">
                 <div>
-                  {logo ? (
+                  {loserImage ? (
                     <img
                       className="w-40 h-24 object-contain"
                       alt="upload image"
-                      src={logo}
+                      src={loserImage}
                     />
                   ) : (
                     <Image
@@ -569,16 +703,16 @@ function PrizeSetting() {
                 </div>
                 <div className="flex flex-col justify-center items-center gap-4">
                   <Button className="md:w-60 w-full h-8 bg-buttoncolor text-white font-medium rounded-sm">
-                    <label htmlFor="fileInput">Upload</label>
+                    <label htmlFor="fileInputloser">Upload</label>
                     <input
                       type="file"
-                      id="fileInput"
+                      id="fileInputloser"
                       style={{ display: "none" }}
-                      // onChange={(e) => onChangePicture(e)}
+                      onChange={(e) => onChangeloserPicture(e)}
                     />
                   </Button>
                   <Button
-                    // onPress={() => (setLogo(""), setImages(""))}
+                    onPress={() => Setloserimage("")}
                     variant="light"
                     className="md:w-60 w-full h-8 ring-2 ring-buttoncolor rounded-sm text-buttoncolor font-medium"
                   >
@@ -592,6 +726,8 @@ function PrizeSetting() {
                   Text<span className="text-red-500">*</span>
                 </span>
                 <input
+                  value={loserText}
+                  onChange={(e) => Setlosertext(e.target.value)}
                   placeholder="You lost!!"
                   className="border-1 w-full border-gray-300 rounded-md focus:ring-1 focus:border-1 focus:border-gray-100 focus:ring-buttoncolor"
                   type="text"
@@ -638,55 +774,102 @@ function PrizeSetting() {
               <p className="text-xs">
                 Action after Winning,<span className="text-red-400">*</span>
               </p>
-
-              {/* Controlled selectoption example */}
-              <Select
-                      selectedKeys={value}
-                      onSelectionChange={setValue}
-
-                variant="bordered"
-                radius="sm"
-                size="sm"
-                placeholder={ "Show Proceed button" || value}
-
-                className="w-96 bg-white rounded-none"
-              >
-                 {dataselect.map((item) => (
-          <SelectItem key={item.value} value={item.value}>
-            {item.label}
-          </SelectItem>
-        ))}
-              </Select>
             </div>
             <div className="flex flex-col justify-start items-start gap-2">
               <p className="text-xs">
                 Retries after loss<span className="text-red-400">*</span>
               </p>
-              <Select
-                variant="bordered"
-                radius="sm"
-                size="sm"
-                className="w-96 bg-white rounded-none hover:ring-buttoncolor"
-              >
-                <SelectItem>hii</SelectItem>
-              </Select>
-            </div>
-            <div className="flex flex-col justify-start items-start gap-2">
-              <p className="text-xs">
-                Reset time after loss<span className="text-red-400">*</span>
-              </p>
-              <Select
-                variant="bordered"
-                radius="sm"
-                size="sm"
-                className="w-96 bg-white rounded-none"
-              >
-                <SelectItem>hii</SelectItem>
-              </Select>
+
+              <input
+                value={retryAfterLoss}
+                onChange={(e) => SetretryAfterLoss(e.target.value)}
+                className="border-1 w-full border-gray-300 rounded-md focus:ring-1 focus:border-1 focus:border-gray-100 focus:ring-buttoncolor"
+                type="number"
+              />
             </div>
           </div>
         </div>
       </div>
+
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1">
+                Add New Row
+              </ModalHeader>
+              <ModalBody>
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    const newRow = {
+                      slot: parseInt(e.target.slot.value),
+                      Name: e.target.prizeName.value,
+                      amount: parseInt(e.target.amount.value),
+                    };
+                    SetprizeList([...prizeList, newRow]);
+                    onClose();
+                  }}
+                >
+                  <div className="mb-4">
+                    <label
+                      htmlFor="slot"
+                      className="block text-gray-700 dark:text-gray-300"
+                    >
+                      Slot:
+                    </label>
+                    <input
+                      type="number"
+                      id="slot"
+                      name="slot"
+                      className="form-input mt-1 block w-full focus:ring-1 focus:border-none rounded-sm focus:ring-buttoncolor"
+                      required
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label
+                      htmlFor="prizeName"
+                      className="block text-gray-700 dark:text-gray-300"
+                    >
+                      Prize Name:
+                    </label>
+                    <input
+                      type="text"
+                      id="prizeName"
+                      name="prizeName"
+                      className="form-input mt-1 block w-full focus:ring-1 focus:border-none rounded-sm focus:ring-buttoncolor"
+                      required
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label
+                      htmlFor="amount"
+                      className="block text-gray-700 dark:text-gray-300"
+                    >
+                      Amount:
+                    </label>
+                    <input
+                      type="number"
+                      id="amount"
+                      name="amount"
+                      className="form-input mt-1 block w-full focus:ring-1 focus:border-none rounded-sm focus:ring-buttoncolor"
+                      required
+                    />
+                  </div>
+                  <div className="flex justify-end">
+                    <Button color="danger" variant="light" onPress={onClose}>
+                      Close
+                    </Button>
+                    <Button className="bg-buttoncolor text-white" type="submit">
+                      Add Slot
+                    </Button>
+                  </div>
+                </form>
+              </ModalBody>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
     </>
   );
 }

@@ -28,19 +28,16 @@ const font = Poppins({
 export default function RootLayout({ children }) {
   const pathname = usePathname();
   const router = useRouter();
-  
 
   useEffect(() => {
     // Any code here will only run on the client
     const self = window.self;
     // You can use 'self' here
   }, []);
-  
 
   return (
     <html lang="en" className={font.className}>
-      
-        <StateProvider initialState={initialState} reducer={reducer}>
+      <StateProvider initialState={initialState} reducer={reducer}>
         <GoogleOAuthProvider clientId="756205924792-fne212j4eil3dj99ain2deme3o083opr.apps.googleusercontent.com">
           <body className="scrollbar-hide md:scrollbar-default sm:scrollbar-default lg:scrollbar-default">
             <AntdRegistry>
@@ -66,9 +63,8 @@ export default function RootLayout({ children }) {
               </NextUIProvider>
             </AntdRegistry>
           </body>
-          </GoogleOAuthProvider>
-        </StateProvider>
-      
+        </GoogleOAuthProvider>
+      </StateProvider>
     </html>
   );
 }
