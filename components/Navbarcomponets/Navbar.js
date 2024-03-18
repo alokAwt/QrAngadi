@@ -378,7 +378,7 @@ export default function App() {
                           }}
                           avatarProps={{
                             size: "sm",
-                            src: "https://avatars.githubusercontent.com/u/30373425?v=4",
+                            src: "",
                           }}
                         />
                       </DropdownItem>

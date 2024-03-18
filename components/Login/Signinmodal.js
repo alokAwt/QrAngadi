@@ -385,7 +385,7 @@ export default function Signinmodal() {
         closeButton={
           <p>
             {" "}
-            <IoCloseCircle className="text-white bg-buttoncolor absolute md:right-8 md:top-8 right-2 top-2 hover:bg-none rounded-full text-3xl" />
+            <IoCloseCircle className="text-white bg-buttoncolor absolute md:right-8 md:top-12 right-2 top-2 hover:bg-none rounded-full text-3xl" />
           </p>
         }
         onOpenChange={onOpenChange}
