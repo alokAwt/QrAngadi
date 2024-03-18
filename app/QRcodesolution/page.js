@@ -49,7 +49,6 @@ import { IoIosAddCircle } from "react-icons/io";
 import { MdDelete } from "react-icons/md";
 import { IoDocumentTextSharp } from "react-icons/io5";
 
-
 const isBrowser = typeof window !== "undefined";
 let QRCodeStyling;
 
@@ -296,6 +295,7 @@ const Page = () => {
 
   const handleVideoChange = (e) => {
     const file = e.target.files[0];
+    setQrData(e.target.files[0]);
     if (file) {
       const reader = new FileReader();
       reader.readAsDataURL(file);
@@ -310,6 +310,7 @@ const Page = () => {
 
   const handleAudioChange = (e) => {
     const file = e.target.files[0];
+    setQrData(e.target.files[0]);
     if (file) {
       const Audioreader = new FileReader();
       Audioreader.readAsDataURL(file);
@@ -323,12 +324,14 @@ const Page = () => {
   };
 
   const handlePdfFileChange = (e) => {
+    setQrData(e.target.files[0]);
     const selectedFile = e.target.files[0];
     setPdfFile(selectedFile);
   };
 
   const handleTextChange = (e) => {
     setTextFile(e.target.files[0]);
+    setQrData(e.target.files[0]);
   };
 
   const genPresets = (presets = presetPalettes) =>
@@ -414,14 +417,35 @@ const Page = () => {
       const data = new FormData();
       data.append("file", QrData);
       data.append("upload_preset", "vsqmoxq9");
-      const res = await fetch(
-        "https://api.cloudinary.com/v1_1/dxlmwq61j/image/upload",
-        {
-          method: "post",
-          body: data,
-        }
-      );
+      var res;
+      if (qrType === "Video") {
+        res = await fetch(
+          "https://api.cloudinary.com/v1_1/dxlmwq61j/video/upload",
+          {
+            method: "post",
+            body: data,
+          }
+        );
+      } else if (qrType === "Audio") {
+        res = await fetch(
+          "https://api.cloudinary.com/v1_1/dxlmwq61j/video/upload",
+          {
+            method: "post",
+            body: data,
+          }
+        );
+      } else {
+        res = await fetch(
+          "https://api.cloudinary.com/v1_1/dxlmwq61j/image/upload",
+          {
+            method: "post",
+            body: data,
+          }
+        );
+      }
+
       const file1 = await res.json();
+      console.log("file", file1);
       if (file1) {
         if (image) {
           const data = new FormData();
@@ -954,9 +978,14 @@ const Page = () => {
                 <div className="flex justify-center items-center gap-2 flex-col h-60 w-2/4 border-1.5 border-dashed rounded-lg">
                   {textFile ? (
                     <div className="flex flex-col justify-center items-center">
-                      <IoDocumentTextSharp size={40} className='text-buttoncolor text-3xl' />
+                      <IoDocumentTextSharp
+                        size={40}
+                        className="text-buttoncolor text-3xl"
+                      />
 
-                      <p className="text-xs font-medium">File name: {textFile.name}</p>
+                      <p className="text-xs font-medium">
+                        File name: {textFile.name}
+                      </p>
                     </div>
                   ) : (
                     <Button className="md:w-60 w-full h-14 bg-buttoncolor text-white font-medium rounded-sm">

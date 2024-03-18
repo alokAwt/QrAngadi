@@ -955,7 +955,7 @@ const EditQR = ({ id, type, profie, close }) => {
                 />
               </div>
             </>
-          ) : type === "Image" ? (
+          ) : type === "Images" ? (
             <div className="mb-6 w-full">
               <p className="text-start p-2 text-sm font-medium">Upload image</p>
               <div className="flex  justify-between gap-12 items-center border-1 border-buttonopacitycolor p-6 rounded-lg">
@@ -1135,7 +1135,7 @@ const EditQR = ({ id, type, profie, close }) => {
                 required
               />
             </div>
-          ) : type === "document" ? (
+          ) : type === "Documents" ? (
             <div className="mb-6 w-full">
               <p className="text-start p-2 text-sm font-medium">Upload PDF</p>
               <div className="flex  justify-between gap-12 items-center border-1 border-buttonopacitycolor p-6 rounded-lg">
@@ -1185,7 +1185,7 @@ const EditQR = ({ id, type, profie, close }) => {
                 </div>
               </div>
             </div>
-          ) : type === "document1" ? (
+          ) : type === "Documents" ? (
             <div className="mb-6 w-full">
               <p className="text-start p-2 text-sm font-medium">
                 Upload Textfile
