@@ -34,6 +34,7 @@ import { ToastAction } from "@/components/ui/toast";
 import { useRouter } from "next/navigation";
 import { UpdateProfileQrImages } from "@/Utility/QrType/UpdateQrImages";
 import { UpdateProfileQr } from "@/Utility/QrType/UpdateQr";
+import { Video } from "lucide-react";
 
 const isBrowser = typeof window !== "undefined";
 let QRCodeStyling;
@@ -69,6 +70,60 @@ const EditQR = ({ id, type, profie, close }) => {
   const [qrName, setQrName] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+
+
+
+  // DYNAMIC UPDATE STATE MAP/Video/AUDIO  ----------------------------------------------
+  const [QRimage, SetQRimage] = useState("");
+  const [QrData, setQrData] = useState("");
+  const [video, setVideo] = useState(null);
+  const [audio, setAudio] = useState(null);
+  const [pdfFile, setPdfFile] = useState(null);
+  const [textFile, setTextFile] = useState(null);
+
+  const onChangeQRimage = (e) => {
+    setQRimageMemoized(e.target.files[0]);
+    setQrData(e.target.files[0]);
+  };
+
+  const handleVideoChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onloadend = () => {
+        setVideo({
+          file,
+          url: reader.result,
+        });
+      };
+    }
+  };
+
+  const handleAudioChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const Audioreader = new FileReader();
+      Audioreader.readAsDataURL(file);
+      Audioreader.onloadend = () => {
+        setAudio({
+          name: file.name,
+          url: Audioreader.result,
+        });
+      };
+    }
+  };
+
+  const handlePdfFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+    setPdfFile(selectedFile);
+  };
+
+  const handleTextChange = (e) => {
+    setTextFile(e.target.files[0]);
+  };
+
+  //--------------------------------------------------------------------------------------------------
 
   console.log("type", type);
   const [options, setOptions] = useState({
@@ -801,37 +856,39 @@ const EditQR = ({ id, type, profie, close }) => {
             />
           </div>
           {type === "GoogleMap" ? (
-            <div className="mb-6 w-full">
+            <div className="mb-6 w-full ">
               <label
                 htmlFor="email"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
               >
-                Enter Latitude And Longitude of Location
+                Enter Latitute And Longitude of Location
                 <span className="text-red-500">*</span>{" "}
                 <span className="text-xs text-gray-500">
                   (eg: 10.2022,20.400)
                 </span>
               </label>
-              <input
-                onChange={(e) => setLat(e.target.value)}
-                value={lat}
-                type="text"
-                id="email"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-buttoncolor focus:border-buttoncolor block w-full p-2.5 d "
-                placeholder="Enter Latitude of Location"
-                required
-              />
-              <input
-                onChange={(e) => setLon(e.target.value)}
-                value={lon}
-                type="text"
-                id="email"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-buttoncolor focus:border-buttoncolor block w-full p-2.5 d mt-2"
-                placeholder="Enter Longitude of Location"
-                required
-              />
+              <div>
+                <input
+                  onChange={(e) => setLat(e.target.value)}
+                  value={lat}
+                  type="text"
+                  id="email"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-buttoncolor focus:border-buttoncolor block w-full p-2.5 d "
+                  placeholder="Enter Latitude of Location"
+                  required
+                />
+                <input
+                  onChange={(e) => setLon(e.target.value)}
+                  value={lon}
+                  type="text"
+                  id="email"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-buttoncolor focus:border-buttoncolor block w-full p-2.5 d mt-2"
+                  placeholder="Enter Lonitude of Location"
+                  required
+                />
+              </div>
             </div>
-          ) : (
+          ) : type === "Website" ? (
             <div className="mb-6 w-full">
               <label
                 htmlFor="email"
@@ -852,6 +909,329 @@ const EditQR = ({ id, type, profie, close }) => {
                 required
               />
             </div>
+          ) : type === "playstore" ? (
+            <>
+              <div className="mb-6 w-full">
+                <label
+                  htmlFor="Android"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Enter URL for Android <span className="text-red-500">*</span>{" "}
+                  <span className="text-xs text-gray-500">
+                    {/* (eg: https://www.designdaddie.com/) */}
+                  </span>
+                </label>
+                <input
+                  onChange={(e) => onDataChange(e)}
+                  // value={Url}
+                  type="text"
+                  id="Android"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-buttoncolor focus:border-buttoncolor block w-full p-2.5 d "
+                  placeholder="Enter Android URL https://"
+                  required
+                />
+              </div>
+              <div className="mb-6 w-full">
+                <label
+                  htmlFor="Android"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Enter URL for Ios <span className="text-red-500">*</span>{" "}
+                  <span className="text-xs text-gray-500">
+                    {/* (eg: https://www.designdaddie.com/) */}
+                  </span>
+                </label>
+                <input
+                  onChange={(e) => onDataChange(e)}
+                  // value={Url}
+                  type="text"
+                  id="Android"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-buttoncolor focus:border-buttoncolor block w-full p-2.5 d "
+                  placeholder="Enter Ios URL https://"
+                  required
+                />
+              </div>
+            </>
+          ) : type === "Image" ? (
+            <div className="mb-6 w-full">
+              <p className="text-start p-2 text-sm font-medium">Upload image</p>
+              <div className="flex  justify-between gap-12 items-center border-1 border-buttonopacitycolor p-6 rounded-lg">
+                <div className="flex justify-center items-center gap-2 flex-col h-60 w-2/4 border-1.5 border-dashed rounded-lg">
+                  {QRimage ? (
+                    <div>
+                      <Image
+                        src={QRimage}
+                        width={400}
+                        height={150}
+                        className=" w-full h-60 object-contain rounded-md"
+                      />
+                    </div>
+                  ) : (
+                    <Button className="md:w-60 w-full h-14 bg-buttoncolor text-white font-medium rounded-sm">
+                      <IoIosAddCircle className="text-xl" />
+                      <label htmlFor="fileInputQRimage">Upload image</label>
+                      <input
+                        type="file"
+                        id="fileInputQRimage"
+                        style={{ display: "none" }}
+                        onChange={(e) => onChangeQRimage(e)}
+                      />
+                    </Button>
+                  )}
+                </div>
+                <div className="h-60 w-2/4 flex flex-col gap-4 justify-start items-start ">
+                  <p className="text-lg">Supported formats:</p>
+                  <div className="flex justify-evenly items-center gap-4">
+                    <span className="p-2 text-buttoncolor border border-buttoncolor rounded-md cursor-pointer">
+                      JPEG
+                    </span>
+                    <span className="p-2 text-buttoncolor border border-buttoncolor rounded-md cursor-pointer">
+                      JPG
+                    </span>
+                    <span className="p-2 text-buttoncolor border border-buttoncolor rounded-md cursor-pointer">
+                      PNG
+                    </span>
+                  </div>
+                  {QRimage && (
+                    <div className="flex items-center gap-4">
+                      <p className="text-md leading-5">Image.png</p>
+                      <Button
+                        onPress={() => SetQRimage("")}
+                        variant="light"
+                        className="text-buttoncolor"
+                      >
+                        <MdDelete size={24} />
+                      </Button>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          ) : type === "Video" ? (
+            <div className="mb-6 w-full">
+              <p className="text-start p-2 text-sm font-medium">Upload Video</p>
+              <div className="flex  justify-between gap-12 items-center border-1 border-buttonopacitycolor p-6 rounded-lg">
+                <div className="flex justify-center items-center gap-2 p-2 flex-col h-60 w-2/4 border-1.5 border-dashed rounded-lg">
+                  {video ? (
+                    <div>
+                      <video
+                        controls
+                        className="w-full h-60 object-contain rounded-md"
+                      >
+                        <source src={video.url} type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>
+                    </div>
+                  ) : (
+                    <Button className="md:w-60 w-full h-14 bg-buttoncolor text-white font-medium rounded-sm">
+                      <IoIosAddCircle className="text-xl" />
+                      <label htmlFor="fileInputvideo">Upload Video</label>
+                      <input
+                        type="file"
+                        id="fileInputvideo"
+                        style={{ display: "none" }}
+                        onChange={(e) => handleVideoChange(e)}
+                      />
+                    </Button>
+                  )}
+                </div>
+                <div className="h-60 w-2/4 flex flex-col gap-4 justify-start items-start ">
+                  <p className="text-lg">Supported formats:</p>
+                  <div className="flex justify-evenly items-center gap-4">
+                    <span className="p-2 text-buttoncolor border border-buttoncolor rounded-md cursor-pointer">
+                      MP4
+                    </span>
+                  </div>
+                  {video && (
+                    <div className="flex items-center gap-4">
+                      <p className="text-md leading-5">{video.file.name}</p>
+                      <Button
+                        onPress={() => setVideo(null)}
+                        variant="light"
+                        className="text-buttoncolor"
+                      >
+                        <MdDelete size={24} />
+                      </Button>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          ) : type === "Audio" ? ( //need to change
+            <div className="mb-6 w-full">
+              <p className="text-start p-2 text-sm font-medium">Upload Audio</p>
+              <div className="flex  justify-between gap-12 items-center border-1 border-buttonopacitycolor p-6 rounded-lg">
+                <div className="flex justify-center items-center gap-2 flex-col h-60 w-2/4 border-1.5 border-dashed rounded-lg">
+                  {audio ? (
+                    <div>
+                      <audio
+                        controls
+                        className="w-full h-60 object-contain rounded-md"
+                      >
+                        <source src={audio.url} type="audio/mpeg" />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </div>
+                  ) : (
+                    <Button className="md:w-60 w-full h-14 bg-buttoncolor text-white font-medium rounded-sm">
+                      <IoIosAddCircle className="text-xl" />
+                      <label htmlFor="fileInputAudio">Upload Audio</label>
+                      <input
+                        type="file"
+                        id="fileInputAudio"
+                        style={{ display: "none" }}
+                        onChange={(e) => handleAudioChange(e)}
+                      />
+                    </Button>
+                  )}
+                </div>
+                <div className="h-60 w-2/4 flex flex-col gap-4 justify-start items-start ">
+                  <p className="text-lg">Supported formats:</p>
+                  <div className="flex justify-evenly items-center gap-4">
+                    <span className="p-2 text-buttoncolor border border-buttoncolor rounded-md cursor-pointer">
+                      MP3
+                    </span>
+                    <span className="p-2 text-buttoncolor border border-buttoncolor rounded-md cursor-pointer">
+                      WAV
+                    </span>
+                  </div>
+                  {audio && (
+                    <div className="flex items-center gap-4">
+                      <p className="text-md leading-5">{audio.name}</p>
+                      <Button
+                        onPress={() => setAudio(null)}
+                        variant="light"
+                        className="text-buttoncolor"
+                      >
+                        <MdDelete size={24} />
+                      </Button>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          ) : type === "Social" ? (
+            <div className="mb-6 w-full">
+              <label
+                htmlFor="email"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Enter URL of Social Account{" "}
+                <span className="text-red-500">*</span>{" "}
+                <span className="text-xs text-gray-500">
+                  (eg: https://www.facebook.com/)
+                </span>
+              </label>
+              <input
+                // onChange={(e) => onDataChange(e)}
+                // value={Url}
+                type="text"
+                id="email"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-buttoncolor focus:border-buttoncolor block w-full p-2.5 d "
+                placeholder="Enter  URL https://"
+                required
+              />
+            </div>
+          ) : type === "document" ? (
+            <div className="mb-6 w-full">
+              <p className="text-start p-2 text-sm font-medium">Upload PDF</p>
+              <div className="flex  justify-between gap-12 items-center border-1 border-buttonopacitycolor p-6 rounded-lg">
+                <div className="flex justify-center items-center gap-2 flex-col h-60 w-2/4 border-1.5 border-dashed rounded-lg">
+                  {pdfFile ? (
+                    <div>
+                      <embed
+                        src={URL.createObjectURL(pdfFile)}
+                        type="application/pdf"
+                        width={400}
+                        height={200}
+                      />
+                    </div>
+                  ) : (
+                    <Button className="md:w-60 w-full h-14 bg-buttoncolor text-white font-medium rounded-sm">
+                      <IoIosAddCircle className="text-xl" />
+                      <label htmlFor="pdfFileInput">Upload PDF</label>
+                      <input
+                        type="file"
+                        id="pdfFileInput"
+                        accept=".pdf"
+                        style={{ display: "none" }}
+                        onChange={(e) => handlePdfFileChange(e)}
+                      />
+                    </Button>
+                  )}
+                </div>
+                <div className="h-60 w-2/4 flex flex-col gap-4 justify-start items-start ">
+                  <p className="text-lg">Supported formats:</p>
+                  <div className="flex justify-evenly items-center gap-4">
+                    <span className="p-2 text-buttoncolor border border-buttoncolor rounded-md cursor-pointer">
+                      PDF
+                    </span>
+                  </div>
+                  {pdfFile && (
+                    <div className="flex items-center gap-4">
+                      <p className="text-md leading-5">{pdfFile.name}</p>
+                      <Button
+                        onPress={() => setPdfFile(null)}
+                        variant="light"
+                        className="text-buttoncolor"
+                      >
+                        <MdDelete size={24} />
+                      </Button>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          ) : type === "document1" ? (
+            <div className="mb-6 w-full">
+              <p className="text-start p-2 text-sm font-medium">
+                Upload Textfile
+              </p>
+              <div className="flex  justify-between gap-12 items-center border-1 border-buttonopacitycolor p-6 rounded-lg">
+                <div className="flex justify-center items-center gap-2 flex-col h-60 w-2/4 border-1.5 border-dashed rounded-lg">
+                  {textFile ? (
+                    <div className="flex flex-col justify-center items-center">
+                      <IoDocumentTextSharp size={40} className='text-buttoncolor text-3xl' />
+
+                      <p className="text-xs font-medium">File name: {textFile.name}</p>
+                    </div>
+                  ) : (
+                    <Button className="md:w-60 w-full h-14 bg-buttoncolor text-white font-medium rounded-sm">
+                      <IoIosAddCircle className="text-xl" />
+                      <label htmlFor="fileInputText">Upload Textfile</label>
+                      <input
+                        type="file"
+                        id="fileInputText"
+                        style={{ display: "none" }}
+                        onChange={(e) => handleTextChange(e)}
+                      />
+                    </Button>
+                  )}
+                </div>
+                <div className="h-60 w-2/4 flex flex-col gap-4 justify-start items-start ">
+                  <p className="text-lg">Supported formats:</p>
+                  <div className="flex justify-evenly items-center gap-4">
+                    <span className="p-2 text-buttoncolor border border-buttoncolor rounded-md cursor-pointer">
+                      Txt
+                    </span>
+                  </div>
+                  {textFile && (
+                    <div className="flex items-center gap-4">
+                      <p className="text-md leading-5">{textFile.name}</p>
+                      <Button
+                        onPress={() => setTextFile(null)}
+                        variant="light"
+                        className="text-buttoncolor"
+                      >
+                        <MdDelete size={24} />
+                      </Button>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div></div>
           )}
 
           <Button
