@@ -47,6 +47,8 @@ import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
 import { IoIosAddCircle } from "react-icons/io";
 import { MdDelete } from "react-icons/md";
+import { IoDocumentTextSharp } from "react-icons/io5";
+
 
 const isBrowser = typeof window !== "undefined";
 let QRCodeStyling;
@@ -87,7 +89,12 @@ const Page = () => {
 
   const [QRimage, SetQRimage] = useState("");
   const [QrData, setQrData] = useState("");
+  const [video, setVideo] = useState(null);
+  const [audio, setAudio] = useState(null);
+  const [pdfFile, setPdfFile] = useState(null);
+  const [textFile, setTextFile] = useState(null);
 
+  console.log(audio);
   const [options, setOptions] = useState({
     width: 300,
     height: 300,
@@ -285,6 +292,43 @@ const Page = () => {
   const onChangeQRimage = (e) => {
     setQRimageMemoized(e.target.files[0]);
     setQrData(e.target.files[0]);
+  };
+
+  const handleVideoChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onloadend = () => {
+        setVideo({
+          file,
+          url: reader.result,
+        });
+      };
+    }
+  };
+
+  const handleAudioChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const Audioreader = new FileReader();
+      Audioreader.readAsDataURL(file);
+      Audioreader.onloadend = () => {
+        setAudio({
+          name: file.name,
+          url: Audioreader.result,
+        });
+      };
+    }
+  };
+
+  const handlePdfFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+    setPdfFile(selectedFile);
+  };
+
+  const handleTextChange = (e) => {
+    setTextFile(e.target.files[0]);
   };
 
   const genPresets = (presets = presetPalettes) =>
@@ -730,25 +774,26 @@ const Page = () => {
             <div className="mb-6 w-full">
               <p className="text-start p-2 text-sm font-medium">Upload Video</p>
               <div className="flex  justify-between gap-12 items-center border-1 border-buttonopacitycolor p-6 rounded-lg">
-                <div className="flex justify-center items-center gap-2 flex-col h-60 w-2/4 border-1.5 border-dashed rounded-lg">
-                  {QRimage ? (
+                <div className="flex justify-center items-center gap-2 p-2 flex-col h-60 w-2/4 border-1.5 border-dashed rounded-lg">
+                  {video ? (
                     <div>
-                      <Image
-                        src={QRimage}
-                        width={400}
-                        height={150}
-                        className=" w-full h-60 object-contain rounded-md"
-                      />
+                      <video
+                        controls
+                        className="w-full h-60 object-contain rounded-md"
+                      >
+                        <source src={video.url} type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>
                     </div>
                   ) : (
                     <Button className="md:w-60 w-full h-14 bg-buttoncolor text-white font-medium rounded-sm">
                       <IoIosAddCircle className="text-xl" />
-                      <label htmlFor="fileInputQRimage">Upload Video</label>
+                      <label htmlFor="fileInputvideo">Upload Video</label>
                       <input
                         type="file"
-                        id="fileInputQRimage"
+                        id="fileInputvideo"
                         style={{ display: "none" }}
-                        onChange={(e) => onChangeQRimage(e)}
+                        onChange={(e) => handleVideoChange(e)}
                       />
                     </Button>
                   )}
@@ -760,11 +805,11 @@ const Page = () => {
                       MP4
                     </span>
                   </div>
-                  {QRimage && (
+                  {video && (
                     <div className="flex items-center gap-4">
-                      <p className="text-md leading-5">Image.png</p>
+                      <p className="text-md leading-5">{video.file.name}</p>
                       <Button
-                        onPress={() => SetQRimage("")}
+                        onPress={() => setVideo(null)}
                         variant="light"
                         className="text-buttoncolor"
                       >
@@ -775,29 +820,30 @@ const Page = () => {
                 </div>
               </div>
             </div>
-          ) : qrType === "Audio" ? (
+          ) : qrType === "Audio" ? ( //need to change
             <div className="mb-6 w-full">
               <p className="text-start p-2 text-sm font-medium">Upload Audio</p>
               <div className="flex  justify-between gap-12 items-center border-1 border-buttonopacitycolor p-6 rounded-lg">
                 <div className="flex justify-center items-center gap-2 flex-col h-60 w-2/4 border-1.5 border-dashed rounded-lg">
-                  {QRimage ? (
+                  {audio ? (
                     <div>
-                      <Image
-                        src={QRimage}
-                        width={400}
-                        height={150}
-                        className=" w-full h-60 object-contain rounded-md"
-                      />
+                      <audio
+                        controls
+                        className="w-full h-60 object-contain rounded-md"
+                      >
+                        <source src={audio.url} type="audio/mpeg" />
+                        Your browser does not support the audio element.
+                      </audio>
                     </div>
                   ) : (
                     <Button className="md:w-60 w-full h-14 bg-buttoncolor text-white font-medium rounded-sm">
                       <IoIosAddCircle className="text-xl" />
-                      <label htmlFor="fileInputQRimage">Upload Audio</label>
+                      <label htmlFor="fileInputAudio">Upload Audio</label>
                       <input
                         type="file"
-                        id="fileInputQRimage"
+                        id="fileInputAudio"
                         style={{ display: "none" }}
-                        onChange={(e) => onChangeQRimage(e)}
+                        onChange={(e) => handleAudioChange(e)}
                       />
                     </Button>
                   )}
@@ -812,11 +858,11 @@ const Page = () => {
                       WAV
                     </span>
                   </div>
-                  {QRimage && (
+                  {audio && (
                     <div className="flex items-center gap-4">
-                      <p className="text-md leading-5">Image.png</p>
+                      <p className="text-md leading-5">{audio.name}</p>
                       <Button
-                        onPress={() => SetQRimage("")}
+                        onPress={() => setAudio(null)}
                         variant="light"
                         className="text-buttoncolor"
                       >
@@ -854,24 +900,25 @@ const Page = () => {
               <p className="text-start p-2 text-sm font-medium">Upload PDF</p>
               <div className="flex  justify-between gap-12 items-center border-1 border-buttonopacitycolor p-6 rounded-lg">
                 <div className="flex justify-center items-center gap-2 flex-col h-60 w-2/4 border-1.5 border-dashed rounded-lg">
-                  {QRimage ? (
+                  {pdfFile ? (
                     <div>
-                      <Image
-                        src={QRimage}
+                      <embed
+                        src={URL.createObjectURL(pdfFile)}
+                        type="application/pdf"
                         width={400}
-                        height={150}
-                        className=" w-full h-60 object-contain rounded-md"
+                        height={200}
                       />
                     </div>
                   ) : (
                     <Button className="md:w-60 w-full h-14 bg-buttoncolor text-white font-medium rounded-sm">
                       <IoIosAddCircle className="text-xl" />
-                      <label htmlFor="fileInputQRimage">Upload PDF</label>
+                      <label htmlFor="pdfFileInput">Upload PDF</label>
                       <input
                         type="file"
-                        id="fileInputQRimage"
+                        id="pdfFileInput"
+                        accept=".pdf"
                         style={{ display: "none" }}
-                        onChange={(e) => onChangeQRimage(e)}
+                        onChange={(e) => handlePdfFileChange(e)}
                       />
                     </Button>
                   )}
@@ -883,11 +930,11 @@ const Page = () => {
                       PDF
                     </span>
                   </div>
-                  {QRimage && (
+                  {pdfFile && (
                     <div className="flex items-center gap-4">
-                      <p className="text-md leading-5">Image.png</p>
+                      <p className="text-md leading-5">{pdfFile.name}</p>
                       <Button
-                        onPress={() => SetQRimage("")}
+                        onPress={() => setPdfFile(null)}
                         variant="light"
                         className="text-buttoncolor"
                       >
@@ -905,24 +952,21 @@ const Page = () => {
               </p>
               <div className="flex  justify-between gap-12 items-center border-1 border-buttonopacitycolor p-6 rounded-lg">
                 <div className="flex justify-center items-center gap-2 flex-col h-60 w-2/4 border-1.5 border-dashed rounded-lg">
-                  {QRimage ? (
-                    <div>
-                      <Image
-                        src={QRimage}
-                        width={400}
-                        height={150}
-                        className=" w-full h-60 object-contain rounded-md"
-                      />
+                  {textFile ? (
+                    <div className="flex flex-col justify-center items-center">
+                      <IoDocumentTextSharp size={40} className='text-buttoncolor text-3xl' />
+
+                      <p className="text-xs font-medium">File name: {textFile.name}</p>
                     </div>
                   ) : (
                     <Button className="md:w-60 w-full h-14 bg-buttoncolor text-white font-medium rounded-sm">
                       <IoIosAddCircle className="text-xl" />
-                      <label htmlFor="fileInputQRimage">Upload Textfile</label>
+                      <label htmlFor="fileInputText">Upload Textfile</label>
                       <input
                         type="file"
-                        id="fileInputQRimage"
+                        id="fileInputText"
                         style={{ display: "none" }}
-                        onChange={(e) => onChangeQRimage(e)}
+                        onChange={(e) => handleTextChange(e)}
                       />
                     </Button>
                   )}
@@ -934,11 +978,11 @@ const Page = () => {
                       Txt
                     </span>
                   </div>
-                  {QRimage && (
+                  {textFile && (
                     <div className="flex items-center gap-4">
-                      <p className="text-md leading-5">Image.png</p>
+                      <p className="text-md leading-5">{textFile.name}</p>
                       <Button
-                        onPress={() => SetQRimage("")}
+                        onPress={() => setTextFile(null)}
                         variant="light"
                         className="text-buttoncolor"
                       >
