@@ -127,7 +127,7 @@ function Imageslider() {
                       <p className="md:w-[30rem] lg:w-[30rem] text-md font-normal text-gray-600 leading-6">
                         {slide.description}
                       </p>
-                      <div className="flex  items-center gap-2 mt-2">
+                      <div className="flex  items-center gap-2 ">
                         {slide.Buttontext1.text && (
                           <Button
                             variant="bordered"

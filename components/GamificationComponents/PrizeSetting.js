@@ -562,7 +562,7 @@ function PrizeSetting() {
                     >
                       {item.slot}
                     </th>
-                    <td className="px-6 py-4">{item.prizeName}</td>
+                    <td className="px-6 py-4">{item.Name}</td>
                     <td className="px-6 py-4">
                       <p className="border-1 border-gray-300 w-16 p-1">
                         {item.amount}

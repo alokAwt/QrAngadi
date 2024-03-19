@@ -16,7 +16,7 @@ import {
 import { MdEmail } from "react-icons/md";
 import { IoIosLock } from "react-icons/io";
 import backgroundimage from "../../public/Auth/logo.png";
-import Authgif from "../../public/Auth/authGif.gif";
+import Authgif from "../../public/Auth/vadu.gif";
 import Image from "next/image";
 import Link from "next/link";
 import { IoCloseCircle } from "react-icons/io5";

@@ -3,10 +3,10 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import QR from '../../public/QR.png';
-import Apple from '../../public/Stick/Apple.png';
-import Heart from '../../public/Stick/Heart.png';
-import Kiwi from '../../public/Stick/Kiwi.png';
-import Sunflower from '../../public/Stick/Sunflower.png';
+import Apple from '../../public/Stick/Logo.png';
+import Heart from '../../public/Stick/Whatsapp.png';
+import Kiwi from '../../public/Stick/Facebook.png';
+import Sunflower from '../../public/Stick/Instagram.png';
 import Snapchat from '../../public/Stick/Snapchat.png';
 
 const QRsticker = () => {
@@ -24,7 +24,7 @@ const QRsticker = () => {
   return (
     <div className=''>
       <div className='flex justify-center items-start relative '>
-        <Image className='md:w-[32rem] w-[24rem] h-[24rem] md:h-[32rem]' src={QR} alt="QR Code" />
+        <Image className='md:w-[32rem] w-[32rem] h-[24rem] md:h-[32rem]' src={QR} alt="QR Code" />
         <AnimatePresence>
           {images.map((image, index) => (
             index === currentIndex && (
