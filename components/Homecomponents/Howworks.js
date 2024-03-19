@@ -18,17 +18,7 @@ const Howworks = () => {
   const [imageIndex, setImageIndex] = useState(0);
 
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setImageIndex(prevIndex => (prevIndex + 1) % images.length);
-    }, 5000);
-
-    return () => clearInterval(interval); 
-  }, [])
-
-  const handleImageChange = (image) => {
-    setSelectedImage(image);
-  };
+  
 
  
 
