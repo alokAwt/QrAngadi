@@ -20,9 +20,10 @@ import {
 import Jackpot from "../../public/gamification/Jackpot.png";
 import Oops from "../../public/gamification/Oops.png";
 import Preview from "../../public/gamification/Preview.png";
-import Spinwheel from "../../public/gamification/spinWheel.png";
+import Spinwheell from "../../public/gamification/spinWheel.png";
 import Scratchcard from "../../public/gamification/scratch2.png";
 import MobileScreen from "../MobileScreen/MobileScreen";
+import Spinwheel from "./Wheelcomponent";
 
 export const dataselect = [
   { label: "option1", value: "option1" },
@@ -287,7 +288,7 @@ function PrizeSetting() {
                           <Image
                             className="w-40 h-24 object-contain"
                             alt="upload image"
-                            src={Spinwheel}
+                            src={Spinwheell}
                           />
                         )}
                       </div>
@@ -527,9 +528,8 @@ function PrizeSetting() {
             </div>
           </div>
 
-          <div  className="absolute w-[300px] right-[65px] top-[150px]">
-           <MobileScreen/>
-          </div>
+          <div className="justify-end flex">{params.type === "spin-wheel" && <Spinwheel  prizeList={ prizeList}/>}</div>
+
         </div>
 
         <div className="mt-12 flex justify-start items-start gap-4 flex-col">
