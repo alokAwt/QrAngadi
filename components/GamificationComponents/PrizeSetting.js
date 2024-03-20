@@ -528,7 +528,7 @@ function PrizeSetting() {
             </div>
           </div>
 
-          <div className="justify-end flex">{params.type === "spin-wheel" && <Spinwheel  prizeList={ prizeList}/>}</div>
+          <div className="justify-end flex">{params.type === "spin-wheel" && <Spinwheel key={JSON.stringify(prizeList)}  prizeList={ prizeList}/>}</div>
 
         </div>
 

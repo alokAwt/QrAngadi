@@ -8,7 +8,6 @@ import InputComponent from "./Settings/common/InputComponent";
 import MobileScreen from "../MobileScreen/MobileScreen";
 function Validation() {
   const {
-    params,
     title,
     setTitle,
     description,
@@ -39,9 +38,9 @@ function Validation() {
       </p>
       <div className="min-h-[1px] bg-[#C8C8C8] my-3"></div>
       <div className="font-semibold text-lg mb-5">Validation Settings</div>
-      {params.type==="slot-machine" && <div className="absolute w-[300px] right-[65px] top-[150px]">
+      {/* { <div className="absolute w-[300px] right-[65px] top-[150px]">
         <MobileScreen />
-      </div>}
+      </div>} */}
       <TitleComponent
         name={"Page Title"}
         id={"pageTitle"}
