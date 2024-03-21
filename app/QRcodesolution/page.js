@@ -849,28 +849,28 @@ const Page = () => {
               <p className="text-start p-2 text-sm font-medium">Upload Audio</p>
               <div className="flex  justify-between gap-12 items-center border-1 border-buttonopacitycolor p-6 rounded-lg">
                 <div className="flex justify-center items-center gap-2 flex-col h-60 w-2/4 border-1.5 border-dashed rounded-lg">
-                  {audio ? (
-                    <div>
-                      <audio
-                        controls
-                        className="w-full h-60 object-contain rounded-md"
-                      >
-                        <source src={audio.url} type="audio/mpeg" />
-                        Your browser does not support the audio element.
-                      </audio>
-                    </div>
-                  ) : (
-                    <Button className="md:w-60 w-full h-14 bg-buttoncolor text-white font-medium rounded-sm">
-                      <IoIosAddCircle className="text-xl" />
-                      <label htmlFor="fileInputAudio">Upload Audio</label>
-                      <input
-                        type="file"
-                        id="fileInputAudio"
-                        style={{ display: "none" }}
-                        onChange={(e) => handleAudioChange(e)}
-                      />
-                    </Button>
-                  )}
+                  {video ? (
+                     <div style={{marginBottom:150}}>
+                     <video
+                       controls
+                       className="w-full h-60 object-contain rounded-md"
+                     >
+                       <source src={video.url} type="video/mp4" />
+                       Your browser does not support the video tag.
+                     </video>
+                   </div>
+                 ) : (
+                   <Button className="md:w-60 w-full h-14 bg-buttoncolor text-white font-medium rounded-sm">
+                     <IoIosAddCircle className="text-xl" />
+                     <label htmlFor="fileInputvideo">Upload Audio</label>
+                     <input
+                       type="file"
+                       id="fileInputvideo"
+                       style={{ display: "none" }}
+                       onChange={(e) => handleVideoChange(e)}
+                     />
+                   </Button>
+                 )}
                 </div>
                 <div className="h-60 w-2/4 flex flex-col gap-4 justify-start items-start ">
                   <p className="text-lg">Supported formats:</p>
@@ -882,9 +882,9 @@ const Page = () => {
                       WAV
                     </span>
                   </div>
-                  {audio && (
+                  {video && (
                     <div className="flex items-center gap-4">
-                      <p className="text-md leading-5">{audio.name}</p>
+                      <p className="text-md leading-5">{video.file.name}</p>
                       <Button
                         onPress={() => setAudio(null)}
                         variant="light"
@@ -910,8 +910,8 @@ const Page = () => {
                 </span>
               </label>
               <input
-                // onChange={(e) => onDataChange(e)}
-                // value={Url}
+                onChange={(e) => onDataChange(e)}
+                value={Url}
                 type="text"
                 id="email"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-buttoncolor focus:border-buttoncolor block w-full p-2.5 d "

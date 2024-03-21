@@ -74,8 +74,6 @@ const EditQR = ({ id, type, profie, close }) => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-
-
   // DYNAMIC UPDATE STATE MAP/Video/AUDIO  ----------------------------------------------
   const [QRimage, SetQRimage] = useState("");
   const [QrData, setQrData] = useState("");
@@ -84,6 +82,18 @@ const EditQR = ({ id, type, profie, close }) => {
   const [pdfFile, setPdfFile] = useState(null);
   const [textFile, setTextFile] = useState(null);
 
+  const setQRimageMemoized = useMemo(() => {
+    return (file) => {
+      if (file) {
+        const QRreader = new FileReader();
+        QRreader.addEventListener("load", () => {
+          SetQRimage(QRreader.result);
+        });
+        QRreader.readAsDataURL(file);
+      }
+    };
+  }, []);
+
   const onChangeQRimage = (e) => {
     setQRimageMemoized(e.target.files[0]);
     setQrData(e.target.files[0]);
@@ -91,6 +101,7 @@ const EditQR = ({ id, type, profie, close }) => {
 
   const handleVideoChange = (e) => {
     const file = e.target.files[0];
+    setQrData(e.target.files[0]);
     if (file) {
       const reader = new FileReader();
       reader.readAsDataURL(file);
@@ -105,6 +116,7 @@ const EditQR = ({ id, type, profie, close }) => {
 
   const handleAudioChange = (e) => {
     const file = e.target.files[0];
+    setQrData(e.target.files[0]);
     if (file) {
       const Audioreader = new FileReader();
       Audioreader.readAsDataURL(file);
@@ -124,6 +136,7 @@ const EditQR = ({ id, type, profie, close }) => {
 
   const handleTextChange = (e) => {
     setTextFile(e.target.files[0]);
+    setQrData(e.target.files[0]);
   };
 
   //--------------------------------------------------------------------------------------------------
@@ -309,7 +322,7 @@ const EditQR = ({ id, type, profie, close }) => {
 
   const onChangePicture = (e) => {
     setImages(e.target.files[0]);
-    setLogoMemoized(e.target.files[0]); // Use the memoized function to set the logo
+    setLogoMemoized(e.target.files[0]);
   };
 
   const UpdateQrProfileImages = async () => {
@@ -368,20 +381,74 @@ const EditQR = ({ id, type, profie, close }) => {
     }
   };
 
-  const UpdateQrdata = () => {
+  const UpdateQrdata = async () => {
     setLoading(true);
-    UpdateProfileQr(
-      type,
-      id,
-      qrName,
-      Url,
-      lat,
-      lon,
-      setLoading,
-      toast,
-      profie,
-      close
-    );
+    console.log("alok", type);
+    if (
+      type === "Images" ||
+      type === "Video" ||
+      type === "Audio" ||
+      type === "Documents"
+    ) {
+      const data = new FormData();
+      data.append("file", QrData);
+      data.append("upload_preset", "vsqmoxq9");
+      var res;
+      if (type === "Video") {
+        res = await fetch(
+          "https://api.cloudinary.com/v1_1/dxlmwq61j/video/upload",
+          {
+            method: "post",
+            body: data,
+          }
+        );
+      } else if (type === "Audio") {
+        res = await fetch(
+          "https://api.cloudinary.com/v1_1/dxlmwq61j/video/upload",
+          {
+            method: "post",
+            body: data,
+          }
+        );
+      } else {
+        res = await fetch(
+          "https://api.cloudinary.com/v1_1/dxlmwq61j/image/upload",
+          {
+            method: "post",
+            body: data,
+          }
+        );
+      }
+      const file1 = await res.json();
+      console.log("alok", file1);
+      UpdateProfileQr(
+        type,
+        id,
+        qrName,
+        file1.secure_url,
+        lat,
+        lon,
+        setLoading,
+        toast,
+        profie,
+        close,
+        file1.public_id
+      );
+    } else {
+      UpdateProfileQr(
+        type,
+        id,
+        qrName,
+        Url,
+        lat,
+        lon,
+        setLoading,
+        toast,
+        profie,
+        close,
+        ""
+      );
+    }
   };
 
   const genPresets = (presets = presetPalettes) =>
@@ -912,7 +979,7 @@ const EditQR = ({ id, type, profie, close }) => {
                 required
               />
             </div>
-          ) : type === "playstore" ? (
+          ) : type === "PlayStore" ? (
             <>
               <div className="mb-6 w-full">
                 <label
@@ -1066,14 +1133,14 @@ const EditQR = ({ id, type, profie, close }) => {
               <div className="flex  justify-between gap-12 items-center border-1 border-buttonopacitycolor p-6 rounded-lg">
                 <div className="flex justify-center items-center gap-2 flex-col h-60 w-2/4 border-1.5 border-dashed rounded-lg">
                   {audio ? (
-                    <div>
-                      <audio
+                    <div style={{marginBottom:150}}>
+                      <video
                         controls
                         className="w-full h-60 object-contain rounded-md"
                       >
                         <source src={audio.url} type="audio/mpeg" />
                         Your browser does not support the audio element.
-                      </audio>
+                      </video>
                     </div>
                   ) : (
                     <Button className="md:w-60 w-full h-14 bg-buttoncolor text-white font-medium rounded-sm">
@@ -1126,8 +1193,8 @@ const EditQR = ({ id, type, profie, close }) => {
                 </span>
               </label>
               <input
-                // onChange={(e) => onDataChange(e)}
-                // value={Url}
+                onChange={(e) => onDataChange(e)}
+                value={Url}
                 type="text"
                 id="email"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-buttoncolor focus:border-buttoncolor block w-full p-2.5 d "
@@ -1194,9 +1261,14 @@ const EditQR = ({ id, type, profie, close }) => {
                 <div className="flex justify-center items-center gap-2 flex-col h-60 w-2/4 border-1.5 border-dashed rounded-lg">
                   {textFile ? (
                     <div className="flex flex-col justify-center items-center">
-                      <IoDocumentTextSharp size={40} className='text-buttoncolor text-3xl' />
+                      <IoDocumentTextSharp
+                        size={40}
+                        className="text-buttoncolor text-3xl"
+                      />
 
-                      <p className="text-xs font-medium">File name: {textFile.name}</p>
+                      <p className="text-xs font-medium">
+                        File name: {textFile.name}
+                      </p>
                     </div>
                   ) : (
                     <Button className="md:w-60 w-full h-14 bg-buttoncolor text-white font-medium rounded-sm">

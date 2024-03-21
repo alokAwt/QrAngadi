@@ -19,7 +19,8 @@ export const UpdateProfileQr = (
   setLoading,
   toast,
   profie,
-  close
+  close,
+  public_id
 ) => {
   switch (type) {
     case "Website": {
@@ -67,6 +68,7 @@ export const UpdateProfileQr = (
         Url: Url,
         UniqueId: Id,
         qrName: qrName,
+        PublicId: public_id,
       }).then((res) => {
         console.log(res);
         if (res.message === "success") {
@@ -87,6 +89,7 @@ export const UpdateProfileQr = (
         Url: Url,
         UniqueId: Id,
         qrName: qrName,
+        PublicId: public_id,
       }).then((res) => {
         console.log(res);
         if (res.message === "success") {
@@ -102,11 +105,12 @@ export const UpdateProfileQr = (
       });
       break;
     }
-    case "Image": {
+    case "Images": {
       UpdateImageQr({
         Url: Url,
         UniqueId: Id,
         qrName: qrName,
+        PublicId: public_id,
       }).then((res) => {
         console.log(res);
         if (res.message === "success") {
@@ -122,11 +126,12 @@ export const UpdateProfileQr = (
       });
       break;
     }
-    case "Pdf": {
+    case "Documents": {
       UpdateDocumentQr({
         Url: Url,
         UniqueId: Id,
         qrName: qrName,
+        PublicId: public_id,
       }).then((res) => {
         console.log(res);
         if (res.message === "success") {
