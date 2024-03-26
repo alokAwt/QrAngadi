@@ -1,2 +1,2 @@
-export const BaseUrl = "https://qrangadi.qrangadi.com/api/v1"
+export const BaseUrl = "https://qrangadi.qrangadi.com/api/v1";
 

@@ -34,7 +34,6 @@ import {
 import Sidebar from "./Sidebar";
 import { TiThMenu } from "react-icons/ti";
 
-
 const ProfileNav = () => {
   const [profile, setProfile] = useState("");
   const router = useRouter();
@@ -46,23 +45,26 @@ const ProfileNav = () => {
       setProfile(res.data);
     });
   }, []);
+
   return (
     <>
       <nav className="h-12 w-full flex p-4 lg:p-6  items-center justify-between sticky top-0 z-10  bg-slate-100 border-b-1 border-gray-300">
         <div className="flex items-center gap-2">
           <div className="md:hidden">
             <Sheet>
-              <SheetTrigger><TiThMenu/></SheetTrigger>
-              <SheetContent side={'left'}>
+              <SheetTrigger>
+                <TiThMenu />
+              </SheetTrigger>
+              <SheetContent side={"left"}>
                 <SheetHeader>
                   <SheetDescription>
-                   <Sidebar/>
+                    <Sidebar />
                   </SheetDescription>
                 </SheetHeader>
               </SheetContent>
             </Sheet>
           </div>
-          <div className="flex flex-col justify-start items-start gap-1">
+          <div className="flex md:flex-col justify-start items-start gap-1">
             <p className="text-xs text-gray-500 font-medium">
               {" "}
               Hello, {profile?.Name}{" "}
@@ -73,7 +75,7 @@ const ProfileNav = () => {
           </div>
         </div>
         <div className="flex items-center gap-2 p-1 ">
-          <Badge
+          {/* <Badge
             isOneChar
             content={"5"}
             color="danger"
@@ -84,25 +86,25 @@ const ProfileNav = () => {
               {" "}
               <IoNotificationsOutline size={24} />
             </span>
-          </Badge>
+          </Badge> */}
 
           <div className="flex items-center gap-2">
-            <Avatar
-              className="h-8 w-8 m-1"
-              isBordered
-              radius="sm"
-              src="https://i.pravatar.cc/150?u=a04258a2462d826712d"
-            />
             <Dropdown
               showArrow
               radius="sm"
               classNames={{
-                base: "before:bg-default-200", // change arrow background
+                base: "before:bg-default-200 ", // change arrow background
                 content: "p-0 border-small border-divider bg-background",
               }}
             >
               <DropdownTrigger>
-                <Button className="w-12" variant="light">
+                <Button className="w-auto" variant="light">
+                  <Avatar
+                    className="h-8 w-8 m-1"
+                    isBordered
+                    radius="sm"
+                    src={profile?.url}
+                  />
                   {profile?.Name}{" "}
                   <span>
                     <MdKeyboardArrowDown />
@@ -143,7 +145,7 @@ const ProfileNav = () => {
                       }}
                       avatarProps={{
                         size: "sm",
-                        src: "https://avatars.githubusercontent.com/u/30373425?v=4",
+                        src: "",
                       }}
                     />
                   </DropdownItem>
@@ -167,9 +169,7 @@ const ProfileNav = () => {
                 </DropdownSection>
 
                 <DropdownSection aria-label="Preferences" showDivider>
-                  <DropdownItem key="quick_search" shortcut="⌘K">
-                    Dashboard
-                  </DropdownItem>
+                  <DropdownItem key="quick_search">Dashboard</DropdownItem>
                 </DropdownSection>
 
                 <DropdownSection aria-label="Help & Feedback">

@@ -9,6 +9,7 @@ import Preview from "../../public/gamification/Preview.png";
 import Image from "next/image";
 import MobileScreen from "../MobileScreen/MobileScreen";
 const PersonalData = [{ label: "Personal Data", value: "personaldata" }];
+import Spinwheel from "../GamificationComponents/Wheelcomponent";
 
 const classNamesforswitch = {
   base: cn("w-full "),
@@ -32,12 +33,13 @@ function ClaimAction() {
     Setbuttontext,
     personaldatavalues,
     setpersonaldataValues,
+    params,
   } = useContext(DataContext);
 
   return (
     <div className="flex flex-col justify-start items-start w-full">
-      <div className="flex md:flex-row flex-col-reverse justify-between   w-full items-start mt-2">
-        <div className="flex flex-col justify-start items-start gap-4 ">
+      <div className="flex md:flex-row flex-col-reverse justify-between gap-24  w-full items-start mt-2">
+        <div className="flex flex-col justify-start items-start gap-4 md:w-2/4 w-full">
           <p className="text-sm font-medium mb-4">
             Enter the details and set up the general settings of your coupon.
           </p>
@@ -47,7 +49,7 @@ function ClaimAction() {
             <p className="text-sm  font-semibold">Choose action</p>
           </div>
           <div className="absolute w-[300px] right-[65px] top-[150px]">
-            <MobileScreen />
+            {params.type === "slot-machine" && <MobileScreen />}
           </div>
           <div className="flex flex-col justify-start items-start gap-2 w-full">
             <p className="text-xs">
@@ -218,9 +220,7 @@ function ClaimAction() {
             />
           </div>
         </div>
-        {/* <div>
-          <Image className="h-[40rem]" src={Preview} />
-        </div> */}
+        {/* <div className="justify-end flex">{params.type === "spin-wheel" && <Spinwheel />}</div> */}
       </div>
       <Divider className="mt-4" />
     </div>

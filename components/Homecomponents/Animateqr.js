@@ -58,7 +58,7 @@ const Animateqr = () => {
           <Image className="md:w-96 md:h-96" src={QR} alt="QRimage" />
           {isShown && (
             <motion.div
-              className="md:w-40 w-32 h-1 bg-buttoncolor rounded-sm absolute md:top-24 top-14 md:ml-28 ml-24"
+              className="md:w-40 w-36 h-1 bg-buttoncolor rounded-sm absolute md:top-24 top-14 md:ml-28 ml-[5rem]"
               animate={isAnimated ? { y: [0, 160, 180, 50, 0] } : {}}
               transition={{ duration: 2 }}
               onAnimationComplete={handleAnimationComplete}

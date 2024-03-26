@@ -1,11 +1,15 @@
+"use client"
 import Image from "next/image";
 import React from "react";
 import Gamification1 from "../../public/Gamification.png";
 import Spinandwin from '../../public/Spinandwin.png'
 import Scratchandwin from '../../public/Scratchandwin.png'
 import Luckywin from '../../public/Luckywin.png'
+import {useRouter} from 'next/navigation'
 
 const Gamification = () => {
+  const router =useRouter()
+
   return (
     <div className="w-full bg-[#FFF4F1] h-auto mt-2 md:mt-12 flex justify-center items-center p-2">
       <div className="flex md:flex-row flex-col justify-center mx-auto items-center py-12">
@@ -23,15 +27,15 @@ const Gamification = () => {
           <div className="flex justify-center items-center ">
             <div className="flex justify-between gap-8 items-center">
                 <div className="flex flex-col justify-center items-center gap-2">
-                    <Image className="md:h-24  md:w-24 h-20 w-20" src={Spinandwin} alt="sppinerimage"/>
+                    <Image onClick={()=>router.push("/gamification/spin-wheel")} className="md:h-24  md:w-24 h-20 w-20 hover:ring-4 hover:ring-buttonopacitycolor rounded-full cursor-pointer" src={Spinandwin} alt="sppinerimage"/>
                     <span className="text-sm font-medium">Spin & Win</span>
                 </div>
                 <div className="flex flex-col justify-center items-center gap-2">
-                    <Image className="md:h-24  md:w-24 h-20 w-20" src={Scratchandwin} alt="scratchiamge"/>
+                    <Image onClick={()=>router.push('/gamification/scratch-card')} className="md:h-24  md:w-24 h-20 w-20 hover:ring-4 hover:ring-buttonopacitycolor rounded-full cursor-pointer" src={Scratchandwin} alt="scratchiamge"/>
                     <span className="text-sm font-medium">Scratch Cards</span>
                 </div>
-                <div className="flex flex-col justify-center items-center gap-2">
-                    <Image className="md:h-24  md:w-24 h-20 w-20" src={Luckywin} alt="luckywin"/>
+                <div className="flex flex-col justify-center items-center gap-2 ">
+                    <Image onClick={()=>router.push('/gamification/slot-machine')} className="md:h-24  md:w-24 h-20 w-20 hover:ring-4 hover:ring-buttonopacitycolor rounded-full cursor-pointer" src={Luckywin} alt="luckywin"/>
                     <span className="text-sm font-medium">Lucky Win</span>
                 </div>
             </div>
