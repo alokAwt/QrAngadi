@@ -591,7 +591,7 @@ const Page = () => {
         </p>
       </div>
       <div className="flex flex-col justify-center items-center w-full mt-8 mx-auto">
-        <div className="grid grid-cols-4 md:grid-cols-9 place-content-evenly place-items-center md:gap-2 bg-[#FF71431A] border-1 border-buttoncolor w-full rounded-sm border-opacity-50 md:p-2 p-1 md:px-2 overflow-hidden">
+        <div className="grid grid-cols-3 md:grid-cols-9 place-content-evenly place-items-center md:gap-2 bg-[#FF71431A] border-1 border-buttoncolor w-full rounded-sm border-opacity-50 md:p-2 p-1 md:px-2 overflow-hidden">
           {QrType &&
             QrType.map((item, index) => (
               <Button
@@ -742,8 +742,8 @@ const Page = () => {
           ) : qrType === "Image" ? (
             <div className="mb-6 w-full">
               <p className="text-start p-2 text-sm font-medium">Upload image</p>
-              <div className="flex  justify-between gap-12 items-center border-1 border-buttonopacitycolor p-6 rounded-lg">
-                <div className="flex justify-center items-center gap-2 flex-col h-60 w-2/4 border-1.5 border-dashed rounded-lg">
+              <div className="flex flex-col md:flex-row  justify-between gap-12 items-center border-1 border-buttonopacitycolor p-6 rounded-lg">
+                <div className="flex  justify-center items-center gap-2 flex-col h-60 md:w-2/4 w-full border-1.5 border-dashed rounded-lg">
                   {QRimage ? (
                     <div>
                       <Image
@@ -754,7 +754,7 @@ const Page = () => {
                       />
                     </div>
                   ) : (
-                    <Button className="md:w-60 w-full h-14 bg-buttoncolor text-white font-medium rounded-sm">
+                    <Button className="md:w-60 w-40  h-14 bg-buttoncolor text-white font-medium rounded-sm">
                       <IoIosAddCircle className="text-xl" />
                       <label htmlFor="fileInputQRimage">Upload image</label>
                       <input
@@ -766,8 +766,8 @@ const Page = () => {
                     </Button>
                   )}
                 </div>
-                <div className="h-60 w-2/4 flex flex-col gap-4 justify-start items-start ">
-                  <p className="text-lg">Supported formats:</p>
+                <div className="md:h-60 h-24 w-2/4 flex flex-col gap-4 md:justify-start md:items-start ">
+                  <p className="md:text-lg text-xs">Supported formats:</p>
                   <div className="flex justify-evenly items-center gap-4">
                     <span className="p-2 text-buttoncolor border border-buttoncolor rounded-md cursor-pointer">
                       JPEG
@@ -797,8 +797,8 @@ const Page = () => {
           ) : qrType === "Video" ? (
             <div className="mb-6 w-full">
               <p className="text-start p-2 text-sm font-medium">Upload Video</p>
-              <div className="flex  justify-between gap-12 items-center border-1 border-buttonopacitycolor p-6 rounded-lg">
-                <div className="flex justify-center items-center gap-2 p-2 flex-col h-60 w-2/4 border-1.5 border-dashed rounded-lg">
+              <div className="flex md:flex-row flex-col justify-between gap-12 items-center border-1 border-buttonopacitycolor p-6 rounded-lg">
+                <div className="flex justify-center items-center gap-2 p-2 flex-col h-60 md:w-2/4 w-full border-1.5 border-dashed rounded-lg">
                   {video ? (
                     <div>
                       <video
@@ -810,7 +810,7 @@ const Page = () => {
                       </video>
                     </div>
                   ) : (
-                    <Button className="md:w-60 w-full h-14 bg-buttoncolor text-white font-medium rounded-sm">
+                    <Button className="md:w-60 w-40 h-14 bg-buttoncolor text-white font-medium rounded-sm">
                       <IoIosAddCircle className="text-xl" />
                       <label htmlFor="fileInputvideo">Upload Video</label>
                       <input
@@ -822,8 +822,8 @@ const Page = () => {
                     </Button>
                   )}
                 </div>
-                <div className="h-60 w-2/4 flex flex-col gap-4 justify-start items-start ">
-                  <p className="text-lg">Supported formats:</p>
+                <div className="md:h-60 h-24 w-2/4 flex flex-col gap-4 justify-start items-start ">
+                  <p className="md:text-lg text-xs">Supported formats:</p>
                   <div className="flex justify-evenly items-center gap-4">
                     <span className="p-2 text-buttoncolor border border-buttoncolor rounded-md cursor-pointer">
                       MP4
@@ -847,8 +847,8 @@ const Page = () => {
           ) : qrType === "Audio" ? ( //need to change
             <div className="mb-6 w-full">
               <p className="text-start p-2 text-sm font-medium">Upload Audio</p>
-              <div className="flex  justify-between gap-12 items-center border-1 border-buttonopacitycolor p-6 rounded-lg">
-                <div className="flex justify-center items-center gap-2 flex-col h-60 w-2/4 border-1.5 border-dashed rounded-lg">
+              <div className="flex md:flex-row flex-col justify-between gap-12 items-center border-1 border-buttonopacitycolor p-6 rounded-lg">
+                <div className="flex justify-center items-center gap-2 flex-col h-60 md:w-2/4 w-full border-1.5 border-dashed rounded-lg">
                   {audio ? (
                     <div>
                       <audio
@@ -860,7 +860,7 @@ const Page = () => {
                       </audio>
                     </div>
                   ) : (
-                    <Button className="md:w-60 w-full h-14 bg-buttoncolor text-white font-medium rounded-sm">
+                    <Button className="md:w-60 w-40 h-14 bg-buttoncolor text-white font-medium rounded-sm">
                       <IoIosAddCircle className="text-xl" />
                       <label htmlFor="fileInputAudio">Upload Audio</label>
                       <input
@@ -872,8 +872,8 @@ const Page = () => {
                     </Button>
                   )}
                 </div>
-                <div className="h-60 w-2/4 flex flex-col gap-4 justify-start items-start ">
-                  <p className="text-lg">Supported formats:</p>
+                <div className="md:h-60 h-24 w-2/4 flex flex-col gap-4 justify-start items-start ">
+                  <p className="md:text-lg text-xs">Supported formats:</p>
                   <div className="flex justify-evenly items-center gap-4">
                     <span className="p-2 text-buttoncolor border border-buttoncolor rounded-md cursor-pointer">
                       MP3
@@ -922,8 +922,8 @@ const Page = () => {
           ) : qrType === "document" ? (
             <div className="mb-6 w-full">
               <p className="text-start p-2 text-sm font-medium">Upload PDF</p>
-              <div className="flex  justify-between gap-12 items-center border-1 border-buttonopacitycolor p-6 rounded-lg">
-                <div className="flex justify-center items-center gap-2 flex-col h-60 w-2/4 border-1.5 border-dashed rounded-lg">
+              <div className="flex md:flex-row flex-col justify-between gap-12 items-center border-1 border-buttonopacitycolor p-6 rounded-lg">
+                <div className="flex justify-center items-center gap-2 flex-col h-60 md:w-2/4 w-full border-1.5 border-dashed rounded-lg">
                   {pdfFile ? (
                     <div>
                       <embed
@@ -934,7 +934,7 @@ const Page = () => {
                       />
                     </div>
                   ) : (
-                    <Button className="md:w-60 w-full h-14 bg-buttoncolor text-white font-medium rounded-sm">
+                    <Button className="md:w-60 w-40 h-14 bg-buttoncolor text-white font-medium rounded-sm">
                       <IoIosAddCircle className="text-xl" />
                       <label htmlFor="pdfFileInput">Upload PDF</label>
                       <input
@@ -947,8 +947,8 @@ const Page = () => {
                     </Button>
                   )}
                 </div>
-                <div className="h-60 w-2/4 flex flex-col gap-4 justify-start items-start ">
-                  <p className="text-lg">Supported formats:</p>
+                <div className="md:h-60 h-24 w-2/4 flex flex-col gap-4 justify-start items-start ">
+                  <p className="md:text-lg text-xs">Supported formats:</p>
                   <div className="flex justify-evenly items-center gap-4">
                     <span className="p-2 text-buttoncolor border border-buttoncolor rounded-md cursor-pointer">
                       PDF
@@ -974,8 +974,8 @@ const Page = () => {
               <p className="text-start p-2 text-sm font-medium">
                 Upload Textfile
               </p>
-              <div className="flex  justify-between gap-12 items-center border-1 border-buttonopacitycolor p-6 rounded-lg">
-                <div className="flex justify-center items-center gap-2 flex-col h-60 w-2/4 border-1.5 border-dashed rounded-lg">
+              <div className="flex flex-col md:flex-row  justify-between gap-12 items-center border-1 border-buttonopacitycolor p-6 rounded-lg">
+                <div className="flex justify-center items-center gap-2 flex-col h-60 md:w-2/4 w-full border-1.5 border-dashed rounded-lg">
                   {textFile ? (
                     <div className="flex flex-col justify-center items-center">
                       <IoDocumentTextSharp
@@ -988,7 +988,7 @@ const Page = () => {
                       </p>
                     </div>
                   ) : (
-                    <Button className="md:w-60 w-full h-14 bg-buttoncolor text-white font-medium rounded-sm">
+                    <Button className="md:w-60 w-40 h-14 bg-buttoncolor text-white font-medium rounded-sm">
                       <IoIosAddCircle className="text-xl" />
                       <label htmlFor="fileInputText">Upload Textfile</label>
                       <input
@@ -1000,8 +1000,8 @@ const Page = () => {
                     </Button>
                   )}
                 </div>
-                <div className="h-60 w-2/4 flex flex-col gap-4 justify-start items-start ">
-                  <p className="text-lg">Supported formats:</p>
+                <div className="md:h-60 h-24 w-2/4 flex flex-col gap-4 justify-start items-start ">
+                  <p className="md:text-lg text-xs">Supported formats:</p>
                   <div className="flex justify-evenly items-center gap-4">
                     <span className="p-2 text-buttoncolor border border-buttoncolor rounded-md cursor-pointer">
                       Txt
