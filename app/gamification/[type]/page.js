@@ -433,11 +433,10 @@ function Page() {
   };
 
   return (
-    <div className={`p-16`}>
-      <Spin size="large" spinning={isloading} fullscreen />;
+    <div className={`md:p-16 p-1`}>
+      <Spin size="large" spinning={isloading} fullscreen />
       <DataContext.Provider value={data}>
         <ValidationProvider>
-          {" "}
           <div className={`text-3xl font-semibold mb-4`}>
             {data.params.type === "spin-wheel" && `Customize your Wheel.`}
             {data.params.type === "slot-machine" && `Customize your Machine.`}
@@ -450,10 +449,12 @@ function Page() {
             onSelectionChange={setSelected}
             variant="underlined"
             classNames={{
-              tabList: "md:gap-6 w-full relative rounded-none p-0 font-medium ",
+              tabList:
+                "md:gap-6 gap-1 w-full  relative  rounded-none p-0 font-medium ",
               cursor: "w-full bg-buttoncolor font-medium",
-              tab: "w-full  h-12",
-              tabContent: "group-data-[selected=true]:text-buttoncolor ",
+              tab: "md:w-full   h-8 md:h-12 ",
+              tabContent:
+                "group-data-[selected=true]:text-buttoncolor md:text-sm text-[0.68rem]",
             }}
           >
             <Tab
@@ -516,7 +517,7 @@ function Page() {
               </Button>
             </div>
           ) : (
-            <div className="w-full mx-4 mt-4 flex justify-between items-center">
+            <div className="md:w-full mx-4 mt-4 flex justify-between items-center">
               <Button
                 onPress={handlePrevious}
                 isDisabled={selected === "general"}

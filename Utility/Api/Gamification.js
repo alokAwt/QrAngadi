@@ -23,7 +23,7 @@ export const sendDataToServer = async (data) => {
 export const Getgames = async (id) => {
   let token = localStorage.getItem("token");
   try {
-    let result = await fetch(`${BaseUrl}/Gamification${id}`, {
+    let result = await fetch(`${BaseUrl}/Gamification/getowngames/${id}`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -56,3 +56,6 @@ export const Savedgames = async (data) => {
     return error.message;
   }
 };
+
+
+///Gamification/PlayGame

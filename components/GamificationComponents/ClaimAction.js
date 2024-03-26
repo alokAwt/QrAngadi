@@ -39,7 +39,7 @@ function ClaimAction() {
   return (
     <div className="flex flex-col justify-start items-start w-full">
       <div className="flex md:flex-row flex-col-reverse justify-between gap-24  w-full items-start mt-2">
-        <div className="flex flex-col justify-start items-start gap-4 w-2/4">
+        <div className="flex flex-col justify-start items-start gap-4 md:w-2/4 w-full">
           <p className="text-sm font-medium mb-4">
             Enter the details and set up the general settings of your coupon.
           </p>

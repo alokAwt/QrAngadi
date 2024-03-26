@@ -207,7 +207,7 @@ function PrizeSetting() {
   return (
     <>
       <div className="flex flex-col justify-start items-start">
-        <div className="flex md:flex-row flex-col-reverse justify-between   w-full items-start mt-2">
+        <div className="flex md:flex-row flex-col justify-between   w-full items-start mt-2">
           <div className="flex flex-col justify-start items-start gap-2">
             <p className="text-sm font-medium">
               Enter the details and set up the general settings of your coupon.
@@ -262,10 +262,10 @@ function PrizeSetting() {
               </div>
             )}
 
-            {/* spin-wheel */}
+          
             {params.type === "spin-wheel" && (
-              <div className="mt-4 flex flex-col justify-start items-center gap-4">
-                <div className="flex flex-col justify-start items-start gap-4">
+              <div className="mt-4 flex flex-col justify-start items-center gap-4 w-full">
+                <div className="flex flex-col justify-start items-start gap-4 w-full">
                   <p className="flex items-center gap-2 text-sm font-semibold">
                     Spinner Appearance
                   </p>
@@ -293,7 +293,7 @@ function PrizeSetting() {
                         )}
                       </div>
                       <div className="flex flex-col justify-center items-center gap-4">
-                        <Button className="md:w-60 w-full h-8 bg-buttoncolor text-white font-medium rounded-sm">
+                        <Button className="md:w-60 w-60 h-8 bg-buttoncolor text-white font-medium rounded-sm">
                           <label htmlFor="fileInputspinner">Upload</label>
                           <input
                             type="file"
@@ -305,7 +305,7 @@ function PrizeSetting() {
                         <Button
                           onPress={() => Setspinnerimage("")}
                           variant="light"
-                          className="md:w-60 w-full h-8 ring-2 ring-buttoncolor rounded-sm text-buttoncolor font-medium"
+                          className="md:w-60 w-60 h-8 ring-2 ring-buttoncolor rounded-sm text-buttoncolor font-medium"
                         >
                           Remove
                         </Button>
@@ -528,8 +528,14 @@ function PrizeSetting() {
             </div>
           </div>
 
-          <div className="justify-end flex">{params.type === "spin-wheel" && <Spinwheel key={JSON.stringify(prizeList)}  prizeList={ prizeList}/>}</div>
-
+          <div className="justify-end flex">
+            {params.type === "spin-wheel" && (
+              <Spinwheel
+                key={JSON.stringify(prizeList)}
+                prizeList={prizeList}
+              />
+            )}
+          </div>
         </div>
 
         <div className="mt-12 flex justify-start items-start gap-4 flex-col">
@@ -791,7 +797,30 @@ function PrizeSetting() {
         </div>
       </div>
 
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+      <Modal
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+        motionProps={{
+          variants: {
+            enter: {
+              y: 0,
+              opacity: 1,
+              transition: {
+                duration: 0.3,
+                ease: "easeOut",
+              },
+            },
+            exit: {
+              y: -20,
+              opacity: 0,
+              transition: {
+                duration: 0.2,
+                ease: "easeIn",
+              },
+            },
+          },
+        }}
+      >
         <ModalContent>
           {(onClose) => (
             <>

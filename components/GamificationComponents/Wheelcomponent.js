@@ -11,9 +11,7 @@ useEffect(() => {
 }, [prizeList])
 
 React.useEffect(() => {
-  console.log("prizeList updated:", prizeList);
   const segments = prizeList.map((prize) => prize.Name);
-  console.log("segments:", segments);
 }, [prizeList]);
 
   const segColors = [
@@ -30,8 +28,8 @@ React.useEffect(() => {
   };
 
   return (
-    <div className=" flex justify-center items-center w-96 ">
-      <div className="absolute top-44 right-36  w-96 h-96">
+    <div className="  justify-center items-center w-96 hidden  md:flex ">
+      <div className="md:absolute top-44 right-36  md:w-96 md:h-96 w-40 h-40">
         <WheelComponent
           segments={segments}
           segColors={segColors}
