@@ -25,7 +25,7 @@ const Howworks = () => {
   const Active =
     "flex flex-row items-center ring-1 ring-buttoncolor p-2 rounded-md gap-2 cursor-pointer transition-all duration-700 ";
   const UnActive =
-    "flex flex-row items-center gap-2 cursor-pointer transition-all duration-700";
+    "flex flex-row items-center gap-2 cursor-pointer p-2 transition-all duration-700";
 
   return (
     <div className="flex flex-col justify-center items-center gap-4 mt-16">
