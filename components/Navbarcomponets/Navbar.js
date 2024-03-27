@@ -313,7 +313,7 @@ export default function App() {
               <Tab
                 key="Contactus"
                 title={
-                  <Link href="Contactus">
+                  <Link href="/Contactus">
                     <div className="flex items-center space-x-2  ">
                       <span className="font-medium">Contact us</span>
                     </div>
@@ -378,7 +378,7 @@ export default function App() {
                           }}
                           avatarProps={{
                             size: "sm",
-                            src: "https://avatars.githubusercontent.com/u/30373425?v=4",
+                            src: "",
                           }}
                         />
                       </DropdownItem>

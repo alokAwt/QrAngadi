@@ -20,9 +20,10 @@ import {
 import Jackpot from "../../public/gamification/Jackpot.png";
 import Oops from "../../public/gamification/Oops.png";
 import Preview from "../../public/gamification/Preview.png";
-import Spinwheel from "../../public/gamification/spinWheel.png";
+import Spinwheell from "../../public/gamification/spinWheel.png";
 import Scratchcard from "../../public/gamification/scratch2.png";
 import MobileScreen from "../MobileScreen/MobileScreen";
+import Spinwheel from "./Wheelcomponent";
 
 export const dataselect = [
   { label: "option1", value: "option1" },
@@ -206,7 +207,7 @@ function PrizeSetting() {
   return (
     <>
       <div className="flex flex-col justify-start items-start">
-        <div className="flex md:flex-row flex-col-reverse justify-between   w-full items-start mt-2">
+        <div className="flex md:flex-row flex-col justify-between   w-full items-start mt-2">
           <div className="flex flex-col justify-start items-start gap-2">
             <p className="text-sm font-medium">
               Enter the details and set up the general settings of your coupon.
@@ -261,10 +262,10 @@ function PrizeSetting() {
               </div>
             )}
 
-            {/* spin-wheel */}
+          
             {params.type === "spin-wheel" && (
-              <div className="mt-4 flex flex-col justify-start items-center gap-4">
-                <div className="flex flex-col justify-start items-start gap-4">
+              <div className="mt-4 flex flex-col justify-start items-center gap-4 w-full">
+                <div className="flex flex-col justify-start items-start gap-4 w-full">
                   <p className="flex items-center gap-2 text-sm font-semibold">
                     Spinner Appearance
                   </p>
@@ -287,12 +288,12 @@ function PrizeSetting() {
                           <Image
                             className="w-40 h-24 object-contain"
                             alt="upload image"
-                            src={Spinwheel}
+                            src={Spinwheell}
                           />
                         )}
                       </div>
                       <div className="flex flex-col justify-center items-center gap-4">
-                        <Button className="md:w-60 w-full h-8 bg-buttoncolor text-white font-medium rounded-sm">
+                        <Button className="md:w-60 w-60 h-8 bg-buttoncolor text-white font-medium rounded-sm">
                           <label htmlFor="fileInputspinner">Upload</label>
                           <input
                             type="file"
@@ -304,7 +305,7 @@ function PrizeSetting() {
                         <Button
                           onPress={() => Setspinnerimage("")}
                           variant="light"
-                          className="md:w-60 w-full h-8 ring-2 ring-buttoncolor rounded-sm text-buttoncolor font-medium"
+                          className="md:w-60 w-60 h-8 ring-2 ring-buttoncolor rounded-sm text-buttoncolor font-medium"
                         >
                           Remove
                         </Button>
@@ -527,8 +528,13 @@ function PrizeSetting() {
             </div>
           </div>
 
-          <div  className="absolute w-[300px] right-[65px] top-[150px]">
-           <MobileScreen/>
+          <div className="justify-end flex">
+            {params.type === "spin-wheel" && (
+              <Spinwheel
+                key={JSON.stringify(prizeList)}
+                prizeList={prizeList}
+              />
+            )}
           </div>
         </div>
 
@@ -562,7 +568,7 @@ function PrizeSetting() {
                     >
                       {item.slot}
                     </th>
-                    <td className="px-6 py-4">{item.prizeName}</td>
+                    <td className="px-6 py-4">{item.Name}</td>
                     <td className="px-6 py-4">
                       <p className="border-1 border-gray-300 w-16 p-1">
                         {item.amount}
@@ -791,7 +797,30 @@ function PrizeSetting() {
         </div>
       </div>
 
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+      <Modal
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+        motionProps={{
+          variants: {
+            enter: {
+              y: 0,
+              opacity: 1,
+              transition: {
+                duration: 0.3,
+                ease: "easeOut",
+              },
+            },
+            exit: {
+              y: -20,
+              opacity: 0,
+              transition: {
+                duration: 0.2,
+                ease: "easeIn",
+              },
+            },
+          },
+        }}
+      >
         <ModalContent>
           {(onClose) => (
             <>

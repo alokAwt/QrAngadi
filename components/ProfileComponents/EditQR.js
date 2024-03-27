@@ -74,8 +74,6 @@ const EditQR = ({ id, type, profie, close }) => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-
-
   // DYNAMIC UPDATE STATE MAP/Video/AUDIO  ----------------------------------------------
   const [QRimage, SetQRimage] = useState("");
   const [QrData, setQrData] = useState("");
@@ -416,7 +414,7 @@ const EditQR = ({ id, type, profie, close }) => {
   );
 
   return (
-    <div className="flex flex-col  justify-center items-center mt-2 w-full gap-8">
+    <div className="flex flex-col  justify-center items-center mt-2 w-full gap-2">
       <div className="mt-2 md:w-96 mx-auto">
         <Tabs
           variant="bordered"
@@ -840,13 +838,13 @@ const EditQR = ({ id, type, profie, close }) => {
 
       {selected === "DYNAMIC" && (
         <div className="flex flex-col justify-start items-start gap-2 p-4 w-full rounded-sm border-1 border-buttoncolor border-opacity-50 mt-4">
-          <h6 className="text-xl font-bold">Enter QR details</h6>
-          <div className="mb-6 mt-4 w-full">
+          <h6 className="text-sm font-bold">Enter QR details</h6>
+          <div className="mb-1 mt-2 w-full">
             <label
               htmlFor="Enter your QR Name *"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >
-              Enter your QR Name <span className="text-red-500">*</span>
+              Enter your QR Name <span className="text-red-500 text-sm">*</span>
             </label>
             <input
               onChange={(e) => setQrName(e.target.value)}
@@ -859,7 +857,7 @@ const EditQR = ({ id, type, profie, close }) => {
             />
           </div>
           {type === "GoogleMap" ? (
-            <div className="mb-6 w-full ">
+            <div className="mb-4 w-full ">
               <label
                 htmlFor="email"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -892,7 +890,7 @@ const EditQR = ({ id, type, profie, close }) => {
               </div>
             </div>
           ) : type === "Website" ? (
-            <div className="mb-6 w-full">
+            <div className="mb-4 w-full">
               <label
                 htmlFor="email"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -914,7 +912,7 @@ const EditQR = ({ id, type, profie, close }) => {
             </div>
           ) : type === "playstore" ? (
             <>
-              <div className="mb-6 w-full">
+              <div className="mb-4 w-full">
                 <label
                   htmlFor="Android"
                   className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -934,7 +932,7 @@ const EditQR = ({ id, type, profie, close }) => {
                   required
                 />
               </div>
-              <div className="mb-6 w-full">
+              <div className="mb-4 w-full">
                 <label
                   htmlFor="Android"
                   className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -956,16 +954,16 @@ const EditQR = ({ id, type, profie, close }) => {
               </div>
             </>
           ) : type === "Images" ? (
-            <div className="mb-6 w-full">
+            <div className="mb-4 w-full">
               <p className="text-start p-2 text-sm font-medium">Upload image</p>
-              <div className="flex  justify-between gap-12 items-center border-1 border-buttonopacitycolor p-6 rounded-lg">
-                <div className="flex justify-center items-center gap-2 flex-col h-60 w-2/4 border-1.5 border-dashed rounded-lg">
+              <div className="flex  justify-between gap-12 items-center border-1 border-buttonopacitycolor p-4 rounded-lg">
+                <div className="flex justify-center items-center gap-2 flex-col h-44 w-2/4 border-1.5 border-dashed rounded-lg">
                   {QRimage ? (
                     <div>
                       <Image
                         src={QRimage}
                         width={400}
-                        height={150}
+                        height={100}
                         className=" w-full h-60 object-contain rounded-md"
                       />
                     </div>
@@ -1011,10 +1009,10 @@ const EditQR = ({ id, type, profie, close }) => {
               </div>
             </div>
           ) : type === "Video" ? (
-            <div className="mb-6 w-full">
+            <div className="mb-4 w-full">
               <p className="text-start p-2 text-sm font-medium">Upload Video</p>
               <div className="flex  justify-between gap-12 items-center border-1 border-buttonopacitycolor p-6 rounded-lg">
-                <div className="flex justify-center items-center gap-2 p-2 flex-col h-60 w-2/4 border-1.5 border-dashed rounded-lg">
+                <div className="flex justify-center items-center gap-2 flex-col h-44 w-2/4 border-1.5 border-dashed rounded-lg">
                   {video ? (
                     <div>
                       <video
@@ -1061,10 +1059,10 @@ const EditQR = ({ id, type, profie, close }) => {
               </div>
             </div>
           ) : type === "Audio" ? ( //need to change
-            <div className="mb-6 w-full">
+            <div className="mb-4 w-full">
               <p className="text-start p-2 text-sm font-medium">Upload Audio</p>
               <div className="flex  justify-between gap-12 items-center border-1 border-buttonopacitycolor p-6 rounded-lg">
-                <div className="flex justify-center items-center gap-2 flex-col h-60 w-2/4 border-1.5 border-dashed rounded-lg">
+                <div className="flex justify-center items-center gap-2 flex-col h-44 w-2/4 border-1.5 border-dashed rounded-lg">
                   {audio ? (
                     <div>
                       <audio
@@ -1114,7 +1112,7 @@ const EditQR = ({ id, type, profie, close }) => {
               </div>
             </div>
           ) : type === "Social" ? (
-            <div className="mb-6 w-full">
+            <div className="mb-4 w-full">
               <label
                 htmlFor="email"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -1136,10 +1134,10 @@ const EditQR = ({ id, type, profie, close }) => {
               />
             </div>
           ) : type === "Documents" ? (
-            <div className="mb-6 w-full">
+            <div className="mb-4 w-full">
               <p className="text-start p-2 text-sm font-medium">Upload PDF</p>
               <div className="flex  justify-between gap-12 items-center border-1 border-buttonopacitycolor p-6 rounded-lg">
-                <div className="flex justify-center items-center gap-2 flex-col h-60 w-2/4 border-1.5 border-dashed rounded-lg">
+                <div className="flex justify-center items-center gap-2 flex-col h-44 w-2/4 border-1.5 border-dashed rounded-lg">
                   {pdfFile ? (
                     <div>
                       <embed
@@ -1186,17 +1184,22 @@ const EditQR = ({ id, type, profie, close }) => {
               </div>
             </div>
           ) : type === "Documents" ? (
-            <div className="mb-6 w-full">
+            <div className="mb-4 w-full">
               <p className="text-start p-2 text-sm font-medium">
                 Upload Textfile
               </p>
               <div className="flex  justify-between gap-12 items-center border-1 border-buttonopacitycolor p-6 rounded-lg">
-                <div className="flex justify-center items-center gap-2 flex-col h-60 w-2/4 border-1.5 border-dashed rounded-lg">
+                <div className="flex justify-center items-center gap-2 flex-col h-44 w-2/4 border-1.5 border-dashed rounded-lg">
                   {textFile ? (
                     <div className="flex flex-col justify-center items-center">
-                      <IoDocumentTextSharp size={40} className='text-buttoncolor text-3xl' />
+                      <IoDocumentTextSharp
+                        size={40}
+                        className="text-buttoncolor text-3xl"
+                      />
 
-                      <p className="text-xs font-medium">File name: {textFile.name}</p>
+                      <p className="text-xs font-medium">
+                        File name: {textFile.name}
+                      </p>
                     </div>
                   ) : (
                     <Button className="md:w-60 w-full h-14 bg-buttoncolor text-white font-medium rounded-sm">

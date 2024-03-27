@@ -40,6 +40,7 @@
     "react-simple-maps": "^1.0.0",
     "react-toastify": "^10.0.4",
     "react-tooltip": "^5.26.3",
+    "react-wheel-of-prizes": "^1.0.9",
     "spinners-react": "^1.0.7",
     "tailwind-merge": "^2.2.1",
     "tailwind-scrollbar-hide": "^1.1.7",

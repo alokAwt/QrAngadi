@@ -16,7 +16,7 @@ import {
 import { MdEmail } from "react-icons/md";
 import { IoIosLock } from "react-icons/io";
 import backgroundimage from "../../public/Auth/logo.png";
-import Authgif from "../../public/Auth/authGif.gif";
+import Authgif from "../../public/Auth/vadu.gif";
 import Image from "next/image";
 import Link from "next/link";
 import { IoCloseCircle } from "react-icons/io5";
@@ -385,7 +385,7 @@ export default function Signinmodal() {
         closeButton={
           <p>
             {" "}
-            <IoCloseCircle className="text-white bg-buttoncolor absolute md:right-8 md:top-8 right-2 top-2 hover:bg-none rounded-full text-3xl" />
+            <IoCloseCircle className="text-white bg-buttoncolor absolute md:right-8 md:top-12 right-2 top-2 hover:bg-none rounded-full text-3xl" />
           </p>
         }
         onOpenChange={onOpenChange}

@@ -31,7 +31,7 @@ const Trustedcomp = () => {
     </div>
       <div className="flex justify-between items-center md:gap-24 gap-12 mt-12  md:p-0 p-2 mx-auto flex-col md:flex-row">
         <div className="flex flex-col justify-center gap-2 items-center mx-auto w-full ">
-          <Button className="flex justify-between px-4 text-center h-20 bg-buttonopacitycolor rounded-sm md:w-96 w-full ">
+          <Button onPress={()=>router.push('/QRcodesolution')} className="flex justify-between px-4 text-center h-20 bg-buttonopacitycolor rounded-sm md:w-96 w-full ">
             <span className="font-bold text-lg text-buttoncolor pt-6">
               QR Code Solutions
             </span>

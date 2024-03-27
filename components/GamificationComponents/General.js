@@ -10,6 +10,7 @@ import "./index.css";
 // BsInfoCircleFill
 function General() {
   const {
+    params,
     couponName,
     setCouponName,
     couponTitle,
@@ -71,9 +72,9 @@ function General() {
       <p>Enter the details and set up the general settings of your coupon.</p>
       <div className="min-h-[1px] bg-[#C8C8C8] my-3"></div>
       <div className="font-semibold text-lg mb-5">General Setting</div>
-      <div className="absolute w-[300px] right-[65px] top-[150px]">
+      {params.type==="slot-machine" && <div className="absolute w-[300px] right-[65px] top-[150px]">
         <MobileScreen />
-      </div>
+      </div>}
       {/* coupon name */}
       <div className="w-[330px] min-w-fit mt-3">
         <div className="flex items-center">
