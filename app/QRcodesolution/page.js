@@ -16,7 +16,7 @@ import Insta from "../../public/Aboutus/Insta.png";
 import Music from "../../public/Aboutus/Music.png";
 import Pintrest from "../../public/Aboutus/Pintrest.png";
 import Youtube from "../../public/Aboutus/Youtube.png";
-import { Button, Select, SelectItem } from "@nextui-org/react";
+import {  Select, SelectItem } from "@nextui-org/react";
 import { Card, CardBody } from "@nextui-org/react";
 import Square from "../../public/QRgenerate/Dotoptions/Square.png";
 import Dots from "../../public/QRgenerate/Dotoptions/Dots.png";
@@ -48,6 +48,11 @@ import dynamic from "next/dynamic";
 import { IoIosAddCircle } from "react-icons/io";
 import { MdDelete } from "react-icons/md";
 import { IoDocumentTextSharp } from "react-icons/io5";
+import Dotloader from "../../public/Animation/Dotloader.gif";
+import Success from "../../public/Animation/Success.gif";
+import {Modal, ModalContent, Button, ModalBody, ModalFooter,Tooltip, useDisclosure} from "@nextui-org/react";
+import Generate from '../../public/Howworks/Customize.png'
+import { IoMdCloseCircle } from "react-icons/io";
 
 const isBrowser = typeof window !== "undefined";
 let QRCodeStyling;
@@ -64,6 +69,8 @@ const Extension = [
 ];
 
 const Page = () => {
+  const {isOpen, onOpen, onOpenChange} = useDisclosure();
+  const [isOpentooltip, setIsOpentooltip] = useState(false);
   const { toast } = useToast();
   const [selected, setSelected] = React.useState("STATIC");
   const [image, setImages] = useState("");
@@ -83,6 +90,9 @@ const Page = () => {
   const [qrName, setQrName] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const [hasSubscription, setHasSubscription] = useState(false);
+  const [shortUrl, setShortUrl] = useState("https://qrangadidesign.com/hd87ebsodh");
+
 
   //QRIMAGE TYPE IMAGES/TEXTFILE/PDF STATE
 
@@ -93,7 +103,6 @@ const Page = () => {
   const [pdfFile, setPdfFile] = useState(null);
   const [textFile, setTextFile] = useState(null);
 
-  console.log(audio);
   const [options, setOptions] = useState({
     width: 300,
     height: 300,
@@ -289,49 +298,110 @@ const Page = () => {
     setLogoMemoized(e.target.files[0]); // Use the memoized function to set the logo
   };
   const onChangeQRimage = (e) => {
-    setQRimageMemoized(e.target.files[0]);
-    setQrData(e.target.files[0]);
+    const file = e.target.files[0];
+    if (file) {
+      if (
+        file.type === "image/jpeg" ||
+        file.type === "image/jpg" ||
+        file.type === "image/png"
+      ) {
+        setQRimageMemoized(file);
+        setQrData(file);
+      } else {
+        toast({
+          variant: "destructive",
+          title: "Please select a valid image file (JPEG, JPG, PNG)",
+          description: "",
+        });
+        e.target.value = null;
+      }
+    }
   };
 
   const handleVideoChange = (e) => {
     const file = e.target.files[0];
-    setQrData(e.target.files[0]);
     if (file) {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onloadend = () => {
-        setVideo({
-          file,
-          url: reader.result,
+      if (file.type === "video/mp4") {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = () => {
+          setVideo({
+            file,
+            url: reader.result,
+          });
+        };
+        setQrData(file);
+      } else {
+        toast({
+          variant: "destructive",
+          title: "Please select a valid MP4 video file",
+          description: "",
         });
-      };
+        e.target.value = null;
+      }
     }
   };
 
   const handleAudioChange = (e) => {
     const file = e.target.files[0];
-    setQrData(e.target.files[0]);
     if (file) {
-      const Audioreader = new FileReader();
-      Audioreader.readAsDataURL(file);
-      Audioreader.onloadend = () => {
-        setAudio({
-          name: file.name,
-          url: Audioreader.result,
+      if (
+        file.type === "audio/mp3" ||
+        file.type === "audio/wav" ||
+        file.type === "audio/mpeg"
+      ) {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = () => {
+          setAudio({
+            name: file.name,
+            url: reader.result,
+          });
+        };
+        setQrData(file);
+      } else {
+        toast({
+          variant: "destructive",
+          title: "Please select a valid MP3 or WAV audio file",
+          description: "",
         });
-      };
+        e.target.value = null;
+      }
     }
   };
 
   const handlePdfFileChange = (e) => {
-    setQrData(e.target.files[0]);
     const selectedFile = e.target.files[0];
-    setPdfFile(selectedFile);
+    if (selectedFile) {
+      if (selectedFile.type === "application/pdf") {
+        setQrData(selectedFile);
+        setPdfFile(selectedFile);
+      } else {
+        toast({
+          variant: "destructive",
+          title: "Please select a valid PDF file",
+          description: "",
+        });
+        e.target.value = null;
+      }
+    }
   };
 
   const handleTextChange = (e) => {
-    setTextFile(e.target.files[0]);
-    setQrData(e.target.files[0]);
+    const selectedFile = e.target.files[0];
+    if (selectedFile) {
+      if (selectedFile.type === "text/plain") {
+        setTextFile(selectedFile);
+        setQrData(selectedFile);
+      } else {
+        toast({
+          variant: "destructive",
+          title: "Please select a valid text file",
+          description: "",
+        });
+        e.target.value = null;
+      }
+    }
   };
 
   const genPresets = (presets = presetPalettes) =>
@@ -355,7 +425,7 @@ const Page = () => {
   const GenerateDyamicqr = async () => {
     if (!qrType) {
       toast({
-        variant: "",
+        variant: "destructive",
         title: "QR Type is Required.",
         description: "",
         action: <ToastAction altText="Try again">Try again</ToastAction>,
@@ -363,7 +433,7 @@ const Page = () => {
       return false;
     } else if (!qrName) {
       toast({
-        variant: "",
+        variant: "destructive",
         title: "QR Name is Required.",
         description: "",
         action: <ToastAction altText="Try again">Try again</ToastAction>,
@@ -371,7 +441,7 @@ const Page = () => {
       return false;
     } else if (qrType != "Map" ? false : !lat || !lon) {
       toast({
-        variant: "",
+        variant: "destructive",
         title: "QR Data is Required.",
         description: "",
         action: <ToastAction altText="Try again">Try again</ToastAction>,
@@ -384,9 +454,8 @@ const Page = () => {
       (qrType === "document" && !QrData) ||
       (qrType === "document1" && !QrData)
     ) {
-      console.log(QrData, qrType);
       toast({
-        variant: "",
+        variant: "destructive",
         title: "Upload File Required.",
         description: "",
         action: <ToastAction altText="Try again">Try again</ToastAction>,
@@ -398,7 +467,7 @@ const Page = () => {
       (qrType === "Social" && !Url)
     ) {
       toast({
-        variant: "",
+        variant: "destructive",
         title: "QR Data is Required.",
         description: "",
         action: <ToastAction altText="Try again">Try again</ToastAction>,
@@ -445,7 +514,6 @@ const Page = () => {
       }
 
       const file1 = await res.json();
-      console.log("file", file1);
       if (file1) {
         if (image) {
           const data = new FormData();
@@ -579,7 +647,32 @@ const Page = () => {
 
   // QR STYLING
 
+  //model for plan
+   console.log(selected)
+
+   useEffect(() => {
+    if (selected === 'DYNAMIC' && !hasSubscription) {
+      onOpenChange(true);
+    } 
+  }, [selected, hasSubscription]);
+
+//copy url
+const handleCopyLink = () => {
+  const tempInput = document.createElement("input");
+  tempInput.value = shortUrl;
+  document.body.appendChild(tempInput);
+  tempInput.select();
+  document.execCommand("copy");
+  document.body.removeChild(tempInput);
+  setIsOpentooltip(true);
+    setTimeout(() => {
+      setIsOpentooltip(false);
+    }, 2000);
+};
+
   return (
+
+    <>
     <div className="flex flex-col w-11/12 justify-center items-start mx-auto mt-12">
       <div>
         <h6 className="text-3xl font-bold ">
@@ -1036,10 +1129,12 @@ const Page = () => {
               size="lg"
               aria-label="Tabs form"
               classNames={{
-                tabList: " w-full  p-0 border-2 border-buttoncolor rounded-md",
+                tabList:
+                  " w-full  p-0 border-2 border-buttoncolor text-buttoncolor rounded-md",
                 cursor: "w-full bg-buttoncolor rounded-sm ",
-                tab: "  text-white  ",
-                tabContent: "group-data-[selected=true]:text-white w-full",
+                tab: "  text-buttoncolor  ",
+                tabContent:
+                  "group-data-[selected=true]:text-white w-full text-buttoncolor",
               }}
               selectedKey={selected}
               onSelectionChange={setSelected}
@@ -1479,7 +1574,7 @@ const Page = () => {
                 className="text-white bg-buttoncolor rounded-sm w-full"
                 onClick={GenerateDyamicqr}
               >
-                {loading ? <Spinner /> : "GENERATE QR"}
+                {loading ? <Image src={Dotloader} /> : "GENERATE QR"}
               </Button>
             )}
           </div>
@@ -1487,36 +1582,104 @@ const Page = () => {
 
         {/* quick share */}
 
-        <div className="flex md:flex-row flex-col justify-between gap-4 md:items-center items-start p-4 rounded-sm w-full border-1 border-buttoncolor border-opacity-50 mt-4 ">
+        <div className=" flex md:flex-row flex-col justify-between gap-4 md:items-center items-start p-4 rounded-sm w-full border-1 border-buttoncolor border-opacity-50 mt-4 ">
           <div className="flex flex-col gap-2 justify-start items-start">
             <div>
               <p className="text-xs font-bold">Quick Share</p>
             </div>
             <div className="flex justify-start items-center gap-2 ">
-              <Image alt="linkdin" className="h-8 w-8" src={Linkdin} />
-              <Image alt="pintrest" className="h-8 w-8" src={Pintrest} />
-              <Image alt="insta" className="h-8 w-8" src={Insta} />
-              <Image alt="music" className="h-8 w-8" src={Music} />
-              <Image alt="youtube" className="h-8 w-8" src={Youtube} />
+              <Image alt="linkdin" className="h-8 w-8 cursor-pointer" src={Linkdin} />
+              <Image alt="pintrest" className="h-8 w-8 cursor-pointer" src={Pintrest} />
+              <Image alt="insta" className="h-8 w-8 cursor-pointer" src={Insta} />
+              <Image alt="music" className="h-8 w-8 cursor-pointer" src={Music} />
+              <Image alt="youtube" className="h-8 w-8 cursor-pointer" src={Youtube} />
             </div>
           </div>
           <div className="flex flex-col gap-2 justify-start items-start md:w-2/4 w-full">
             <p className="text-xs font-bold">Copy Short URL</p>
             <div className="w-full h-10 border-1.5 rounded-md border-gray-300 flex justify-between gap-2 items-center px-4">
               <p className="truncate w-full text-gray-400 text-sm">
-                https://qrangadidesign.com/hd87ebsodh
+              {shortUrl}
               </p>
-              <Button
-                variant="light"
-                className="text-buttoncolor font-medium uppercase rounded-none"
-              >
-                Copy Link
-              </Button>
+              <Tooltip
+            isOpen={isOpentooltip}
+            content="Link copied!"
+            placement="top"
+          >
+            <Button
+              variant="light"
+              className="text-buttoncolor font-medium uppercase rounded-none"
+              onClick={handleCopyLink}
+            >
+              Copy Link
+            </Button>
+          </Tooltip>
             </div>
           </div>
         </div>
       </div>
     </div>
+
+    <Modal
+        hideCloseButton={true}
+        isDismissable={false} 
+        backdrop="blur" 
+        size="4xl"
+        isOpen={isOpen} 
+        onOpenChange={onOpenChange}
+        motionProps={{
+          variants: {
+            enter: {
+              y: 0,
+              opacity: 1,
+              transition: {
+                duration: 0.3,
+                ease: "easeOut",
+              },
+            },
+            exit: {
+              y: -20,
+              opacity: 0,
+              transition: {
+                duration: 0.2,
+                ease: "easeIn",
+              },
+            },
+          }
+        }}
+      >
+        <ModalContent>
+        
+            <>
+              <ModalBody className="w-full">
+             <span onClick={()=>{onOpenChange(false),setSelected('STATIC')}} className="absolute right-2 top-2 cursor-pointer"><IoMdCloseCircle className="text-2xl text-buttoncolor"/></span> 
+               <div className="flex justify-between items-center w-full p-2 h-auto">
+                <div className="flex flex-col justify-start items-start gap-2 w-2/4">
+                  <h6 className="text-xl font-semibold leading-7">
+                  What are the benefits of a dynamic QR code?
+                  </h6>
+                  <p>
+                  A dynamic QR code lets you edit data such as your URL or vCard any time. This saves you time and money on printing. 
+                  </p>
+                  <p>Track valuable data such as:</p>
+                  <li>Number of scans</li>
+                  <li>Time of scan</li>
+                  <li>Location</li>
+                  <li>Device type (Android/iPhone)</li>
+                <Button onPress={()=>router.push('/Pricing')} variant="solid" className="mt-4 bg-buttoncolor text-white rounded-sm hover:bg-buttoncolor hover:text-white">Checkout Plans</Button>
+                </div>
+                <div className="w-2/4">
+                <Image src={Generate}/>
+                </div>
+               </div>
+              </ModalBody>
+             
+            </>
+          
+        </ModalContent>
+      </Modal>
+
+    </>
   );
 };
 

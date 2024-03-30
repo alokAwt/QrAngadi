@@ -120,7 +120,7 @@ const Pricingcard = () => {
                 tabList: " w-full  p-0 border-2 border-buttoncolor rounded-md",
                 cursor: "w-full bg-buttoncolor rounded-sm ",
                 tab: "  text-white  ",
-                tabContent: "group-data-[selected=true]:text-white w-full",
+                tabContent: "group-data-[selected=true]:text-white w-full text-buttoncolor",
               }}
               selectedKey={selected}
               onSelectionChange={setSelected}
