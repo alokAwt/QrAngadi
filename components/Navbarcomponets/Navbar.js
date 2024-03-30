@@ -115,6 +115,7 @@ export default function App() {
     router.push(route);
   };
 
+
   return (
     <>
       <Navbar className="p-1  w-full" maxWidth="full" shouldHideOnScroll>

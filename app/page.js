@@ -7,12 +7,12 @@ import BussinessStat from "@/components/Homecomponents/BussinessStat";
 import Userreview from "@/components/Homecomponents/Userreview";
 import Pricingcard from "@/components/Homecomponents/Pricingcard";
 import FAQ from "@/components/Homecomponents/FAQ";
-import Loading from "@/components/Aboutuscomponets/Loading";
+import Chatsupport from "@/components/Homecomponents/Chatsupport";
 
 export default function Home() {
-  
   return (
     <main>
+      <Chatsupport/>
       <Imageslider />
       <Trustedcomp />
       <Howworks />

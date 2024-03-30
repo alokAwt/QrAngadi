@@ -20,6 +20,7 @@ import Authgif from "../../public/Auth/vadu.gif";
 import Image from "next/image";
 import Link from "next/link";
 import { IoCloseCircle } from "react-icons/io5";
+import Success from '../../public/Animation/Success.gif'
 
 import {
   OtpSend,
@@ -88,6 +89,8 @@ export default function Signinmodal() {
                 variant: "",
                 title: "Otp Send Successfully to Your Email.",
                 description: "",
+                action: <ToastAction altText="Try again"><Image className="h-12 w-12" src={Success}/></ToastAction>,
+
               });
               setIncomingOtp(res.otp);
               setIsloding(false);
@@ -182,6 +185,8 @@ export default function Signinmodal() {
             variant: "",
             title: "SignUp successfully.",
             description: "",
+            action: <ToastAction altText="Try again"><Image className="h-12 w-12" src={Success}/></ToastAction>,
+
           });
           setIsloding(false);
           setSelected("LOGIN");
@@ -236,6 +241,8 @@ export default function Signinmodal() {
           variant: "",
           title: "Successfully Loged in.",
           description: "",
+          action: <ToastAction altText="Try again"><Image className="h-12 w-12" src={Success}/></ToastAction>,
+
         });
         setIsloding(false);
         onOpenChange();
@@ -264,6 +271,8 @@ export default function Signinmodal() {
           variant: "",
           title: "Successfully Loged in.",
           description: "",
+          action: <ToastAction altText="Try again"><Image className="h-12 w-12" src={Success}/></ToastAction>,
+
         });
         onOpenChange();
         router.push("/");
@@ -288,6 +297,8 @@ export default function Signinmodal() {
               variant: "",
               title: "Otp Send Successfully to Your Email.",
               description: "",
+              action: <ToastAction altText="Try again"><Image className="h-12 w-12" src={Success}/></ToastAction>,
+
             });
             setForgetEmail(false);
             setIncomingOtp(res.otp);
@@ -430,7 +441,7 @@ export default function Signinmodal() {
                         cursor: "w-full bg-buttoncolor rounded-sm ",
                         tab: "  text-white h-8 ",
                         tabContent:
-                          "group-data-[selected=true]:text-white w-full",
+                          "group-data-[selected=true]:text-white w-full text-buttoncolor",
                       }}
                       selectedKey={selected}
                       onSelectionChange={setSelected}

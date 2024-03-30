@@ -98,7 +98,7 @@ function Page() {
   const [scratchrstrokecolor, Setscratchstrokecolor] = useState("#FF0000");
   const [retryAfterLoss, SetretryAfterLoss] = useState(Number);
   const [prizeList, SetprizeList] = useState([
-    { slot: 1, Name: "Jackpot", amount: 200 },
+    { slot: 1, Name: "You Lose", amount: 0 },
   ]);
 
   const [personaldata, Setpersonaldata] = useState();

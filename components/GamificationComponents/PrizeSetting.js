@@ -16,6 +16,8 @@ import {
   ModalFooter,
   useDisclosure,
 } from "@nextui-org/react";
+import { useToast } from "../../components/ui/usetoast";
+import { ToastAction } from "@/components/ui/toast";
 
 import Jackpot from "../../public/gamification/Jackpot.png";
 import Oops from "../../public/gamification/Oops.png";
@@ -76,6 +78,7 @@ function PrizeSetting() {
   const [formatHex, setFormatHex] = useState("hex");
   const [value, setValue] = React.useState(new Set([])); //controlled select example
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const { toast } = useToast();
 
   const genPresets = (presets = presetPalettes) =>
     Object.entries(presets).map(([label, colors]) => ({
@@ -262,7 +265,6 @@ function PrizeSetting() {
               </div>
             )}
 
-          
             {params.type === "spin-wheel" && (
               <div className="mt-4 flex flex-col justify-start items-center gap-4 w-full">
                 <div className="flex flex-col justify-start items-start gap-4 w-full">
@@ -574,6 +576,7 @@ function PrizeSetting() {
                         {item.amount}
                       </p>
                     </td>
+                    <td>Upload image</td>
                   </tr>
                 ))}
               </tbody>
@@ -831,13 +834,27 @@ function PrizeSetting() {
                 <form
                   onSubmit={(e) => {
                     e.preventDefault();
-                    const newRow = {
-                      slot: parseInt(e.target.slot.value),
-                      Name: e.target.prizeName.value,
-                      amount: parseInt(e.target.amount.value),
-                    };
-                    SetprizeList([...prizeList, newRow]);
-                    onClose();
+                    const newSlot = prizeList.length > 0 ? prizeList[prizeList.length - 1].slot + 1 : 1;
+                    const newName = e.target.prizeName.value;
+                    const isDuplicate = prizeList.some(
+                      (prize) => prize.Name === newName
+                    );
+
+                    if (isDuplicate) {
+                      toast({
+                        variant: "destructive",
+                        title: "Prize name must be unique!",
+                        description: "",
+                      });
+                    } else {
+                      const newRow = {
+                        slot: newSlot,
+                        Name: newName,
+                        amount: parseInt(e.target.amount.value),
+                      };
+                      SetprizeList([...prizeList, newRow]);
+                      onClose();
+                    }
                   }}
                 >
                   <div className="mb-4">
@@ -848,7 +865,7 @@ function PrizeSetting() {
                       Slot:
                     </label>
                     <input
-                      type="number"
+                      type="text"
                       id="slot"
                       name="slot"
                       className="form-input mt-1 block w-full focus:ring-1 focus:border-none rounded-sm focus:ring-buttoncolor"

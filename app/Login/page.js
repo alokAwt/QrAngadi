@@ -36,6 +36,7 @@ import { LoadingOutlined } from "@ant-design/icons";
 import { Spin } from "antd";
 import { sendTokenToServer } from "../../Utility/Authutils";
 import { GoogleLogin } from "@react-oauth/google";
+import Success from '../../public/Animation/Success.gif'
 
 export default function Loginpage() {
   const [{ token }, dispatch] = UseStatevalue();
@@ -87,6 +88,8 @@ export default function Loginpage() {
                 variant: "",
                 title: "Otp Send Successfully To Your Email .",
                 description: "",
+                action: <ToastAction altText="Try again"><Image className="h-12 w-12" src={Success}/></ToastAction>,
+
               });
               setIncomingOtp(res.otp);
               setIsloding(false);
@@ -181,6 +184,8 @@ export default function Loginpage() {
             variant: "",
             title: "SignUp successfully.",
             description: "",
+            action: <ToastAction altText="Try again"><Image className="h-12 w-12" src={Success}/></ToastAction>,
+
           });
           setIsloding(false);
           setSelected("LOGIN");
@@ -235,6 +240,7 @@ export default function Loginpage() {
           variant: "",
           title: "Successfully Loged in.",
           description: "",
+          action: <ToastAction altText="Try again"><Image src={Success}/></ToastAction>,
         });
         setIsloding(false);
         onOpenChange();
@@ -263,6 +269,7 @@ export default function Loginpage() {
           variant: "",
           title: "Successfully Loged in.",
           description: "",
+          action: <ToastAction altText="Try again"><Image className="h-12 w-12" src={Success}/></ToastAction>,
         });
         onOpenChange();
         router.push("/");
@@ -383,7 +390,7 @@ export default function Loginpage() {
                 tabList: " w-full  p-0 border-2 border-buttoncolor rounded-md",
                 cursor: "w-full bg-buttoncolor rounded-sm ",
                 tab: "  text-white h-8 ",
-                tabContent: "group-data-[selected=true]:text-white w-full",
+                tabContent: "group-data-[selected=true]:text-white w-full text-buttoncolor",
               }}
               selectedKey={selected}
               onSelectionChange={setSelected}
