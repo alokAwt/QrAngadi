@@ -29,7 +29,7 @@ const Chatsupport = () => {
   const [lastScrollTop, setLastScrollTop] = useState(0);
 
   const handleScroll = () => {
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
     if (scrollTop > lastScrollTop) {
       controls.start({ x: 0, transition: { duration: 0.8 }}); 
     } else {
@@ -119,7 +119,7 @@ const Chatsupport = () => {
     },
   };
   return (
-    <motion.div className="fixed z-10 bottom-12 right-4  rounded-full" animate={controls}>
+    <motion.div className="hidden md:block fixed z-10 bottom-12 right-4  rounded-full" animate={controls}>
       <Sheet>
         <SheetTrigger asChild>
           <Button
