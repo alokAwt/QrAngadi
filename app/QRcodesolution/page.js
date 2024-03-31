@@ -1654,18 +1654,18 @@ const handleCopyLink = () => {
               <ModalBody className="w-full">
              <span onClick={()=>{onOpenChange(false),setSelected('STATIC')}} className="absolute right-2 top-2 cursor-pointer"><IoMdCloseCircle className="text-2xl text-buttoncolor"/></span> 
                <div className="flex md:flex-row flex-col-reverse justify-between items-center w-full p-2 h-auto">
-                <div className="flex flex-col justify-start items-start gap-2 md:w-2/4 w-full">
-                  <h6 className="text-xl font-semibold leading-7">
+                <div className="flex flex-col justify-start items-start md:gap-2 gap-1 md:w-2/4 w-full">
+                  <h6 className="text-lg md:text-xl font-semibold leading-7">
                   What are the benefits of a dynamic QR code?
                   </h6>
-                  <p>
+                  <p className="text-xs md:text-base">
                   A dynamic QR code lets you edit data such as your URL or vCard any time. This saves you time and money on printing. 
                   </p>
-                  <p>Track valuable data such as:</p>
-                  <li>Number of scans</li>
-                  <li>Time of scan</li>
-                  <li>Location</li>
-                  <li>Device type (Android/iPhone)</li>
+                  <p className="text-xs md:text-base">Track valuable data such as:</p>
+                  <li className="text-xs md:text-base">Number of scans</li>
+                  <li className="text-xs md:text-base">Time of scan</li>
+                  <li className="text-xs md:text-base">Location</li>
+                  <li className="text-xs md:text-base">Device type (Android/iPhone)</li>
                 <Button onPress={()=>router.push('/Pricing')} variant="solid" className="mt-4 bg-buttoncolor text-white rounded-sm hover:bg-buttoncolor hover:text-white">Checkout Plans</Button>
                 </div>
                 <div className="md:w-2/4 w-full">
