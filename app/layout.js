@@ -47,6 +47,8 @@ export default function RootLayout({ children }) {
                     {pathname === "/Profile" ||
                     pathname.startsWith("/Analytics") ||
                     pathname === "/Profile/settings" ||
+                    pathname === "/Profile/accountinfo" ||
+
                     pathname === "/Login" ? null : (
                       <Navbar />
                     )}
@@ -55,6 +57,7 @@ export default function RootLayout({ children }) {
                     {pathname === "/Profile" ||
                     pathname.startsWith("/Analytics") ||
                     pathname === "/Profile/settings" ||
+                    pathname === "/Profile/accountinfo" ||
                     pathname === "/Login" ? null : (
                       <Footernav />
                     )}
