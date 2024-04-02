@@ -428,7 +428,7 @@ export default function Signinmodal() {
           {(onClose) => (
             <>
               <ModalBody className="w-full flex justify-center items-center mx-auto">
-                <div className="bg-white rounded-md md:p-4 lg:p-4  md:w-[95%] w-full p-2 lg:w-full flex flex-col justify-center gap-4">
+                <div className="bg-white rounded-md md:p-4 lg:p-4  md:w-[95%] w-full p-2 lg:w-full flex flex-col justify-center gap-4 h-auto">
                   <div className="mt-4 md:w-96 lg:w-96 mx-auto">
                     <Tabs
                       variant="bordered"
@@ -848,7 +848,7 @@ export default function Signinmodal() {
                             <p className="text-md">
                               Log In to your account to proceed.
                             </p>
-                            <div className="mb-4 w-full mt-4">
+                            <div className="mb-2 w-full mt-4">
                               <label
                                 for="email"
                                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -864,7 +864,7 @@ export default function Signinmodal() {
                                 placeholder="Enter Your Email"
                               />
                             </div>
-                            <div className="mb-4 w-full">
+                            <div className="mb-2 w-full">
                               <label
                                 for="email"
                                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"

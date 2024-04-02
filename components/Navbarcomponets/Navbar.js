@@ -386,7 +386,7 @@ export default function App() {
 
                       <DropdownItem
                         className="mt-2"
-                        onPress={() => router.push("/Profile")}
+                        onPress={() => router.push("/Profile/accountinfo")}
                         key="Profile"
                       >
                         Profile
@@ -398,9 +398,6 @@ export default function App() {
                       >
                         Settings
                       </DropdownItem>
-                      {/* <DropdownItem key="new_project" endContent={""}>
-                        Notification{" "}
-                      </DropdownItem> */}
                     </DropdownSection>
 
                     <DropdownSection aria-label="Preferences" showDivider>

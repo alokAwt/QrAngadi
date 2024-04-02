@@ -64,14 +64,14 @@ const ProfileNav = () => {
               </SheetContent>
             </Sheet>
           </div>
-          <div className="flex md:flex-col justify-start items-start gap-1">
+          <div className="hidden md:flex md:flex-col justify-start items-start gap-1">
             <p className="text-xs text-gray-500 font-medium">
               {" "}
               Hello, {profile?.Name}{" "}
             </p>
-            <p className="md:text-md text-xs font-semibold ">
+            {/* <p className="md:text-md text-xs font-semibold ">
               Let’s create QR Codes.
-            </p>
+            </p> */}
           </div>
         </div>
         <div className="flex items-center gap-2 p-1 ">
@@ -151,10 +151,11 @@ const ProfileNav = () => {
                   </DropdownItem>
 
                   <DropdownItem
+                    className="mt-2"
                     key="Profile"
-                    onPress={() => router.push("/Profile")}
+                    onPress={() => router.push("/Profile/accountinfo")}
                   >
-                    Profile
+                    Account
                   </DropdownItem>
 
                   <DropdownItem
@@ -166,10 +167,6 @@ const ProfileNav = () => {
                   {/* <DropdownItem key="new_project" endContent={""}>
                   Notification
                 </DropdownItem> */}
-                </DropdownSection>
-
-                <DropdownSection aria-label="Preferences" showDivider>
-                  <DropdownItem key="quick_search">Dashboard</DropdownItem>
                 </DropdownSection>
 
                 <DropdownSection aria-label="Help & Feedback">

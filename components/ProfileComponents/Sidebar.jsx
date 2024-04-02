@@ -24,6 +24,7 @@ import { IoQrCode } from "react-icons/io5";
 import { TbSquarePlus2 } from "react-icons/tb";
 import { BsFillBarChartFill } from "react-icons/bs";
 import { FaLayerGroup } from "react-icons/fa";
+import { FaUser } from "react-icons/fa";
 import { FaWandMagicSparkles } from "react-icons/fa6";
 import { IoSettingsSharp } from "react-icons/io5";
 import { MdOutlineLogout } from "react-icons/md";
@@ -46,13 +47,13 @@ export default function Sidebar() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const active =
-    "flex justify-between  items-center bg-white text-buttoncolor  p-1 lg:p-2 rounded-md cursor-pointer ";
+    "flex justify-between  items-center bg-white text-buttoncolor  p-1 lg:p-2 rounded-md cursor-pointer w-full";
   const unactive =
-    "flex justify-between  items-center   p-1 lg:p-2 rounded-md cursor-pointer bg-buttoncolor text-white";
+    "flex justify-between  items-center   p-1 lg:p-2 rounded-md cursor-pointer bg-buttoncolor text-white w-full";
 
   return (
     <>
-      <div className=" h-[100vh]  sticky top-0   bg-buttoncolor rounded-tr-2xl p-4 w-full lg:w-60 lg:flex lg:flex-col justify-between">
+      <div className=" h-[100vh]  sticky top-0 md:bg-buttoncolor rounded-tr-2xl gap-4  w-full lg:w-60 lg:flex lg:flex-col justify-between">
         <div className="flex flex-col gap-8 p-1 lg:p-2 ">
           <div className="flex gap-2 items-center ">
             <Image className="h-16 w-32" src={Logo} />
@@ -100,6 +101,16 @@ export default function Sidebar() {
               </div>
               <AiOutlineRight className="text-xs" />
             </Button>
+            <Button
+              onClick={() => router.push("/Profile/accountinfo")}
+              className={pathname == "/Profile/accountinfo" ? active : unactive}
+            >
+              <div className="flex items-center gap-2">
+                <FaUser />
+                <p className="text-xs font-medium">Account info</p>
+              </div>
+              <AiOutlineRight className="text-xs" />
+            </Button>
           </div>
         </div>
         <div className="flex flex-col items-start gap-2 bg-buttonopacitycolor ">
@@ -115,7 +126,7 @@ export default function Sidebar() {
           </Button>
           <Button
             onPress={onOpen}
-            className="flex justify-between  items-center   p-1 lg:p-2 rounded-md cursor-pointer bg-buttoncolor text-white"
+            className="flex justify-between  items-center   p-1 lg:p-2 rounded-md cursor-pointer bg-buttoncolor text-white w-full"
           >
             <div className="flex items-center gap-2">
               <MdOutlineLogout />

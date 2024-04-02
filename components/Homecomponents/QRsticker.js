@@ -30,7 +30,7 @@ const QRsticker = () => {
             index === currentIndex && (
               <motion.div
                 key={index}
-                className="absolute md:top-44 top-32 md:h-32 md:w-32 h-24 w-24"
+                className="absolute md:top-48 top-32 md:h-24 md:w-24 h-24 w-24"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
