@@ -59,10 +59,9 @@ export default function App() {
   const pathname = usePathname();
 
   const [islogged, setislogin] = useState(false);
-  const [data, setData] = useState("");
+  const [data, setData] = useState();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const router = useRouter();
-
   useEffect(() => {
     switch (pathname) {
       case "/":
@@ -109,7 +108,7 @@ export default function App() {
   };
   useEffect(() => {
     getToken();
-  }, []);
+  }, [token]);
 
   const handleNavigation = (route) => {
     router.push(route);
@@ -338,9 +337,12 @@ export default function App() {
                 >
                   <DropdownTrigger>
                     <Avatar
-                      icon={
-                        <FaUserCircle className="text-4xl text-buttoncolor" />
-                      }
+                    showFallback src={data?.ProfileURL} fallback={
+                      <FaUserCircle className="text-4xl text-buttoncolor" />
+      }
+                      // icon={
+                      //   <FaUserCircle className="text-4xl text-buttoncolor" />
+                      // }
                       className="ring-2 ring-buttoncolor  rounded-full"
                       size="md"
                     />
@@ -379,7 +381,7 @@ export default function App() {
                           }}
                           avatarProps={{
                             size: "sm",
-                            src: "",
+                            src: data?.ProfileURL,
                           }}
                         />
                       </DropdownItem>
