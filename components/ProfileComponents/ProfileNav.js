@@ -103,7 +103,7 @@ const ProfileNav = () => {
                     className="h-8 w-8 m-1"
                     isBordered
                     radius="sm"
-                    src={profile?.url}
+                    src={profile?.ProfileURL}
                   />
                   {profile?.Name}{" "}
                   <span>
@@ -145,7 +145,7 @@ const ProfileNav = () => {
                       }}
                       avatarProps={{
                         size: "sm",
-                        src: "",
+                        src: profile?.ProfileURL,
                       }}
                     />
                   </DropdownItem>

@@ -1,24 +1,39 @@
+'use client'
 import { Avatar, Button } from "@nextui-org/react";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { CiMemoPad } from "react-icons/ci";
+import { GetProfile } from "@/Utility/Api/Users";
+import { Spin } from "antd";
+
 
 const Accountinfo = () => {
+  const [profile, setProfile] = useState();
+  const [isloading,Setisloading]=useState(true)
+
+  useEffect(() => {
+    GetProfile().then((res) => {
+      setProfile(res.data);
+      Setisloading(false)
+    });
+  }, []);
+
   return (
+    <>
     <div className="flex flex-col justify-center items-start gap-4 p-2 w-full">
       <div className="flex w-full gap-4 flex-col justify-center items-start pl-4">
         <div className="flex p-2 justify-center items-center gap-8">
           <Avatar
-            src="https://i.pravatar.cc/150?u=a04258114e29026708c"
+            src={profile?.ProfileURL}
             className="w-32 h-32 text-large"
           />
           <div className="flex-col flex gap-2 items-center">
-          <Button variant="solid" className="bg-buttoncolor text-white w-44">
-            Upload profile
-          </Button>
-          <Button variant="solid" className="bg-buttoncolor text-white w-44">
+         { profile?.ProfileURL ? <Button variant="solid" className="bg-buttoncolor text-white w-44">
             Edit profile
-          </Button>
+          </Button>:
+          <Button variant="solid" className="bg-buttoncolor text-white w-44">
+          Upload profile
+          </Button>}
 
           </div>
         </div>
@@ -37,7 +52,8 @@ const Accountinfo = () => {
                         First Name{" "}
                       </label>
                       <input
-                        // value={firstName}
+                       disabled
+                        value={profile?.Name.split(" ")[0]}
                         type="text"
                         id="first_name"
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-buttoncolor focus:border-buttoncolor block w-full p-2.5  "
@@ -51,10 +67,11 @@ const Accountinfo = () => {
                         Last Name
                       </label>
                       <input
-                        // value={lastName}
+                      disabled
+                      value={profile?.Name.split(" ")[1]}
                         type="text"
                         id="last_name"
-                        className="bg-gray-50 border  border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-buttoncolor focus:border-buttoncolor block w-full p-2.5  "
+                        className="bg-gray-50 border  border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5  "
                       />
                     </div>
                   </div>
@@ -66,10 +83,11 @@ const Accountinfo = () => {
                       Conatct Number
                     </label>
                     <input
-                      // value={email}
+                    disabled
+                      value={profile?.ContactNumber}
                       type="email"
                       id="email"
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-buttoncolor focus:border-buttoncolor block w-full p-2.5 "
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 "
                     />
                   </div>
                   <div className="mb-6">
@@ -80,10 +98,11 @@ const Accountinfo = () => {
                       Email
                     </label>
                     <input
-                      // value={email}
+                     disabled
+                      value={profile?.Email}
                       type="email"
                       id="email"
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-buttoncolor focus:border-buttoncolor block w-full p-2.5 "
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg   block w-full p-2.5 "
                     />
                   </div>
                 </form>
@@ -113,6 +132,8 @@ const Accountinfo = () => {
         </div>
       </div>
     </div>
+    <Spin size="large" spinning={isloading} fullscreen />;
+    </>
   );
 };
 

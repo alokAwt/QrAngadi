@@ -154,6 +154,13 @@ const Pricingcard = () => {
           }
         });
       },
+      modal: {
+        ondismiss: function () {
+          onOpenChange()
+          Setloading(false)  
+          
+        }
+    }
     };
     const rzp = new window.Razorpay(options);
     console.log(rzp)
