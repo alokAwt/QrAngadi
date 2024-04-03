@@ -35,6 +35,7 @@ import { motion } from "framer-motion";
 
 const Pricingcard = () => {
   const [selectedKeys, setSelectedKeys] = useState("1");
+  const [selectedKeys2, setSelectedKeys2] = useState("1");
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const { toast } = useToast();
   const [selected, setSelected] = React.useState("MONTHLY");
@@ -42,6 +43,8 @@ const Pricingcard = () => {
   const [Loading, Setloading] = useState(false);
   const [successfully, Setsuccessfully] = useState(false);
   const [Failed, SetFailed] = useState(false);
+  const [standardPlan, setStandardPlan] = useState();
+  const [proPlan, setProPlan] = useState();
 
   const defaultOptions = {
     loop: true,
@@ -82,7 +85,6 @@ const Pricingcard = () => {
     animate: { y: 0, opacity: 1 },
   };
 
-  console.log(selectedKeys, `hii`);
   useEffect(() => {
     GetPricing();
   }, []);
@@ -93,6 +95,21 @@ const Pricingcard = () => {
       setPrice(res.data);
     });
   };
+
+  useEffect(() => {
+    const standard = price.find((plan) => plan.PlanType === "Standard");
+    if (standard) {
+      setStandardPlan(standard);
+    }
+
+    const pro = price.find((plan) => plan.PlanType === "Pro");
+    if (pro) {
+      setProPlan(pro);
+    }
+  }, [price]);
+
+  console.log(standardPlan);
+  console.log(proPlan);
 
   const list1 = [
     `Unlimited QR Code Generation`,
@@ -105,7 +122,7 @@ const Pricingcard = () => {
 
   const PayAmount = (selectedPrice, days) => {
     Setloading(true);
-    if (selected === "MONTHY") {
+    if (selected === "MONTHLY") {
       CreateOrder({
         Price: selectedPrice,
       }).then((res) => {
@@ -116,11 +133,11 @@ const Pricingcard = () => {
       });
     } else if (selected === "YEARLY") {
       CreateOrder({
-        Price: selectedPrice * 12,
+        Price: selectedPrice,
       }).then((res) => {
         if (res.status === "success") {
           console.log(res);
-          handlerazarpay(res.data, days * 12, selectedPrice * 12);
+          handlerazarpay(res.data, days * 12+5, selectedPrice);
         }
       });
     }
@@ -145,7 +162,7 @@ const Pricingcard = () => {
             Setloading(false);
             Setsuccessfully(true);
           } else {
-            SetFailed(true)
+            SetFailed(true);
             // toast({
             //   variant: "",
             //   title: " Payment Failed",
@@ -156,14 +173,12 @@ const Pricingcard = () => {
       },
       modal: {
         ondismiss: function () {
-          onOpenChange()
-          Setloading(false)  
-          
-        }
-    }
+          onOpenChange();
+          Setloading(false);
+        },
+      },
     };
     const rzp = new window.Razorpay(options);
-    console.log(rzp)
     rzp.open();
   };
   return (
@@ -231,12 +246,14 @@ const Pricingcard = () => {
                 </div>
               ))}
               <div className="py-5">
-                <Button
-                  className="rounded-sm uppercase text-buttoncolor border-1.5 border-buttoncolor w-60"
-                  variant="bordered"
-                >
-                  Sign up for free
-                </Button>
+                {
+                  <Button
+                    className="rounded-sm uppercase text-buttoncolor border-1.5 border-buttoncolor w-60"
+                    variant="bordered"
+                  >
+                    Sign up for free
+                  </Button>
+                }
               </div>
             </CardBody>
             <Divider />
@@ -259,17 +276,23 @@ const Pricingcard = () => {
             <Divider />
             <CardHeader className="flex gap-3">
               <div className="flex flex-col p-2 gap-1">
-                <p className="text-xs text-buttoncolor">BUSINESS</p>
+                <p className="text-xs text-buttoncolor uppercase">Pro</p>
                 {selected === "MONTHLY" && (
                   <p className="text-xl text-black font-semibold">
-                    Rs{price != undefined ? price[0]?.Price : null}/
+                    ₹ {proPlan?.Price != undefined ? proPlan?.Price : null}/
                     <span className="text-sm text-gray-500">Month</span>
                   </p>
                 )}
                 {selected === "YEARLY" && (
-                  <p className="text-xl text-black font-semibold">
-                    Rs{price != undefined ? price[0]?.Price * 12 : null}/
-                    <span className="text-sm text-gray-500">Year</span>
+                  <p className="text-xl text-black font-semibold flex justify-between items-center">
+                    ₹{" "}
+                    {proPlan?.Price != undefined
+                      ? proPlan?.Price * 12 - proPlan?.Discount
+                      : null}
+                    /<span className="text-sm text-gray-500">Year</span>
+                    <span className="line-through text-buttoncolor text-xs font-light ml-2">
+                      ₹{proPlan?.Discount}off
+                    </span>
                   </p>
                 )}
               </div>
@@ -322,18 +345,26 @@ const Pricingcard = () => {
           <Card className="max-w-80 rounded-sm h-auto">
             <CardHeader className="flex gap-3">
               <div className="flex flex-col p-2 gap-1">
-                <p className="text-xs text-buttoncolor">BUSINESS</p>
+                <p className="text-xs text-buttoncolor uppercase">Standard</p>
                 {selected === "MONTHLY" && (
                   <p className="text-xl text-black font-semibold">
-                    Rs{price != undefined ? price[2]?.Price : null}/
-                    <span className="text-sm text-gray-500">Month</span>
+                    ₹{" "}
+                    {standardPlan?.Price != undefined
+                      ? standardPlan?.Price
+                      : null}
+                    /<span className="text-sm text-gray-500">Month</span>
                   </p>
                 )}
                 {selected === "YEARLY" && (
-                  <p className="text-xl text-black font-semibold">
-                    Rs
-                    {price != undefined ? price[2]?.Price * 12 : null}/
-                    <span className="text-sm text-gray-500">Year</span>
+                  <p className="text-xl text-black font-semibold flex justify-between items-center">
+                    ₹{" "}
+                    {standardPlan?.Price != undefined
+                      ? standardPlan?.Price * 12 - standardPlan?.Discount
+                      : null}
+                    /<span className="text-sm text-gray-500">Year</span>
+                    <span className="line-through text-buttoncolor text-xs font-light ml-2">
+                      ₹{standardPlan?.Discount}off
+                    </span>
                   </p>
                 )}
               </div>
@@ -429,7 +460,7 @@ const Pricingcard = () => {
                           width={200}
                         />
                         <div>
-                          <p>Do not close the window, Please Wait...</p>
+                          <p className="text-xs md:text-sm leading-7">Do not close the window, Please Wait...</p>
                         </div>
                       </div>
                     )}
@@ -466,7 +497,7 @@ const Pricingcard = () => {
                         )}
                       </motion.div>
                     )}
-                    
+
                     {Failed && (
                       <motion.div
                         variants={containerVariants}
@@ -492,12 +523,10 @@ const Pricingcard = () => {
                             <p className="text-red-600 text-2xl">
                               Transaction Failed!{" "}
                             </p>
-                            
                           </motion.div>
                         )}
                       </motion.div>
                     )}
-
                   </div>
                 ) : (
                   <Accordion
@@ -539,74 +568,175 @@ const Pricingcard = () => {
                     }}
                     variant="splitted"
                   >
-                    <AccordionItem
-                      onPress={() => setSelectedKeys("1")}
-                      key="1"
-                      aria-label="Accordion 1"
-                      title={`BUSINESS Rs1000/${selected}- most popular`}
-                      className={
-                        selectedKeys === "1" ? "ring-1 ring-buttoncolor  " : ""
-                      }
-                    >
-                      {list1.map((item, index) => (
-                        <div
-                          className="flex  justify-between  items-center"
-                          key={index}
-                        >
-                          <li className="text-xs text-gray-500 w-64">{item}</li>
-                          <span>
-                            <IoCheckmarkCircleSharp
-                              size={25}
-                              className="text-[#4ed467]  bg-white rounded-full "
-                            />
-                          </span>
-                        </div>
-                      ))}
-                    </AccordionItem>
-                    <AccordionItem
-                      onPress={() => setSelectedKeys("2")}
-                      key="2"
-                      aria-label="Accordion 2"
-                      title={`BUSINESS Rs1000/${selected}`}
-                      className={
-                        selectedKeys === "2"
-                          ? "ring-1 ring-buttoncolor bg-buttonopacitycolor"
-                          : ""
-                      }
-                    >
-                      {list1.map((item, index) => (
-                        <div
-                          className="flex  justify-between  items-center"
-                          key={index}
-                        >
-                          <li className="text-xs text-gray-500 w-64">{item}</li>
-                          <span>
-                            <IoCheckmarkCircleSharp
-                              size={25}
-                              className="text-[#4ed467]  bg-white rounded-full "
-                            />
-                          </span>
-                        </div>
-                      ))}
-                    </AccordionItem>
+                    {selected === "MONTHLY" && (
+                      <AccordionItem
+                        onPress={() => setSelectedKeys("1")}
+                        key="1"
+                        aria-label="Accordion 1"
+                        title={`PRO ₹ ${proPlan?.Price}/${selected}- most popular`}
+                        className={
+                          selectedKeys === "1"
+                            ? "ring-1 ring-buttoncolor  "
+                            : ""
+                        }
+                      >
+                        {list1.map((item, index) => (
+                          <div
+                            className="flex  justify-between  items-center"
+                            key={index}
+                          >
+                            <li className="text-xs text-gray-500 w-64">
+                              {item}
+                            </li>
+                            <span>
+                              <IoCheckmarkCircleSharp
+                                size={25}
+                                className="text-[#4ed467]  bg-white rounded-full "
+                              />
+                            </span>
+                          </div>
+                        ))}
+                      </AccordionItem>
+                    )}
+                    {selected === "MONTHLY" && (
+                      <AccordionItem
+                        onPress={() => setSelectedKeys("2")}
+                        key="2"
+                        aria-label="Accordion 1"
+                        title={`Standard ₹ ${standardPlan?.Price}/${selected}`}
+                        className={
+                          selectedKeys === "2"
+                            ? "ring-1 ring-buttoncolor  "
+                            : ""
+                        }
+                      >
+                        {list1.map((item, index) => (
+                          <div
+                            className="flex  justify-between  items-center"
+                            key={index}
+                          >
+                            <li className="text-xs text-gray-500 w-64">
+                              {item}
+                            </li>
+                            <span>
+                              <IoCheckmarkCircleSharp
+                                size={25}
+                                className="text-[#4ed467]  bg-white rounded-full "
+                              />
+                            </span>
+                          </div>
+                        ))}
+                      </AccordionItem>
+                    )}
+
+                    {selected === "YEARLY" && (
+                      <AccordionItem
+                        onPress={() => setSelectedKeys2("1")}
+                        key="1"
+                        aria-label="Accordion 2"
+                        title={`PRO ₹ ${
+                          proPlan?.Price * 12 - proPlan?.Discount
+                        }/${selected}`}
+                        className={
+                          selectedKeys2 === "1"
+                            ? "ring-1 ring-buttoncolor bg-buttonopacitycolor"
+                            : ""
+                        }
+                      >
+                        {list1.map((item, index) => (
+                          <div
+                            className="flex  justify-between  items-center"
+                            key={index}
+                          >
+                            <li className="text-xs text-gray-500 w-64">
+                              {item}
+                            </li>
+                            <span>
+                              <IoCheckmarkCircleSharp
+                                size={25}
+                                className="text-[#4ed467]  bg-white rounded-full "
+                              />
+                            </span>
+                          </div>
+                        ))}
+                      </AccordionItem>
+                    )}
+                    {selected === "YEARLY" && (
+                      <AccordionItem
+                        onPress={() => setSelectedKeys2("2")}
+                        key="2"
+                        aria-label="Accordion 2"
+                        title={`Standard ₹ ${
+                          standardPlan?.Price * 12 - standardPlan?.Discount
+                        }/${selected}`}
+                        className={
+                          selectedKeys2 === "2"
+                            ? "ring-1 ring-buttoncolor bg-buttonopacitycolor"
+                            : ""
+                        }
+                      >
+                        {list1.map((item, index) => (
+                          <div
+                            className="flex  justify-between  items-center"
+                            key={index}
+                          >
+                            <li className="text-xs text-gray-500 w-64">
+                              {item}
+                            </li>
+                            <span>
+                              <IoCheckmarkCircleSharp
+                                size={25}
+                                className="text-[#4ed467]  bg-white rounded-full "
+                              />
+                            </span>
+                          </div>
+                        ))}
+                      </AccordionItem>
+                    )}
                   </Accordion>
                 )}
               </ModalBody>
               <ModalFooter>
-                <Button
-                  className="text-buttoncolor"
-                  variant="light"
-                  onPress={() => {
-                    onClose(), Setsuccessfully(false);
-                  }}
-                >
-                  {Loading ? "" : "Close"}
-                </Button>
+                {Loading ? null : (
+                  <Button
+                    className="text-buttoncolor"
+                    variant="light"
+                    onPress={() => {
+                      onClose(), Setsuccessfully(false);
+                    }}
+                  >
+                    Close
+                  </Button>
+                )}
                 {!successfully && (
                   <Button
                     className="bg-buttoncolor text-white"
                     variant="solid"
-                    onPress={() => PayAmount(price[0].Price, price[0].Duration)}
+                    // onPress={() => PayAmount(price[0].Price, price[0].Duration)}
+                    onPress={() => {
+                      if (selected === "MONTHLY") {
+                        if (selectedKeys === "1") {
+                          PayAmount(proPlan?.Price, proPlan?.Duration);
+                        } else if (selectedKeys === "2") {
+                          PayAmount(
+                            standardPlan?.Price,
+                            standardPlan?.Duration
+                          );
+                        }
+                      } else if (selected === "YEARLY") {
+                        if (selectedKeys2 === "1") {
+                          PayAmount(
+                            proPlan?.Price * 12 - proPlan?.Discount,
+                            proPlan?.Duration * 12
+                          );
+                        } else if (selectedKeys2 === "2") {
+                          PayAmount(
+                            standardPlan?.Price * 12 - standardPlan?.Discount,
+                            standardPlan?.Duration * 12
+                          );
+                        }
+                      }
+                    }}
                   >
                     {Loading ? "Wait" : "Procced"}
                   </Button>
