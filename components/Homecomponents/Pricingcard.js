@@ -37,8 +37,10 @@ import Link from 'next/link'
 import { sendTokenToServer } from "@/Utility/Authutils";
 import {Getsubscription} from '../../Utility/Api/Subscription'
 import { SubscriptIcon } from "lucide-react";
+import { useRouter } from 'next/navigation'
 
 const Pricingcard = () => {
+  const router = useRouter()
   const [{ token }, dispatch] = UseStatevalue();
   const [selectedKeys, setSelectedKeys] = useState("1");
   const [selectedKeys2, setSelectedKeys2] = useState("1");
@@ -290,6 +292,8 @@ useEffect(() => {
                   <Button
                     className="rounded-sm uppercase text-buttoncolor border-1.5 border-buttoncolor w-60"
                     variant="bordered"
+                    onPress={()=>router.push('/Login')}
+                    isDisabled={Islogin?true:false}
                   >
                     {Islogin?"free":"Sign up for free"}
                   </Button>
