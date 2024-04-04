@@ -4,7 +4,6 @@ import {
   Tabs,
   Tab,
   Input,
-  Link,
   Button,
   Divider,
   CardFooter,
@@ -32,8 +31,17 @@ import Pulse from "../../Utility/Animation/Pulse";
 import Success from "../../Utility/Animation/Success";
 import Failedanimation from "../../Utility/Animation/Failed";
 import { motion } from "framer-motion";
+import { GetProfile } from "@/Utility/Api/Users";
+import { UseStatevalue } from "@/Utility/Contextfiles/StateProvider";
+import Link from 'next/link'
+import { sendTokenToServer } from "@/Utility/Authutils";
+import {Getsubscription} from '../../Utility/Api/Subscription'
+import { SubscriptIcon } from "lucide-react";
+import { useRouter } from 'next/navigation'
 
 const Pricingcard = () => {
+  const router = useRouter()
+  const [{ token }, dispatch] = UseStatevalue();
   const [selectedKeys, setSelectedKeys] = useState("1");
   const [selectedKeys2, setSelectedKeys2] = useState("1");
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -45,6 +53,22 @@ const Pricingcard = () => {
   const [Failed, SetFailed] = useState(false);
   const [standardPlan, setStandardPlan] = useState();
   const [proPlan, setProPlan] = useState();
+  const [Islogin, setIslogin] = useState();
+  const [subscription, Setsubscription] = useState();
+
+  const getToken = () => {
+    let token = localStorage.getItem("token");
+    if (token) {
+      dispatch({ type: "SET_TOKEN", token });
+      sendTokenToServer(token);
+    }
+    GetProfile().then((res) => {
+      setIslogin(res.data);
+    });
+  };
+  useEffect(() => {
+    getToken();
+  }, [token]);
 
   const defaultOptions = {
     loop: true,
@@ -108,9 +132,6 @@ const Pricingcard = () => {
     }
   }, [price]);
 
-  console.log(standardPlan);
-  console.log(proPlan);
-
   const list1 = [
     `Unlimited QR Code Generation`,
     `Standard QR Code Design Templates`,
@@ -121,6 +142,16 @@ const Pricingcard = () => {
   ];
 
   const PayAmount = (selectedPrice, days) => {
+    if (!Islogin) {
+      toast({
+        variant: "destructive",
+        title: "Please Login ",
+        description: "you are not logged in please login",
+        action: <ToastAction altText="Try again"><Link href="/Login">Login</Link></ToastAction>,
+
+      });
+      return;
+    }
     Setloading(true);
     if (selected === "MONTHLY") {
       CreateOrder({
@@ -137,7 +168,7 @@ const Pricingcard = () => {
       }).then((res) => {
         if (res.status === "success") {
           console.log(res);
-          handlerazarpay(res.data, days * 12+5, selectedPrice);
+          handlerazarpay(res.data, days * 12 + 5, selectedPrice);
         }
       });
     }
@@ -163,11 +194,6 @@ const Pricingcard = () => {
             Setsuccessfully(true);
           } else {
             SetFailed(true);
-            // toast({
-            //   variant: "",
-            //   title: " Payment Failed",
-            //   description: "",
-            // });
           }
         });
       },
@@ -181,6 +207,22 @@ const Pricingcard = () => {
     const rzp = new window.Razorpay(options);
     rzp.open();
   };
+
+
+  //Get subscription 
+const getsubscription=()=>{
+  Getsubscription().then((res) => {
+  if(res?.data){
+    Setsubscription(res?.data[0])
+
+  }
+  });
+}
+useEffect(() => {
+  getsubscription()
+}, [Islogin,token])
+
+
   return (
     <>
       <Script
@@ -250,8 +292,10 @@ const Pricingcard = () => {
                   <Button
                     className="rounded-sm uppercase text-buttoncolor border-1.5 border-buttoncolor w-60"
                     variant="bordered"
+                    onPress={()=>router.push('/Login')}
+                    isDisabled={Islogin?true:false}
                   >
-                    Sign up for free
+                    {Islogin?"free":"Sign up for free"}
                   </Button>
                 }
               </div>
@@ -318,9 +362,10 @@ const Pricingcard = () => {
                   className="rounded-sm uppercase bg-buttoncolor text-white font-medium w-60 "
                   variant="solid"
                   onPress={onOpen}
+                  isDisabled={subscription?true:false}
                   // onClick={() => PayAmount(price[0].Price, price[0].Duration)}
                 >
-                  SUBSCRIBE NOW
+                {subscription?'ACTIVE': 'SUBSCRIBE NOW'}
                 </Button>
               </div>
             </CardBody>
@@ -390,9 +435,10 @@ const Pricingcard = () => {
                   className="rounded-sm uppercase bg-buttoncolor text-white font-medium w-60 "
                   variant="solid"
                   onPress={onOpen}
+                  isDisabled={subscription?true:false}
                   // onClick={() => PayAmount(price[2].Price, price[2].Duration)}
                 >
-                  SUBSCRIBE NOW
+                {subscription?'ACTIVE': 'SUBSCRIBE NOW'}
                 </Button>
               </div>
             </CardBody>
@@ -460,7 +506,9 @@ const Pricingcard = () => {
                           width={200}
                         />
                         <div>
-                          <p className="text-xs md:text-sm leading-7">Do not close the window, Please Wait...</p>
+                          <p className="text-xs md:text-sm leading-7">
+                            Do not close the window, Please Wait...
+                          </p>
                         </div>
                       </div>
                     )}

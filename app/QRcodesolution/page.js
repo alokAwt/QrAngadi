@@ -61,6 +61,8 @@ import {
 } from "@nextui-org/react";
 import Generate from "../../public/Howworks/Customize.png";
 import { IoMdCloseCircle } from "react-icons/io";
+import { Getsubscription } from "@/Utility/Api/Subscription";
+
 
 const isBrowser = typeof window !== "undefined";
 let QRCodeStyling;
@@ -98,7 +100,7 @@ const Page = () => {
   const [qrName, setQrName] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const [hasSubscription, setHasSubscription] = useState(true);
+  const [hasSubscription, setHasSubscription] = useState();
   const [shortUrl, setShortUrl] = useState(
     "https://qrangadidesign.com/hd87ebsodh"
   );
@@ -144,6 +146,7 @@ const Page = () => {
   const [fileExt, setFileExt] = useState("");
   const [qrCode] = useState(new QRCodeStyling(options));
   const ref = useRef(null);
+
 
   const handleOptionSelect = (option) => {
     if (selectedOptions.includes(option)) {
@@ -658,6 +661,18 @@ const Page = () => {
 
   //model for plan
   console.log(selected);
+
+  const getsubscription=()=>{
+    Getsubscription().then((res) => {
+    if(res?.data){
+      setHasSubscription(res?.data[0])
+  
+    }
+    });
+  }
+  useEffect(() => {
+    getsubscription()
+  }, [])
 
   useEffect(() => {
     if (selected === "DYNAMIC" && !hasSubscription) {
