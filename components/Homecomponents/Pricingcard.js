@@ -121,12 +121,12 @@ const Pricingcard = () => {
   };
 
   useEffect(() => {
-    const standard = price.find((plan) => plan.PlanType === "Standard");
+    const standard = price?.find((plan) => plan?.PlanType === "Standard");
     if (standard) {
       setStandardPlan(standard);
     }
 
-    const pro = price.find((plan) => plan.PlanType === "Pro");
+    const pro = price?.find((plan) => plan?.PlanType === "Pro");
     if (pro) {
       setProPlan(pro);
     }
